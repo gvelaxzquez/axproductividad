@@ -1,0 +1,373 @@
+﻿
+@{
+    ViewBag.Title = "Bugs";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="page-content-wrap">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+
+
+
+
+
+                <div class="panel-body tabs">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#tab-lista" role="tab" data-toggle="tab"> <i class="fa fa-tasks"></i> Lista</a></li>
+                        <li class="hidden-xs"><a href="#tab-kanban" role="tab" data-toggle="tab"><i class="fa fa-columns"></i> Kanban</a></li>
+
+                        <li style="text-align: end" class="pull-right">
+                            <button class="btn btn-info" id="BtnModalImportar"><span class="fa fa-file-excel-o"></span> Importar</button>
+
+                            <button class="btn btn-primary" id="BtnExportar" style=""><span class="fa fa-file-excel-o"></span> Exportar </button>
+                            <button class="btn btn-success" id="BtnNuevaActividad"><i class="fa fa-plus"></i> Nuevo</button>
+                        </li>
+   
+
+                    </ul>
+                </div>
+                <div class="panel-body tab-content">
+                    <div class="tab-pane " id="tab-kanban">
+                        <div class="row push-up-10" id="tableroTickets">
+                            <div class="col-md-1 x_panel" id="taskToDo" style="border: 2px; width: 19%;">
+
+
+                                <div class="row headTasks">
+                                    <h4 id="LblAbierto">Abierto</h4>
+                                </div>
+
+                                <div class="tasks" id="tasks_assigned">
+
+                                </div>
+                            </div>
+                            <div class="col-md-1 x_panel" id="taskProgress" style="width: 19%;">
+                                <div class="row headTasks">
+                                    <h4 id="LblProgreso">En progreso</h4>
+                                </div>
+                                <div class="tasks" id="tasks_progreess">
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-1 x_panel" id="taskValidacion" style="width: 19%;">
+                                <div class="row headTasks">
+                                    <h4 id="LblValidacion">Resuelto</h4>
+                                </div>
+                                <div class="tasks" id="task_validate">
+
+
+
+                                </div>
+                            </div>
+                            <div class="col-md-1 x_panel" id="taskre" style="width: 19%;">
+
+                                <div class="row headTasks">
+                                    <h4 id="LblRechazadas">Rechazadas</h4>
+                                </div>
+                                <div class="tasks" id="tasks_re">
+
+
+
+                                </div>
+                            </div>
+                            <div class="col-md-1 x_panel" id="taskok" style="width: 19%;">
+
+
+                                <div class="row headTasks">
+                                    <h4 id="LblTerminadas">Terminadas</h4>
+                                </div>
+                                <div class="tasks" id="tasks_ok">
+
+
+
+                                </div>
+                            </div>
+
+
+
+
+
+                        </div>
+                    </div>
+                    <div class="tab-pane active" id="tab-lista">
+                        <div class="panel-body tabs">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="active"><a class="btn btn-info" href="#tab-first" role="tab" data-toggle="tab" id="Todo">Todo</a></li>
+                                <li><a class="btn btn-info" href="#tab-second" role="tab" data-toggle="tab" id="Autorizar">Resueltos</a></li>
+                                <li><a class="btn btn-info" href="#tab-third" role="tab" data-toggle="tab" id="Liberar">Pendiente liberar</a></li>
+
+                            </ul>
+
+                            <div class="panel-body tab-content">
+                                <div class="tab-pane active" id="tab-first">
+
+
+                                    <br />
+                                    <div class="table-responsive" style="overflow: inherit">
+                                        <table class="table datatable text" id="TblActividades">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Estatus</th>
+                                                    <th>Título</th>
+                                                    <th>Prioridad</th>
+                                                    <th>Proyecto</th>
+                                                    <th>Tipo</th>
+                                                    <th>Sprint</th>
+                                                    <th>Asignado</th>
+                                                    <th>Responsable</th>
+                                                    <th>Fecha alta</th>
+                                                    <th>Fecha cierre</th>
+                                                    <th>Horas</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                            <tfoot></tfoot>
+                                        </table>
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="tab-second">
+                                    <div class="row">
+                                        <div class="col-md-12">
+
+                                            <form class="form-horizontal">
+                                                <div class="form-group">
+
+
+                                                    <div class="btn-group pull-right">
+                                                        <button class="btn btn-primary pull-right" id="BtnValidacionM"><i class="fa fa-check-circle"></i>  Válidar </button>
+                                                    </div>
+                                                </div>
+
+
+                                            </form>
+
+                                        </div>
+                                    </div>
+
+
+                                    <br />
+                                    <div class="table-responsive" style="overflow: inherit">
+                                        <table class="table datatable text" id="TblActividadesV">
+                                            <thead>
+                                                <tr>
+                                                    <th><input type='checkbox' id="ChkTodosV"></th>
+                                                    <th>#</th>
+                                                    <th>Título</th>
+                                                    <th>Proyecto</th>
+                                                    <th>Tipo</th>
+                                                    <th>Sprint</th>
+                                                    <th>Asignado</th>
+                                                    <th>Responsable</th>
+                                                    <th>Fecha alta</th>
+                                                    <th>Fecha cierre</th>
+
+                                                    <th></th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                            <tfoot></tfoot>
+                                        </table>
+
+                                    </div>
+
+                                </div>
+                                <div class="tab-pane" id="tab-third">
+                                    <div class="row">
+                                        <div class="col-md-12">
+
+                                            <form class="form-horizontal">
+                                                <div class="form-group">
+
+
+                                                    <div class="btn-group pull-right">
+                                                        <button class="btn btn-success pull-right" id="BtnLiberacionM"><i class="fa fa-check-circle"></i>  Liberar </button>
+                                                    </div>
+
+
+                                                </div>
+
+
+                                            </form>
+
+                                        </div>
+                                    </div>
+
+
+                                    <br />
+                                    <div class="table-responsive" style="overflow: inherit">
+                                        <table class="table datatable text" id="TblActividadesL">
+                                            <thead>
+                                                <tr>
+                                                    <th><input type='checkbox' id="ChkTodosL"></th>
+                                                    <th>#</th>
+                                                    <th>Título</th>
+                                                    <th>Proyecto</th>
+                                                    <th>Tipo</th>
+                                                    <th>Sprint</th>
+                                                    <th>Asignado</th>
+                                                    <th>Responsable</th>
+                                                    <th>Fecha alta</th>
+                                                    <th>Fecha cierre</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                            <tfoot></tfoot>
+                                        </table>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="filter-settings">
+    <div class="filter-settings-icon"><span class="glyphicon glyphicon-filter"></span></div>
+    <h5>Filtrar</h5>
+    <div class="filter-settings-row">
+        <label for="TxtRangoFechas">Fecha</label>
+    </div>
+    <div class="filter-settings-row">
+        <input type="text" id="TxtRangoFechas" autocomplete="off" item="Fecha" class="form-control DateRangePicker col-xs-10" style="width: 83.33333333% !important;" />
+        <span class="input-group-addon col-xs-1"><span class="glyphicon glyphicon-calendar"></span></span>
+
+    </div>
+    <div class="filter-settings-row">
+        <label for="SelProyectoTF">Proyecto</label>
+        <select class="selectpicker form-control" multiple data-live-search="true" id="SelProyectoF" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--"></select>
+    </div>
+    <div class="filter-settings-row">
+        <label for="SelClasificacionF">Tipo defecto</label>
+        <select class="selectpicker form-control" multiple data-live-search="true" id="SelClasificacionF" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--">
+        </select>
+    </div>
+    <div class="filter-settings-row">
+        <label for="SelUsuarioAsignadoF">Asignado</label>
+        <select class="selectpicker form-control" multiple data-live-search="true" id="SelUsuarioAsignadoF" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--"></select>
+
+    </div>
+    <div class="filter-settings-row">
+        <label for="SelUsuarioResponsableF">Responsable</label>
+        <select class="selectpicker form-control" multiple data-live-search="true" id="SelResponsableF" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--"></select>
+
+    </div>
+    <div class="filter-settings-row">
+        <label class="col-md-3 col-xs-12 control-label">Estatus</label>
+        <select class="selectpicker" multiple data-live-search="true" id="SelEstatusF" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--">
+
+            <option value="A" selected>Abierto</option>
+            <option value="P" selected>En progreso</option>
+            <option value="R" selected>Resuelto</option>
+            <option value="V" selected>Validada</option>
+            <option value="L">Liberada</option>
+            <option value="C">Cancelada</option>
+            <option value="X" selected>Rechazada</option>
+
+        </select>
+    </div>
+
+    <div class="filter-settings-row">
+        <button class="btn btn-default" id="BtnFiltrar">Aplicar</button>
+    </div>
+</div>
+
+<div class="modal" id="mdlImportar" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close btn-PassClose" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="defModalHead">Importar Bugs</h4>
+            </div>
+            <br />
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="col-md-3 col-xs-12 control-label">Archivo (.XSLX)</label>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <input accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" type="file" class="fileinput btn-primary fa fa-upload" name="files[]" id="fileImportar" title=" Cargar" />
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div>
+                                <div class="col-md-2 col-xs-12">
+                                    <label class="control-label" for="rdo1"><input type="radio" id="rdo1" name="TipoCarga" value="c" checked /> Carga</label>
+                                </div>
+                                <div class="col-md-3 col-xs-12">
+                                    <label class="control-label" for="rdo2"><input type="radio" id="rdo2" name="TipoCarga" value="a" /> Actualización</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="col-md-12"><hr /></div>
+                    <div class="col-md-12">
+                        <div id="layoutCrearBug" class="col-md-12 col-xs-12 text-left"><label class="control-label">Descargar <a href="~/Archivos/Formatos/LayOut_CrearBug.xlsx"> ejemplo formato XSLX </a> para ver el formato requerido.</label></div>
+                        <div id="layoutActualizarBug" class="col-md-12 col-xs-12 text-left hidden"><label class="control-label">Descargar <a href="~/Archivos/Formatos/LayOut_ActualizarBug.xlsx"> ejemplo formato XSLX </a> para ver el formato requerido.</label></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnImportar" class="btn btn-success"><span class="fa fa-arrow-circle-up"></span> Importar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@Html.Partial("~/Views/Actividades/ImportaActividades.cshtml")
+@Html.Partial("~/Views/Actividades/CapturaTiempo.cshtml")
+
+@Html.Hidden("CargaCombosFiltros", Url.Action("CargaCombosFiltrosBugs", "Actividades"))
+@Html.Hidden("LeerBugs", Url.Action("LeerBugsv2", "Actividades"))
+@Html.Hidden("urlSolicitaRevision", Url.Action("SolicitaRevision", "Actividades"))
+@Html.Hidden("ValidacionMasiva", Url.Action("ValidacionMasiva", "Actividades"))
+@Html.Hidden("LiberacionMasiva", Url.Action("LiberacionMasiva", "Actividades"))
+@Html.Hidden("ImportarBugs", Url.Action("ImportarBugs", "Actividades"))
+@Html.Hidden("DescargarExcelBug", Url.Action("DescargarExcelBug", "Actividades"))
+
+
+@section scripts {
+
+    @{
+        Random rnd = new Random();
+        <script src="~/Scripts/Project/Bugs.js?@rnd.Next()"></script>
+      
+
+    }
+
+
+    <script src="~/Scripts/TableExport-master/tableExport.js"></script>
+    <script src="~/Scripts/TableExport-master/jquery.base64.js"></script>
+    <script src="~/Scripts/TableExport-master/html2canvas.js"></script>
+    <script src="~/Scripts/TableExport-master/jspdf/libs/sprintf.js"></script>
+    <script src="~/Scripts/TableExport-master/jspdf/jspdf.js"></script>
+    <script src="~/Scripts/TableExport-master/jspdf/libs/base64.js"></script>
+
+}
+
+

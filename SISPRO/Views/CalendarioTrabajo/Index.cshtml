@@ -1,0 +1,220 @@
+﻿@{
+    ViewBag.Title = "Calendario trabajo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<div class="page-title">
+    <h2><span class="fa fa-calendar"></span> Calendario trabajo</h2>
+</div>*@
+
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="page-content-wrap">
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <form class="form-horizontal">
+                                <div class="panel panel-default tabs">
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="active"><a href="#tab-first" role="tab" data-toggle="tab">Calendario</a></li>
+                                        <li><a href="#tab-second" role="tab" data-toggle="tab">Días festivos</a></li>
+
+                                    </ul>
+
+                                    <div class="panel-body tab-content">
+                                        <div class="tab-pane active" id="tab-first">
+                                            <div class="form-group">
+                                                @*<button class="btn btn-success pull-right" id="BtnDescargarFormato">Descargar formato <span class="fa fa-file-excel-o"></span></button>*@
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">Año*</label>
+                                                <div class="col-md-6 col-xs-12">
+                                                    <select class="form-control select ReqCalendario" id="SelAnio" item="Año">
+                                                        <option selected="selected" value="-1">--Seleccione--</option>
+                                                        <option value="2016">2016</option>
+                                                        <option value="2017">2017</option>
+                                                        <option value="2018">2018</option>
+                                                        <option value="2019">2019</option>
+                                                        <option value="2020">2020</option>
+                                                        <option value="2021">2021</option>
+                                                        <option value="2022">2022</option>
+                                                        <option value="2023">2023</option>
+                                                        <option value="2024">2024</option>
+                                                        <option value="2025">2025</option>
+                                                        <option value="2026">2026</option>
+                                                        <option value="2027">2027</option>
+                                                        <option value="2028">2028</option>
+                                                        <option value="2029">2029</option>
+                                                        <option value="2030">2030</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">Mes*</label>
+                                                <div class="col-md-6 col-xs-12">
+                                                    <select class="form-control select ReqCalendario" id="SelMes" item="Mes">
+                                                        <option selected="selected" value="-1">--Seleccione--</option>
+                                                        <option value="1">Enero</option>
+                                                        <option value="2">Febrero</option>
+                                                        <option value="3">Marzo</option>
+                                                        <option value="4">Abril</option>
+                                                        <option value="5">Mayo</option>
+                                                        <option value="6">Junio</option>
+                                                        <option value="7">Julio</option>
+                                                        <option value="8">Agosto</option>
+                                                        <option value="9">Septiembre</option>
+                                                        <option value="10">Octubre</option>
+                                                        <option value="11">Noviembre</option>
+                                                        <option value="12">Diciembre</option>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">Fecha inicio*</label>
+                                                <div class="col-md-4 col-xs-12">
+                                                    <div class="input-group">
+                                                        <input type="text" id="TxtFechaIniCal" class="form-control ReqCalendario" item="Fecha inicio" />
+                                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">Fecha fin*</label>
+                                                <div class="col-md-4 col-xs-12">
+                                                    <div class="input-group">
+                                                        <input type="text" id="TxtFechaFinCal" class="form-control ReqCalendario" item="Fecha inicio" />
+                                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">Días laborales*</label>
+                                                <div class="col-md-4 col-xs-12">
+                                                    <input type="number" class="form-control ReqCalendario" id="TxtDiasLaborales" item="Días laborales" />
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">Base compensación cumplimiento*</label>
+                                                <div class="col-md-6 col-xs-12">
+                                                    <input type="number" step="0.01" class="form-control ReqCalendario" id="TxtBaseCump" item="Base compensación cumplimiento" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">Base compensación horas*</label>
+                                                <div class="col-md-6 col-xs-12">
+                                                    <input type="number" step="0.01" class="form-control ReqCalendario" id="TxtBaseHoras" item="Base compensación horas" />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <button class="btn btn-success pull-right" id="BtnGuardarCalendario">Guardar<span class="fa fa-floppy-o fa-right"></span></button>
+                                            </div>
+
+                                        </div>
+                                        <div class="tab-pane" id="tab-second">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <div>
+                                                                <button class="btn btn-success pull-right" id="BtnNuevoDF">Nuevo</button><br /><br />
+                                                            </div>
+                                                        </div>
+                                                        <div class="panel-body">
+                                                            <div class="table-responsive">
+                                                                <table class="table datatable text" id="TblDiasFestivos">
+                                                                    <thead>
+                                                                        <tr>
+
+                                                                            <th>Fecha</th>
+                                                                            <th>Eliminar</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody></tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                           </form>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="modal" id="ModalDiasFestivos" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="defModalHead">Registrar día festivo</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <form class="form-horizontal">
+
+   
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Fecha*</label>
+                                    <div class="col-md-4 col-xs-12">
+                                        <div class="input-group">
+                                            <input type="text" id="TxtFechaDiaFestivo" class="form-control ReqDiaFestivo" item="Fecha" />
+                                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="BtnGuardarDF">Guardar<span class="fa fa-floppy-o fa-right"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <input type="hidden" id="IdDiaF" value="0" />
+
+    <script type="text/javascript" src="~/Scripts/Project/CalendarioTrabajo.js"></script>
+    @Html.Hidden("urlGuardarCalendario", @Url.Action("GuardarCalendario", "CalendarioTrabajo"))
+    @Html.Hidden("urlConsultaCalendario", @Url.Action("ConsultaCalendario", "CalendarioTrabajo"))
+    @Html.Hidden("urlConsultaDiasFestivos", @Url.Action("ConsultaDiasFestivos", "CalendarioTrabajo"))
+    @Html.Hidden("urlGuardarDiaFestivo", @Url.Action("GuardarDiaFestivo", "CalendarioTrabajo"))
+    @Html.Hidden("urlEliminarDiaFestivo", @Url.Action("EliminarDiaFestivo", "CalendarioTrabajo"))
+
+
+
+
+
+
+
+</div>

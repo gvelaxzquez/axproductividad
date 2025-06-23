@@ -1,0 +1,154 @@
+﻿<div class="modal" id="MdlBuscarActividades" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg" style="width:70%; height:70%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" id="BtnCerrarBuscarActividades"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="tbuscar">Buscar workitems</h4>
+            </div>
+            <div class="modal-body">
+                <!--inicia-->
+                <div class="row">
+                    <div class="col-md-3">
+
+
+                        <div class="">
+
+                            <h5>Filtrar</h5>
+
+
+                            <div class="filter-settings-row">
+                                <label for="SelTipoBWI">Tipo</label>
+
+                                <select class="form-control selectpicker" data-live-search="true" id="SelTipoBWI">
+                                    <option value="-1" selected> -- Seleccionar --</option>
+                                </select>
+
+
+
+                            </div>
+                            <div class="filter-settings-row" style="padding-top:10px;">
+                                <label for="SelFaseBWI">Fase</label>
+
+                                <select class="form-control selectpicker" data-live-search="true" id="SelFaseBWI">
+                                    <option value="-1" selected> -- Seleccionar --</option>
+                                </select>
+
+
+
+                            </div>
+                            <div class="filter-settings-row" style="padding-top:10px;">
+                                <label for="SelEstatusBWI">Estatus</label>
+
+                                <select class="form-control selectpicker" data-live-search="true" id="SelEstatusBWI">
+                                    <option value="-1" selected> -- Seleccionar --</option>
+                                    <option value="A" >Abierto</option>
+                                    <option value="P" >En progreso</option>
+                                    <option value="R" >Revisión</option>
+                                    <option value="V" >Validada</option>
+                            
+                                    <option value="X" >Rechazada</option>
+                                </select>
+
+
+
+                            </div>
+                            <div class="filter-settings-row" style="padding-top:10px;">
+                                <label for="SelPrioridadBWI">Prioridad</label>
+
+                                <select class="form-control selectpicker" data-live-search="true" id="SelPrioridadBWI">
+                                    <option value="-1" selected> -- Seleccionar --</option>
+                                </select>
+
+
+
+                            </div>
+                            <div class="filter-settings-row" style="padding-top:10px;">
+                                <label for="SelSprintBWI">Sprint</label>
+
+                                <select class="form-control selectpicker" data-live-search="true" id="SelSprintBWI">
+                                    <option value="-1" selected> -- Seleccionar --</option>
+                                </select>
+
+
+
+                            </div>
+                            <div class="filter-settings-row" style="padding-top:10px;">
+                                <label for="SelAsignadoBWI">Asignado</label>
+
+                                <select class="form-control selectpicker" data-live-search="true" id="SelAsignadoBWI">
+                                    <option value="-1" selected> -- Seleccionar --</option>
+                                </select>
+
+
+
+                            </div>
+                            <div class="filter-settings-row" style="padding-top:10px;">
+                                <label for="ChkSinSprintBWI" class="control-label">Sin sprint</label>
+                                <label class="switch switch-small">
+                                    <input type="checkbox" id="ChkSinSprintBWI" checked />
+                                    <span></span>
+                                </label>
+                            </div>
+
+
+                            <div class="filter-settings-row" style="padding-top:10px;">
+                                <button class="btn btn-default pull-right" id="BtnFiltrarBWI">Aplicar</button>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="col-md-9">
+                        <div class="row" style="padding-bottom:10px;">
+
+                            <button class="btn btn-default pull-right" id="BtnAgrearBWI"><i class="fa fa-plus"></i>  Agregar </button>
+
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table datatable text" id="TblWIBusqueda">
+                                <thead>
+
+                                    <tr>
+                                        <th><input type='checkbox' id="SeleccionarBWIT"></th>
+                                        <th>O</th>
+                                        <th>#</th>
+                                        <th>Título</th>
+                                        <th>Estatus</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!--termina-->
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+<input type="hidden" id="IdProyectoBWI" value="0" />
+<input type="hidden" id="IdIteracionBWI" value="0" />
+
+<input type="hidden" id="urlConsultaBWI" value="@Url.Action("BuscarWorkitems", "Actividades")" />
+<input type="hidden" id="urlCargaInicialBWI" value="@Url.Action("BuscarWorkItems_Combos", "Actividades")" />
+
+
+
+@{
+    Random rnd = new Random();
+    <script src="~/Scripts/Project/BuscarWorkitems.js?@rnd.Next()"></script>
+    @*<script src="~/Scripts/Project/BuscarWorkitems.js"></script>*@
+
+}

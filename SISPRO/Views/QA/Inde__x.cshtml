@@ -1,0 +1,94 @@
+﻿
+@using AxProductividad.Models;
+@{
+    ViewBag.Title = "Casos de prueba";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="https://cdn.jsdelivr.net/npm/jquery-treegrid@0.3.0/css/jquery.treegrid.css" rel="stylesheet">
+<link href="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/jquery-treegrid@0.3.0/js/jquery.treegrid.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/treegrid/bootstrap-table-treegrid.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/cookie/bootstrap-table-cookie.min.js"></script>
+
+<link rel="stylesheet" href="~/Content/DHTMLXGantt/dhtmlxgantt.css" />
+<link rel="stylesheet" href="~/Content/DHTMLXGantt/skins/dhtmlxgantt_material.css" />
+<script type="text/javascript" src="~/Scripts/dhtmlxgantt.js"></script>
+
+<div class="page-content-wrap">
+    <div class="page-title">
+        <div class="col-md-6">
+            @{
+                var LstProyectos = ViewBag.LstProyectos;
+
+                <select class="form-control ReqFP selectpicker" data-live-search="true" data-live-search-placeholder="Buscar..." data-actions-box="true" id="SelProyectoBL" item="Proyecto" style="width:50%">
+                    <option value="-1" selected>  -- Proyecto -- </option>
+                    @foreach (var i in LstProyectos)
+                    {
+                        <option value="@i.IdCatalogo">@i.DescLarga</option>
+                    }
+                </select>
+            }
+        </div>
+
+
+        <div class="col-md-6">
+
+                <button type="button" class="btn btn-default pull-right" onclick="newEpic();">Nuevo <span class="fa fa-plus-circle  fa-right"></span></button>
+
+        </div>
+
+
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body tabs">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="active"><a href="#tab-workitems" role="tab" data-toggle="tab" onclick=""><i class="fa fa-list-ul"></i> Casos de prueba</a></li>
+                <li ><a href="#tab-ciclos" role="tab" data-toggle="tab"> <i class="fa fa-circle-o-notch"></i> Ciclos</a></li>
+              
+
+            </ul>
+        </div>
+        <div class="panel-body tab-content">
+            <div class="tab-pane active" id="tab-workitems">
+                <div class="col-md-12">
+                    <div id="toolbar">
+
+                        <div class="btn-group">
+                            <button class="btn btn-default btn-condensed" onclick="ExpandCollappse('collapseAll');"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-default btn-condensed" onclick="ExpandCollappse('expandAll');"><i class="fa fa-plus"></i></button>
+                        </div>
+
+
+
+                    </div>
+                    <table id="table"></table>
+                </div>
+
+            </div>
+            <div class="tab-pane active" id="tab-ciclos">
+
+                <div class="col-md-12 col-xs-12" id="colSprints" style="overflow-y:auto;">
+                    <table class="table " id="">
+                        <thead>
+                        <tbody id="tblCasosPrueba">
+                            <tr>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+</div>
+
+
+<script src="~/Scripts/Project/QA.js"></script>

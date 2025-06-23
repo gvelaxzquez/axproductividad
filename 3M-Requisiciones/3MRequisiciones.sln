@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3MRequisiciones", "3MRequisiciones\3MRequisiciones.csproj", "{52550EC3-B2BC-41E2-A914-7A7371FC9687}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CapaDatos", "CapaDatos\CapaDatos.csproj", "{2C114EE8-0054-4A8C-8474-FD858F9327D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EREQ_ALERTAS", "EREQ_ALERTAS\EREQ_ALERTAS.csproj", "{90E56A63-37C9-4AF7-87A0-C17150BC2C14}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SitioProveedor", "SitioProveedor\SitioProveedor.csproj", "{A7C76AB5-AFA5-469A-AC5E-D1163A2933E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modelos", "Modelos\Modelos.csproj", "{8AC640E5-BB98-475F-B853-ACDAE892C0E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API-EREQ", "API-EREQ\API-EREQ.csproj", "{D8B903A0-5E72-4FC0-8C60-9BFB78634A84}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modelos", "Modelos\Modelos.csproj", "{8AC640E5-BB98-475F-B853-ACDAE892C0E9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{52550EC3-B2BC-41E2-A914-7A7371FC9687}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52550EC3-B2BC-41E2-A914-7A7371FC9687}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52550EC3-B2BC-41E2-A914-7A7371FC9687}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52550EC3-B2BC-41E2-A914-7A7371FC9687}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C114EE8-0054-4A8C-8474-FD858F9327D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C114EE8-0054-4A8C-8474-FD858F9327D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C114EE8-0054-4A8C-8474-FD858F9327D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C114EE8-0054-4A8C-8474-FD858F9327D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90E56A63-37C9-4AF7-87A0-C17150BC2C14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90E56A63-37C9-4AF7-87A0-C17150BC2C14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90E56A63-37C9-4AF7-87A0-C17150BC2C14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90E56A63-37C9-4AF7-87A0-C17150BC2C14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7C76AB5-AFA5-469A-AC5E-D1163A2933E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7C76AB5-AFA5-469A-AC5E-D1163A2933E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7C76AB5-AFA5-469A-AC5E-D1163A2933E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7C76AB5-AFA5-469A-AC5E-D1163A2933E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AC640E5-BB98-475F-B853-ACDAE892C0E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AC640E5-BB98-475F-B853-ACDAE892C0E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AC640E5-BB98-475F-B853-ACDAE892C0E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AC640E5-BB98-475F-B853-ACDAE892C0E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8B903A0-5E72-4FC0-8C60-9BFB78634A84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8B903A0-5E72-4FC0-8C60-9BFB78634A84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8B903A0-5E72-4FC0-8C60-9BFB78634A84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8B903A0-5E72-4FC0-8C60-9BFB78634A84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AC640E5-BB98-475F-B853-ACDAE892C0E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AC640E5-BB98-475F-B853-ACDAE892C0E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AC640E5-BB98-475F-B853-ACDAE892C0E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AC640E5-BB98-475F-B853-ACDAE892C0E9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {49D5ADDC-1F79-4D14-8963-CFD65A6CAA8A}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Board";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+
+    $(document).ready(function () {
+
+        if ($(".page-sidebar .x-navigation").hasClass("x-navigation-minimized")) {
+            $(".page-container").removeClass("page-navigation-toggled");
+            x_navigation_minimize("open");
+        } else {
+            $(".page-container").addClass("page-navigation-toggled");
+            x_navigation_minimize("close");
+        }
+    });
+
+</script>
+
+<div id="kanban"></div>
+
+<!-- Incluye React, ReactDOM y el archivo bundle.js -->
+<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+<script src="~/wwwroot/js/bundle-kanban.js"></script>
+

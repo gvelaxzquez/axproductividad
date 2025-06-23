@@ -1,0 +1,41 @@
+﻿<div class="modal" id="ModalRechazarActividad" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" id="CerrarMotivoRechazo"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                <h4 class="modal-title" id="TituloRec">Rechazar actividad</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+
+                            <label class="col-md-2 col-xs-12 control-label">Motivo</label>
+                            <div class="col-md-6">
+
+                                <select class="form-control select ReqRechazo" id="SelMotivoRechazo" item="Motivo">
+                                    <option selected="selected">--Seleccione</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Descripción</label>
+                            <div class="col-md-10">
+                                <textarea class="form-control ReqRechazo" rows="5" id="TxtDescripcionRechazo" item="Descripción"></textarea>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="BtnGuardarRechazo">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="ActividadR" value="0" />
+<input type="hidden" id="AutorizacionR" value="0" />
+<input type="hidden" id="AutorizacionValR" value="0" />

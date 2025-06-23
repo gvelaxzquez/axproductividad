@@ -1,0 +1,389 @@
+﻿@{
+    ViewBag.Title = "Auditorias";
+}
+
+<link rel="stylesheet" href="~/Content/jquery.powertip.css" />
+
+<div class="page-title">
+    <h2><span class="fa fa-check"></span> Auditorias</h2>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default" style="border-top: none">
+            <div class=" panel-heading" style="border: none">
+                <div class="panel-group accordion accordion-dc">
+                    <div class="panel panel-colorful">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a href="#accTwoColSeven">
+                                    Filtros
+                                </a>
+                            </h4>
+                        </div>
+                        <div class="panel-body" id="accTwoColSeven">
+                            <!--inicia-->
+                            <div class="col-md-12">
+                                <div class="form-horizontal row">
+                                    <div class="form-group col-md-4">
+                                        <label for="dateFiltroInicio" class="col-md-3 control-label">Fecha Inicio</label>
+                                        <div class="col-md-9">
+                                            <input type="text" autocomplete="off" id="dateFiltroInicio" class="form-control DateRangePicker" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="dateFiltroFin" class="col-md-3 control-label">Fecha Fin</label>
+                                        <div class="col-md-9">
+                                            <input type="text" autocomplete="off" id="dateFiltroFin" class="form-control DateRangePicker" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="col-md-12" style="text-align:end">
+                                            <button class="btn btn-success" id="btnFiltrar">Filtrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-horizontal row">
+                                    <div class="form-group col-md-4">
+                                        <label for="cmbFiltroAuditor" class="col-md-3 control-label">Auditor</label>
+                                        <div class="col-md-9">
+                                            <select class="form-control btn-group selectpicker show-tick" data-actions-box="true" data-live-search="true" id="cmbFiltroAuditor" multiple>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="cmbFiltroProyecto" class="col-md-3 control-label">Proyecto</label>
+                                        <div class="col-md-9">
+                                            <select class="form-control btn-group selectpicker show-tick" data-actions-box="true" data-live-search="true" id="cmbFiltroProyecto" multiple>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="cmbFiltroEstatus" class="col-md-3 control-label">Estatus</label>
+                                        <div class="col-md-9">
+                                            <select class="form-control btn-group selectpicker show-tick" data-actions-box="true" id="cmbFiltroEstatus" multiple>
+                                                <option value="P">En proceso</option>
+                                                <option value="X">Revisada</option>
+                                                <option value="F">Finalizada</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default" style="border-top: none">
+            <div class="panel-heading" style="border: none">
+                <div class="col-md-12" style="text-align:end">
+                    <button class="btn btn-primary" id="btnExportar" style="">Exportar <span class="fa fa-file-excel-o"></span></button>
+                    <button class="btn btn-success" id="btnNuevo">Nuevo</button>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table datatable text" id="dtAuditoria">
+                        <thead>
+                            <tr>
+                                <th class="text-center" style="width:5%">Ver</th>
+                                <th class="text-center" style="width:10%">No. Auditoría</th>
+                                <th class="text-center" style="width:15%">Fechas</th>
+                                <th class="text-center" style="width:8%">Estaus</th>
+                                <th class="text-center" style="width:15%">Proyecto</th>
+                                <th class="text-center" style="width:15%">Lista de control</th>
+                                <th class="text-center" style="width:10%">Auditor</th>
+                                <th class="text-center" style="width:10%">Controles</th>
+                                <th class="text-center" style="width:12%">Inconformidades</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="mdlAuditoria" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="largeModalHead">Auditoria</h4>
+            </div>
+            <div class="modal-body">
+                <!--inicia-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <form class="form-horizontal">
+                            <div style="position: absolute; right: 35px; z-index: 100;">
+                                <button type="button" class="btn btn-primary hidden" id="btnModalEnviar"><span class="fa fa-envelope-o"></span></button>
+                                <button type="button" class="btn btn-primary hidden" id="btnExportarDetalle"><span class="fa fa-file-excel-o"></span></button>
+                                <button type="button" class="btn btn-success" id="btnGuardarAuditoria">Guardar<span class="fa fa-floppy-o fa-right"></span></button>
+                                <button type="button" class="btn btn-success" id="btnFinzalizarAuditoria">Finalizar<span class="fa fa-floppy-o fa-right"></span></button>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="lblNoAuditoria" class="col-md-2 control-label">No. Auditoria</label>
+                                <div class="col-md-8 col-xs-12">
+                                    <label class="control-label" id="lblNoAuditoria" item="Proceso"></label>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="cmbProyecto" class="col-md-2 control-label">Proyecto</label>
+                                <div class="col-md-8 col-xs-12">
+                                    <select class="form-control RequeridoAuditoria" id="cmbProyecto" item="Proyecto">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="cmbListaControl" class="col-md-2 control-label">Lista de Control</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <select class="form-control RequeridoAuditoria" id="cmbListaControl" item="Lista de Control">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="lblProceso" class="col-md-2 control-label">Proceso</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <label class="control-label" id="lblProceso" item="Proceso"></label>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="lblSubproceso" class="col-md-2 control-label">Subproceso</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <label class="control-label" id="lblSubproceso" item="Subproceso"></label>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="timeInicio" class="col-md-2 control-label">Inicio</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <input type="date" class="form-control RequeridoAuditoria" id="timeInicio" item="Fecha Inicio" />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="timeFin" class="col-md-2 control-label">Fin</label>
+                                <div class="col-md-6 col-xs-12">
+                                    @*<input type="date" class="form-control" id="timeFin" item="Fecha Fin" />*@
+                                    <label class="control-label" id="lblFin" item="Fecha Fin"></label>
+                                </div>
+                            </div>
+                            @*<div class="form-group col-md-12">
+                                    <label for="txtComentarios" class="col-md-9 col-md-offset-0">Oportunidades de mejora detectadas</label>
+                                    <div class="col-md-offset-0 col-md-12 col-xs-10">
+                                        <textarea rows="4" class="form-control" id="txtComentarios" item="Comentarios" style="min-height: 45px; max-height: 200px; max-width: none !important; resize: vertical"></textarea>
+                                    </div>
+                                </div>*@
+                            <div class="panel-heading" style="border-bottom: none !important;">
+                                <div class="panel-group accordion accordion-dc">
+                                    <div class="panel panel-colorful">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a href="#accordion-mejoras">
+                                                    Actividades de mejora
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div class="panel-body" style="padding: 0px; display: none;" id="accordion-mejoras">
+                                            <div class="table-responsive col-md-12">
+                                                <div class="col-md-12" style="display: flex; justify-content: flex-end; padding: 10px;">
+                                                    <button class="btn btn-success" id="btnNuevaMejora">Nueva Mejora</button>
+                                                </div>
+                                                <table class="table datatable text" id="dtActividades">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="text-center" style="width:12%">Actividad</th>
+                                                            <th class="text-center">Descripción</th>
+                                                            <th class="text-center" style="width:18%">Responsable</th>
+                                                            <th class="text-center" style="width:15%">Estatus</th>
+                                                            <th class="text-center" style="width:15%">Fecha</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @*<div class="form-group col-md-12">
+                                    <hr class="col-md-12" style="border: none; height: 2px; background-color: #ccc;" />
+                                </div>*@
+                            <div class="panel-heading" style="border-bottom: none !important;">
+                                <div class="panel-group accordion accordion-dc">
+                                    <div class="panel panel-colorful">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a href="#accordion-controles">
+                                                    Controles
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div class="panel-body" style="padding: 0px; display: none;" id="accordion-controles">
+                                            <div class="table-responsive col-md-12">
+                                                <div class="col-md-12" style="display: flex; justify-content: flex-end;">
+                                                    <label for="chkMostrarAuditor" style="margin-right: 5px;">Mostrar Auditores</label><input type="checkbox" id="chkMostrarAuditor" />
+                                                </div>
+                                                <table class="table datatable text" id="dtControles">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="text-center">Control</th>
+                                                            <th class="text-center" style="width:10%">Auditor</th>
+                                                            <th class="text-center" style="width:15%">Cumple</th>
+                                                            <th class="text-center" style="width:15%">Hallazgos</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!--termina-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="mdlHallazgos" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="largeModalHead">Hallazgos</h4>
+            </div>
+            <div class="modal-body">
+                <!--inicia-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <form class="form-horizontal">
+                            <div style="position: absolute; right: 35px; z-index: 100;">
+                                <button type="button" class="btn btn-success" id="btnGuardarHallazgo">Guardar<span class="fa fa-floppy-o fa-right"></span></button>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="timeFin" class="col-md-2 control-label">Gravedad</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <select class="form-control RequeridoHallazgoAuditoria" id="cmbGravedad" item="Proceso">
+                                        <option value="-1">--Seleccionar--</option>
+                                        <option value="1">Bajo</option>
+                                        <option value="2">Medio</option>
+                                        <option value="3">Grave</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="txtDescripcionHallazgo" class="col-md-2 control-label">Descripción</label>
+                                <div class="col-md-9 col-xs-12">
+                                    <textarea rows="4" class="form-control RequeridoHallazgoAuditoria" id="txtDescripcionHallazgo" item="Comentarios" style="min-height: 45px; max-height: 200px; max-width: none !important; resize: vertical"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label style="padding-top: 0px !important" for="chkCorregidoHallazgo" class="col-md-2 control-label">Corregido</label>
+                                <div class="col-md-9 col-xs-12">
+                                    <input type="checkbox" id="chkCorregidoHallazgo" />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <hr class="col-md-12" style="border: none; height: 2px; background-color: #ccc;" />
+                            </div>
+                            <div class="table-responsive col-md-12">
+                                <table class="table datatable text" id="dtHallazgos">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" style="width:5%"></th>
+                                            <th class="text-center">Descripción</th>
+                                            <th class="text-center">Gravedad</th>
+                                            <th class="text-center" style="width:10%">Editar</th>
+                                            <th class="text-center" style="width:10%">Eliminar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!--termina-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="mdlEnvio" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="largeModalHead">Envio de Auditoría</h4>
+            </div>
+            <div class="modal-body" style="height: 130px">
+                <!--inicia-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group col-md-12 text-right">
+                            <button type="button" class="btn btn-success" id="btnEnviarAuditoria">Enviar</button>
+                        </div>
+                        <form class="form-horizontal">
+                            <div class="form-group col-md-12">
+                                <label for="timeFin" class="col-md-2 control-label">Correos</label>
+                                <div class="col-md-10 col-xs-12">
+                                    <select class="form-control RequeridoEnvio" data-live-search="true" multiple id="cmbCorreos" item="Proceso">
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!--termina-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/Scripts/jquery.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.powertip.js"></script>
+
+@Html.Hidden("LeerComboProyecto", Url.Action("LeerComboProyecto", "Auditoria"))
+@Html.Hidden("LeerComboAuditor", Url.Action("LeerComboAuditor", "Auditoria"))
+@Html.Hidden("LeerComboListaControl", Url.Action("LeerComboListaControl", "Auditoria"))
+@Html.Hidden("LeerProcesoSubproceso", Url.Action("LeerProcesoSubproceso", "Auditoria"))
+@Html.Hidden("LeerAuditoriaControl", Url.Action("LeerAuditoriaControl", "Auditoria"))
+@Html.Hidden("LeerAuditoriaControlHallazgo", Url.Action("LeerAuditoriaControlHallazgo", "Auditoria"))
+@Html.Hidden("ActualizarControlCumple", Url.Action("ActualizarControlCumple", "Auditoria"))
+@Html.Hidden("CrearHallazgo", Url.Action("CrearHallazgo", "Auditoria"))
+@Html.Hidden("EditarHallazgo", Url.Action("EditarHallazgo", "Auditoria"))
+@Html.Hidden("LeerAuditoria", Url.Action("LeerAuditoria", "Auditoria"))
+@Html.Hidden("LeerAuditoriaPorId", Url.Action("LeerAuditoriaPorId", "Auditoria"))
+@Html.Hidden("LeerAuditoriaPorFiltro", Url.Action("LeerAuditoriaPorFiltro", "Auditoria"))
+@Html.Hidden("FinalizarAuditoria", Url.Action("FinalizarAuditoria", "Auditoria"))
+@Html.Hidden("CrearAuditoria", Url.Action("CrearAuditoria", "Auditoria"))
+@Html.Hidden("EditarAuditoria", Url.Action("EditarAuditoria", "Auditoria"))
+@Html.Hidden("EliminarHallazgo", Url.Action("EliminarHallazgo", "Auditoria"))
+@Html.Hidden("DescargarExcelAuditoria", Url.Action("DescargarExcelAuditoria", "Auditoria"))
+@Html.Hidden("DescargarExcelAuditoriaDetalle", Url.Action("DescargarExcelAuditoriaDetalle", "Auditoria"))
+@Html.Hidden("LeerAuditoriaActividadMejora", Url.Action("LeerAuditoriaActividadMejora", "Auditoria"))
+@Html.Hidden("CrearAuditoriaActividadMejora", Url.Action("CrearAuditoriaActividadMejora", "Auditoria"))
+@Html.Hidden("EnviarAuditoriaFinalizada", Url.Action("EnviarAuditoriaFinalizada", "Auditoria"))
+@Html.Hidden("LeerCorreos", Url.Action("LeerCorreos", "Auditoria"))
+
+@section scripts{
+    <script type="text/javascript" src="~/Scripts/bootbox.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/Project/Auditoria.js"></script>
+}
+@*/*<i style="font-size: 20px;" class="fa fa-minus-circle buttonToolTip"></i>*/*@

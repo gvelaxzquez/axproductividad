@@ -1,0 +1,233 @@
+﻿
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    /*margin:0 !important;
+    padding:10px !important;*/
+    border: 0 !important;
+    font-size: 100% !important;
+    vertical-align: baseline !important;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block !important;
+}
+
+
+.login-main {
+    display: flex;
+    flex-direction: column;
+    margin: 0px auto 24px;
+    width: 400px;
+    padding: 32px 40px;
+    background: rgb(255, 255, 255);
+    border-radius: 3px;
+    box-shadow: rgb(0 0 0 / 10%) 0px 0px 10px;
+    box-sizing: border-box;
+    color: rgb(94, 108, 132);
+}
+
+body {
+    line-height: 1 !important;
+}
+
+ol, ul {
+    list-style: none !important;
+}
+
+blockquote, q {
+    quotes: none !important;
+}
+
+    blockquote:before, blockquote:after, q:before, q:after {
+        content: '' !important;
+        content: none !important;
+    }
+
+table {
+    border-collapse: collapse !important;
+    border-spacing: 0 !important;
+}
+
+.formlogin {
+    position: relative !important;
+    z-index: 1 !important;
+    max-width: 400px !important;
+    margin: 70px auto 100px !important;
+    padding: 10px !important;
+    border-top-left-radius: 3px !important;
+    border-top-right-radius: 3px !important;
+    border-bottom-left-radius: 3px !important;
+    border-bottom-right-radius: 3px !important;
+    border-top:solid;
+    border-top-color : black;
+    border-color : gray;
+    text-align: center !important;
+}
+
+
+ .formlogin .thumbnail img {
+           display: block !important;
+           width: 50% !important;
+        }
+
+    .formlogin input {
+        /*outline: 0 !important;
+        background: #f2f2f2 !important;
+        width: 100% !important;
+        border: 0 !important;
+        margin: 0 0 10px !important;
+        padding: 10px !important;
+        border-top-left-radius: 3px !important;
+        border-top-right-radius: 3px !important;
+        border-bottom-left-radius: 3px !important;
+        border-bottom-right-radius: 3px !important;
+        box-sizing: border-box !important;
+        font-size: 14px !important;*/
+      
+     /*border-top: 0px; 
+     border-right: 0px; 
+     border-left: 0px; 
+     border-bottom: 1px;*/ 
+     background: rgba(0, 0, 0, 0); 
+     padding: 10px 15px; 
+     font-size: 14px; 
+     color: #868787; 
+     line-height: 20px; 
+     height: auto; 
+
+    }
+
+    .formlogin .btnLogin {
+        background-color: #1641ff !important;
+        border-radius: 5px;
+        color: #ffffff !important;
+        /*border: 1px solid #91cc1d;*/
+
+        padding: 14px;
+        width: 100% !important;
+        border: 0 !important;
+        font-size: 16px !important;
+        -webkit-transition: all 0.3 ease !important;
+        cursor: pointer !important;
+        /*outline: 0 !important;
+        background: #1e293d  !important;
+        width: 100% !important;
+        border: 0 !important;
+        padding: 10px !important;
+        border-top-left-radius: 3px !important;
+        border-top-right-radius: 3px !important;
+        border-bottom-left-radius: 3px !important;
+        border-bottom-right-radius: 3px !important;
+        color: #FFFFFF !important;
+        font-size: 16px !important;
+        -webkit-transition: all 0.3 ease !important;
+        transition: all 0.3 ease !important;
+        cursor: pointer !important;*/
+    }
+
+
+.swal2-styled.swal2-confirm {
+    background-color: #1641ff !important;
+  
+}
+
+
+    .formlogin .message {
+        margin: 15px 0 0 !important;
+        color: #b3b3b3 !important;
+        font-size: 12px !important;
+    }
+
+        .formlogin .message a {
+            color: #EF3B3A !important;
+            text-decoration: none !important;
+        }
+
+    .formlogin .register-form {
+        display: none !important;
+    }
+
+.containerlogin {
+    position: relative !important;
+    z-index: 1 !important;
+    max-width: 500px !important;
+    margin: 0px auto !important;
+}
+
+    .containerlogin:before, .containerlogin:after {
+        content: "";
+        display: block !important;
+        clear: both !important;
+    }
+
+    .containerlogin .info {
+      
+        text-align: center !important;
+    }
+
+        .containerlogin .info h2 {
+            margin: 0 0 5px !important;
+            padding: 0 !important;
+            font-size: 40px !important;
+            font-weight: bold !important;
+          
+            color: #1a1a1a !important;
+      
+        }
+
+        .containerlogin .info span {
+            color: #4d4d4d !important;
+            font-size: 12px !important;
+        }
+
+            .containerlogin .info span a {
+                color: #000000 !important;
+                text-decoration: none !important;
+            }
+
+            .containerlogin .info span .fa {
+                color: #EF3B3A !important;
+            }
+
+.thumbnail {
+    background: #f8fafb !important;
+}
+/* END Form */
+/* Demo Purposes */
+body {
+    background-attachment: fixed !important;
+    background-repeat: repeat !important;
+    background-position: top left !important;
+
+}
+
+
+    body:before {
+        content: "" !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        display: block;
+        /*background: #FFFFFF !important;*/
+        background: #f8fafb !important;
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+.pg-loading-screen .pg-loading-logo-header img {
+    display: none !important;
+}
+
+.pg-loading-screen .pg-loading-center-middle {
+    vertical-align: middle !important;
+}

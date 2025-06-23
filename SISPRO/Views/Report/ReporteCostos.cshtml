@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Costos de Usuario";
+}
+
+<div class="page-title">
+    <h2><span class="fa fa-money"></span> Reporte general de costos</h2>
+</div>
+
+<div class="row col-md-12">
+    <div class="form-group col-md-3" style="padding: 0px 10px;">
+        <label for="dateRangoFechas">Rango de fechas</label>
+        <input id="dateReporteCostoPeriodo" type="text" class="form-control DateRangePicker" style="max-width: unset;" />
+    </div>
+    <div class="form-group col-md-3" style="padding: 0px 10px;">
+        <label for="cmbProyectos">Proyectos</label>
+        <select id="cmbReporteCostoProyecto" class="form-control btn-group selectpicker" data-actions-box="true" data-live-search="true" multiple>
+            <option value="-1">--Seleccionar--</option>
+        </select>
+    </div>
+    <div class="form-group col-md-1" style="padding: 0px 10px;">
+        <input type="text" style="visibility: hidden;" />
+        <button id="btnReporteCostoBuscar" class="btn btn-primary"><span class="fa fa-search"></span></button>
+    </div>
+    <div class="form-group col-md-5" style="text-align: end">
+        <input class="col-md-12" type="text" style="visibility: hidden; max-width: unset" />
+        <button class="btn btn-primary" id="btnReporteCostosExportar">Exportar</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table text" id="dtReporteCosto">
+                        <thead>
+                            <tr>
+                                <th>Proyecto</th>
+                                <th>Lider</th>
+                                <th style="width: 10%;">Presupuesto</th>
+                                <th style="width: 10%;">Directo</th>
+                                <th style="width: 10%;">Indirecto</th>
+                                <th style="width: 10%;">Total</th>
+                                <th style="width: 10%;">Utilizado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/Scripts/jquery.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.powertip.js"></script>
+
+@section scripts{
+    <script src="~/Scripts/Project/ReporteCostos.js"></script>
+}

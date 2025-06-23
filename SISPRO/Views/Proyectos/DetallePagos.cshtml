@@ -1,0 +1,458 @@
+﻿
+@{
+    ViewBag.Title = "Flujo de pagos ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<script src="~/Scripts/easypiechart.min.js"></script>
+<script src="~/Scripts/jquery.easypiechart.min.js"></script>
+
+<div class="page-content-wrap">
+
+    <div class="panel panel-default">
+
+        <div class="panel-heading">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <a class="btn btn-default pull-right" id="BtnModificarFP"><i class="fa fa-pencil"></i></a>
+                    <h4> Proyecto: <span id="lblNombreP"></span></h4>
+                    <div class="col-md-12">
+                        <label class="col-md-4">Precio por hora: <span id="LblPreciohora"> </span> </label>
+                        <label class="col-md-4">Horas totales:  <span id="LblHorasTotales"> </span> </label>
+                        <label class="col-md-4">IVA(%): <span id="LblIVA"> </span></label>
+                    </div>
+                    <br />
+                    <label> Estatus de proyecto</label>
+                    <div class="col-md-12">
+
+                        <div class="col-md-4">
+
+
+
+                            <span class="chart cavanceactual" data-percent="86">
+                                <span class="percent"></span><br>
+                                <p>Avance actual</p>
+                            </span>
+
+                        </div>
+
+                        <div class="col-md-4">
+                            <span class="chart cavanceesperado" data-percent="86">
+                                <span class="percent"></span><br>
+                                <p>Avance esperado</p>
+                            </span>
+
+                        </div>
+                        <div class="col-md-4">
+
+
+
+                            <span class="chart cdesfase" data-percent="86">
+                                <span class="percent"></span><br>
+                                <p>Desfase</p>
+                            </span>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-5">
+
+                    <div >
+                        <table class="table datatable text" id="">
+                            <thead>
+                            <tbody>
+                                <tr>
+                                    <td> </td>
+                                    <td> <h4 style="font-weight:bold;" class="text-right">Monto</h4> </td>
+                                    <td> <h4 style="font-weight:bold;" class="text-right">Horas</h4> </td>
+                                </tr>
+                                <tr>
+                                    <td> <h4> Total proyecto:</h4></td>
+                                    <td> <h4 id="LblTotalProyecto" class="text-right">0</h4> </td>
+                                    <td> <h4 id="LblTotalProyectoHoras" class="text-right">0</h4> </td>
+                                </tr>
+                                <tr>
+                                    <td> <h4> Total facturado:</h4></td>
+                                    <td> <h4 id="LblTotalFacturado" class="text-right">0</h4> </td>
+                                    <td> <h4 id="LblTotalFacturadoHoras" class="text-right">0</h4> </td>
+                                </tr>
+                                <tr>
+                                    <td> <h4> Total Amortizado:</h4></td>
+                                    <td> <h4 id="LblTotalAmortizado" class="text-right">0</h4> </td>
+                                    <td> <h4 id="LblTotalAmortizadoHoras" class="text-right">0</h4> </td>
+                                </tr>
+                                <tr>
+                                    <td><h4> Total pagado: </h4></td>
+                                    <td><h4 id="LblTotalPagado" class="text-right">0</h4></td>
+                                    <td><h4 id="LblTotalPagadoHoras" class="text-right">0</h4></td>
+                                </tr>
+                                <tr>
+                                    <td> <h4 style="font-weight:bold;"> Saldo amortizar:</h4></td>
+                                    <td><h4 style="font-weight:bold;" id="LblSaldoAmortizar" class="text-right"> </h4></td>
+                                    <td><h4 style="font-weight:bold;" id="LblSaldoAmortizarHoras" class="text-right"> </h4></td>
+                                </tr>
+                                <tr>
+                                    <td> <h4 style="font-weight:bold;"> Saldo:</h4></td>
+                                    <td><h4 style="font-weight:bold;" id="LblSaldo" class="text-right"> </h4></td>
+                                    <td><h4 style="font-weight:bold;" id="LblSaldoHoras" class="text-right"> </h4></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+                <div class="col-md-1">
+                    <div>
+                        <a class="btn btn-info pull-right" href="@Url.Action("FlujoPagos", "Proyectos")"><i class="fa fa-arrow-left"></i> Regresar</a>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="pull-right">
+
+                        <button class="btn btn-success" id="BtnNuevoFPD"><i class="fa fa-plus"></i>  Nuevo </button>
+
+                        <button class="btn btn-info" id="BtnExportarFPD"><i class="fa fa-bars"></i> Exportar</button>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="panel-body">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table datatable text" id="TblFlujo">
+                        <thead>
+                            <tr>
+                                @*<th></th>*@
+                                <th>#</th>
+                                <th>Concepto</th>
+                                <th>%Avance</th>
+                                <th>Fecha planeada</th>
+                                <th>Fecha compromiso</th>
+                                <th>Fecha factura</th>
+                                <th>Factura</th>
+                                <th>Fecha programada</th>
+                                <th>Fecha pagada</th>
+                                <th>Amortizadas</th>
+                                <th>Horas</th>
+                                <th>Subtotal</th>
+                                <th>IVA</th>
+                                <th>Total</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="modal" id="ModalNuevoFlujo" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="TituloRec"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-5 control-label">Proyecto*</label>
+                            <div class="col-md-8 col-xs-7 line-height-base">
+
+                                @{
+                                    var LstProyectos = ViewBag.LstProyectos;
+                                    <select class="form-control ReqFP selectpicker" data-live-search="true" id="SelProyectoFP" item="Proyecto">
+                                        <option value="-1" selected>  -- Seleccionar -- </option>
+                                        @foreach (var i in LstProyectos)
+                                        {
+                                            <option value="@i.IdCatalogo">@i.DescLarga</option>
+
+                                        }
+                                    </select>
+                                }
+
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-5 control-label">Precio por hora*</label>
+                            <div class="col-md-8 col-xs-7"><input type="number" step="0.01" class="form-control ReqFP" id="TxtPrecioHoraFP" item="Precio por hora" /></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-5 control-label">IVA(%)*</label>
+                            <div class="col-md-8 col-xs-7"><input type="number" step="0.01" class="form-control ReqFP" id="TxtIVAFP" item="IVA" /></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-5 control-label">Total horas*</label>
+                            <div class="col-md-8 col-xs-7"><input type="number" step="0.01" class="form-control ReqFP" id="TxtTotalHoras" item="Total horas" /></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-5 control-label">Horas amortizar*</label>
+                            <div class="col-md-8 col-xs-7"><input type="number" step="0.01" class="form-control ReqFP" id="TxtHorasAmortizar" item="Horas amortizar" /></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-12 control-label">Archivar</label>
+                            <div class="col-md-3 col-xs-12">
+                                <label class="switch switch-small">
+                                    <input type="checkbox" id="ChkActivoFPD" />
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="BtnGuardarFP">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="ModalNuevoFlujoDetalle" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+    <div class="modal-dialog" style="width:50%; height:100%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="TituloRec"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-8 col-sm-12 col-xs-12">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Secuencia</label>
+                                <div class="col-md-8 col-xs-12">
+                                    <label class="control-label" id="TxtSecuencia"></label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-5 control-label">Concepto*</label>
+                                <div class="col-md-8 col-xs-7"><input class="form-control ReqFPD" id="TxtConceptoFPD" item="Concepto" /></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-5 control-label">Horas*</label>
+                                <div class="col-md-8 col-xs-7"><input class="form-control  ReqFPD" type="number" step="0.01" id="TxtHorasFPD" item="Horas" /></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-5 control-label">Horas amortizar*</label>
+                                <div class="col-md-8 col-xs-7"><input class="form-control  ReqFPD" type="number" step="0.01" id="TxtHorasAFPD" item="Horas" /></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-5 control-label">Porcentaje*</label>
+                                <div class="col-md-8 col-xs-7"><input class="form-control ReqFPD" type="number" step="0.01" id="TxtPorcentajeFPD" item="Porcentaje" /></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-5 control-label">Monto*</label>
+                                <div class="col-md-8 col-xs-7"><input class="form-control ReqFPD" type="number" step="0.01" id="TxtMontoFPD" item="Porcentaje" /></div>
+                            </div>
+
+
+
+                        </form>
+                    </div>
+                    <div class="col-md-4 col-sm-12 col-xs-12">
+                    
+
+                            <div class="panel-group accordion accordion-dc">
+                                <div class="panel ">
+                                    <div class="panel-heading">
+                                        <h5 class="panel-title">
+                                            <a href="#accordion-WiRelFPD">
+                                                Items relacionados
+                                            </a>
+                                        </h5>
+                                    </div>
+                                    <div class="panel-body panel-body-open" style="padding: 0px;" id="accordion-WiRelFPD">
+                                        <form class="form-horizontal">
+                                            <div class="panel-body">
+                                                <div id="divTrabajoRelacionadoFDP">
+                                                  
+
+                                                    <div style="position:relative; text-align: right">
+                                                        <i id="show-parentsFPD-div" class="fa fa-plus-circle" style="margin-right: -3px; font-size: 14px; color: #3fbae4; cursor: pointer;"></i>
+                                                        <div id="parentsFPD-div" class="repo-div hidden" style="height: 100px; background-color: white; position: absolute; top: 30px; left: 0px; z-index: 100; width: 100%; border: 1px solid gray; border-radius: 5px">
+                                                            <div style="height: 7%; margin-top: 5px; padding-right: 12px; font-size: 14px">
+                                                                <i id="hide-parentsFPD-div" style="cursor: pointer" class="fa fa-times-circle"></i>
+                                                            </div>
+                                                            <div style="margin-top: 10px;height: 15%" class="">
+
+                                                                <div class="col-md-12 col-xs-12">
+                                                                    <select style="width:100%;" multiple="multiple" class="hidden" id="SelActividadFPD"></select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div id="" class="divMensajes div-parents-FPD" style="min-height:150px;">
+
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                      
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="BtnGuardarFPD">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="ModalCapturarFecha" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="TituloRecFPD">Ingresar Fecha </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+
+                            <label class="col-md-2 col-xs-12 control-label">Fecha*</label>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <input type="text" id="TxtFechaFPD" class="form-control ReqFechaFPD" item="Fecha" />
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="BtnGuardarCapturaFPD">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="ModalCapturarFechaFactura" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="TituloRecFFPD"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-5 control-label">Factura*</label>
+                            <div class="col-md-8 col-xs-7"><input class="form-control ReqFechaFFPD" id="TxtFacturaFFPD" item="Factura" /></div>
+                        </div>
+                        <div class="form-group">
+
+                            <label class="col-md-2 col-xs-12 control-label">Fecha*</label>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <input type="text" id="TxtFechaFFPD" class="form-control ReqFechaFFPD" item="Fecha" />
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="BtnGuardarCapturaFFPD">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@*<div class="filter-settings">
+        <div class="filter-settings-icon"><span class="glyphicon glyphicon-filter"></span></div>
+        <h5>Filtrar</h5>
+
+        <div class="filter-settings-row">
+            <label for="SelAnioFP">Año</label>
+
+            @{
+
+                var LstAnios = ViewBag.LstAnios;
+                <select class="selectpicker form-control" id="SelAnioFP" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--">
+                    @foreach (var i in LstAnios)
+                    {
+                        <option value="@i.DescCorta">@i.DescCorta</option>
+
+                    }
+
+                </select>
+
+            }
+
+
+        </div>
+
+        <div class="filter-settings-row">
+            <button class="btn btn-default" id="BtnFiltrarFP">Aplicar</button>
+        </div>
+    </div>*@
+
+<input type="hidden" id="IdFlujo" value="@ViewBag.IdFlujo" />
+<input type="hidden" id="IdFlujoDet" value="0" />
+<input type="hidden" id="IdProyectoFPD" value="0" />
+<input type="hidden" id="IdFlujoDetFecha" value="0" />
+<input type="hidden" id="TipoFecha" value="0" />
+<input type="hidden" id="Secuencia" value="0" />
+<input type="hidden" id="IdActividadDependenciaFPD" value="0" />
+<input type="hidden" id="IdFlujoDetEliminar" value="0" />
+
+<input type="hidden" id="urlObtieneFlujoDetalle" value="@Url.Action("ObtieneFlujoDetalle", "Proyectos")" />
+<input type="hidden" id="urlGuardarFlujo" value="@Url.Action("GuardaFlujoPago", "Proyectos")" />
+<input type="hidden" id="urlGuardaFlujoPagoDetalle" value="@Url.Action("GuardaFlujoPagoDetalle", "Proyectos")" />
+<input type="hidden" id="urlGuardarFlujoPagoFechas" value="@Url.Action("GuardaFlujoPagoFecha", "Proyectos")" />
+<input type="hidden" id="urlEliminarFlujoPagoDetalle" value="@Url.Action("EliminarFlujoPagoDetalle", "Proyectos")" />
+<input type="hidden" id="urlFlujoDetalle" value="/Proyectos/DetallePagos" />
+
+
+
+@{
+    Random rnd = new Random();
+    <script src="~/Scripts/Project/FlujoPagosDetalle.js?@rnd.Next()"></script>
+
+}

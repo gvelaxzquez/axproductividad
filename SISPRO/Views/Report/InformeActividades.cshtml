@@ -1,0 +1,180 @@
+﻿@{
+    ViewBag.Title = "Informe de actividades";
+}
+
+<link rel="stylesheet" href="~/Content/jquery.powertip.css" />
+
+
+
+<!--<div class="col-md-12">
+    <div class="form-horizontal col-md-12" style=" display: flex; justify-content: space-between;">-->
+
+        @*<div class="form-group col-md-2">
+            <label for="SelAnioRA" class="col-md-2 control-label">Año</label>
+            <div class="col-md-10">
+                <select class="form-control btn-group selectpicker show-tick ReqFiltroIA" data-live-search="true" id="SelAnioRA" item="Año">
+                </select>
+            </div>
+        </div>
+        <div class="form-group col-md-2">
+            <label for="SelMesRA" class="col-md-2 control-label">Mes</label>
+            <div class="col-md-10">
+                <select class="form-control btn-group selectpicker show-tick ReqFiltroIA" data-live-search="true" id="SelMesRA" item="Mes">
+                    <option selected="selected" value="-1">--Seleccione--</option>
+                    <option value="1">Enero</option>
+                    <option value="2">Febrero</option>
+                    <option value="3">Marzo</option>
+                    <option value="4">Abril</option>
+                    <option value="5">Mayo</option>
+                    <option value="6">Junio</option>
+                    <option value="7">Julio</option>
+                    <option value="8">Agosto</option>
+                    <option value="9">Septiembre</option>
+                    <option value="10">Octubre</option>
+                    <option value="11">Noviembre</option>
+                    <option value="12">Diciembre</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group col-md-4">
+            <label for="SelRecursoRA" class="col-md-2 control-label">Recurso</label>
+            <div class="col-md-10">
+                <select class="form-control btn-group selectpicker show-tick ReqFiltroIA" data-live-search="true" id="SelRecursoRA" item="Recurso">
+                </select>
+            </div>
+        </div>*@
+        @*<div class="form-group col-md-4">
+                <label for="dateFiltroInicio" class="col-md-2 control-label">Recurso</label>
+                <div class="col-md-10">
+                    <select class="form-control btn-group selectpicker show-tick" data-actions-box="true" data-live-search="true" id="cmbRecurso" multiple>
+                    </select>
+                </div>
+            </div>*@
+        @*<div class="form-group col-md-1">
+            <div class="col-md-12" style="text-align:start">
+                <button class="btn btn-info" id="btnFiltrarInformeActividades"><span class="fa fa-search"></span></button>
+            </div>
+        </div>*@
+        <!--<div class="col-md-6">
+            <h3>  <span id="lblfiltro"></span></h3>
+
+        </div>
+    
+    </div>
+</div>-->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-6 pull-right" style="text-align:end">
+            <button class="btn btn-default" id="btnExportar" style="">Imprimir <span class="fa fa-file-pdf-o"></span></button>
+        </div>
+    </div>
+  
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default" style="border-top: none; padding-top: 0px">
+            <div class="panel-heading" style="border: none; padding-top: 0px;">
+            </div>
+            <div class="panel-body">
+
+
+
+
+                <div class="table-responsive">
+                    <table class="table datatable text" id="dtReporte">
+                        <thead>
+                            <tr>
+                                <th class="text-left" width="7%">#</th>
+                                <th class="text-left" width="10%">Solución tecnológica</th>
+                                <th class="text-left" width="17%">Tarea</th>
+                                <th class="text-left" width="6%">Responsable</th>
+                                <th class="text-center" width="7%">Inicio</th>
+                                <th class="text-center" width="7%">Fin</th>
+                                <th class="text-right" width="5%">T</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-11">
+
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <div class="btn-group pull-right">
+                                    &nbsp;&nbsp; <h3 id="LblTotal">Total:</h3>
+                                </div>
+                                <div class="btn-group pull-left">
+                                    &nbsp;&nbsp;
+                                </div>
+                            </div>
+
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="filter-settings">
+        <div class="filter-settings-icon"><span class="glyphicon glyphicon-filter"></span></div>
+        <h5>Filtrar</h5>
+        <div class="filter-settings-row">
+            <label for="SelAnioRA">Año</label>
+            <select class="form-control selectpicker ReqFiltroIA" id="SelAnioRA" item="Año">
+            </select>
+        </div>
+        <div class="filter-settings-row">
+            <label for="SelMesRA">Mes</label>
+            <select class="form-control ReqFiltroIA selectpicker" id="SelMesRA" item="Mes">
+                <option selected="selected" value="-1">--Seleccione--</option>
+                <option value="1">Enero</option>
+                <option value="2">Febrero</option>
+                <option value="3">Marzo</option>
+                <option value="4">Abril</option>
+                <option value="5">Mayo</option>
+                <option value="6">Junio</option>
+                <option value="7">Julio</option>
+                <option value="8">Agosto</option>
+                <option value="9">Septiembre</option>
+                <option value="10">Octubre</option>
+                <option value="11">Noviembre</option>
+                <option value="12">Diciembre</option>
+
+            </select>
+        </div>
+        <div class="filter-settings-row" id="divRecurso">
+            <label for="SelRecursoRA">Recurso</label>
+            <select class="form-control selectpicker ReqFiltroIA" data-live-search="true" id="SelRecursoRA" item="Año">
+                <option selected="selected" value="-1">--Seleccione--</option>
+
+            </select>
+
+        </div>
+
+        <div class="filter-settings-row">
+            <button class="btn btn-default" id="btnFiltrarInformeActividades">Aplicar</button>
+        </div>
+    </div>
+
+</div>
+
+@*<script type="text/javascript" src="~/Scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.powertip.js"></script>*@
+
+
+@Html.Hidden("urlCargaInformeActividades", Url.Action("CargaInformeActividades", "Report"))
+@Html.Hidden("urlObtenerInformeActividades", Url.Action("ObtenerInformeActividades", "Report"))
+@Html.Hidden("urlObtenerInformeActividadesPDF", Url.Action("InformeActividadesPDF", "Report"))
+
+<script type="text/javascript" src="~/Scripts/Project/InformeActividades.js"></script>
+

@@ -1,0 +1,466 @@
+﻿@using AxProductividad.Models;
+@{
+    ViewBag.Title = "Backlog";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="https://cdn.jsdelivr.net/npm/jquery-treegrid@0.3.0/css/jquery.treegrid.css" rel="stylesheet">
+<link href="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.css" rel="stylesheet">
+<link  href="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/jquery-treegrid@0.3.0/js/jquery.treegrid.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/treegrid/bootstrap-table-treegrid.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/cookie/bootstrap-table-cookie.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/mobile/bootstrap-table-mobile.min.js"></script>
+<script src="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/ashl1/datatables-rowsgroup@fbd569b8768155c7a9a62568e66a64115887d7d0/dataTables.rowsGroup.js"></script>
+
+
+<link rel="stylesheet" href="~/Content/DHTMLXGantt/dhtmlxgantt.css" />
+<link rel="stylesheet" href="~/Content/DHTMLXGantt/skins/dhtmlxgantt_material.css" />
+<script type="text/javascript" src="~/Scripts/dhtmlxgantt.js"></script>
+
+<div class="page-content-wrap">
+    <div class="page-title">
+        <div class="col-md-6">
+            @{
+                var LstProyectos = ViewBag.LstProyectos;
+
+                <select class="form-control ReqFP selectpicker" data-live-search="true" data-live-search-placeholder="Buscar..." data-actions-box="true" id="SelProyectoBL" item="Proyecto" style="width:50%">
+                    <option value="-1" selected>  -- Proyecto -- </option>
+                    @foreach (var i in LstProyectos)
+                    {
+                        <option value="@i.IdCatalogo">@i.DescLarga</option>
+
+                    }
+                </select>
+            }
+        </div>
+
+
+        <div class="col-md-6">
+
+            <div class="col-md-8">
+
+
+
+
+
+
+
+            </div>
+            <div class="col-md-4">
+
+            </div>
+
+
+        </div>
+        <div class="col-md-1">
+
+
+        </div>
+
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body tabs">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="active"><a href="#tab-workitems" role="tab" data-toggle="tab" onclick=""><i class="fa fa-list-ul"></i> Backlog</a></li>
+                <li id="liSprint"><a href="#tab-sprints" role="tab" data-toggle="tab" onclick="CargarSprints();"><i class="fa fa-circle-o-notch"></i> Sprints</a></li>
+                @*<li id="liMatriz"><a href="#tab-matriz" role="tab" data-toggle="tab" onclick="ConsultaMatriz();"><i class="fa fa-road"></i> Roadmap</a></li>*@
+                <li id="liMatriz2"><a href="#tab-matriz2" role="tab" data-toggle="tab" onclick="CargarFiltrosMBL(); ConsultaMatriz2();"><i class="fa fa-sitemap"></i> Rastreo</a></li>
+                <li><a href="#tab-roadmap" role="tab" data-toggle="tab"><i class="fa fa-rocket"></i> Gantt</a></li>
+                <li id="liData"><a href="#tab-data" role="tab" data-toggle="tab" onclick="ConsultaGraficasBacklog();"><i class="fa fa-line-chart"></i> Data</a></li>
+            </ul>
+        </div>
+        <div class="panel-body tab-content">
+            <div class="tab-pane active" id="tab-workitems">
+
+                <div class="col-md-12 headerwi" style="display: none;">
+
+                    <div id="toolbarBLL">
+
+
+                        <div class="col-md-3">
+                            @{
+                                var Workitems2 = ((Sesion)Session["Usuario" + Session.SessionID]).WorkItems;
+                                <select class="form-control  selectpicker " id="SelTipoBL" item="Tipo actividad">
+                                    @{ foreach (var item in Workitems2)
+                                        {
+
+                                            if (item.ActividadTipoId == 2)
+                                            {
+                                                <option value='@item.ActividadTipoId' selected data-content="<span><img class='img-dt' src='../../Content/Project/Imagenes/@item.Url' alt='@item.Nombre' style='width:24px; height:24px;'> @item.Nombre</span>">@item.Nombre</option>
+
+                                            }
+                                            else
+                                            {
+                                                <option value='@item.ActividadTipoId' data-content="<span><img class='img-dt' src='../../Content/Project/Imagenes/@item.Url' alt='@item.Nombre' style='width:24px; height:24px;'> @item.Nombre</span>">@item.Nombre</option>
+
+                                            }
+
+
+                                        }
+                                    }
+                                </select>
+                            }
+                        </div>
+                        <div class="col-md-6">
+                            <div style="position:relative; text-align: right">
+
+
+                                <div class="btn-group pull-left">
+                                    <button type="button" class="btn btn-default " onclick="" id="show-epic-div">New <span class="fa fa-plus-circle fa-right"></span></button>
+                                    <button class="btn btn-default " id="BtnImprmirWI"><span class="fa fa-print"></span></button>
+                                    <button class="btn btn-default " id="BtnRecargarBL"><span class="fa fa-refresh"></span></button>
+                                </div>
+
+
+
+                                <div id="epic-div" class="epic-div hidden" style="height: 50px; background-color: white; position: absolute; top: 30px; left: 0px; z-index: 100; width: 100%; border: 1px solid gray; border-radius: 5px">
+                                    <div style="height: 7%; margin-top: 0px; padding-right: 12px; font-size: 14px">
+                                        <i id="hide-epic-div" style="cursor: pointer" class="fa fa-times-circle"></i>
+                                    </div>
+                                    <div style="margin-top: 5px;height: 15%" class="">
+                                        <div class="col-md-1" style="width:95px">
+                                            @{
+
+                                                <select class="form-control  selectpicker " id="SelTipoSaveF" item="Tipo actividad" style="width:71px">
+                                                    @{ foreach (var item in Workitems2)
+                                                        {
+                                                            if (item.ActividadTipoId == 2)
+                                                            {
+                                                                <option value='@item.ActividadTipoId' selected data-content="<span><img class='img-dt' src='../../Content/Project/Imagenes/@item.Url' alt='@item.Nombre' title='@item.Nombre' style='width:18px; height:18px;'></span>"></option>
+
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value='@item.ActividadTipoId' data-content="<span><img class='img-dt' src='../../Content/Project/Imagenes/@item.Url' alt='@item.Nombre' title='@item.Nombre' style='width:18px; height:18px;'></span>"></option>
+
+                                                            }
+
+                                                        }
+                                                    }
+                                                </select>
+                                            }
+                                        </div>
+
+                                        <div class="col-md-10 col-xs-11">
+
+                                            <div class="input-group form-group">
+
+                                                <p class="lead emoji-picker-container" style="text-align:left">
+
+                                                    <input id="TxtNewEpic" style="max-width:none; text-align:left;" maxlength="500" class="form-control" placeholder="Título" item="Id" data-emojiable="true">
+                                                </p>
+                                                @*<input id="TxtNewEpic" style="max-width:none;" maxlength="200" class="form-control" placeholder="Título" item="Id">*@
+                                                <div class="input-group-btn">
+                                                    <button id="BtnSaveEpic" style="min-height:35px;" class="btn btn-default "><span class="fa fa-save"></span></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+
+                    <table id="table" data-cookie="true" data-cookie-id-table="table" data-mobile-responsive="true">
+                    </table>
+                </div>
+
+
+
+            </div>
+            <div class="tab-pane " id="tab-sprints">
+                <div class="row">
+                    <div class="col-md-4 col-xs-12">
+
+                        <select class="selectpicker form-control headerCP" multiple data-live-search="true" id="SelEstatusSP" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--">
+
+                            <option value="A" selected>Abierto</option>
+                            <option value="P" selected>Progreso</option>
+                            <option value="L">Terminado</option>
+                            <option value="C">Cancelado</option>
+
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 col-xs-12" id="colSprints" style="overflow-y:auto; margin-top:10px;">
+                        <table class="table " id="">
+
+                            <tbody id="tblSprintDetalle">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="tab-pane active" id="tab-matriz">
+                <div class="col-md-12 headerwi" style="display: none;">
+
+
+
+                    <table id="tblMatriz" data-cookie="true" data-cookie-id-table="table" data-mobile-responsive="true" class="table table-striped">
+                    </table>
+
+
+                </div>
+
+
+
+            </div>
+
+            <div class="tab-pane" id="tab-roadmap">
+                <div class="row headerwi" style="display: none;">
+                    <div class="col-md-6 col-xs-6">
+                        <div class="btn-group">
+                            <button class="btn btn-default btn-condensed" onclick="zoomOut()"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-default btn-condensed" onclick="zoomIn()"><i class="fa fa-plus"></i></button>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6 col-xs-6">
+                        <div class="btn-group pull-right">
+                            <button class="btn btn-default " onclick="CambiarZoom('year')">Año</button>
+                            <button class="btn btn-default " onclick="CambiarZoom('month')">Mes</button>
+                            <button class="btn btn-default " onclick="CambiarZoom('week')">Semana</button>
+                            <button class="btn btn-default " onclick="CambiarZoom('day')">Día</button>
+
+
+                        </div>
+
+
+
+
+                    </div>
+
+
+                </div>
+
+                <div id="roadmap" style="height:500px; width: 100%; padding-top:10PX;"></div>
+            </div>
+
+            <div class="tab-pane" id="tab-data">
+                <div class="row headerwi">
+                    <div id="Grafica">
+
+                    </div>
+                    <div id="scripts">
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="tab-pane" id="tab-matriz2">
+                <div class="row headerwi">
+                    <div class="col-md-2" id="mdFiltrosBL">
+
+                        <div class="" @*style="padding-top:10px;"*@>
+
+                            @*<h5>Filtros</h5>*@
+
+
+
+                            <div class="filter-settings-row" style="padding-top:10px;">
+                                <label for="SelProyectoTF">Epica</label>
+                                <select class="selectpicker form-control" multiple data-live-search="true" id="SelEpicasMBL" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Todos--"></select>
+                            </div>
+                            <div class="filter-settings-row" style="padding-top:10px;">
+                                <label for="SelProyectoTF">Historia de usuario</label>
+                                <select class="selectpicker form-control" multiple data-live-search="true" id="SelHuMBL" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Todos--"></select>
+                            </div>
+
+                            <div class="filter-settings-row" style="padding-top:10px;">
+                                <label for="SelSprintBWI">Sprint</label>
+
+                                <select class="selectpicker form-control" multiple data-live-search="true" id="SelSprintsMBL" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Todos--">
+                                </select>
+
+                            </div>
+
+                            <div class="filter-settings-row" style="padding-top:10px;">
+                                <label class="">Estatus</label>
+                                <select class="selectpicker form-control" multiple data-live-search="true" id="SelEstatusMBL" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Todos--">
+
+                                    <option value="A" selected>Abierto</option>
+                                    <option value="P" >En progreso</option>
+                                    <option value="R" >Revisión</option>
+                                    <option value="V" >Validada</option>
+                                    <option value="L" >Liberada</option>
+                                    <option value="C">Cancelada</option>
+                                    <option value="X" >Rechazada</option>
+
+                                </select>
+                            </div>
+
+
+
+
+                            <div class="filter-settings-row" style="padding-top:10px;">
+                                <button class="btn btn-default" id="BtnFiltrarMBL">Aplicar</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-12" id="mdContBL">
+
+                        <div class="row">
+                            <div class="col-md-1">
+                                <button type="button" class="btn btn-default btn-grid pull-left" onclick="" id="BtnFilterQ"><span id="spFilters" class="fa fa-dedent"></span></button>
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="row">
+                            <div id="tblRequerimiento">
+                                <table id="tblMatriz_Requerimiento" class="table datatable text display " cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Requerimiento</th>
+                                            <th> Epica</th>
+                                            <th> Sprint</th>
+                                            <th width="80px"> </th>
+                                            <th> HU</th>
+                                            <th> Estatus</th>
+                                            <th> Fase</th>
+                                            <th> </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+
+                                </table>
+                            </div>
+
+                            <div id="tblEpica">
+                                <table id="tblMatriz_Epica" class="table datatable text display " cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th> Epica</th>
+                                            <th> HU</th>
+                                            <th width="80px"> Sprint</th>
+                                            <th> </th>
+                                            <th> Tarea</th>
+                                            <th> Estatus</th>
+                                            <th> Fase</th>
+                                            <th> </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+
+                                </table>
+
+                            </div>
+
+                        </div>
+
+                     
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+<div class="modal" id="MdlCrearBLItem" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog" style="width:850px; margin-top:15%;">
+        <div class="modal-content">
+    
+            <div class="modal-body">
+
+       
+                <div class="row">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <ul class="breadcrumb">
+                                <li><a id="bc1"></a></li>
+                                <li><a id="bc2"></a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-condensed" id="BtnNewItemBLFM"><span class="fa fa-expand"></span></button>
+                                <button type="button" class="btn btn-default btn-condensed" data-dismiss="modal"><span class=" fa fa-times"> </span></button>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-1" style="width:95px">
+
+
+                        @{
+
+                            <select class="form-control  selectpicker " id="SelTipoSaveFM" item="Tipo actividad" style="width:71px">
+                                @{ foreach (var item in Workitems2)
+                                    {
+                                        if (item.ActividadTipoId == 2)
+                                        {
+                                            <option value='@item.ActividadTipoId' style="min-height:35px;" item='@item.Nombre' selected data-content="<span><img class='img-dt' src='../../Content/Project/Imagenes/@item.Url' item='@item.Nombre' alt='@item.Nombre' title='@item.Nombre' style='width:24px; height:24px;'></span>"></option>
+
+                                        }
+                                        else
+                                        {
+                                            <option value='@item.ActividadTipoId' style="min-height:35px;" item='@item.Nombre' data-content="<span><img class='img-dt' src='../../Content/Project/Imagenes/@item.Url'  item='@item.Nombre'  alt='@item.Nombre' title='@item.Nombre' style='width:24px; height:24px;'></span>"></option>
+
+                                        }
+
+                                    }
+                                }
+                            </select>
+                        }
+                    </div>
+
+                    <div class="col-md-10 col-xs-11">
+                        <div class="input-group form-group">
+                            <p class="lead emoji-picker-container" style="text-align:left">
+                                <input id="TxtNewTFM" style="max-width:none; text-align:left;" maxlength="500" class="form-control" placeholder="Título" item="Id" data-emojiable="true">
+                            </p>
+                            <div class="input-group-btn">
+                                <button id="BtnSaveFM" class="btn btn-default " style="min-height:35px;"><span class="fa fa-save"></span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<input type="hidden" id="LastWI" value="0" />
+<input type="hidden" id="urlExportWIAll" value="@Url.Action("WorkItem2","Actividades")" />
+<input type="hidden" id="urlCargaSprints" value="@Url.Action("ConsultarSprintsV3","Proyectos")" />
+<input type="hidden" id="urlSprintReport" value="@Url.Action("SprintReport","Proyectos")" />
+@{
+    Random rnd = new Random();
+    @*<script src="~/Scripts/Project/Backlog.js"></script>*@
+    <script src="~/Scripts/Project/Backlog.js?@rnd.Next()"></script>
+
+}
+
+

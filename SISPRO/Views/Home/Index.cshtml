@@ -1,0 +1,454 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard performance";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script src="~/Scripts/easypiechart.min.js"></script>
+<script src="~/Scripts/jquery.easypiechart.min.js"></script>
+
+
+
+<link href="https://cdn.jsdelivr.net/npm/jquery-treegrid@0.3.0/css/jquery.treegrid.css" rel="stylesheet">
+<link href="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/jquery-treegrid@0.3.0/js/jquery.treegrid.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/treegrid/bootstrap-table-treegrid.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/cookie/bootstrap-table-cookie.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/mobile/bootstrap-table-mobile.min.js"></script>
+<script src="https://cdn.datatables.net/fixedcolumns/4.3.0/js/dataTables.fixedColumns.min.js"></script>
+
+<div class="container-fluid">
+
+
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+
+
+
+            <div class="row">
+                <a class="pull-right" href="@Url.Action("Index", "IndProductividad")"> Ver rendimiento</a>
+            </div>
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="col-md-4">
+                        <div class="tile tile-default" title="Horas productivas que se esperan este mes" style="cursor:pointer;">
+                            <div class="title tile-default" id="LblObjetivo">0</div>
+                            <p>Objetivo</p>
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <div class="tile tile-success" id="wprod" title="Productividad respecto a lo esperado al momento vs lo actual (actual/esperado)" style="cursor:pointer;">
+                            <div class="title tile-default"><span id="LblProductividad"> </span> %</div>
+                            <p>Productividad actual</p>
+
+                        </div>
+
+
+
+
+                    </div>
+                    <div class="col-md-4">
+
+                        <div class="tile tile-info" title="Porcentaje logrado de acuerdo al objetivo mensual (actual/objetivo)" style="cursor:pointer;">
+                            <div class="title tile-default"><span id="LblProductividadMens"> </span> %</div>
+                            <p>Productividad mensual</p>
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="tile tile-default" title="Horas que hasta el día de hoy deberías de llevar" style="cursor:pointer;">
+                                <div class="title tile-default" id="LblEsperadas">0</div>
+                                <p>Esperadas</p>
+
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="tile tile-default" title="Horas liberadas y/o en validación (Si el mes ya terminó solo se contemplan las liberadas)" style="cursor:pointer;">
+                                <div class="title tile-default" id="LblActual">0</div>
+                                <p>Actual</p>
+
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="tile tile-default" title="Horas atrasadas de avance de acuerdo a lo esperado (esperado - actual)" style="cursor:pointer;">
+                                <div class="title tile-default" id="LblDesfaseH">0</div>
+                                <p>Horas desfase</p>
+
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="tile tile-default" title="Porcentaje de retraso que representa el desfase " style="cursor:pointer;">
+                                <div class="title tile-default" id="LblDesfaseP">0</div>
+                                <p>% Desfase</p>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+
+                    <div class="col-md-2 hide">
+                        <div class="widget" id="wret" title="Porcentaje del tiempo trabajado dedicado retrabajar o corregir defectos (retrabjo /actual)" style="cursor:pointer;">
+                            <div class="widget-title">Retrabajo</div>
+                            <div class="widget-int"><span data-toggle="counter" id="LblRetrabajoMens">  </span>%</div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+
+        </div>
+        <div class="filter-settings">
+            <div class="filter-settings-icon"><span class="glyphicon glyphicon-filter"></span></div>
+            <h5>Filtrar</h5>
+            <div class="filter-settings-row">
+                <label for="SelAnioHom">Año</label>
+                <select class="form-control selectpicker ReqFiltroCons" id="SelAnioHom" item="Año">
+                </select>
+            </div>
+            <div class="filter-settings-row">
+                <label for="SelAnio">Mes</label>
+                <select class="form-control ReqFiltroCons selectpicker" id="SelMesHom" item="Mes">
+                    <option selected="selected" value="-1">--Seleccione--</option>
+                    <option value="1">Enero</option>
+                    <option value="2">Febrero</option>
+                    <option value="3">Marzo</option>
+                    <option value="4">Abril</option>
+                    <option value="5">Mayo</option>
+                    <option value="6">Junio</option>
+                    <option value="7">Julio</option>
+                    <option value="8">Agosto</option>
+                    <option value="9">Septiembre</option>
+                    <option value="10">Octubre</option>
+                    <option value="11">Noviembre</option>
+                    <option value="12">Diciembre</option>
+
+                </select>
+            </div>
+            <div class="filter-settings-row" id="divRecurso">
+                <label for="SelRecursoHom">Recurso</label>
+                <select class="form-control selectpicker ReqFiltroCons" data-live-search="true" id="SelRecursoHom" item="Año">
+                    <option selected="selected" value="-1">--Seleccione--</option>
+
+                </select>
+
+            </div>
+
+            <div class="filter-settings-row">
+                <button class="btn btn-default" id="BtnFiltrarH">Aplicar</button>
+            </div>
+        </div>
+    </div>
+
+  
+
+    <div class="row">
+        <div class="panel-body tabs">
+            <ul class="nav nav-tabs" role="tablist">
+
+                @{
+                    if (ViewBag.TipoUsuario == 14)
+                    {
+
+                        <li class="active"><a href="#tab-first" role="tab" data-toggle="tab" id="Actividades">Mis actividades</a></li>
+                        <li><a href="#tab-querys" role="tab" data-toggle="tab" id=""> Mis Querys</a></li>
+                        <li><a href="#tab-second" role="tab" data-toggle="tab" id="Bugs"> Bugs</a></li>
+                        <li><a href="#tab-third" role="tab" data-toggle="tab" id="Comentarios">Comentarios</a></li>
+
+                    }
+                    else
+                    {
+                        <li class="active"><a href="#tab-four" role="tab" data-toggle="tab" id="Equipo">Mi Equipo</a></li>
+                        <li><a href="#tab-five" role="tab" data-toggle="tab" id="Captura">Captura</a></li>
+                        @*<li><a href="#tab-first" role="tab" data-toggle="tab" id="Actividades">Mis actividades</a></li>
+
+                        <li><a href="#tab-second" role="tab" data-toggle="tab" id="Bugs"> Bugs</a></li>
+                        <li><a href="#tab-third" role="tab" data-toggle="tab" id="Comentarios">Comentarios</a></li>*@
+                
+
+                    }
+                }
+
+
+
+
+
+            </ul>
+
+            <div class="panel-body tab-content">
+
+
+                @{
+                    if (ViewBag.TipoUsuario == 14)
+                    {
+
+                        <div class="tab-pane active" id="tab-first">
+
+                            <div id="CalendarH">
+
+                            </div>
+
+
+                        </div>
+                        <div class="tab-pane" id="tab-four">
+                            <div class="row">
+                                <div class="col-md-12" id="DivEquipo">
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="tab-pane" id="tab-first">
+                            <div id="CalendarH">
+
+                            </div>
+
+
+
+                        </div>
+                        <div class="tab-pane active" id="tab-four">
+                            <div class="row">
+                                <div class="col-md-12" id="DivEquipo">
+
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                }
+
+
+
+                <div class="tab-pane" id="tab-second">
+                    <div class="row">
+                        <a class="pull-right" href="@Url.Action("Bugs", "Actividades")"> Ir a Bugs</a>
+
+                    </div>
+                    <div class="row">
+                        <div class="tasks" id="pBugs">
+
+
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+                <div class="tab-pane" id="tab-querys">
+                    <div class="row">
+                     
+                        <div class="col-md-6 col-xs-12">
+                            <h3> Creados por mi</h3>
+                            <table id="TbQuerysM" data-cookie="true" data-cookie-id-table="table" data-pagination="true" data-page-list="[10, 25, 50, 100, all]" data-mobile-responsive="true" data-show-header="false">
+                            </table>
+
+                        </div>
+                        <div class="col-md-6 col-xs-12">
+                            <h3> Compartidos conmigo</h3>
+                            <table id="TbQuerysC" data-cookie="true" data-cookie-id-table="table" data-pagination="true" data-page-list="[10, 25, 50, 100, all]" data-mobile-responsive="true" data-show-header="false">
+                            </table>
+
+                        </div>
+                      
+                    </div>
+
+
+                </div>
+
+                <div class="tab-pane" id="tab-five">
+
+
+                    <div class="row" style="padding-bottom:10px;">
+                        <div class="col-md-12">
+                            <div class="btn-group ">
+                                <a class="btn btn-info" id="BtnVerValorGanado">Valor ganado</a>
+                                <a class="btn btn-default" id="BtnVerCapturas">Tiempos capturados</a>
+                                <a class="btn btn-default" id="BtnVerAccesos">Accesos</a>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row " style="padding-bottom:10px;">
+                        <div class="col-md-12">
+
+                            <div id="DivCapturas">
+                                <div class="table-responsive">
+                                    <table id="TblCapturaTiempo" class="table text dataTable datatable">
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div id="DivAccesos">
+                                <div class="table-responsive">
+                                    <table id="TblAccesos" class="table text dataTable datatable">
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div id="DivValorGanado">
+                                <div class="table-responsive">
+                                    <table id="TblValorGanado" class="table text dataTable datatable">
+                                    </table>
+                                </div>
+                            </div>
+
+
+
+
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+
+                <div class="tab-pane" id="tab-third">
+                    <div class="row">
+                        <div class="messages messages-img" id="pComentarios">
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+    </div>
+
+    <div id="scripts">
+
+    </div>
+
+
+
+
+    @{
+
+        if (ViewBag.TipoUsuario == 140)
+        {
+            <h3> Cumplimiento captura</h3>
+            <div class="panel-body">
+                <div class="row" id="tarjetas1">
+
+                    @foreach (var c in ViewBag.Cumplimiento)
+                    {
+                        var imagen = c.NumEmpleado + ".jpg";
+
+                        <div class="col-md-3">
+                            <div class="card">
+                                <img src="http://app.yitpro.com/Archivos/Fotos/@imagen" alt="@c.NumEmpleado" class="img-resource" style="margin-left:30%">
+                                <br />
+                                <a style="cursor:pointer;" onclick="ConsultaPerfil(@c.IdUsuario)"> <h4 style="margin-top:5px;"> @c.NombreCompleto</h4></a>
+                                <h4> Fecha última captura: @c.FechaUltCapturaStr </h4>
+
+                                @if (c.Cumplimiento == 0)
+                                {
+                                    <button class="btn btn-danger btn-block"><h4 style="margin-bottom:0px; color:#FFFFFF">ATRASADO</h4></button>
+                                }
+                                else
+                                {
+                                    <button class="btn btn-success btn-block"><h4 style="margin-bottom:0px; color:#FFFFFF">ACTUALIZADO</h4> </button>
+                                }
+
+
+                            </div>
+                        </div>
+
+                    }
+
+
+
+
+
+
+                </div>
+            </div>
+        }
+        else
+        {
+
+           
+        }
+
+    }
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<style>
+    .panel-heading {
+        display: table;
+        height: 56px;
+    }
+
+    .panel-title-box {
+        display: table-cell;
+        vertical-align: middle;
+        float: none !important;
+    }
+</style>
+
+
+
+
+@{
+    Random rnd = new Random();
+    @*<script src="~/Scripts/Project/Home.js?@rnd.Next()"></script>*@
+    <script src="~/Scripts/Project/Home.js"></script>
+
+}
+
+
+
+@Html.Hidden("urlInicializar", @Url.Action("Inicializar", "Home"))
+@Html.Hidden("urlIndicadores", @Url.Action("ObtieneIndicadores", "Home"))
+@Html.Hidden("urlIndicadoresV2", @Url.Action("ObtieneIndicadoresV2", "Home"))
+<input type="hidden" id="urlActualizaEstatus" value="@Url.Action("CambiaEstatus","Actividades")" />
+
+
+
+<input type="hidden" id="IdSharedAct" value=" @ViewBag.IdSharedAct " />

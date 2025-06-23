@@ -1,0 +1,738 @@
+﻿
+@using AxProductividad.Models;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=YES">
+
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="white">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="black">
+
+    <title> YITPRO | @ViewBag.Title </title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="~/Content/DHTMLXGantt/dhtmlxgantt.css" />
+    <link rel="stylesheet" href="~/Content/DHTMLXGantt/skins/dhtmlxgantt_material.css" />
+    @*<link rel="stylesheet" href="~/Content/yitpro.css" />*@
+
+    @*<link rel="stylesheet" href="~/Content/fullcalendar.css" />*@
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+
+    <script type="text/javascript" src="~/Scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>
+
+    <script src="https://fastly.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+    @*<script src="~/Scripts/jquery.tagsinput.min.js"></script>*@
+    @*<script src="~/Scripts/echartsv5.min.js"></script>*@
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.4.1.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="https://use.fontawesome.com/234ae4dc96.js"></script>
+    <script src="~/Scripts/moment.js"></script>
+    <script src="~/Scripts/moment-with-locales.js"></script>
+    <script src="~/Scripts/fullcalendar.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.5/dist/locale-all.min.js"></script>
+
+    <script src="~/Scripts/jquery.tagsinput.min.js"></script>
+
+    <link href="~/Content/Emoji/emoji.css" rel="stylesheet">
+
+    <script src="~/Scripts/Emoji/config.min.js"></script>
+    <script src="~/Scripts/Emoji/util.min.js"></script>
+    <script src="~/Scripts/Emoji/jquery.emojiarea.min.js"></script>
+    <script src="~/Scripts/Emoji/emoji-picker.min.js"></script>
+    <script src="~/Scripts/tinymce/tinymce.min.js"></script>
+
+
+
+</head>
+<body>
+    @{
+        var asistencia = ((bool)Session["Asistencia" + Session.SessionID]);
+
+        if (asistencia)
+        {
+
+            <nav class="social">
+                <ul>
+                    <li onclick="CapturaAsistencia();"><a href="#"><i class="fa fa-clock-o"></i>  Asistencia</a></li>
+                </ul>
+            </nav>
+        }
+
+    }
+
+
+
+
+    <div class="page-container">
+
+        @*<div class="page-container page-navigation-toggled page-container-wide">*@
+        <div class="page-sidebar" style="background-color:#F9FBFD">
+            <ul class="x-navigation">
+                @*<ul class="x-navigation x-navigation-minimized">*@
+                <li class="xn-logo xn-principal ">
+
+                    @{
+
+                        var home = ((string)Session["Home" + Session.SessionID]);
+
+
+                        <a href=@home></a>
+                    }
+                    <a href="#" class="x-navigation-control xn-principal"></a>
+                </li>
+                <li class="xn-title">
+
+                    @{
+                        var Userd = ((Sesion)Session["usuario" + Session.SessionID]).Usuario;
+
+                        if (Userd.CantOrg > 0)
+                        {
+                            <button class="btn btn-default btn-grid" id="BtnOrganizacion"> <span class="fa fa-refresh"></span> </button>
+                        }
+
+                        @Userd.DescripcionDepartamento
+
+
+                    }
+
+                </li>
+
+                @*Proyectos*@
+
+                @*{
+
+                        var U = ((Sesion)Session["usuario" + Session.SessionID]).Usuario;
+                        if (U.IdTipoUsuario == 15 || U.IdTipoUsuario == 17)
+                        {
+
+
+
+                            <li class="xn-openable">
+
+                                <a style="cursor:pointer" href="#" title="Proyectos recientes"><span class="fa fa-folder-open"></span> <span class="xn-text">Mis Proyectos</span></a>
+                                <ul>
+
+                                    @{ foreach (var i in LstProyectos)
+                                        {
+
+                                            <li><a style="cursor:pointer" href="@Url.Action("Proyecto", "Proyectos", new { Id = i.Clave })" title="@i.Nombre"><span class="fa fa-share"></span> <span>@i.Nombre</span></a></li>
+
+
+                                        }
+                                    }
+                                </ul>
+                            </li>
+
+
+
+                        }
+                    }
+
+
+                    @*Menú*@
+
+                @{
+                    var lstMenu = ((Sesion)Session["usuario" + Session.SessionID]).Menu;
+                    var lstMenuPadres = lstMenu.Where(menu => menu.IdMenuPadre == null).OrderBy(id => id.Orden).ToList();
+
+                    foreach (var item in lstMenuPadres)
+                    {
+                        var hijos = lstMenu.Where(subMenu => subMenu.IdMenuPadre == item.IdMenu).OrderBy(id => id.Orden).ToList();
+
+                        if (hijos.Count > 0)
+                        {
+                            <li class="xn-openable">
+
+                                <a href="#"><span class="@item.Icono"></span> <span class="xn-text">@item.Descripcion</span></a>
+                                <ul>
+
+                                    @{ foreach (var hijo in hijos)
+                                        {
+                                            <li><a href="@Url.Action(@hijo.Accion, @hijo.Controlador)"><span class="@hijo.Icono"></span>@hijo.Descripcion</a></li>
+                                        }
+
+                                        if (item.Descripcion == "Querys")
+                                        {
+                                            var Querys = ((Sesion)Session["usuario" + Session.SessionID]).Querys.ToList();
+                                            foreach (var y in Querys)
+                                            {
+
+                                                <li><a style="cursor:pointer" href="@Url.Action("q", "Querys", new { Id = y.IdUnique })" title="@y.Nombre" target="_blank"><span class="fa fa-flash"></span> <span>@y.Nombre</span></a></li>
+
+
+                                            }
+                                        }
+
+
+                                        if (item.Descripcion == "Workspace")
+                                        {
+                                            var WS = ((Sesion)Session["usuario" + Session.SessionID]).Workspaces.ToList();
+                                            foreach (var w in WS)
+                                            {
+
+                                                <li><a style="cursor:pointer" href="@Url.Action("w", "Workspace", new { Id = w.IdUnique })" title="@w.Nombre"> <span>@w.Nombre</span></a></li>
+
+
+                                            }
+                                        }
+                                    }
+
+
+
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+
+                            <li><a href="@Url.Action(@item.Accion, @item.Controlador)" title="@item.Descripcion"><span class="@item.Icono"></span> <span class="xn-text">@item.Descripcion</span></a></li>
+
+                        }
+                    }
+
+                }
+
+
+
+
+
+
+            </ul>
+
+        </div>
+
+        <div class="page-content" style="height: auto !important">
+
+            <ul class="x-navigation x-navigation-horizontal x-navigation-panel">
+                <li class="xn-icon-button xn-principal">
+                    <a href="#" class="x-navigation-minimize xn-principal" id="BMinimizar"><span class="fa fa-dedent"></span></a>
+                </li>
+                <li class="xn-icon-button pull-right xn-principal">
+                    <a href="#" class="mb-control xn-principal" data-box="#mb-signout"><span class="fa fa-sign-out"></span></a>
+                </li>
+                <li class="xn-icon-user pull-right xn-principal hidden-xs" style="padding:0px;">
+
+
+                    @{
+                        Random rndl = new Random();
+
+
+                        var User = ((Sesion)Session["usuario" + Session.SessionID]).Usuario;
+                        var imagen = User.NumEmpleado + ".jpg?" + rndl.Next();
+
+
+                        <a class="mb-control xn-principal" style="padding:0px;cursor:pointer;" onclick="ConsultaPerfil('@User.NumEmpleado')">
+                            <img class="img-circle" style="width:50px; height:50px;" src="~/Archivos/Fotos/@imagen" /> @User.NombreCompleto
+
+                        </a>
+
+
+                    }
+
+
+                </li>
+
+
+                <li class="xn-icon-button pull-right xn-principal" title="Cambiar contraseña">
+                    <a href="#" class="mb-control btn-CambiarPass xn-principal"><span class="fa fa-key"></span></a>
+                </li>
+
+
+
+
+
+                @{
+
+                    var User2 = ((Sesion)Session["usuario" + Session.SessionID]).Usuario;
+                    if (User2.Captura)
+                    {
+                        <li class="xn-icon-button pull-right hidden-xs">
+                            <a href="#" class="xn-principal"><span class="fa fa-plus-circle"></span></a>
+                            <div class="panel panel-primary animated zoomIn xn-drop-left xn-panel-dragging">
+                                <div class="panel-body list-group list-group-contacts">
+                                    @{
+                                        var Workitems = ((Sesion)Session["usuario" + Session.SessionID]).WorkItems;
+                                        foreach (var item in Workitems)
+                                        {
+                                            <a href="#" class="list-group-item" onclick="newItem(@item.ActividadTipoId);">
+                                                <img src="~/Content/Project/Imagenes/@item.Url" style="height:24px; width:24px;" class="pull-left" alt="@item.Nombre">
+                                                <span class="contacts-title">@item.Nombre</span>
+                                            </a>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </li>
+                    }
+
+                }
+
+
+                <li class="xn-icon-button pull-right xn-principal" title="Notificaciones">
+                    <a href="#" class="mb-control  xn-principal ts-button"><span class="fa fa-bell-o"></span></a>
+                    <div class="informer informer-danger" id="NoNotif"></div>
+                </li>
+
+
+                <li class="xn-icon-button pull-right hidden" id="list-tracking-clock" style="height: 50px; width:50px">
+
+
+                    <a href="#" class="xn-principal dropdown-toggle" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fa fa-clock-o"></span></a>
+                    <div class="informer informer-danger" style="right: -5px" id="count-tracking-clock"></div>
+
+                    <div id="clock-tracking" class="dropdown-menu" aria-labelledby="dropdownMenu2"
+                         style="left: -95px; padding: 15px; width: 250px; max-height: 350px; overflow-x: auto;">
+                    </div>
+
+                </li>
+
+
+                <li class="hidden-xs">
+
+                    <h3 style="margin-top:20px;" class="" id="hTitle"> @ViewBag.Title </h3>
+
+
+
+                </li>
+
+
+
+
+
+
+                @{
+
+                    var UserS = ((Sesion)Session["usuario" + Session.SessionID]).Usuario;
+                    if (UserS.IdTipoUsuario != 19)
+                    {
+
+                        <li class="xn-icon-button pull-right hidden-xs" title="Capturar actividad">
+                            <a href="#" class="xn-principal search-icon" aria-expanded="false"><span class="fa fa-search "></span></a>
+
+                        </li>
+
+
+                        <li class="hidden-xs pull-right xn-icon-button">
+                            <div id="divsel" style="padding: 10px 0px;">
+                                <select style="width:500px;" multiple="multiple" class="hidden" id="SelActividadSearch"></select>
+                            </div>
+                        </li>
+                    }
+
+                }
+
+
+
+
+
+            </ul>
+
+
+            <div class="mensajes" style="z-index: 9999; position: absolute"></div>
+            <div class="mensajesConfirmacion" style="z-index: 9999; position: absolute"></div>
+            <div class="page-content-wrap">
+
+                @RenderBody()
+
+
+            </div>
+        </div>
+    </div>
+    <div class="message-box animated fadeIn" data-sound="alert" id="mb-signout">
+        <div class="mb-container">
+            <div class="mb-middle">
+                <div class="mb-title"><span class="fa fa-sign-out"></span>¿Deseas <strong>Salir</strong> ?</div>
+
+                <div class="mb-footer">
+                    <div class="pull-right">
+                        <a href=@Url.Action("Index", "Login") class="btn btn-success btn-lg">Si</a>
+                        <button class="btn btn-default btn-lg mb-control-close">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="theme-settings ">
+        @*<div class="ts-button"><span class="fa fa-cog"></span></div>*@
+
+
+        <div class="ts-body">
+            <div class="ts-title">
+
+                <button type="button" id="BtnCloseNotif" class="close pull-left" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+                <div class="btn-group pull-right">
+                    <a class="btn btn-info" id="BtnVerInternas">Internas</a>
+                    <a class="btn btn-default" id="BtnVerExternas">Clientes</a>
+                </div>
+
+            </div>
+
+            <div class="ts-row" style="padding-top:10px" id="">
+                <div class="messages messages-img" id="NotInternas" style="height:950px; overflow:scroll;background-color:#FFF;padding-top:10px;">
+                </div>
+                <div class="messages messages-img" id="NotExternas" style="height: 950px; overflow: scroll; background-color: #FFF;padding-top:10px;">
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <!-- Modal cambio contraseña-->
+    <div class="modal" id="ModalContrasenia" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" id="BtnCerrarPass" class="close btn-PassClose" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="defModalHead">Cambio de contraseña</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group">
+
+                            <div class="col-md-3 col-xs-14 text-left"><label class="control-label">Contraseña anterior:</label></div>
+                            <div class="col-md-9 col-xs-14"><input type="password" class="form-control ReqPass" id="TxtContrasenaAnterior" item="Contraseña anterior" /> </div><br /><br />
+
+                        </div>
+                        <div class="form-group">
+
+                            <div class="col-md-3 col-xs-14 text-left"><label class="control-label">Nueva contraseña:</label></div>
+                            <div class="col-md-9 col-xs-14"><input type="password" class="form-control ReqPass" id="TxtContrasenaNueva" item="Nueva contraseña" /> </div><br /><br />
+
+                        </div>
+                        <div class="form-group">
+
+                            <div class="col-md-3 col-xs-14 text-left"><label class="control-label">Confirmar contraseña:</label></div>
+                            <div class="col-md-9 col-xs-14"><input type="password" class="form-control ReqPass" id="TxtConfirmarContrasena" item="Confirmación de contraseña" /> </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="BtnGuardarPass" class="btn btn-success btn-GuardarPass" data-dismiss="modal">Guardar<span class="fa fa-floppy-o fa-right"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal" id="ModalFeels" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                @{
+                    var User4 = ((Sesion)Session["usuario" + Session.SessionID]).Usuario;
+                    <div class="modal-body">
+                        <br />
+
+
+                        <h4 class="control-label">Hola @User4.Nombre ¿Como te sientes hoy?</h4>
+                        <div class="row">
+
+
+
+
+
+
+
+
+
+                            <br />
+                            <div class="col-md-12">
+                                <div class="col-md-2 text-center">
+                                    <button class="btn btn-default btnUF" id="BtnUFHappy" style="border-color:#FFF !important" onclick="SeleccionarUF(1, '#BtnUFHappy');">
+                                        <img src="data:image/png;base64,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">
+
+                                    </button>
+                                    <label class="text-center"> Feliz</label>
+                                </div>
+                                <div class="col-md-2 text-center">
+                                    <button class="btn btn-default btnUF" id="BtnUFMotivated" style="border-color:#FFF !important" onclick="SeleccionarUF(2, '#BtnUFMotivated');">
+                                        <img src="data:image/png;base64,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">
+                                    </button>
+                                    <label class="text-center"> Motivado</label>
+                                </div>
+                                <div class="col-md-2 text-center">
+                                    <button class="btn btn-default btnUF" id="BtnUFStress" style="border-color:#FFF !important" onclick="SeleccionarUF(7, '#BtnUFStress');">
+                                        <img src="data:image/png;base64,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">
+                                    </button>
+                                    <label class="text-center"> Estresado</label>
+                                </div>
+                                <div class="col-md-2 text-center">
+                                    <button class="btn btn-default btnUF" id="BtnUFSad" style="border-color:#FFF !important" onclick="SeleccionarUF(4, '#BtnUFSad');">
+                                        <img src="data:image/png;base64,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">
+                                    </button>
+                                    <label class="text-center"> Triste</label>
+                                </div>
+                                <div class="col-md-2 text-center">
+                                    <button class="btn btn-default btnUF" id="BtnUFTired" style="border-color:#FFF !important" onclick="SeleccionarUF(5, '#BtnUFTired');">
+
+                                        <img src="data:image/png;base64,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">
+                                    </button>
+                                    <label class="text-center"> Cansado</label>
+                                </div>
+                                <div class="col-md-2 text-center">
+                                    <button class="btn btn-default btnUF" id="BtnUFAngry" style="border-color:#FFF !important" onclick="SeleccionarUF(6, '#BtnUFAngry');">
+                                        <img src="data:image/png;base64,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">
+                                    </button>
+                                    <label class="text-center"> Enojado</label>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+
+                        @if (User4.Contesta == 1)
+                        {
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h4 class="control-label"> <b>@User4.Pregunta</b> </h4>
+                                    <input type="hidden" id="IdPregunta" value="@User4.IdPregunta" />
+
+                                    <textarea class="form-control ReqF" style="min-width:100%" rows="5" id="TxtFComentariosUF" item="Respuesta" maxlength="3000"></textarea>
+                                </div>
+                            </div>
+
+                        }
+                        else
+                        {
+                            <input type="hidden" id="IdPregunta" value="0" />
+                            <textarea class="hide" type="hidden" id="TxtFComentariosUF"></textarea>
+
+                        }
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="BtnGuardarFeels" class="btn btn-info btn-GuardaFeels btn-lg" data-dismiss="modal">ENVIAR </button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal" id="ModalChangeOrg" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" id="BtnCerrarPass" class="close btn-PassClose" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="defModalHead">Cambiar de organización</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table datatable text" id="TblOrganizacion">
+                            <thead>
+                                <tr>
+                                    <th>Organización</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    @Html.Hidden("usuario-correo")
+
+    <script type="text/javascript" src="~/Scripts/timeout-dialog.js"></script>
+
+    <input type="hidden" id="urlTracking" value="@Url.Action("Tracking", "Actividades")" />
+    @Html.Hidden("urlActualizaPass", @Url.Action("ActualizaContrasenia", "Usuarios"))
+    @Html.Hidden("urlAlertas", @Url.Action("ActualizaAlerta", "Home"))
+    @Html.Hidden("urlKeepAlive", @Url.Action("Keepalive", "Home"))
+
+    <input type="hidden" id="urlBuscarActividades" value="@Url.Action("BuscarActividades","Actividades")" />
+    <input type="hidden" id="urlGuardarTracking" value="@Url.Action("GuardarTracking", "Actividades")" />
+    <input type="hidden" id="urlGuardarUF" value="@Url.Action("GuardarFeels", "Usuarios")" />
+    <input type="hidden" id="ResultadoUF" value="0" />
+
+    @{
+        var capf = ((int)Session["CapturaF" + Session.SessionID]);
+        <input type="hidden" id="CapturaF" value="@capf" />
+
+    }
+
+
+    @{
+        var cv = ((int)Session["CV" + Session.SessionID]);
+        <input type="hidden" id="CV" value="@cv" />
+
+    }
+
+
+
+
+    <script language="javascript" type="text/javascript">
+
+
+        function CargaLoading() {
+            if (window.loading_screen === undefined) {
+                window.loading_screen = window.pleaseWait({
+                logo: "@Url.Content("~/Content/Project/Imagenes/LogoPrincipal.png")",
+                backgroundColor: 'rgba(255,255,255,0.8)',
+                immediately: false,
+               // loadingHtml: "<i class='fa fa-rotate-right fa-spin text-default'></i><p class='loading-message'>Cargando...</p>"
+                loadingHtml: " <i class='fa fa-circle-o-notch fa-spin' style='font-size:48px;color:#cf257d'></i>"
+
+            });
+            }
+        }
+        function FinalizaLoading() {
+            if (window.loading_screen !== undefined) {
+                window.loading_screen.finish();
+                window.loading_screen = undefined;
+             }
+         }
+
+         $(document).ready(function () {
+             setInterval(Keepalive, 180000);
+
+             var loadingTimeout;
+           /*  javascript: window.history.forward(1);*/
+
+             $.ajaxSetup({
+                 beforeSend: function () {
+                    CargaLoading();
+                 },
+                 complete: function () {
+                     FinalizaLoading();
+                     page_content_onresize();
+                     setTimeout(() => {
+                         resizeTaskList();
+                         page_content_onresize();
+                     }, 2500);
+                 },
+                 error: function () {
+                     FinalizaLoading();
+                     page_content_onresize();
+
+                 }
+             });
+
+
+             ActualizaAlerta();
+
+
+             setInterval(ActualizaAlerta, 180000);
+
+         });
+
+
+         //function ActualizaAlerta() {
+         //    var url = $('#urlAlertas').val();
+
+         //    $.ajax({
+
+         //        url: url,
+         //        type: "POST",
+         //        contentType: "application/json; charset=utf-8",
+         //        dataType: "json",
+         //        async: false,
+         //      /*  beforeSend: function () { return;},*/
+         //        success: function (data) {
+
+         //            if (data.Exito) {
+
+         //                $('#NotInternas').empty();
+         //                $('#NotExternas').empty();
+
+         //                $('#NoNotif').text(data.NoAlertas);
+
+         //                $('#NotInternas').append(data.ComentariosI);
+         //                $('#NotExternas').append(data.ComentariosE);
+
+         //            }
+         //            else {
+
+         //                MensajeError(data.Mensaje);
+         //            }
+         //        },
+         //        error: function (xmlHttpRequest, textStatus, errorThrown) {
+
+         //            MensajeError(data.Mensaje);
+         //        }
+         //    });
+         //    return false;
+
+         //}
+
+         function Keepalive() {
+
+             var url = $('#urlKeepAlive').val();
+
+             $.ajax({
+
+                 url: url,
+                 type: "POST",
+                 contentType: "application/json; charset=utf-8",
+                 dataType: "json",
+                 async: false,
+                 success: function (data) {
+                     $('div.pg-loading-screen').remove();
+                 },
+
+             });
+             return false;
+         }
+
+        $(".ts-button").on("click", function () {
+            $(".theme-settings").toggleClass("active");
+        });
+
+
+        $("#BtnCloseNotif").on("click", function () {
+            $(".theme-settings").toggleClass("active");
+        });
+
+    </script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/Layout")
+
+
+    @Html.Partial("~/Views/QA/RunTC.cshtml")
+    @Html.Partial("~/Views/Actividades/Actividades.cshtml")
+    @RenderSection("scripts", required: false)
+
+    @Html.Partial("~/Views/Actividades/ListaActividades.cshtml")
+    @Html.Partial("~/Views/Actividades/ListaTrabajoCapturado.cshtml")
+
+    @Html.Partial("~/Views/Actividades/Validaciones.cshtml")
+    @Html.Partial("~/Views/Actividades/Rechazo.cshtml")
+
+    @Html.Partial("~/Views/Actividades/CapturaTamano.cshtml")
+    @Html.Partial("~/Views/Usuarios/Perfil.cshtml")
+    @Html.Partial("~/Views/Usuarios/Asistencia.cshtml")
+
+
+    @Html.Partial("~/Views/Actividades/CapturaTrabajo.cshtml")
+    @Html.Partial("~/Views/Chat/yitprin.cshtml")
+
+</body>
+</html>

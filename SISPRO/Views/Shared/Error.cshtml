@@ -1,0 +1,120 @@
+﻿@*@model System.Web.Mvc.HandleErrorInfo
+
+    @{
+        ViewBag.Title = "Home";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    <h1 class="text-danger">Error.</h1>
+    <h2 class="text-danger">An error occurred while processing your request.</h2>
+
+    <div class="page-content-wrap">
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="error-container">
+                    <div class="error-code">404</div>
+                    <div class="error-text">page not found</div>
+                    <div class="error-subtext">Unfortunately we're having trouble loading the page you are looking for. Please wait a moment and try again or use action below.</div>
+                    <div class="error-actions">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button class="btn btn-info btn-block btn-lg" onclick="document.location.href = 'index.html';">Back to dashboard</button>
+                            </div>
+                            <div class="col-md-6">
+                                <button class="btn btn-primary btn-block btn-lg" onclick="history.back();">Previous page</button>
+                            </div>
+                        </div>
+                    </div>
+    >
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>*@
+@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=YES">
+
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="white">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="black">
+
+    <title>YITPRO  - ERROR</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+    <link href="~/Content/theme-default.css" rel="stylesheet" />
+    @*<link href="~/Content/yitpro.css" rel="stylesheet" />*@
+
+    <script type="text/javascript" src="~/Scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>
+    <script src="https://use.fontawesome.com/234ae4dc96.js"></script>
+
+
+
+
+</head>
+
+
+
+<body>
+    <div class="error-container">
+        <div class="error-code">Oh, algo salió mal...</div>
+        <div class="error-text">Ha ocurrido un error inesperado o se ha realizado una petición no autorizada</div>
+        <div class="error-subtext">Consulte al administrador del sistema.</div>
+        <div class="error-actions">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>
+                        @Model.Exception.StackTrace
+                    </p>
+
+                    @{
+
+                        var home = ((string)Session["Home" + Session.SessionID]);
+                        <a class="btn btn-info btn-block btn-lg" href="@home">Regresar al inicio</a>
+
+                    }
+
+
+
+                </div>
+                <p>
+                    @Model.Exception.Message
+                </p>
+                <p>
+                    @Model.Exception.Source
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+</body>
+
+
+</html>

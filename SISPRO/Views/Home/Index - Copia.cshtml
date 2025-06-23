@@ -1,0 +1,129 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript" src="~/Scripts/echarts.min.js"></script>
+<script type="text/javascript" src="~/Scripts/codemirror.js"></script>
+
+
+<div class="container-fluid">
+
+    <blockquote>
+        <p>Frase del día:</p>
+        <i class="fa fa-quote-left"></i><h2 id="LblFrase"></h2><i class="fa fa-quote-right"></i>
+        <small id="LblFraseA"> </small>
+    </blockquote>
+
+    <div class="row">
+
+        <div class="col-md-2">
+            <div class="widget widget-default widget-item-icon">
+                <div class="widget-item-left">
+                    <span class="fa fa-star"></span>
+                </div>
+                <div class="widget-data">
+                    <div class="widget-int num-count" id="LblProductividad">0</div> %
+                    <div class="widget-title">Productividad</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="widget widget-default widget-item-icon" >
+                <div class="widget-item-left">
+                    <span class="fa fa-dot-circle-o"></span>
+                </div>
+                <div class="widget-data">
+                    <div class="widget-int num-count" id="LblObjetivo">0</div>
+                    <div class="widget-title" id="LblObjetivoTitulo"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="widget widget-default widget-item-icon">
+                <div class="widget-item-left">
+                    <span class="fa fa-bookmark"></span>
+                </div>
+                <div class="widget-data">
+                    <div class="widget-int num-count" id="LblAsignadas">0</div>
+                    <div class="widget-title" >Asignadas</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="widget widget-default widget-item-icon">
+                <div class="widget-item-left">
+                    <span class="fa fa-exclamation-circle"></span>
+                </div>
+                <div class="widget-data">
+                    <div class="widget-int num-count" id="LblValidacion">0</div>
+                    <div class="widget-title">Validación</div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="widget widget-default widget-item-icon" >
+                <div class="widget-item-left">
+                    <span class="fa fa-check-circle"></span>
+                </div>
+                <div class="widget-data">
+                    <div class="widget-int num-count" id="LblLiberadas">0</div>
+                    <div class="widget-title">Liberadas</div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-2">
+            <div class="widget widget-default widget-item-icon">
+                <div class="widget-item-left">
+                    <span class="fa fa-times-circle"></span>
+                </div>
+                <div class="widget-data">
+                    <div class="widget-int num-count" id="LblRechazadas">0</div>
+                    <div class="widget-title">Rechazadas</div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <small id="LblFraseA">*La productividad esta sujeta a la revisión de las actividades por el Líder de proyecto</small>
+    <div class="row">
+
+
+        <div class="panel-body padding-0">
+            <div id="graficadiaria" style="height:350px;" class="img-responsive"></div>
+        </div>
+        <div id="scriptsgraficadiaria">
+
+        </div>
+
+
+
+            </div>
+
+  </div>
+
+
+<style>
+    .panel-heading {
+        display: table;
+        height: 56px;
+    }
+    .panel-title-box {
+        display: table-cell;
+        vertical-align: middle;
+        float: none !important;
+    }
+</style>
+
+<script type="text/javascript" src="~/Scripts/Project/Home.js"></script>
+@Html.Hidden("urlInicializar", @Url.Action("Inicializar", "Home"))
+@Html.Hidden("urlIndicadores", @Url.Action("ObtieneIndicadores", "Home"))
+

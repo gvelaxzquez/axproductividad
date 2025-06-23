@@ -1,0 +1,37 @@
+﻿
+
+
+<div class="modal" id="ModalImportarPeerReviews" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close btn-PassClose" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="defModalHead">Generar Peer Reviews desde XLSX</h4>
+            </div>
+            <br />
+            <br />
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-3 col-xs-12 control-label">Archivo (.XSLX)</label>
+                        <div class="col-md-6 col-xs-12">
+                            <input accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" type="file" class="fileinput btn-primary fa fa-upload" name="files[]" id="FlImportaActividadesPR" title="Cargar" />
+                            <span class="help-block "></span>
+                        </div>
+                       
+                    </div>
+                    <br />
+
+                    <div class="form-group">
+
+                        <div class="col-md-12 col-xs-12 text-left"><label class="control-label">Descargar <a href="~/Archivos/Formatos/Layout_PR.xlsx"> ejemplo formato XSLX </a> para ver el formato requerido.</label></div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="BtnImportarActividadPR" class="btn btn-success hidden" data-dismiss="modal" ><span class="fa fa-arrow-circle-up"></span>Cargar </button>
+            </div>
+        </div>
+    </div>
+</div>

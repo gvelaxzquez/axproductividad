@@ -1,0 +1,994 @@
+Delivered-To: jmmezquitic@gmail.com
+Received: by 2002:a05:6a20:1217:b0:5b:f9f3:dc1b with SMTP id v23csp1526697pzf;
+        Tue, 9 Nov 2021 10:48:10 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJxRDQL85e38K3B1W26RDRgLxDIINEwwaTdXthFmSyMe3VirQqXfglWWHY4IX1VeC/qXLoeLLYzHyBs=
+X-Received: by 2002:a05:6130:305:: with SMTP id ay5mr13443625uab.73.1636483687343;
+        Tue, 09 Nov 2021 10:48:07 -0800 (PST)
+Authentication-Results: mx.google.com;
+       spf=neutral (google.com: 187.160.11.201 is neither permitted nor denied by best guess record for domain of postmaster@desktop5q7vl20) smtp.mailfrom=DESKTOP5Q7VL20
+Received-SPF: neutral (google.com: 187.160.11.201 is neither permitted nor denied by best guess record for domain of postmaster@desktop5q7vl20) client-ip=187.160.11.201;
+Received: by 2002:ab0:2157:: with POP3 id t23mf459964ual.1;
+        Tue, 09 Nov 2021 10:48:07 -0800 (PST)
+X-Gmail-Fetch-Info: jmartinez@axsistec.com 1 mail.axsistec.com 110 jmartinez
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on dns14.sysop14.com
+X-Spam-Level: 
+X-Spam-Status: No, score=-101.0 required=5.0 tests=ALL_TRUSTED,HTML_MESSAGE,
+	URIBL_BLOCKED,USER_IN_WELCOMELIST,USER_IN_WHITELIST autolearn=disabled
+	version=3.3.1
+Received: (qmail 6575 invoked from network); 9 Nov 2021 12:42:03 -0600
+Received: from cablelink-187-160-11-201.pcs.intercable.net (HELO DESKTOP5Q7VL20) (187.160.11.201)
+  by dns14.sysop14.com with ESMTPA; 9 Nov 2021 12:42:03 -0600
+From: <isaldivar@axsistec.com>
+To: =?iso-8859-1?Q?'ROC=CDO_DEYANIRA_BECERRA_ARMEND=C1RIZ'?= <rocio.becerra@pjenl.gob.mx>,
+	<maria.rangel@pjenl.gob.mx>,
+	=?iso-8859-1?Q?'MAR=CDA_DEL_CARMEN_=C1LVAREZ_RODR=CDGUEZ'?= <maria.alvarez@pjenl.gob.mx>
+Cc: <jmartinez@axsistec.com>,
+	<amarcelino@axsistec.com>,
+	<hfuentes@axsistec.com>,
+	<ocasillas@axsistec.com>
+References: 
+In-Reply-To: 
+Subject: =?iso-8859-1?Q?RV:_Minuta__de__Revisi=F3n_de_Avance_y_pendientes_del_Sist?=
+	=?iso-8859-1?Q?ema_UMC?=
+Date: Tue, 9 Nov 2021 12:42:50 -0600
+Message-ID: <000f01d7d599$9bb08b30$d311a190$@axsistec.com>
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+	boundary="----=_NextPart_000_0010_01D7D567.51197690"
+X-Priority: 1 (Highest)
+X-MSMail-Priority: High
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AdfLf+wvy4bk+XSdTVqqOMMWJlyUZAGQXIIAAPX8huA=
+Content-Language: es-mx
+Importance: High
+
+This is a multipart message in MIME format.
+
+------=_NextPart_000_0010_01D7D567.51197690
+Content-Type: text/plain;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Buena tarde,
+
+=20
+
+Roc=EDo,
+
+=20
+
+Para saber si tienen alg=FAn comentario correspondiente al pendiente de =
+la
+tecnolog=EDa con la que se realizar=E1 el m=F3dulo de Actuario M=F3vil, =
+cualquier
+duda quedamos al pendiente.
+
+=20
+
+Saludos,
+
+=20
+
+De: isaldivar@axsistec.com <isaldivar@axsistec.com>=20
+Enviado el: jueves, 4 de noviembre de 2021 03:18 p. m.
+Para: 'maria.rangel@pjenl.gob.mx' <maria.rangel@pjenl.gob.mx>; 'MAR=CDA =
+DEL
+CARMEN =C1LVAREZ RODR=CDGUEZ' <maria.alvarez@pjenl.gob.mx>;
+hfuentes@axsistec.com; 'ROC=CDO DEYANIRA BECERRA ARMEND=C1RIZ'
+<rocio.becerra@pjenl.gob.mx>; 'SANTIAGO GARC=CDA PUENTE'
+<santiago.puente@pjenl.gob.mx>; 'LEONEL AQUINO HERN=C1NDEZ'
+<leonel.aquino@pjenl.gob.mx>; 'amarcelino@axsistec.com'
+<amarcelino@axsistec.com>; 'JORGE ROBERTO OLIVARES CALDER=D3N'
+<roberto.olivares@pjenl.gob.mx>
+CC: jmartinez@axsistec.com
+Asunto: RE: Minuta de Revisi=F3n de Avance y pendientes del Sistema UMC
+Importancia: Alta
+
+=20
+
+Buen d=EDa Roc=EDo,
+
+=20
+
+Alg=FAn comentario sobre el pendiente marcado.
+
+=20
+
+Al pendiente.
+
+=20
+
+De: isaldivar@axsistec.com <mailto:isaldivar@axsistec.com>
+<isaldivar@axsistec.com <mailto:isaldivar@axsistec.com> >=20
+Enviado el: mi=E9rcoles, 27 de octubre de 2021 05:14 p. m.
+Para: 'maria.rangel@pjenl.gob.mx' <maria.rangel@pjenl.gob.mx
+<mailto:maria.rangel@pjenl.gob.mx> >; 'MAR=CDA DEL CARMEN =C1LVAREZ =
+RODR=CDGUEZ'
+<maria.alvarez@pjenl.gob.mx <mailto:maria.alvarez@pjenl.gob.mx> >;
+hfuentes@axsistec.com <mailto:hfuentes@axsistec.com> ; 'ROC=CDO DEYANIRA
+BECERRA ARMEND=C1RIZ' <rocio.becerra@pjenl.gob.mx
+<mailto:rocio.becerra@pjenl.gob.mx> >; 'SANTIAGO GARC=CDA PUENTE'
+<santiago.puente@pjenl.gob.mx <mailto:santiago.puente@pjenl.gob.mx> >;
+'LEONEL AQUINO HERN=C1NDEZ' <leonel.aquino@pjenl.gob.mx
+<mailto:leonel.aquino@pjenl.gob.mx> >; 'amarcelino@axsistec.com'
+<amarcelino@axsistec.com <mailto:amarcelino@axsistec.com> >; 'JORGE =
+ROBERTO
+OLIVARES CALDER=D3N' <roberto.olivares@pjenl.gob.mx
+<mailto:roberto.olivares@pjenl.gob.mx> >
+CC: jmartinez@axsistec.com <mailto:jmartinez@axsistec.com>=20
+Asunto: Minuta de Revisi=F3n de Avance y pendientes del Sistema UMC
+
+=20
+
+Minuta de Reuni=F3n.
+
+=20
+
+Participantes
+
+
+=20
+
+Mar=EDa de Jesus Rangel
+
+maria.rangel@pjenl.gob.mx  <mailto:maria.rangel@pjenl.gob.mx>=20
+
+
+Mar=EDa del Carmen Alvarez
+
+maria.alvarez@pjenl.gob.mx <mailto:maria.alvarez@pjenl.gob.mx>=20
+
+
+Hermenegildo Fuentes
+
+hfuentes@axsistec.com  <mailto:hfuentes@axsistec.com>=20
+
+
+Roc=EDo Deyanira Becerra
+
+rocio.becerra@pjenl.gob.mx <mailto:rocio.becerra@pjenl.gob.mx>=20
+
+
+Santiago Garc=EDa Puente
+
+santiago.puente@pjenl.gob.mx <mailto:santiago.puente@pjenl.gob.mx>=20
+
+
+Leonel Aquino Hern=E1ndez
+
+leonel.aquino@pjenl.gob.mx <mailto:leonel.aquino@pjenl.gob.mx>=20
+
+
+Alfredo Marcelino
+
+amarcelino@axsistec.com <mailto:amarcelino@axsistec.com>=20
+
+
+Jorge Roberto Olivares
+
+roberto.olivares@pjenl.gob.mx <mailto:roberto.olivares@pjenl.gob.mx>=20
+
+=20
+
+=20
+
+Objetivo=20
+
+=20
+
+*	Presentar informaci=F3n de tecnolog=EDas M=F3viles aplicables para
+Actuario M=F3vil.
+
+=20
+
+Actividades
+
+*	Se realizo la presentaci=F3n de cobertura de los requerimientos
+mencionados anteriormente sobre de las tecnolog=EDas Multiplataforma =
+para el
+m=F3dulo de Actuario M=F3vil.
+
+=20
+
+Acuerdo,
+
+=20
+
+*	Revisar la informaci=F3n que se mostro en la sesi=F3n , listar los
+requerimientos y enviar la tecnolog=EDa en la que requieren que se =
+realice. =96
+Roc=EDo y Equipo PJENL (semana del 1 al 5 de Noviembre del 2021)
+
+=20
+
+=20
+
+Cualquier duda , quedo al pendiente
+
+=20
+
+--------Cita original---------
+De: Idalia Saldivar <isaldivar@axsistec.com =
+<mailto:isaldivar@axsistec.com>
+>=20
+Enviado el: mi=E9rcoles, 10 de febrero de 2021 04:26 p. m.
+Para: Idalia Saldivar; maria.rangel@pjenl.gob.mx
+<mailto:maria.rangel@pjenl.gob.mx> ; 'MAR=CDA DEL CARMEN =C1LVAREZ =
+RODR=CDGUEZ';
+hfuentes@axsistec.com <mailto:hfuentes@axsistec.com> ; ROC=CDO DEYANIRA
+BECERRA ARMEND=C1RIZ; SANTIAGO GARC=CDA PUENTE; LEONEL AQUINO =
+HERN=C1NDEZ;
+amarcelino@axsistec.com <mailto:amarcelino@axsistec.com> ; 'JORGE =
+ROBERTO
+OLIVARES CALDER=D3N'
+Asunto: Revisi=F3n de Avance y pendientes del Sistema UMC
+Cu=E1ndo: mi=E9rcoles, 27 de octubre de 2021 02:30 p. m.-03:00 p. m. =
+(UTC-06:00)
+Guadalajara, Ciudad de M=E9xico, Monterrey.
+Ubicaci=F3n: Reuni=F3n de Microsoft Teams
+
+=20
+
+=20
+
+_________________________________________________________________________=
+___
+____=20
+
+Reuni=F3n en Microsoft Teams=20
+
+=DAnase en el ordenador o a trav=E9s de una aplicaci=F3n m=F3vil=20
+
+=20
+<https://teams.microsoft.com/l/meetup-join/19%3ameeting_N2MxN2U4ZGMtNDNiY=
+i00
+ZTkwLWFjZTQtMDM3MGYwODYwMzQ2%40thread.v2/0?context=3D%7b%22Tid%22%3a%2285=
+a0785
+b-2cda-40f6-b48b-e3034f449f33%22%2c%22Oid%22%3a%22d77b16d6-af42-4b97-9d57=
+-f5
+d45d814935%22%7d> Haga clic aqu=ED para unirse a la reuni=F3n=20
+
+ <https://aka.ms/JoinTeamsMeeting> Inf=F3rmese |
+<https://teams.microsoft.com/meetingOptions/?organizerId=3Dd77b16d6-af42-=
+4b97-
+9d57-f5d45d814935&tenantId=3D85a0785b-2cda-40f6-b48b-e3034f449f33&threadI=
+d=3D19_
+meeting_N2MxN2U4ZGMtNDNiYi00ZTkwLWFjZTQtMDM3MGYwODYwMzQ2@thread.v2&messag=
+eId
+=3D0&language=3Des-ES> Opciones de reuni=F3n=20
+
+_________________________________________________________________________=
+___
+____=20
+
+=20
+
+
+------=_NextPart_000_0010_01D7D567.51197690
+Content-Type: text/html;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<META HTTP-EQUIV=3D"Content-Type" CONTENT=3D"text/html; =
+charset=3Diso-8859-1">
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" =
+xmlns:o=3D"urn:schemas-microsoft-com:office:office" =
+xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" =
+xmlns=3D"http://www.w3.org/TR/REC-html40"><head><meta name=3DGenerator =
+content=3D"Microsoft Word 15 (filtered medium)"><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"Segoe UI";
+	panose-1:2 11 5 2 4 2 4 2 2 3;}
+@font-face
+	{font-family:"Segoe UI Semibold";
+	panose-1:2 11 7 2 4 2 4 2 2 3;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	mso-fareast-language:EN-US;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{mso-style-priority:34;
+	margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:0cm;
+	margin-left:36.0pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	mso-fareast-language:EN-US;}
+span.EstiloCorreo22
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:70.85pt 3.0cm 70.85pt 3.0cm;}
+div.WordSection1
+	{page:WordSection1;}
+/* List Definitions */
+@list l0
+	{mso-list-id:493617700;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1912538692 134873089 134873091 134873093 =
+134873089 134873091 134873093 134873089 134873091 134873093;}
+@list l0:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Symbol;}
+@list l0:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:"Courier New";}
+@list l0:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Wingdings;}
+@list l0:level4
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Symbol;}
+@list l0:level5
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:"Courier New";}
+@list l0:level6
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Wingdings;}
+@list l0:level7
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Symbol;}
+@list l0:level8
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:"Courier New";}
+@list l0:level9
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Wingdings;}
+@list l1
+	{mso-list-id:837355315;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-614038166 134873089 134873091 134873093 =
+134873089 134873091 134873093 134873089 134873091 134873093;}
+@list l1:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Symbol;}
+@list l1:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:"Courier New";}
+@list l1:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Wingdings;}
+@list l1:level4
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Symbol;}
+@list l1:level5
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:"Courier New";}
+@list l1:level6
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Wingdings;}
+@list l1:level7
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Symbol;}
+@list l1:level8
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:"Courier New";}
+@list l1:level9
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Wingdings;}
+@list l2
+	{mso-list-id:1021786305;
+	mso-list-template-ids:709552204;}
+@list l2:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:36.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l2:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:72.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l2:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:108.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l2:level4
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:144.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l2:level5
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:180.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l2:level6
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:216.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l2:level7
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:252.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l2:level8
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:288.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l2:level9
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:324.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l3
+	{mso-list-id:1498113592;
+	mso-list-template-ids:1823874352;}
+@list l3:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:36.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l3:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:72.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l3:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:108.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l3:level4
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:144.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l3:level5
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:180.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l3:level6
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:216.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l3:level7
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:252.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l3:level8
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:288.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l3:level9
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:324.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l4
+	{mso-list-id:1941598124;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1138558656 134873089 134873091 134873093 =
+134873089 134873091 134873093 134873089 134873091 134873093;}
+@list l4:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Symbol;}
+@list l4:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:"Courier New";}
+@list l4:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Wingdings;}
+@list l4:level4
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Symbol;}
+@list l4:level5
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:"Courier New";}
+@list l4:level6
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Wingdings;}
+@list l4:level7
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Symbol;}
+@list l4:level8
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:"Courier New";}
+@list l4:level9
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	font-family:Wingdings;}
+@list l5
+	{mso-list-id:2106994857;
+	mso-list-template-ids:-586379728;}
+@list l5:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:36.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l5:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:72.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l5:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:108.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l5:level4
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:144.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l5:level5
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:180.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l5:level6
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:216.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l5:level7
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:252.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l5:level8
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:288.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l5:level9
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:324.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]--></head><body lang=3DES-MX =
+link=3D"#0563C1" vlink=3D"#954F72" style=3D'word-wrap:break-word'><div =
+class=3DWordSection1><p class=3DMsoNormal>Buena tarde,<o:p></o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
+class=3DMsoNormal>Roc=EDo,<o:p></o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>Para saber =
+si tienen alg=FAn comentario correspondiente al pendiente de la =
+tecnolog=EDa con la que se realizar=E1 el m=F3dulo de Actuario M=F3vil, =
+cualquier duda quedamos al pendiente.<o:p></o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
+class=3DMsoNormal>Saludos,<o:p></o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><div><div =
+style=3D'border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0cm =
+0cm 0cm'><p class=3DMsoNormal><b><span lang=3DES =
+style=3D'mso-fareast-language:ES-MX'>De:</span></b><span lang=3DES =
+style=3D'mso-fareast-language:ES-MX'> isaldivar@axsistec.com =
+&lt;isaldivar@axsistec.com&gt; <br><b>Enviado el:</b> jueves, 4 de =
+noviembre de 2021 03:18 p. m.<br><b>Para:</b> =
+'maria.rangel@pjenl.gob.mx' &lt;maria.rangel@pjenl.gob.mx&gt;; 'MAR=CDA =
+DEL CARMEN =C1LVAREZ RODR=CDGUEZ' &lt;maria.alvarez@pjenl.gob.mx&gt;; =
+hfuentes@axsistec.com; 'ROC=CDO DEYANIRA BECERRA ARMEND=C1RIZ' =
+&lt;rocio.becerra@pjenl.gob.mx&gt;; 'SANTIAGO GARC=CDA PUENTE' =
+&lt;santiago.puente@pjenl.gob.mx&gt;; 'LEONEL AQUINO HERN=C1NDEZ' =
+&lt;leonel.aquino@pjenl.gob.mx&gt;; 'amarcelino@axsistec.com' =
+&lt;amarcelino@axsistec.com&gt;; 'JORGE ROBERTO OLIVARES CALDER=D3N' =
+&lt;roberto.olivares@pjenl.gob.mx&gt;<br><b>CC:</b> =
+jmartinez@axsistec.com<br><b>Asunto:</b> RE: Minuta de Revisi=F3n de =
+Avance y pendientes del Sistema UMC<br><b>Importancia:</b> =
+Alta<o:p></o:p></span></p></div></div><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>Buen d=EDa =
+Roc=EDo,<o:p></o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
+class=3DMsoNormal>Alg=FAn comentario sobre el <span =
+style=3D'background:yellow;mso-highlight:yellow'>pendiente =
+marcado.</span><o:p></o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>Al =
+pendiente.<o:p></o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><div><div =
+style=3D'border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0cm =
+0cm 0cm'><p class=3DMsoNormal><b><span lang=3DES =
+style=3D'mso-fareast-language:ES-MX'>De:</span></b><span lang=3DES =
+style=3D'mso-fareast-language:ES-MX'> <a =
+href=3D"mailto:isaldivar@axsistec.com">isaldivar@axsistec.com</a> &lt;<a =
+href=3D"mailto:isaldivar@axsistec.com">isaldivar@axsistec.com</a>&gt; =
+<br><b>Enviado el:</b> mi=E9rcoles, 27 de octubre de 2021 05:14 p. =
+m.<br><b>Para:</b> 'maria.rangel@pjenl.gob.mx' &lt;<a =
+href=3D"mailto:maria.rangel@pjenl.gob.mx">maria.rangel@pjenl.gob.mx</a>&g=
+t;; 'MAR=CDA DEL CARMEN =C1LVAREZ RODR=CDGUEZ' &lt;<a =
+href=3D"mailto:maria.alvarez@pjenl.gob.mx">maria.alvarez@pjenl.gob.mx</a>=
+&gt;; <a =
+href=3D"mailto:hfuentes@axsistec.com">hfuentes@axsistec.com</a>; =
+'ROC=CDO DEYANIRA BECERRA ARMEND=C1RIZ' &lt;<a =
+href=3D"mailto:rocio.becerra@pjenl.gob.mx">rocio.becerra@pjenl.gob.mx</a>=
+&gt;; 'SANTIAGO GARC=CDA PUENTE' &lt;<a =
+href=3D"mailto:santiago.puente@pjenl.gob.mx">santiago.puente@pjenl.gob.mx=
+</a>&gt;; 'LEONEL AQUINO HERN=C1NDEZ' &lt;<a =
+href=3D"mailto:leonel.aquino@pjenl.gob.mx">leonel.aquino@pjenl.gob.mx</a>=
+&gt;; 'amarcelino@axsistec.com' &lt;<a =
+href=3D"mailto:amarcelino@axsistec.com">amarcelino@axsistec.com</a>&gt;; =
+'JORGE ROBERTO OLIVARES CALDER=D3N' &lt;<a =
+href=3D"mailto:roberto.olivares@pjenl.gob.mx">roberto.olivares@pjenl.gob.=
+mx</a>&gt;<br><b>CC:</b> <a =
+href=3D"mailto:jmartinez@axsistec.com">jmartinez@axsistec.com</a><br><b>A=
+sunto:</b> Minuta de Revisi=F3n de Avance y pendientes del Sistema =
+UMC<o:p></o:p></span></p></div></div><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>Minuta de =
+Reuni=F3n.<o:p></o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
+class=3DMsoNormal><b>Participantes<o:p></o:p></b></p><table =
+class=3DMsoNormalTable border=3D0 cellspacing=3D0 cellpadding=3D0 =
+width=3D654 =
+style=3D'width:490.6pt;margin-left:31.9pt;border-collapse:collapse'><tr =
+style=3D'height:15.0pt'><td width=3D170 nowrap valign=3Dbottom =
+style=3D'width:127.8pt;padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt'><p =
+class=3DMsoNormal><span =
+style=3D'color:black;mso-fareast-language:ES-MX'><o:p>&nbsp;</o:p></span>=
+</p><p class=3DMsoNormal><span =
+style=3D'color:black;mso-fareast-language:ES-MX'>Mar=EDa de Jesus =
+Rangel<o:p></o:p></span></p></td><td width=3D484 nowrap valign=3Dbottom =
+style=3D'width:362.8pt;padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt'><p =
+class=3DMsoNormal><u><span =
+style=3D'color:#0563C1;mso-fareast-language:ES-MX'><a =
+href=3D"mailto:maria.rangel@pjenl.gob.mx">maria.rangel@pjenl.gob.mx =
+</a><o:p></o:p></span></u></p></td></tr><tr style=3D'height:15.0pt'><td =
+width=3D170 nowrap valign=3Dbottom style=3D'width:127.8pt;padding:0cm =
+3.5pt 0cm 3.5pt;height:15.0pt'><p class=3DMsoNormal><span =
+style=3D'color:black;mso-fareast-language:ES-MX'>Mar=EDa del Carmen =
+Alvarez<o:p></o:p></span></p></td><td width=3D484 nowrap valign=3Dbottom =
+style=3D'width:362.8pt;padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt'><p =
+class=3DMsoNormal><u><span =
+style=3D'color:#0563C1;mso-fareast-language:ES-MX'><a =
+href=3D"mailto:maria.alvarez@pjenl.gob.mx">maria.alvarez@pjenl.gob.mx</a>=
+<o:p></o:p></span></u></p></td></tr><tr style=3D'height:15.0pt'><td =
+width=3D170 nowrap valign=3Dbottom style=3D'width:127.8pt;padding:0cm =
+3.5pt 0cm 3.5pt;height:15.0pt'><p class=3DMsoNormal><span =
+style=3D'color:black;mso-fareast-language:ES-MX'>Hermenegildo =
+Fuentes<o:p></o:p></span></p></td><td width=3D484 nowrap valign=3Dbottom =
+style=3D'width:362.8pt;padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt'><p =
+class=3DMsoNormal><u><span =
+style=3D'color:#0563C1;mso-fareast-language:ES-MX'><a =
+href=3D"mailto:hfuentes@axsistec.com">hfuentes@axsistec.com =
+</a><o:p></o:p></span></u></p></td></tr><tr style=3D'height:15.0pt'><td =
+width=3D170 nowrap valign=3Dbottom style=3D'width:127.8pt;padding:0cm =
+3.5pt 0cm 3.5pt;height:15.0pt'><p class=3DMsoNormal><span =
+style=3D'color:black;mso-fareast-language:ES-MX'>Roc=EDo Deyanira =
+Becerra<o:p></o:p></span></p></td><td width=3D484 nowrap valign=3Dbottom =
+style=3D'width:362.8pt;padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt'><p =
+class=3DMsoNormal><u><span =
+style=3D'color:#0563C1;mso-fareast-language:ES-MX'><a =
+href=3D"mailto:rocio.becerra@pjenl.gob.mx">rocio.becerra@pjenl.gob.mx</a>=
+<o:p></o:p></span></u></p></td></tr><tr style=3D'height:15.0pt'><td =
+width=3D170 nowrap valign=3Dbottom style=3D'width:127.8pt;padding:0cm =
+3.5pt 0cm 3.5pt;height:15.0pt'><p class=3DMsoNormal><span =
+style=3D'color:black;mso-fareast-language:ES-MX'>Santiago Garc=EDa =
+Puente<o:p></o:p></span></p></td><td width=3D484 nowrap valign=3Dbottom =
+style=3D'width:362.8pt;padding:0cm 3.5pt 0cm 3.5pt;height:15.0pt'><p =
+class=3DMsoNormal><u><span =
+style=3D'color:#0563C1;mso-fareast-language:ES-MX'><a =
+href=3D"mailto:santiago.puente@pjenl.gob.mx">santiago.puente@pjenl.gob.mx=
+</a><o:p></o:p></span></u></p></td></tr><tr style=3D'height:15.0pt'><td =
+width=3D170 nowrap valign=3Dbottom style=3D'width:127.8pt;padding:0cm =
+3.5pt 0cm 3.5pt;height:15.0pt'><p class=3DMsoNormal><span =
+style=3D'color:black;mso-fareast-language:ES-MX'>Leonel Aquino =
+Hern=E1ndez<o:p></o:p></span></p></td><td width=3D484 nowrap =
+valign=3Dbottom style=3D'width:362.8pt;padding:0cm 3.5pt 0cm =
+3.5pt;height:15.0pt'><p class=3DMsoNormal><u><span =
+style=3D'color:#0563C1;mso-fareast-language:ES-MX'><a =
+href=3D"mailto:leonel.aquino@pjenl.gob.mx">leonel.aquino@pjenl.gob.mx</a>=
+<o:p></o:p></span></u></p></td></tr><tr style=3D'height:15.0pt'><td =
+width=3D170 nowrap valign=3Dbottom style=3D'width:127.8pt;padding:0cm =
+3.5pt 0cm 3.5pt;height:15.0pt'><p class=3DMsoNormal><span =
+style=3D'color:black;mso-fareast-language:ES-MX'>Alfredo =
+Marcelino<o:p></o:p></span></p></td><td width=3D484 nowrap =
+valign=3Dbottom style=3D'width:362.8pt;padding:0cm 3.5pt 0cm =
+3.5pt;height:15.0pt'><p class=3DMsoNormal><u><span =
+style=3D'color:#0563C1;mso-fareast-language:ES-MX'><a =
+href=3D"mailto:amarcelino@axsistec.com">amarcelino@axsistec.com</a><o:p><=
+/o:p></span></u></p></td></tr><tr style=3D'height:15.0pt'><td =
+width=3D170 nowrap valign=3Dbottom style=3D'width:127.8pt;padding:0cm =
+3.5pt 0cm 3.5pt;height:15.0pt'><p class=3DMsoNormal><span =
+style=3D'color:black;mso-fareast-language:ES-MX'>Jorge Roberto =
+Olivares<o:p></o:p></span></p></td><td width=3D484 nowrap =
+valign=3Dbottom style=3D'width:362.8pt;padding:0cm 3.5pt 0cm =
+3.5pt;height:15.0pt'><p class=3DMsoNormal><u><span =
+style=3D'color:#0563C1;mso-fareast-language:ES-MX'><a =
+href=3D"mailto:roberto.olivares@pjenl.gob.mx">roberto.olivares@pjenl.gob.=
+mx</a><o:p></o:p></span></u></p></td></tr></table><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal><b>Objetivo =
+</b><o:p></o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><ul =
+style=3D'margin-top:0cm' type=3Ddisc><li class=3DMsoListParagraph =
+style=3D'margin-left:0cm;mso-list:l1 level1 lfo3'>Presentar =
+informaci=F3n de tecnolog=EDas M=F3viles aplicables para Actuario =
+M=F3vil.<o:p></o:p></li></ul><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
+class=3DMsoNormal><b>Actividades<o:p></o:p></b></p><ul =
+style=3D'margin-top:0cm' type=3Ddisc><li class=3DMsoListParagraph =
+style=3D'margin-left:0cm;mso-list:l0 level1 lfo6'>Se realizo la =
+presentaci=F3n de cobertura de los requerimientos mencionados =
+anteriormente sobre de las tecnolog=EDas Multiplataforma para el =
+m=F3dulo de Actuario M=F3vil.<o:p></o:p></li></ul><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
+class=3DMsoNormal><b>Acuerdo,<o:p></o:p></b></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><ul style=3D'margin-top:0cm' =
+type=3Ddisc><li class=3DMsoListParagraph =
+style=3D'margin-left:0cm;mso-list:l4 level1 lfo9'>Revisar la =
+informaci=F3n que se mostro en la sesi=F3n , listar los requerimientos y =
+enviar la tecnolog=EDa en la que requieren que se realice. <span =
+style=3D'background:yellow;mso-highlight:yellow'>&#8211; <b>Roc=EDo y =
+Equipo PJENL (semana del 1 al 5 de Noviembre del =
+2021)</b></span><o:p></o:p></li></ul><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>Cualquier =
+duda , quedo al pendiente<o:p></o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><div><p class=3DMsoNormal><span =
+lang=3DES style=3D'mso-fareast-language:ES-MX'>--------Cita =
+original---------<br><b>De:</b> Idalia Saldivar &lt;<a =
+href=3D"mailto:isaldivar@axsistec.com">isaldivar@axsistec.com</a>&gt; =
+<br><b>Enviado el:</b> mi=E9rcoles, 10 de febrero de 2021 04:26 p. =
+m.<br><b>Para:</b> Idalia Saldivar; <a =
+href=3D"mailto:maria.rangel@pjenl.gob.mx">maria.rangel@pjenl.gob.mx</a>; =
+'MAR=CDA DEL CARMEN =C1LVAREZ RODR=CDGUEZ'; <a =
+href=3D"mailto:hfuentes@axsistec.com">hfuentes@axsistec.com</a>; ROC=CDO =
+DEYANIRA BECERRA ARMEND=C1RIZ; SANTIAGO GARC=CDA PUENTE; LEONEL AQUINO =
+HERN=C1NDEZ; <a =
+href=3D"mailto:amarcelino@axsistec.com">amarcelino@axsistec.com</a>; =
+'JORGE ROBERTO OLIVARES CALDER=D3N'<br><b>Asunto:</b> Revisi=F3n de =
+Avance y pendientes del Sistema UMC<br><b>Cu=E1ndo:</b> mi=E9rcoles, 27 =
+de octubre de 2021 02:30 p. m.-03:00 p. m. (UTC-06:00) Guadalajara, =
+Ciudad de M=E9xico, Monterrey.<br><b>Ubicaci=F3n:</b> Reuni=F3n de =
+Microsoft Teams<o:p></o:p></span></p></div><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><div><p class=3DMsoNormal><span =
+style=3D'color:#5F5F5F'>_________________________________________________=
+_______________________________</span> <o:p></o:p></p></div><div><div =
+style=3D'margin-top:18.0pt;margin-bottom:15.0pt'><p =
+class=3DMsoNormal><span style=3D'font-size:18.0pt;font-family:"Segoe =
+UI",sans-serif;color:#252424'>Reuni=F3n en Microsoft Teams</span><span =
+style=3D'font-family:"Segoe UI",sans-serif;color:#252424'> =
+<o:p></o:p></span></p></div><div style=3D'margin-bottom:15.0pt'><div><p =
+class=3DMsoNormal><b><span style=3D'font-size:10.5pt;font-family:"Segoe =
+UI",sans-serif;color:#252424'>=DAnase en el ordenador o a trav=E9s de =
+una aplicaci=F3n m=F3vil</span></b><b><span style=3D'font-family:"Segoe =
+UI",sans-serif;color:#252424'> <o:p></o:p></span></b></p></div><p =
+class=3DMsoNormal><span style=3D'font-family:"Segoe =
+UI",sans-serif;color:#252424'><a =
+href=3D"https://teams.microsoft.com/l/meetup-join/19%3ameeting_N2MxN2U4ZG=
+MtNDNiYi00ZTkwLWFjZTQtMDM3MGYwODYwMzQ2%40thread.v2/0?context=3D%7b%22Tid%=
+22%3a%2285a0785b-2cda-40f6-b48b-e3034f449f33%22%2c%22Oid%22%3a%22d77b16d6=
+-af42-4b97-9d57-f5d45d814935%22%7d" target=3D"_blank"><span =
+style=3D'font-size:10.5pt;font-family:"Segoe UI =
+Semibold",sans-serif;color:#6264A7'>Haga clic aqu=ED para unirse a la =
+reuni=F3n</span></a> <o:p></o:p></span></p></div><div =
+style=3D'margin-top:15.0pt;margin-bottom:18.0pt'><p =
+class=3DMsoNormal><span style=3D'font-family:"Segoe =
+UI",sans-serif;color:#252424'><a =
+href=3D"https://aka.ms/JoinTeamsMeeting" target=3D"_blank"><span =
+style=3D'font-size:10.5pt;color:#6264A7'>Inf=F3rmese</span></a> | <a =
+href=3D"https://teams.microsoft.com/meetingOptions/?organizerId=3Dd77b16d=
+6-af42-4b97-9d57-f5d45d814935&amp;tenantId=3D85a0785b-2cda-40f6-b48b-e303=
+4f449f33&amp;threadId=3D19_meeting_N2MxN2U4ZGMtNDNiYi00ZTkwLWFjZTQtMDM3MG=
+YwODYwMzQ2@thread.v2&amp;messageId=3D0&amp;language=3Des-ES" =
+target=3D"_blank"><span =
+style=3D'font-size:10.5pt;color:#6264A7'>Opciones de =
+reuni=F3n</span></a> <o:p></o:p></span></p></div></div><div><p =
+class=3DMsoNormal><span =
+style=3D'color:#5F5F5F'>_________________________________________________=
+_______________________________</span> <o:p></o:p></p></div><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p></div></body></html>
+------=_NextPart_000_0010_01D7D567.51197690--
+

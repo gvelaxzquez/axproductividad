@@ -1,0 +1,82 @@
+﻿
+<div class="modal" id="ModalCapturarTrabajo" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="TituloRec">Capturar trabajo</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-1 col-xs-12 control-label">Actividad:</label>
+                            <label class="col-md-11 col-xs-12 control-label" style="text-align:left" id="LblActividadDesc">XActividad</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-1 col-xs-12 control-label">Fecha*</label>
+                            <div class="col-md-4 col-xs-12">
+                                <div class="input-group">
+                                    <input type="text" id="TxtFechaTrab" class="form-control ReqTrab" item="Fecha" />
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </div>
+                            <label class="col-md-2 col-xs-12 control-label">Tiempo (Horas)*</label>
+                            <div class="col-md-3 col-xs-12">
+                                <input type="number" step="0.01" class="form-control ReqTrab" id="TxtTiempo" item="Tiempo" />
+                            </div>
+
+                
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-1 col-xs-12 control-label">Comentario</label>
+                            <div class="col-md-9 col-xs-12 panel-body-search">
+                                <div class="panel-body-search">
+                                    <textarea rows="4" type="text" id="TxtComentarioTrabajo"  item="Comentario" style="min-width:100%" maxlength="350" class="form-control" placeholder="Ingresa tu comentario..." ></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-xs-12"><button class="btn btn-info pull-right" id="btnAgregarTrabajo"><span class="fa fa fa-plus-square"></span>Agregar</button></div>
+                        </div>
+
+                    </form>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="table-responsive">
+                        <table class="table datatable text" id="TblTrabajos">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th width="20%">Fecha</th>
+                                    <th width="20%">Tiempo</th>
+                                    <th width="40%">Comentario</th>
+                                    <th width="20%">Eliminar</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="IdActividadCTra" value="0" />
+
+<input type="hidden" id="urlRegistraTrabajo" value="@Url.Action("GuardaTrabajo","Actividades")" />
+<input type="hidden" id="urlConsultaTrabajos" value="@Url.Action("ConsultaTrabajos","Actividades")" />
+<input type="hidden" id="urlEliminaTrabajo" value="@Url.Action("EliminaTrabajo","Actividades")" />
+
+
+@{
+    Random rnd = new Random();
+    <script src="~/Scripts/Project/CapturaTrabajo.js?@rnd.Next()"></script>
+
+}
+
+
+
+
+

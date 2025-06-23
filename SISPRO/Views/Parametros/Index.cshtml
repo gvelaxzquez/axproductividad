@@ -1,0 +1,295 @@
+﻿
+@{
+    ViewBag.Title = "Parámetros";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<div class="page-title">
+    <h2><span class="fa fa-cogs"></span> Configuración de parametros del sistema</h2>
+</div>*@
+
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="page-content-wrap">
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <form class="form-horizontal">
+
+                                <div class="panel panel-default tabs">
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="active"><a href="#tab-six" role="tab" data-toggle="tab">Aplicación</a></li>
+                                        <li class="hide"><a href="#tab-first" role="tab" data-toggle="tab">Correo</a></li>
+                                        <li ><a href="#tab-second" role="tab" data-toggle="tab">Contraseña</a></li>
+                                        <li><a href="#tab-third" role="tab" data-toggle="tab">Compensaciones</a></li>
+                                        <li class="hide"><a href="#tab-ford" role="tab" data-toggle="tab">Sistema</a></li>
+                                        <li><a href="#tab-fifth" role="tab" data-toggle="tab">Proyectos</a></li>
+
+
+                                    </ul>
+                                    <div class="panel-body tab-content">
+                                        <div class="tab-pane" id="tab-first">
+
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">Servidor</label>
+                                                <div class="col-md-6 col-xs-12">
+                                                    <input type="text" class="form-control ReqCorreo" maxlength="100" id="TxtServidor" item="Servidor" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">Puerto</label>
+                                                <div class="col-md-6 col-xs-12">
+                                                    <input type="text" class="form-control ReqCorreo" id="TxtPuerto" item="Puerto" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">Usuario</label>
+                                                <div class="col-md-6 col-xs-12">
+                                                    <input type="email" class="form-control ReqCorreo" id="TxtUsuario" maxlength="100" item="Usuario" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">Contraseña</label>
+                                                <div class="col-md-6 col-xs-12">
+                                                    <input type="password" class="form-control ReqCorreo" id="TxtContrasenia" maxlength="100" item="Contraseña" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">Remitente</label>
+                                                <div class="col-md-6 col-xs-12">
+                                                    <input type="text" class="form-control ReqCorreo" id="TxtRemitente" maxlength="100" item="Remitente" />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">SSL</label>
+                                                <div class="col-md-6 col-xs-12">
+                                                    <label class="switch switch-small">
+                                                        <input type="checkbox" checked value="0" id="chkSSL" />
+                                                        <span></span>
+                                                    </label>
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <button class="btn btn-success pull-right" id="BtnGuardarMail">Guardar<span class="fa fa-floppy-o fa-right"></span></button>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="tab-pane" id="tab-second">
+
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">Intentos de bloqueo</label>
+                                                <div class="col-md-3 col-xs-12">
+                                                    <input type="number" class="form-control ReqCon" id="TxtIntentosBloqueo" item="Intentos de bloqueo" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">Vigencia</label>
+                                                <div class="col-md-3 col-xs-12">
+                                                    <input type="number" class="form-control ReqCon" placeholder="Días" id="TxtVigencia" item="Vigencia" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">Caracteres mínimos</label>
+                                                <div class="col-md-3 col-xs-12">
+                                                    <input type="number" class="form-control ReqCon" id="TxtCaracteresMinimos" item="Caracteres mínimos" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">LDAP</label>
+                                                <div class="col-md-3 col-xs-12">
+                                                    <input type="text" class="form-control ReqCon" id="TxtLDAP" item="LDAP" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <button class="btn btn-success pull-right" id="BtnGuardarCon">Guardar<span class="fa fa-floppy-o fa-right"></span></button>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="tab-third">
+
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">Base compensación cumplimiento</label>
+                                                <div class="col-md-3 col-xs-12">
+                                                    <input type="number" class="form-control ReqPro" placeholder="Numero de cotizaciones" id="TxtBaseCumplimiento" item="Base compensación cumplimiento" step="0.1" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">Base compensación horas</label>
+                                                <div class="col-md-3 col-xs-12">
+                                                    <input type="number" class="form-control ReqPro" placeholder="Numero de cotizaciones" id="TxtBaseHoras" item="Base compensación horas" step="0.1" />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">Vigencia tareas</label>
+                                                <div class="col-md-3 col-xs-12">
+                                                    <input type="number" class="form-control ReqPro" placeholder="Días" id="TxtVigenciaTareas" item="Vigencia de tareas" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">Días proceso cierre</label>
+                                                <div class="col-md-3 col-xs-12">
+                                                    <input type="number" class="form-control ReqPro" placeholder="Días" id="TxtDiasProceso" item="Días proceso cierre" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <button class="btn btn-success pull-right" id="BtnGuardarReq">Guardar<span class="fa fa-floppy-o fa-right"></span></button>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="tab-ford">
+
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">Nombre del sistema</label>
+                                                <div class="col-md-6 col-xs-12">
+                                                    <input type="text" class="form-control ReqSis" id="TxtNombreSistema" maxlength="100" item="Nombre del sistema" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">Logo principal</label>
+                                                <div class="col-md-4 col-xs-12">
+                                                    <input type="file" accept="image/x-png" class="fileinput btn-primary fa fa-upload" name="filename" id="LogoPrincipal" title=" Cargar" />
+                                                    <img id="Principal" src="~/Content/Project/Imagenes/LogoPrincipal.png" alt="Logo principal" width="220px" height="50px" />
+                                                    <span class="help-block "></span>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">Logo secundario</label>
+                                                <div class="col-md-4 col-xs-12">
+                                                    <input type="file" accept="image/x-png" class="fileinput btn-primary fa fa-upload" name="filename" id="LogoSecundario" title=" Cargar" />
+                                                    <img id="Secundario" src="~/Content/Project/Imagenes/LogoSecundario.png" alt="Logo secundario" width="50px" height="50px" />
+                                                    <span class="help-block "></span>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <button class="btn btn-success pull-right" id="BtnGuardarSis">Guardar<span class="fa fa-floppy-o fa-right"></span></button>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="tab-fifth">
+
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">Proyecto de Mejora Continua</label>
+                                                <div class="col-md-3 col-xs-12">
+                                                    <select class="form-control ReqProy" id="selMejora" item="Proyecto de Mejora Continua">
+                                                        <option value="-1">--Seleccionar--</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <button class="btn btn-success pull-right" id="BtnGuardarProy">Guardar<span class="fa fa-floppy-o fa-right"></span></button>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane active" id="tab-six">
+
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">Metas mensual / Diarias </label>
+                                                <div class="col-md-6 col-xs-12">
+                                                    <label class="switch switch-small">
+                                                        <input type="checkbox" checked value="0" id="ChkTipoMetas" />
+                                                        <span></span>
+                                                    </label>
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">Activar indicadores financieros</label>
+                                                <div class="col-md-6 col-xs-12">
+                                                    <label class="switch switch-small">
+                                                        <input type="checkbox" checked value="0" id="ChkIndFinancieros" />
+                                                        <span></span>
+                                                    </label>
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">Activar pregunta seguimiento</label>
+                                                <div class="col-md-6 col-xs-12">
+                                                    <label class="switch switch-small">
+                                                        <input type="checkbox" checked value="0" id="ChkPregSeguimiento" />
+                                                        <span></span>
+                                                    </label>
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">Activar asistencia</label>
+                                                <div class="col-md-6 col-xs-12">
+                                                    <label class="switch switch-small">
+                                                        <input type="checkbox" checked value="0" id="ChkActivAsistencia" />
+                                                        <span></span>
+                                                    </label>
+
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">Hora Entrada</label>
+                                                <div class="col-md-3 col-xs-12">
+                                                    <input class="form-control ReqAsistencia" id="TxtHoraEntrada" item="Hora Entrada" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">Jornada laboral (horas)</label>
+                                                <div class="col-md-3 col-xs-12">
+                                                    <input type="number" class="form-control ReqAsistencia" placeholder="Horas" id="TxtJornada" item="Jornada laboral (horas))" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">Tolerancia entrada (minutos)</label>
+                                                <div class="col-md-3 col-xs-12">
+                                                    <input type="number" class="form-control ReqAsistencia" placeholder="Minutos" id="TxtToleranciaEntrada" item="Tolerancia entrada (minutos)" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">Tiempo comida (minutos)</label>
+                                                <div class="col-md-3 col-xs-12">
+                                                    <input type="number" class="form-control ReqAsistencia" placeholder="Minutos" id="TxtTiempoComida" item="Tiempo comida (minutos)" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <button class="btn btn-success pull-right" id="BtnGuardarAsistencia">Guardar<span class="fa fa-floppy-o fa-right"></span></button>
+                                            </div>
+                                        </div>
+                                 
+                                    </div>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+    <script type="text/javascript" src="~/Scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>
+
+    <script type="text/javascript" src="~/Scripts/Project/Parametros.js"></script>
+    @Html.Hidden("urlGetParametros", @Url.Action("ObtenerParametros", "Parametros"))
+    @Html.Hidden("urlGuardarCorreo", @Url.Action("GuardarDatosCorreo", "Parametros"))
+    @Html.Hidden("urlGuardarContrasenia", @Url.Action("GuardarDatosContrasenia", "Parametros"))
+    @Html.Hidden("urlGuardarCompensacion", @Url.Action("GuardarDatosCompensacion", "Parametros"))
+    @Html.Hidden("urlGuardarSistema", @Url.Action("GuardarDatosSistema", "Parametros"))
+    @Html.Hidden("urlGuardarProyecto", @Url.Action("GuardarDatosProyecto", "Parametros"))
+    @Html.Hidden("urlGuardarAsistencia", @Url.Action("GuardarDatosAsistencia", "Parametros"))
+    @Html.Hidden("urlInicio", @Url.Action("Index", "Login"))
+    @Html.Hidden("urlLeerComboProyecto", @Url.Action("LeerComboProyecto", "Auditoria"))
+
+
+</div>
+

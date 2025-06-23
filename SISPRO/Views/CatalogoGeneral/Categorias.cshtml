@@ -1,0 +1,258 @@
+﻿
+@{
+    ViewBag.Title = "Categorías";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<div class="page-title">
+    <h2>Fases / Clasificación</h2>
+</div>*@
+
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="page-content-wrap">
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <form class="form-horizontal">
+
+                                <div class="panel panel-default tabs">
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="active"><a href="#tab-first" role="tab" data-toggle="tab">Fases</a></li>
+                                        <li><a href="#tab-second" role="tab" data-toggle="tab">Clasificación</a></li>
+                                    </ul>
+                                    <div class="panel-body tab-content">
+                                        <div class="tab-pane active" id="tab-first">
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="panel">
+                                                        <div class="panel-heading">
+                                                            <div class="row">
+
+                                                                <div class="col-md-12">
+
+
+                                                                    <button class="btn btn-success pull-right" id="BtnModalFase">Nuevo <i class="fa fa-plus fa-right"></i></button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="panel-body">
+                                                            <div class="table-responsive">
+                                                                <table class="table datatable text" id="tblFase">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Clave</th>
+                                                                            <th class="col-md-3 col-xs-12">Nombre  </th>
+                                                                            <th>Activo</th>
+                                                                            <th>Editar</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="tab-pane" id="tab-second">
+
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="panel">
+                                                        <div class="panel-heading">
+                                                            <div class="row">
+                                                                <label class="col-md-1 col-xs-12 control-label">Fase</label>
+                                                                <div class="col-md-4">
+                                                                    <select class="form-control selectpicker" id="SelFase">
+                                                                    </select>
+                                                                    @*<select class="form-control select" id="SelFase">
+                                                                        <option selected="selected" value="-1">--Seleccione--</option>
+                                                                    </select>*@
+
+
+                                                                </div>
+                                                                <button class="btn btn-success pull-right" id="BtnModalClasificaciones">Nuevo <i class="fa fa-plus fa-right"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="panel-body">
+                                                            <div class="table-responsive">
+                                                                <div class="table-responsive">
+                                                                    <table class="table datatable text" id="tblClasificacion">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Clave</th>
+                                                                                <th class="col-md-3 col-xs-12">Nombre </th>
+
+                                                                                <th>Activo</th>
+                                                                                <th>Editar</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+    <div class="modal" id="ModalFase" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="defModalHead">Fase</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <form class="form-horizontal">
+
+                                <div class="form-group">
+                                    <label class="col-md-4 col-xs-12 control-label">Clave<span style="color: red;">*</span></label>
+                                    <div class="col-md-8 col-xs-12">
+                                        <input type="text" class="form-control ReqFase" item="Clave" id="TxtClaveFase" maxlength="100" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 col-xs-12 control-label">Nombre<span style="color: red;">*</span></label>
+                                    <div class="col-md-8 col-xs-12">
+                                        <input type="text" class="form-control  ReqFase" item="Nombre" id="TxtNombreF" maxlength="400" />
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-md-4 col-xs-12 control-label">Activo</label>
+                                    <div class="col-md-8 col-xs-12">
+                                        <label class="switch switch-small">
+                                            <input type="checkbox" checked id="ChkActivoF" />
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                            </form>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="BtnGuardarFase">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal" id="ModalClasificacion" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="defModalHead">Clasificación</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <form class="form-horizontal">
+
+                                <div class="form-group">
+                                    <label class="col-md-4 col-xs-12 control-label">Fase</label>
+                                    <div class="col-md-6 col-xs-12">
+                                        <select class="form-control selectpicker" id="SelFaseClasificacion">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 col-xs-12 control-label">Clave<span style="color: red;">*</span></label>
+                                    <div class="col-md-8 col-xs-12">
+                                        <input type="text" class="form-control ReqClasificacion" item="Clave" id="TxtClaveClasificacion" maxlength="100" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 col-xs-12 control-label">Nombre<span style="color: red;">*</span></label>
+                                    <div class="col-md-8 col-xs-12">
+                                        <input type="text" class="form-control  ReqClasificacion" item="Nombre" id="TxtNombreClasificacion" maxlength="400" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-4 col-xs-12 control-label">Activo</label>
+                                    <div class="col-md-8 col-xs-12">
+                                        <label class="switch switch-small">
+                                            <input type="checkbox" checked id="ChkActivoClasificacion" />
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                            </form>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="BtnGuardarClasificacion">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+</div>
+
+
+<input type="hidden" id="urlCargaInicialCategorias" value="@Url.Action("CargaInicialCat","CatalogoGeneral")" />
+<input type="hidden" id="urlCargaClasificacion" value="@Url.Action("CargarClasificacionActividad","CatalogoGeneral")" />
+<input type="hidden" id="urlGuardarDatosFase" value="@Url.Action("GuardarDatosCatalogo", "CatalogoGeneral")" />
+
+<script type="text/javascript" src="~/Scripts/Project/Categorias.js"></script>
+
+
+<input type="hidden" id="IdFase" value="0" />
+<input type="hidden" id="IdClasificacion" value="0" />

@@ -1,0 +1,247 @@
+﻿
+@{
+    ViewBag.Title = "Sprint QA";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/easypiechart.min.js"></script>
+<script src="~/Scripts/jquery.easypiechart.min.js"></script>
+
+<div class="page-content-wrap">
+
+    <div class="panel panel-default">
+
+        <div class="panel-heading">
+
+            <div class="row">
+                <div class="col-md-8">
+                    <a class="btn btn-default pull-right" id="BtnModificarCP"><i class="fa fa-pencil"></i></a>
+                    <h5>
+                        <span id="lblNombreCP"></span> <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span id="BtnEstatusSP"> Abierto</span>
+                                <span id="spEstatusCSP" class="fa fa-fw fa-circle text-progress pull-right"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+
+                                <li><a href="#" id="BtnActualizaProgresoCP" onclick="ActualizaEstatusCP('P')"> <i class="fa fa-fw fa-circle text-progress pull-right"></i>Iniciar</a></li>
+                                <li><a href="#" id="BtnActualizaAbiertoCP" onclick="ActualizaEstatusCP('A')"> <i class="fa fa-fw fa-circle text-info pull-right"></i>Abierto</a></li>
+                                <li><a href="#" id="BtnActualizaTerminarCP" onclick="ActualizaEstatusCP('L')"> <i class="fa fa-fw fa-circle text-success pull-right"></i>Terminar</a></li>
+
+                                <li class="divider"></li>
+                                <li><a href="#" id="BtnActualizaCancelarCP" onclick="ActualizaEstatusCP('C')"> <i class="fa fa-fw fa-circle text-muted pull-right"></i>Cancelar</a></li>
+
+                            </ul>
+                        </div>
+                    </h5>
+
+
+
+
+                </div>
+
+                <div class="col-md-4">
+
+
+
+                </div>
+
+
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-8" ">
+                    <div class="col-md-8">
+                        <label> <b>Objetivo:</b></label>   <p id="lblDescripcion"></p>
+                    </div>
+                    <div class="col-md-2">
+                        <label><b>Tiempo ejecución:</b> </label>   <p id="lblTiempoEjecucion"></p>
+                    </div>
+                    <div class="col-md-1">
+                        <label> <b>Inicio:</b> </label>   <p id="lblFechaInicio"></p>
+                    </div>
+                    <div class="col-md-1">
+                        <label> <b>Fin:</b></label>   <p id="lblFechaFin"></p>
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+
+
+
+                    <a class="btn btn-default pull-right" id="BtnOcultarInd"><span class="fa fa-angle-up"></span> </a>
+                    <a class="btn btn-default pull-right" id="BtnMostrarInd"><span class="fa fa-angle-down"></span> </a>
+                </div>
+
+            </div>
+
+
+
+            <div class="row" id="divIndicadores">
+
+                <div class="col-md-12">
+
+                    <div class="col-md-5">
+                        <h5 style="font-weight:bold">Estatus</h5>
+                        <div id="GraficaCP" style="max-height:300px;">
+
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <h5 style="font-weight:bold" id="titleEBugs"></h5>
+                        <div id="GraficaEBugs" style="max-height:300px;">
+
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-2">
+                        <h5 style="font-weight:bold">Avance</h5>
+                        <span class="chart cavanceactual">
+                            <span class="percent2"></span><br>
+
+                        </span>
+                    </div>
+
+
+
+                </div>
+                <div id="scriptsCP">
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="panel-body tabs">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="active"><a href="#tab-tc" role="tab" data-toggle="tab" id="tCC"> Casos de prueba</a></li>
+                    <li><a href="#tab-bugs" role="tab" data-toggle="tab" id="tBug">Bugs</a></li>
+                    <li class="pull-right">
+                        <div class="btn-group">
+                            <button class="btn btn-default btn-condensed" onclick="BuscarCasosPrueba();">Agregar casos<span class="fa fa-plus-circle  fa-right"></span></button>
+                            <button class="btn btn-default btn-condensed" onclick="AsignarMasivaCasosPrueba();" id="BtnAsignaMCP">Asignar<span class="fa fa-user-plus  fa-right"></span></button>
+                            <button class="btn btn-default btn-condensedt" id="BtnImprimirCR">Generar reporte<span class="fa fa-print  fa-right"></span></button>
+                        </div>
+
+                    </li>
+                </ul>
+            </div>
+
+            <div class="panel-body tab-content">
+                <div class="tab-pane active" id="tab-tc">
+                    <div class="row">
+                        <div class="col-md-4">
+
+                            <select class="selectpicker form-control headerCP" multiple data-live-search="true" id="SelEstatusCPE" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--">
+
+                                <option value="A" selected>Sin ejecutar</option>
+                                <option value="F" selected>Fallido</option>
+                                <option value="R" selected>Fallido/Revisar</option>
+                                <option value="B" selected>Bloqueante</option>
+                                <option value="L">Aprobado</option>
+                                <option value="O">Omitido</option>
+
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="table-responsive">
+                            <table class="table datatable text" id="TblCasosPrueba">
+                                <thead>
+                                    <tr>
+                                        <th style="width:80px;"></th>
+                                        <th>ID</th>
+                                        <th style="width:30%">Título</th>
+                                        <th>Tipo</th>
+                                        <th style="width:50px;">T</th>
+                                        <th>Estatus</th>
+
+                                        <th>Asignado</th>
+                                        <th>Fecha inicio</th>
+                                        <th>Fecha fin</th>
+                                        <th></th>
+                                    </tr>
+
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="tab-pane " id="tab-bugs">
+                    <div class="row">
+                        <div class="col-md-4">
+
+                            <select class="selectpicker form-control headerCP" multiple data-live-search="true" id="SelEstatusCPB" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--">
+
+                                <option value="A" selected>Abierto</option>
+                                <option value="P" selected>En progreso</option>
+                                <option value="R" selected>Resuelto</option>
+                                <option value="V" selected>Validada</option>
+                                <option value="L">Liberada</option>
+                                <option value="C">Cancelada</option>
+                                <option value="X" selected>Rechazada</option>
+
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="table-responsive">
+                            <div class="table-responsive" style="overflow: inherit">
+                                <table class="table datatable text" id="TblBugs">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Titulo</th>
+
+                                            <th>Estatus</th>
+                                            <th>Tipo</th>
+                                            <th>Asignado</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div>
+
+    </div>
+
+</div>
+
+<input type="hidden" id="IdCicloP" value="@ViewBag.IdCicloP" />
+<input type="hidden" id="IdCicloPEliminar" value="0" />
+<input type="hidden" id="IdCicloEstatus" value="0" />
+<input type="hidden" id="IdProyectoCP" value="0" />
+<input type="hidden" id="urlConsultaCicloReport" value="@Url.Action("ConsultaCicloReport", "QA")" />
+<input type="hidden" id="urlAsignacionCasosPruebaMasiva" value="@Url.Action("AsignacionCasosPruebaMasiva", "QA")" />
+<input type="hidden" id="urlActualizaEstatusCP" value="@Url.Action("CambiaEstatusCP", "QA")" />
+<input type="hidden" id="urlEliminarACP" value="@Url.Action("EliminarACP", "QA")" />
+<input type="hidden" id="urlExportCR" value="@Url.Action("RunReport","QA")" />
+@Html.Partial("~/Views/QA/Create.cshtml")
+@Html.Partial("~/Views/QA/AddWorkitems.cshtml")
+@Html.Partial("~/Views/QA/AssignWorkitems.cshtml")
+
+
+@{
+    Random rnd = new Random();
+    @*<script src="~/Scripts/Project/CicloReport.js"></script>*@
+    <script src="~/Scripts/Project/CicloReport.js?@rnd.Next()"></script>
+
+}

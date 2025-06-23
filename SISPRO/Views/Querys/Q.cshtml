@@ -1,0 +1,436 @@
+﻿@using AxProductividad.Models;
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/jquery-treegrid@0.3.0/css/jquery.treegrid.css" rel="stylesheet">
+<link href="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/jquery-treegrid@0.3.0/js/jquery.treegrid.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/treegrid/bootstrap-table-treegrid.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/cookie/bootstrap-table-cookie.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/mobile/bootstrap-table-mobile.min.js"></script>
+
+
+<div class="page-content-wrap">
+
+    <div class="row">
+        <div class="col-md-2" id="mdFiltros">
+
+            <div class="" style="padding-top:10px;">
+
+                <h5>Filtros</h5>
+                @{
+                    var Workitems2 = ((Sesion)Session["Usuario" + Session.SessionID]).WorkItems;
+                    var prop = ViewBag.IdTU == 19 ? "disabled" : "";
+                    <div class="filter-settings-row">
+                        <label for="SelTipoA">Tipo</label>
+
+                        <select class="form-control  selectpicker pull-right" id="SelTipoQ" item="Tipo actividad" multiple data-live-search="true" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Todos--" @prop>
+                            @*<option value="-1" selected> -- Todos --</option>*@
+                            @{ foreach (var item in Workitems2)
+                                {
+                                    <option value='@item.ActividadTipoId' data-content="<span><img class='img-dt' src='/Content/Project/Imagenes/@item.Url' alt='@item.Nombre' style='width:24px; height:24px;'> @item.Nombre</span>">@item.Nombre</option>
+
+
+                                }
+                            }
+                        </select>
+
+                    </div>
+
+                    <div class="filter-settings-row" style="padding-top:40px;">
+                        <label for="SelProyectoTF">Proyecto</label>
+                        <select class="selectpicker form-control" multiple data-live-search="true" id="SelProyectoQ" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Todos--" @prop> </select>
+                    </div>
+
+                    <div class="filter-settings-row" style="padding-top:10px;">
+                        <label for="SelSprintBWI">Sprint</label>
+
+                        <select class="selectpicker form-control" multiple data-live-search="true" id="SelSprintsQ" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Todos--" @prop>
+                        </select>
+
+                    </div>
+                    <div class="filter-settings-row" style="padding-top:10px;">
+                        <label for="SelActividadF">Fase</label>
+                        <select class="selectpicker form-control" multiple data-live-search="true" id="SelFaseQ" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Todos--" @prop>
+                        </select>
+                    </div>
+                    <div class="filter-settings-row" style="padding-top:10px;">
+                        <label for="SelActividadF">Clasificación</label>
+                        <select class="selectpicker form-control" multiple data-live-search="true" id="SelClasificacionQ" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Todos--" @prop>
+                        </select>
+                    </div>
+                    <div class="filter-settings-row" style="padding-top:10px;">
+                        <label for="SelActividadF">Prioridad</label>
+                        <select class="selectpicker form-control" multiple data-live-search="true" id="SelPrioridadQ" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Todos--" @prop>
+                        </select>
+                    </div>
+                    <div class="filter-settings-row" style="padding-top:10px;">
+                        <label for="SelUsuarioAsignadoF">Asignado</label>
+                        <select class="selectpicker form-control" multiple data-live-search="true" id="SelUsuarioAsignadoQ" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Todos--" @prop></select>
+
+                    </div>
+                    <div class="filter-settings-row" style="padding-top:10px;">
+                        <label for="SelUsuarioAsignadoF">Responsable</label>
+                        <select class="selectpicker form-control" multiple data-live-search="true" id="SelUsuarioResponsableQ" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Todos--" @prop></select>
+
+                    </div>
+                    <div class="filter-settings-row" style="padding-top:10px;">
+                        <label class="">Estatus</label>
+                        <select class="selectpicker form-control" multiple data-live-search="true" id="SelEstatusQ" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Todos--" >
+
+                            <option value="A" selected>Abierto</option>
+                            <option value="P" selected>En progreso</option>
+                            <option value="R" selected>Revisión</option>
+                            <option value="V" selected>Validada</option>
+                            <option value="L" selected>Liberada</option>
+                            <option value="C">Cancelada</option>
+                            <option value="X" selected>Rechazada</option>
+
+                        </select>
+                    </div>
+
+
+                    <div class="filter-settings-row" style="padding-top:10px;">
+                        <label class="control-label">Fecha objetivo</label>
+                    </div>
+                    <div class="filter-settings-row">
+                        <input type="text" id="TxtRangoFechasQ" item="Fecha" class="form-control DateRangePicker col-xs-10" style="width: 83.33333333% !important;"  />
+                        <span class="input-group-addon col-xs-1"><span class="glyphicon glyphicon-calendar" ></span></span>
+                    </div>
+                    <div class="filter-settings-row" style="margin-top:30px;">
+                        <label class="control-label">Fecha creación</label>
+                    </div>
+                    <div class="filter-settings-row">
+                        <input type="text" id="TxtRangoFechasCreoQ" item="Fecha" class="form-control DateRangePicker col-xs-10" style="width: 83.33333333% !important;"  />
+                        <span class="input-group-addon col-xs-1"><span class="glyphicon glyphicon-calendar" ></span></span>
+                    </div>
+                    <div class="filter-settings-row" style="margin-top:30px;">
+                        <label class="control-label">Fecha finalizó</label>
+                    </div>
+                    <div class="filter-settings-row">
+                        <input type="text" id="TxtRangoFechasTerminoQ" item="Fecha" class="form-control DateRangePicker col-xs-10" style="width: 83.33333333% !important;" />
+                        <span class="input-group-addon col-xs-1"><span class="glyphicon glyphicon-calendar" ></span></span>
+                    </div>
+
+                    <div class="filter-settings-row" style="padding-top:30px;">
+                        <label for="SelActividadF">Contiene</label>
+                        <input type="text" class="form-control" id="TxtContieneQ" item="Nombre" maxlength="100" @prop>
+                    </div>
+
+
+
+
+
+
+                    <div class="filter-settings-row" style="padding-top:30px;">
+
+                    </div>
+
+
+                }
+            </div>
+
+        </div>
+        <div class="col-md-10" id="mdContQ">
+            <div class="panel panel-default">
+                <div class="row">
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-default btn-grid pull-left" onclick="" id="BtnFilterQ"><span id="spFilters" class="fa fa-dedent"></span></button>
+                    </div>
+
+                    <div class="col-md-11">
+                        <div class="btn-group pull-left">
+
+
+                            @{
+
+                                if (ViewBag.IdTU == 19)
+                                {
+                                    @*<button type="button" class="btn btn-default " onclick="" id="BtnEjecutarQ">Run <span class="fa fa-play-circle fa-right"></span></button>
+                <button type="button" class="btn btn-default " onclick="" id="BtnNuevoQ">New <span class="fa fa-plus-circle fa-right"></span></button>*@
+
+                                    <button type="button" class="btn btn-default " onclick="" id="BtnEjecutarQ">Run <span class="fa fa-play-circle fa-right"></span></button>
+                                    <button type="button" class="btn btn-default " onclick="" id="BtnShareQ" title="Compartir"> <span class="fa fa-share-alt"></span></button>
+                                    <button type="button" class="btn btn-default " onclick="" id="BtnExportarQ" title="Exportar a excel"> <span class="fa fa-file-excel-o"></span></button>
+                                    @*<button type="button" class="btn btn-default " onclick="" id="BtnDeleteQ" title="Eliminar"> <span class="fa fa-trash"></span></button>
+                <button type="button" class="btn btn-default " onclick="" id="BtnSaveQ" title="Guardar"> <span class="fa fa-save "></span></button>*@
+
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-default " onclick="" id="BtnEjecutarQ">Run <span class="fa fa-play-circle fa-right"></span></button>
+                                    <button type="button" class="btn btn-default " onclick="" id="BtnNuevoQ">New <span class="fa fa-plus-circle fa-right"></span></button>
+
+                                    <button type="button" class="btn btn-default " onclick="" id="BtnShareQ" title="Compartir"> <span class="fa fa-share-alt"></span></button>
+                                    <button type="button" class="btn btn-default " onclick="" id="BtnExportarQ" title="Exportar a excel"> <span class="fa fa-file-excel-o"></span></button>
+                                    <button type="button" class="btn btn-default " onclick="" id="BtnDeleteQ" title="Eliminar"> <span class="fa fa-trash"></span></button>
+                                    <button type="button" class="btn btn-default " onclick="" id="BtnSaveQ" title="Guardar"> <span class="fa fa-save "></span></button>
+                                }
+
+                            }
+
+
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+                <div class="panel-body tabs">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#tab-lista" role="tab" data-toggle="tab" onclick="page_content_onresize();"> <i class="fa fa-tasks"></i> Lista</a></li>
+                        <li class=""><a href="#tab-calendario" role="tab" data-toggle="tab" onclick="page_content_onresize();"> <i class="fa fa-calendar"></i> Calendario</a></li>
+                        <li class="hidden-xs"><a href="#tab-kanban" role="tab" data-toggle="tab" onclick="page_content_onresize();"><i class="fa fa-columns"></i> Kanban</a></li>
+
+
+
+                    </ul>
+                </div>
+                <div class="panel-body tab-content">
+
+                    <div class="tab-pane active" id="tab-lista">
+                        <div class="">
+                            <div class="">
+
+
+                                <table id="TblActividades" data-cookie="true" data-cookie-id-table="table" data-pagination="true" data-page-list="[10, 25, 50, 100, all]" data-mobile-responsive="true">
+                                </table>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane " id="tab-kanban">
+                        <div class="row push-up-10" id="tableroTickets">
+                            <div class="col-md-1 x_panel" id="taskToDo" style="border: 2px; width: 19%;">
+
+
+                                <div class="row headTasks">
+                                    <h4 id="LblAbierto">Abierto</h4>
+                                </div>
+
+                                <div class="tasks" id="tasks_assigned">
+
+                                </div>
+                            </div>
+                            <div class="col-md-1 x_panel" id="taskProgress" style="width: 19%;">
+                                <div class="row headTasks">
+                                    <h4 id="LblProgreso">En progreso</h4>
+                                </div>
+                                <div class="tasks" id="tasks_progreess">
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-1 x_panel" id="taskValidacion" style="width: 19%;">
+                                <div class="row headTasks">
+                                    <h4 id="LblValidacion">Validación</h4>
+                                </div>
+                                <div class="tasks" id="task_validate">
+
+
+
+                                </div>
+                            </div>
+                            <div class="col-md-1 x_panel" id="taskre" style="width: 19%;">
+
+                                <div class="row headTasks">
+                                    <h4 id="LblRechazadas">Rechazadas</h4>
+                                </div>
+                                <div class="tasks" id="tasks_re">
+
+
+
+                                </div>
+                            </div>
+                            <div class="col-md-1 x_panel" id="taskok" style="width: 19%;">
+
+
+                                <div class="row headTasks">
+                                    <h4 id="LblTerminadas">Terminadas</h4>
+                                </div>
+                                <div class="tasks" id="tasks_ok">
+
+
+
+                                </div>
+                            </div>
+
+
+
+
+
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class="tab-pane " id="tab-calendario">
+                        <div id="Calendar">
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+        <div class="filter-settings" id="divNotificaciones">
+            <div class="filter-settings-icon"><span class="fa fa-bell-o"></span>  <br />  </div>
+            <h5>Notificaciones (<span id="lblcantnot"> 0 </span>) </h5>
+               <br />
+            <div class="messages messages-img" id="pComentarios" style="height:800px; overflow:scroll;">
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+<div class="modal" id="ModalSaveQ" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" id="BtnCerrarAgregarIteracion"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="TituloSprintModal">Guardar</h4>
+            </div>
+            <div class="modal-body">
+                <!--inicia-->
+                <div class="row">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-12 control-label">Nombre</label>
+                            <div class="col-md-9 col-xs-12">
+                                <p class="lead emoji-picker-container" style="text-align:left">
+
+                                    <input id="TxtNombreQ" style="max-width:none; text-align:left;" maxlength="500" class="form-control ReqGuardarQ" placeholder="" item="Nombre" data-emojiable="true">
+                                </p>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+                <!--termina-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="BtnGuardarQ">Guardar<span class="fa fa-floppy-o fa-right"></span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="ModalShareQ" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" id="BtnCerrarCompartirQ"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="TituloShareQ"> Compartir @ViewBag.Title</h4>
+            </div>
+            <div class="modal-body">
+                <!--inicia-->
+                <div class="row">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            -
+
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <h5><i class="fa fa-globe"></i> Cualquiera </h5>
+                                    <small> Compartir a cualquier usuario no importa que no tenga acceso</small>
+                                    <div class="input-group">
+                                        <label id="TxtUrlShareQE" type="text" class="form-control btnshareqe" item="Id"></label>
+                                        <div class="input-group-btn">
+                                            <button id="btnshareqe" data-clipboard-target="#TxtUrlShareQE" class="btn btn-default btnshareqe"><span class="fa fa-copy"></span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" style="padding-top:20px">
+                                    <h5><i class="fa fa-desktop"></i> Con acceso a YITPRO </h5>
+
+                                    <div class="input-group">
+                                        <label id="TxtUrlShareQI" type="text" class="form-control btnshareqi" item="Id"></label>
+                                        <div class="input-group-btn">
+                                            <button id="btnshareqi" data-clipboard-target="#TxtUrlShareQI" class="btn btn-default"><span class="fa fa-copy"></span></button>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                @{
+
+                                    if (ViewBag.IdTU != 19)
+                                    {
+                                        <div class="col-md-12" style="padding-top:20px">
+                                            <h5><i class="fa fa-users"></i> Usuarios especificos</h5>
+                                            <small> Aparecera en las sección Mis querys > Compartidos</small>
+                                            <select class="selectpicker form-control" multiple data-live-search="true" id="SelUsuariosShareQ" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Todos--"></select>
+
+                                        </div>
+                                        <div class="col-md-12" style="padding-top:20px">
+
+                                            <button class="btn btn-default pull-right" id="BtnGuardarCompartirQ"> Aplicar</button>
+                                        </div>
+
+                                    }
+
+                                }
+
+
+
+
+
+                            </div>
+
+
+
+                        </div>
+
+                    </form>
+
+                </div>
+                <!--termina-->
+            </div>
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="BtnGuardarQ">Guardar<span class="fa fa-floppy-o fa-right"></span></button>
+                </div>*@
+        </div>
+    </div>
+</div>
+
+
+
+@Html.Partial("~/Views/Actividades/CapturaTiempo.cshtml")
+
+
+<input type="hidden" id="urlVerQuery" value="@Url.Action("q","Querys")" />
+<input type="hidden" id="urlCargaFiltrosQuery" value="@Url.Action("CargaFiltros","Querys")" />
+<input type="hidden" id="urlSharedQI" value="@Url.Action("q","Querys")" />
+<input type="hidden" id="urlSharedQE" value="@Url.Action("q","Querys")" />
+<input type="hidden" id="IdQuery" value="@ViewBag.IdQuery" />
+<input type="hidden" id="IdUnique" value="@ViewBag.IdUnique" />
+<input type="hidden" id="hdFiltros" value="@ViewBag.Filtros" />
+
+@{
+    Random rnd = new Random();
+    @*<script src="~/Scripts/Project/QuerysCreate.js"></script>*@
+    <script src="~/Scripts/Project/QuerysCreate.js?@rnd.Next()"></script>
+
+}
+
+

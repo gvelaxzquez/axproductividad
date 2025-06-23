@@ -1,0 +1,136 @@
+﻿<div class="modal" id="mdlIssue" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="largeModalHead">Issue</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form class="form-horizontal">
+                            <div id="divNoIssue" class="form-group col-md-12">
+                                <label for="lblNoIssue" class="col-md-2 control-label">No. Issue</label>
+                                <div class="col-md-8 col-xs-12">
+                                    <label class="control-label" id="lblNoIssue"></label>
+                                </div>
+                            </div>
+                            <div id="divProyecto" class="form-group col-md-12">
+                                <label for="cmbProyecto" class="col-md-2 control-label">Proyecto</label>
+                                <div class="col-md-8 col-xs-12">
+                                    <select class="form-control RequeridoIssue" id="cmbProyectoissue" item="Proyecto">
+                                    </select>
+                                    <label class="control-label hidden" id="lblProyecto"></label>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="txtDescripcion" class="col-md-2 control-label">Descripción</label>
+                                <div class="col-md-9 col-xs-12">
+                                    <textarea rows="3" class="form-control RequeridoIssue" id="txtDescripcion" item="Descripción" style="min-height: 45px; max-height: 150px; max-width: none !important; resize: vertical"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="dtFechaDeteccion" class="col-md-2 control-label">Fecha detección</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <input type="date" class="form-control RequeridoIssue" id="dtFechaDeteccion" item="Fecha detección" />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="cmbPrioridad" class="col-md-2 control-label">Prioridad</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <select class="form-control RequeridoIssue" id="cmbPrioridad" item="Prioridad">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="cmbEstatus" class="col-md-2 control-label">Estatus</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <select class="form-control RequeridoIssue" id="cmbEstatus" item="Estatus">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="" class="col-md-2 control-label">Responsable</label>
+                                <div class="col-md-2">
+                                    <label for="rdoInterno" class="control-label"><input id="rdoInterno" type="radio" name="rdoResponsable" value="Interno" checked /> Interno</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="rdoExterno" class="control-label"><input id="rdoExterno" type="radio" name="rdoResponsable" value="Externo" /> Externo</label>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <div class="col-md-offset-2 col-md-6 col-xs-12">
+                                    <select class="form-control RequeridoIssue" item="Responsble" id="cmbResponsable">
+                                    </select>
+                                    <input class="form-control hidden" type="text" item="Responsble" id="txtResponsable" />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="dtFechaCompromiso" class="col-md-2 control-label">Fecha compromiso</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <input type="date" class="form-control" id="dtFechaCompromiso" item="Fecha compromiso" />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="dtFechaCierre" class="col-md-2 control-label">Fecha cierre</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <input type="date" class="form-control" id="dtFechaCierre" item="Fecha cierre" />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="cmbListaControl" class="col-md-2 control-label">Bloqueante</label>
+                                <div style="padding-top: 7px;" class="col-md-6 col-xs-12">
+                                    <input type="checkbox" id="chkBloqueante" />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <div class="col-md-offset-2">
+                                    <button class="col-md-3 btn btn-info" id="btnVerComentarios">Ver Comentarios</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
+                <button class="btn btn-success" id="btnGuardarIssue"><i class="fa fa-floppy-o"></i> Guardar</button>
+            </div>
+        </div>
+    </div>
+    @Html.Hidden("CrearIssue", Url.Action("CrearIssue", "Issue"))
+    @Html.Hidden("EditarIssue", Url.Action("EditarIssue", "Issue"))
+    @Html.Hidden("LeerIssuePorId", Url.Action("LeerIssuePorId", "Issue"))
+    @Html.Hidden("LeerComboProyecto", Url.Action("LeerComboProyecto", "Issue"))
+    @Html.Hidden("LeerComboIssueEstatus", Url.Action("LeerComboIssueEstatus", "Issue"))
+    @Html.Hidden("LeerComboIssuePrioridad", Url.Action("LeerComboIssuePrioridad", "Issue"))
+    @Html.Hidden("LeerComboUsuarios", Url.Action("LeerComboUsuarios", "Issue"))
+</div>
+
+<div class="modal" id="mdlIssueComentarios" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="largeModalHead"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div style="display: flex; flex-direction: column;">
+                            <div id="divMensajes" class="div-comentarios">
+                            </div>
+                            <div style="width: 100%; border-top: 1px solid lightgray; padding-top: 10px">
+                                <textarea id="txtComentario" maxlength="1000" class="form-control RequeridoComentario" item="Comentario" rows="3" style="margin-bottom:5px; width: 100%; max-width: none; resize: vertical; max-height: 150px; min-height: 30px"></textarea>
+                                <button class="btn btn-default pull-right" id="btnAgregarComentario"><span class="fa fa-comment"></span> Agregar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Hidden("LeerIssueComentario", Url.Action("LeerIssueComentario", "Issue"))
+    @Html.Hidden("CrearIssueComentario", Url.Action("CrearIssueComentario", "Issue"))
+    @Html.Hidden("EliminarIssueComentario", Url.Action("EliminarIssueComentario", "Issue"))
+</div>

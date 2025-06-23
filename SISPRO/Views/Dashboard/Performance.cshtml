@@ -1,0 +1,277 @@
+﻿
+
+
+
+@{
+    ViewBag.Title = "Performance";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/easypiechart.min.js"></script>
+<script src="~/Scripts/jquery.easypiechart.min.js"></script>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+
+
+
+            <div class="row">
+
+                <div class="col-md-4">
+
+                    <div class="" style="border-bottom: none !important;">
+                        <div class="panel-group accordion accordion-dc">
+                            <div class="panel ">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">
+                                        <a href="#accordion-OP">
+                                            Productividad
+                                        </a>
+                                        <br />
+
+
+                                    </h5>
+                                </div>
+                                <div class="panel-body panel-body-open" style="padding: 0px;" id="accordion-OP">
+                                    <div class="col-md-12 col-xs-12">
+
+
+                                        <div class="row">
+
+
+                                            <div class="col-md-6">
+                                                <div class="tile tile-default " id="tLblProductividad" title="Productividad  valor ganado/objetivo" style="cursor:pointer;">
+                                                    <div class="title tile-default " id="LblProductividad"></div>
+                                                    <p>Actual</p>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="tile tile-default " id="tLblProductividadM" title="Productividad lograda respecto al objetivo mensual" style="cursor:pointer;">
+                                                    <div class="title tile-default " id="LblProductividadM"> </div>
+                                                    <p>Acumulada</p>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+                                        <div class="row">
+
+
+                                            <div class="col-md-4">
+                                                <div class="tile tile-default text-info" id="tLblObjetivo" title="Capacidad instalada del equipo" style="cursor:pointer;">
+                                                    <div class="title tile-default " id="LblObjetivoM"></div>
+                                                    <p>Objetivo</p>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="tile tile-default text-info" id="tLblProductividadM" title="Horas productivas esperadas al día de hoy" style="cursor:pointer;">
+                                                    <div class="title tile-default " id="LblObjetivo"> </div>
+                                                    <p>Esperado</p>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="tile tile-default text-info" id="tLblProductividadM" title="Horas productivas terminadas al día de hoy" style="cursor:pointer;">
+                                                    <div class="title tile-default " id="LblActual"> </div>
+                                                    <p>Actual</p>
+
+                                                </div>
+                                            </div>
+
+
+
+                                        </div>
+
+
+
+
+
+
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+                </div>
+                <div class="col-md-8 col-xs-12">
+                    <div class="" style="border-bottom: none !important;">
+                        <div class="panel-group accordion accordion-dc">
+                            <div class="panel ">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">
+                                        <a href="#accordion-GPH">
+                                            Últimos 12 meses
+                                        </a>
+                                        <br />
+                               
+
+                                    </h5>
+                                </div>
+                                <div class="panel-body panel-body-open" style="padding: 0px;" id="accordion-GPH">
+                                    <div class="col-md-12 col-xs-12 col-centered ">
+                                        <div id="GraficaHP" style="max-height:20px;">
+
+                                        </div>
+                                        <div id="scriptsHP">
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="filter-settings hide">
+                <div class="filter-settings-icon"><span class="glyphicon glyphicon-filter"></span></div>
+                <h5>Filtrar</h5>
+                <div class="filter-settings-row">
+                    <label for="SelAnioHom">Año</label>
+                    <select class="form-control selectpicker ReqFiltroCons" id="SelAnioHom" item="Año">
+                    </select>
+                </div>
+                <div class="filter-settings-row">
+                    <label for="SelAnio">Mes</label>
+                    <select class="form-control ReqFiltroCons selectpicker" id="SelMesHom" item="Mes">
+                        <option selected="selected" value="-1">--Seleccione--</option>
+                        <option value="1">Enero</option>
+                        <option value="2">Febrero</option>
+                        <option value="3">Marzo</option>
+                        <option value="4">Abril</option>
+                        <option value="5">Mayo</option>
+                        <option value="6">Junio</option>
+                        <option value="7">Julio</option>
+                        <option value="8">Agosto</option>
+                        <option value="9">Septiembre</option>
+                        <option value="10">Octubre</option>
+                        <option value="11">Noviembre</option>
+                        <option value="12">Diciembre</option>
+
+                    </select>
+                </div>
+                <div class="filter-settings-row" id="divRecurso">
+                    <label for="SelRecursoHom">Recurso</label>
+                    <select class="form-control selectpicker ReqFiltroCons" data-live-search="true" id="SelRecursoHom" item="Año">
+                        <option selected="selected" value="-1">--Seleccione--</option>
+
+                    </select>
+
+                </div>
+
+                <div class="filter-settings-row">
+                    <button class="btn btn-default" id="BtnFiltrarH">Aplicar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" >
+
+
+        <div class="col-md-12 col-xs-12">
+            <div class="panel panel-default  projectcard">
+                <div class="panel-body profile">
+                    <div class="row headerproyecto">
+                        <div class="col-md-6">
+                            <a>  <h4 id="">Equipo </h4></a>
+
+                        </div>
+                        <div class="col-md-6">
+
+                            <div class="btn-group pull-right">
+
+                                <a class="btn btn-info" id="BtnVerTrabajado">Trabajado</a>
+                                <a class="btn btn-default" id="BtnVerCapturas">Capturas</a>
+                                <a class="btn btn-default" id="BtnVerValorGanado">Valor ganado</a>
+                                <a class="btn btn-default" id="BtnVerAccesos">Accesos</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-xs-12">
+
+                    <div class="row" style="padding-bottom:10px;">
+                        <div class="col-md-12">
+
+
+                        </div>
+                    </div>
+
+                    <div class="row " style="padding-bottom:10px;">
+                        <div class="col-md-12">
+
+                            <div id="DivCapturas">
+                                <div class="table-responsive">
+                                    <table id="TblCapturaTiempo" class="table text dataTable datatable">
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div id="DivAccesos">
+                                <div class="table-responsive">
+                                    <table id="TblAccesos" class="table text dataTable datatable">
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div id="DivValorGanado">
+                                <div class="table-responsive">
+                                    <table id="TblValorGanado" class="table text dataTable datatable">
+                                    </table>
+                                </div>
+                            </div>
+                            <div id="DivTrabajado">
+                                <div class="table-responsive">
+                                    <table id="TblTrabajado" class="table text dataTable datatable">
+                                    </table>
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+ </div>
+
+
+@Html.Hidden("urlInicializar", @Url.Action("Inicializar", "Home"))
+@Html.Hidden("urlIndicadoresV2", @Url.Action("ObtieneIndicadoresPerformance", "Dashboard"))
+@{
+    Random rnd = new Random();
+    @*<script src="~/Scripts/Project/PerformanceDashboard.js"></script>*@
+    <script src="~/Scripts/Project/PerformanceDashboard.js?@rnd.Next()"></script>
+
+}
+

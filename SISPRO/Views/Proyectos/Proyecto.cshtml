@@ -1,0 +1,2113 @@
+﻿@using AxProductividad.Models;
+@{
+    ViewBag.Title = ViewBag.Clave;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>*@
+
+<script src="~/Scripts/jquery.tagsinput.min.js"></script>
+<link rel="stylesheet" href="~/Content/jquery.powertip.css" />
+<link href="https://cdn.jsdelivr.net/npm/smartwizard@5/dist/css/smart_wizard_all.min.css" rel="stylesheet" type="text/css" />
+
+
+<script src="~/Scripts/easypiechart.min.js"></script>
+<script src="~/Scripts/jquery.easypiechart.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/smartwizard@6/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
+
+
+
+
+<div class="page-title">
+    <div class="row">
+        <div class="col-md-8">
+            <h4>
+                Proyecto: <span id="lblNombreP"></span> <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <span id="BtnEstatusP"> </span>
+                        <span id="spEstatusCP" class="fa fa-fw fa-circle  pull-right"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        @*<li> <a id="BtnActualizaProgreso" class="btn Progress" onclick="ActualizaEstatusAct('P')" href="#"><i class="fa fa-arrow-left"></i> Progreso</a></li>*@
+                        <li><a href="#" id="" onclick="ActualizaEstatusProyecto('P')"> <i class="fa fa-fw fa-circle text-info pull-right"></i>Planeación</a></li>
+                        <li><a href="#" id="" onclick="ActualizaEstatusProyecto('E')"> <i class="fa fa-fw fa-circle text-progress pull-right"></i>Ejecución</a></li>
+                        <li><a href="#" id="" onclick="ActualizaEstatusProyecto('C')"> <i class="fa fa-fw fa-circle text-warning pull-right"></i>Cierre</a></li>
+                        <li><a href="#" id="" onclick="ActualizaEstatusProyecto('L')"> <i class="fa fa-fw fa-circle text-success pull-right"></i>Liberado</a></li>
+
+
+                        <li class="divider"></li>
+                        <li><a href="#" id="" onclick="ActualizaEstatusProyecto('D')"> <i class="fa fa-fw fa-circle text-danger pull-right"></i>Detenido</a></li>
+                        <li><a href="#" id="" onclick="ActualizaEstatusProyecto('X')"> <i class="fa fa-fw fa-circle text-muted pull-right"></i>Cancelado</a></li>
+
+                    </ul>
+                </div>
+            </h4>
+
+        </div>
+
+        <div class="col-md-4">
+            <div>
+                <a class="btn btn-default pull-right" href="@Url.Action("Index", "Proyectos")"><i class="fa fa-arrow-left"></i> Regresar</a>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="page-content-wrap">
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <form class="form-horizontal">
+
+                                <div class="panel panel-default tabs">
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="active"><a href="#tab-indicadores" role="tab" data-toggle="tab"> <i class="fa fa-dashboard"></i> Informe de proyecto</a></li>
+                                        <li class="hidden-xs"><a href="#tab-backlog" role="tab" data-toggle="tab" onclick="ConsultaBacklog();"> <i class="fa fa-list-ul"></i> Backlog</a></li>
+                                        <li class="hidden-xs"><a href="#tab-sprints" role="tab" data-toggle="tab" onclick="CargarSprintsWI();"> <i class="fa fa-circle-o-notch"></i> Sprints</a></li>
+                                        <li class="hidden-xs"><a href="#tab-third" role="tab" data-toggle="tab" onclick="InicializaActividades();"><i class="fa fa-tasks"></i> Actividades</a></li>
+                                        <li class="hidden-xs"><a href="#tab-second" role="tab" data-toggle="tab" onclick="CargarEquipo()"><i class="fa fa-users"></i> Equipo </a></li>
+
+
+                                        <li class="hidden-xs"><a href="#tab-documents" role="tab" data-toggle="tab" onclick="ConsultaDocumentos()"><i class="fa fa-folder-open-o"></i> Documentos </a></li>
+
+                                        @{
+
+                                            var IdTipoU = ViewBag.IdTipoUsuario;
+
+                                            if (IdTipoU != 14 && IdTipoU != 20)
+                                            {
+                                                <li class="hidden-xs"><a href="#tab-five" role="tab" data-toggle="tab" onclick="CargarCostos()"> <i class="fa fa-money"></i> Costos</a></li>
+                                            }
+                                        }
+
+                                        <li class="hidden-xs"><a href="#tab-audit" role="tab" data-toggle="tab" onclick="ListaControlProyecto.Funciones.Init();ListaRevisionProyecto.Funciones.Init()"> <i class="fa fa-list"></i> Controles</a></li>
+                                        <li class="hidden-xs"><a href="#tab-issuesproyecto" role="tab" data-toggle="tab" onclick="IssueProyecto.Funciones.Init();RiesgosProyecto.Funciones.Init();"> <i class="fa fa-warning"></i> Riesgos</a></li>
+                                        <li class="hidden-xs"><a href="#tab-repositorios" role="tab" data-toggle="tab"><i class="fa fa-code-fork"></i> Repositorios </a></li>
+                                        <li class="hidden-xs"><a href="#tab-first" role="tab" data-toggle="tab"> <i class="fa fa-cog"></i> Datos generales</a></li>
+                                    </ul>
+                                    <div class="panel-body tab-content">
+                                        <div class="tab-pane" id="tab-audit">
+                                            <div class="row">
+                                                <div class="panel-heading" style="border-bottom: none !important;">
+                                                    <div class="panel-group accordion accordion-dc">
+                                                        <div class="panel panel-colorful">
+                                                            <div class="panel-heading">
+                                                                <h4 class="panel-title">
+                                                                    <a href="#accordion-checklist">
+                                                                        Listas de control
+                                                                    </a>
+                                                                </h4>
+                                                            </div>
+                                                            <div class="panel-body panel-body-open" style="padding: 0px;" id="accordion-checklist">
+                                                                <div class="row">
+                                                                    <div class="table-responsive">
+                                                                        <table class="table datatable text" id="dtListaControl">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th class="text-center">Nombre</th>
+                                                                                    <th class="text-center">Proceso</th>
+                                                                                    <th class="text-center">Subproceso</th>
+                                                                                    <th class="text-center" style="width:10%">Ver</th>
+                                                                                    <th class="text-center" style="width:10%">Activo</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="panel-heading" style="border-bottom: none !important;">
+                                                    <div class="panel-group accordion accordion-dc">
+                                                        <div class="panel panel-colorful">
+                                                            <div class="panel-heading">
+                                                                <h4 class="panel-title">
+                                                                    <a href="#accordion-peer">
+                                                                        Lista de revisión
+                                                                    </a>
+                                                                </h4>
+                                                            </div>
+                                                            <div class="panel-body panel-body-open" style="padding: 0px;" id="accordion-peer">
+                                                                <div id="modulo-revision">
+                                                                    <div class="col-md-12" style="text-align:end">
+                                                                        <div class="panel-body" style="padding: 0px;">
+                                                                            <button class="btn btn-primary btnCopiar" id="" style="">Copiar <span class="fa fa-copy"></span></button>
+                                                                            <button class="btn btn-primary btnImportar" id="" style="">Importar</button>
+                                                                            <button class="btn btn-success btnNuevo" id="">Nuevo</button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-12" style=" padding: 15px 0px;">
+                                                                        <div class="table-responsive">
+                                                                            <table class="table datatable text dtPeerReview" id="">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th class="text-center">Nombre</th>
+                                                                                        <th class="text-center">Proceso</th>
+                                                                                        <th class="text-center">Subproceso</th>
+                                                                                        <th class="text-center" style="width:10%">Ver</th>
+                                                                                        <th class="text-center" style="width:10%">Activo</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane" id="tab-issuesproyecto">
+                                            <div class="row">
+                                                <div class="panel-heading" style="border-bottom: none !important;">
+                                                    <div class="panel-group accordion accordion-dc">
+                                                        <div class="panel panel-colorful">
+                                                            <div class="panel-heading">
+                                                                <h4 class="panel-title">
+                                                                    <a href="#accordion-issues">
+                                                                        Issues
+                                                                    </a>
+                                                                </h4>
+                                                            </div>
+                                                            <div class="panel-body panel-body-open" style="padding: 0px;" id="accordion-issues">
+                                                                <div id="modulo-issues">
+                                                                    <div class="col-md-12" style="text-align:end">
+                                                                        <div class="panel-body" style="padding: 0px;">
+                                                                            <button class="btn btn-primary" id="btnExportar" style="">Exportar <span class="fa fa-file-excel-o"></span></button>
+                                                                            <button class="btn btn-success" id="btnNuevo">Nuevo</button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="panel-body" style="padding: 15px 0px;">
+                                                                            <div class="table-responsive">
+                                                                                <table class="table datatable text" id="dtIssue">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th class="text-center" width="8%">No. Issue</th>
+                                                                                            <th class="text-center" width="10%">Responsable</th>
+                                                                                            <th class="text-center" width="8%">Compromiso</th>
+                                                                                            <th class="text-center" width="21%">Descripción</th>
+                                                                                            <th class="text-center" width="10%">Prioridad</th>
+                                                                                            <th class="text-center" width="10%">Estatus</th>
+                                                                                            <th class="text-center" width="5%">Bloq.</th>
+                                                                                            <th class="text-center" width="20%">Comentarios</th>
+                                                                                            <th class="text-center" width="8%">Cierre</th>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <th class="text-center"><input style="width: 100%;" placeholder="No. Issue..." type="text" class="form-control search-input" /></th>
+                                                                                            <th class="text-center"><input style="width: 100%;" placeholder="Responsable..." type="text" class="form-control search-input" /></th>
+                                                                                            <th class="text-center"><input style="width: 100%;" placeholder="Compromiso..." type="text" class="form-control search-input" /></th>
+                                                                                            <th class="text-center"><input style="width: 100%;" placeholder="Descripción..." type="text" class="form-control search-input" /></th>
+                                                                                            <th class="text-center"><input style="width: 100%;" placeholder="Prioridad..." type="text" class="form-control search-input" /></th>
+                                                                                            <th class="text-center"><input style="width: 100%;" placeholder="Estatus..." type="text" class="form-control search-input" /></th>
+                                                                                            <th class="text-center"><input style="width: 100%;" placeholder="Bloq..." type="text" class="form-control search-input" /></th>
+                                                                                            <th class="text-center"><input style="width: 100%;" placeholder="Comentarios..." type="text" class="form-control search-input" /></th>
+                                                                                            <th class="text-center"><input style="width: 100%;" placeholder="Cierre..." type="text" class="form-control search-input" /></th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="panel-heading" style="border-bottom: none !important;">
+                                                    <div class="panel-group accordion accordion-dc">
+                                                        <div class="panel panel-colorful">
+                                                            <div class="panel-heading">
+                                                                <h4 class="panel-title">
+                                                                    <a class="accordion-resize" href="#accordion-riesgos">
+                                                                        Riesgos y oportunidades
+                                                                    </a>
+                                                                </h4>
+                                                            </div>
+                                                            <div class="panel-body panel-body-open" id="accordion-riesgos">
+                                                                <div id="modulo-riesgos">
+                                                                    <div class="col-md-12" style="text-align:end">
+                                                                        <div class="panel-body" style="padding: 0px;">
+                                                                            <button class="btn btn-primary btnExportar" id="" style="">Exportar <span class="fa fa-file-excel-o"></span></button>
+                                                                            <button class="btn btn-success btnNuevo" id="">Nuevo</button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="panel-body" style="padding: 15px 0px;">
+                                                                            <table class="table dtRiesgo" id="">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th class="text-center">No.</th>
+                                                                                        <th class="text-center">F. Ident.</th>
+                                                                                        <th class="text-center">Categoría</th>
+                                                                                        <th class="text-center">Fuente</th>
+                                                                                        <th class="text-center">Descripción</th>
+                                                                                        <th class="text-center">Descripción efecto</th>
+                                                                                        <th class="text-center">Causas</th>
+                                                                                        <th class="text-center">Evento materialización</th>
+                                                                                        <th class="text-center">Impacto</th>
+                                                                                        <th class="text-center">Probabilidad</th>
+                                                                                        <th class="text-center">Calificación</th>
+                                                                                        <th class="text-center">Severidad</th>
+                                                                                        <th class="text-center"></th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <th class="text-center" style="border-right: 1px solid lightgray;"><input style="width: 100%;" placeholder="No." type="text" class="form-control search-input" /></th>
+                                                                                        <th class="text-center"><input style="width: 100%;" placeholder="F. Ident..." type="text" class="form-control search-input" /></th>
+                                                                                        <th class="text-center"><input style="width: 100%;" placeholder="Categoría..." type="text" class="form-control search-input" /></th>
+                                                                                        <th class="text-center"><input style="width: 100%;" placeholder="Fuente..." type="text" class="form-control search-input" /></th>
+                                                                                        <th class="text-center"><input style="width: 100%;" placeholder="Descripción..." type="text" class="form-control search-input" /></th>
+                                                                                        <th class="text-center"><input style="width: 100%;" placeholder="Descripción efecto..." type="text" class="form-control search-input" /></th>
+                                                                                        <th class="text-center"><input style="width: 100%;" placeholder="Causas..." type="text" class="form-control search-input" /></th>
+                                                                                        <th class="text-center"><input style="width: 100%;" placeholder="Evento materialización..." type="text" class="form-control search-input" /></th>
+                                                                                        <th class="text-center"><input style="width: 100%;" placeholder="Impacto..." type="text" class="form-control search-input" /></th>
+                                                                                        <th class="text-center"><input style="width: 100%;" placeholder="Probabilidad..." type="text" class="form-control search-input" /></th>
+                                                                                        <th class="text-center"><input style="width: 100%;" placeholder="Calificación..." type="text" class="form-control search-input" /></th>
+                                                                                        <th class="text-center"><input style="width: 100%;" placeholder="Severidad..." type="text" class="form-control search-input" /></th>
+                                                                                        <th class="text-center border-left"></th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                    @Html.Hidden("LeerComboProyecto", Url.Action("LeerComboProyecto", "Riesgo"))
+                                                                    @Html.Hidden("LeerProyectoRiesgo", Url.Action("LeerProyectoRiesgo", "Riesgo"))
+                                                                    @Html.Hidden("EliminarProyectoRiesgo", Url.Action("EliminarProyectoRiesgo", "Riesgo"))
+                                                                    @Html.Hidden("DescargarExcelRiesgo", Url.Action("DescargarExcelRiesgo", "Riesgo"))
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="tab-pane active" id="tab-indicadores">
+                                            <br />
+
+                                            @{
+
+                                                var IdTipoU2 = ViewBag.IdTipoUsuario;
+                                                var IndFin = ViewBag.IndFinancieros;
+                                                var clase = "hide";
+
+                                                if (IdTipoU2 != 14 && IdTipoU2 != 20 && IndFin == true)
+                                                {
+                                                    clase = "show";
+
+                                                }
+
+
+
+                                                <div class="row @clase" id="divFinancieros">
+                                                    <div class="col-md-3">
+
+                                                        <div class="panel panel-default  projectcard" style="min-height:285px;">
+                                                            <div class="panel-body profile">
+                                                                <div class="row headerproyecto">
+                                                                    <div class="col-md-12">
+                                                                        <h4>Rentabilidad</h4>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-12">
+                                                                <div style="margin-top:5%;">
+                                                                    <table class="table " id="">
+                                                                        <thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td> <h2 class="no-margins font-extra-bold" id="LblRentabilidad"></h2>  <h3>Actual</h3></td>
+                                                                                <td>  <div class="pull-right font-bold text-primary"> <h3 class="" id="LblRentabilidadPorc"> </h3></div> </td>
+
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td> <h3 class="no-margins font-extra-bold" id="LblRentProyectada"></h3>  <h5>Proyectada</h5></td>
+                                                                                <td>  <div class="pull-right font-bold text-primary"> <h3 class="" id="LblRentProyectadaPorc"> </h3></div> </td>
+
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td> <h3 class="no-margins font-extra-bold" id="LblRentPlaneada"></h3>  <h5>Planeada</h5></td>
+                                                                                <td>  <div class="pull-right font-bold text-primary"> <h3 class="text" id="LblRentPlaneadaPorc"></h3></div> </td>
+
+                                                                            </tr>
+
+                                                                        </tbody>
+                                                                    </table>
+
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+
+
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <div class="panel panel-default projectcard" style="min-height:285px;">
+                                                            <div class="panel-body profile">
+                                                                <div class="row headerproyecto">
+                                                                    <div class="col-md-12">
+                                                                        <h4>Costos</h4>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-8">
+                                                                <div class="py-3 " style="padding-left:1em">
+                                                                    <h2 class="no-margins font-extra-bold" id="LblCostoActual"></h2>  <h4>Actual</h4>
+                                                                </div>
+
+
+                                                                <div class="mx-0 row" style="padding-top:0">
+                                                                    <div class="border-end border-bottom py-3 col-md-6">
+                                                                        <h4 class="fw-normal text-600" id="LblCostoDisponible"></h4>
+                                                                        <h5 class="text-500 mb-0">Disponible</h5>
+                                                                    </div>
+                                                                    <div class="border-bottom py-3 col-md-6">
+                                                                        <h4 class="fw-normal text-600" id="LblCostoProyectado"></h4>
+                                                                        <h5 class="text-500 mb-0">Proyectado</h5>
+                                                                    </div>
+                                                                    <div class="border-end py-3 col-md-6">
+                                                                        <h4 class="fw-normal text-600" id="LblCostoPlaneado"></h4>
+                                                                        <h5 class="text-500 mb-0">Planeado</h5>
+                                                                    </div>
+                                                                    <div class="py-3 col-md-6">
+                                                                        <h4 class="fw-normal text-600" id="LblCostoHora"></h4>
+                                                                        <h5 class="text-500 mb-0">Costo hora</h5>
+                                                                    </div>
+                                                                </div>
+
+
+
+
+
+
+
+
+                                                            </div>
+
+                                                            <div class="col-md-4">
+
+                                                                <span class="chart ccostos" data-percent="100">
+                                                                    <span class="percent"></span><br>
+                                                                    <p>Utilizado</p>
+                                                                </span>
+                                                            </div>
+
+
+                                                        </div>
+
+
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <div class="panel panel-default projectcard" style="min-height:285px;">
+                                                            <div class="panel-body profile">
+                                                                <div class="row headerproyecto">
+                                                                    <div class="col-md-8">
+                                                                        <a onclick="VerFlujo();"><h4>Flujo de pagos</h4></a>
+
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <h4>Tarifa: <label id="LblTarifa"></label></h4>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-12" style="margin-top:5%;">
+                                                                <table class="table datatable text" id="" style="margin-bottom:0;">
+
+                                                                    <tbody>
+
+                                                                        <tr>
+                                                                            <td> <h4> Total proyecto:</h4></td>
+                                                                            <td> <h4 id="LblTotalProyecto" class="text-right"></h4> </td>
+
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td> <h4> Total facturado:</h4></td>
+                                                                            <td> <h4 id="LblTotalFacturado" class="text-right"></h4> </td>
+
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td><h4 class="text-success"> Total cobrado: </h4></td>
+                                                                            <td><h4 id="LblTotalPagado" class="text-right text-success"></h4></td>
+
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td><h4 class="text-danger"> Atrasado Dev: </h4></td>
+                                                                            <td><h4 id="LblTotalAtrasado" class="text-right text-danger"></h4></td>
+
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td> <h4 style="font-weight:bold;"> Saldo:</h4></td>
+                                                                            <td><h4 style="font-weight:bold;" id="LblSaldo" class="text-right"></h4></td>
+
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+
+                                                        </div>
+
+
+                                                    </div>
+
+
+                                                    <br />
+
+                                                    <div class="row hide">
+                                                        <div class="col-md-12"> <h5> Avance</h5></div>
+
+                                                        <div class="col-md-12">
+                                                            <div class="col-md-4">
+                                                                <div class="widget" id="WAvActual">
+                                                                    <div class="widget-title"> Avance actual</div>
+                                                                    <div class="widget-int"><span data-toggle="counter" id="LblAvanceActualPorc"> </span>%</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="widget  widget-primary ">
+                                                                    <div class="widget-title widget-primary"> Avance esperado</div>
+                                                                    <div class="widget-int"><span data-toggle="counter" id="LblAvanceEsperadoPorc"> </span>%</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="widget   widget-primary" id="WAv">
+                                                                    <div class="widget-title widget-primary"> Desfase</div>
+                                                                    <div class="widget-int"><span data-toggle="counter" id="LblDesfasePorc"> </span>%</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+
+
+
+
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    <br />
+
+
+
+                                                </div>
+                                            }
+
+                                            <div class="row">
+
+                                                <div class="col-md-9">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="panel panel-default  projectcard" style="min-height:408px;">
+                                                                <div class="panel-body profile">
+                                                                    <div class="row headerproyecto">
+                                                                        <div class="col-md-12">
+                                                                            <h4>Fechas <a href="#" onclick="AbrirModalFechas()"><span class="fa fa-refresh"></span></a></h4>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+
+                                                                <div class="col-md-12">
+                                                                    <div style="margin-top:5%;">
+                                                                        <table class="table " id="">
+                                                                            <thead>
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                </tr>
+
+                                                                                <tr>
+                                                                                    <td> <h3 class="no-margins font-extra-bold" id="LblFechaIniPlan"></h3>  <h5>Fecha inicio</h5></td>
+
+
+                                                                                </tr>
+                                                                                <br />
+                                                                                <tr>
+                                                                                    <td> <h3 class="no-margins font-extra-bold" id="LblFechaFinPlan"></h3>  <h5>Fecha Fin</h5></td>
+
+
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td> <h3 class="no-margins font-extra-bold" id="LblFechaFinProyectada"></h3>  <h5>Fecha proyectada</h5></td>
+
+
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td> <h2 class="no-margins font-extra-bold text-info" id="LblFechaFinCompromiso"></h2>  <h5>Fecha Compromiso</h5></td>
+
+
+                                                                                </tr>
+
+                                                                            </tbody>
+                                                                        </table>
+
+                                                                    </div>
+                                                                </div>
+
+
+
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <div class="panel panel-default projectcard" style="min-height:408px;">
+                                                                <div class="panel-body profile">
+                                                                    <div class="row headerproyecto">
+                                                                        <div class="col-md-12">
+                                                                            <h4>Avance</h4>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-4">
+
+                                                                    <div class="col-md-6">
+
+
+
+                                                                        <span class="chart cavanceactual " data-percent="86">
+                                                                            <span class="percent"></span><br>
+                                                                            <p>Avance actual</p>
+                                                                        </span>
+
+                                                                    </div>
+
+                                                                    <div class="col-md-6">
+                                                                        <span class="chart cavanceesperado" data-percent="86">
+                                                                            <span class="percent"></span><br>
+                                                                            <p>Avance esperado</p>
+                                                                        </span>
+
+                                                                    </div>
+                                                             
+
+
+                                                                    <div class="mx-0 row">
+                                                                        <div class="border-end border-bottom py-3 col-md-6">
+                                                                            <h4 class="fw-normal text-600" id="LblTotalHoras"></h4>
+                                                                            <h5 class="text-500 mb-0">
+                                                                                Total
+                                                                                <a href="#" onclick="AbrirModalHoras()"><span class="fa fa-refresh"></span></a>
+                                                                            </h5>
+                                                                        </div>
+                                                                        <div class="border-bottom py-3 col-md-6">
+                                                                            <h4 class="fw-normal text-600" id="LblComprometidas"></h4>
+                                                                            <h5 class="text-500 mb-0">Comprometidas</h5>
+                                                                        </div>
+                                                                        <div class="border-end py-3 col-md-6">
+                                                                            <h4 class="fw-normal text-600" id="LblRelizadas"></h4>
+                                                                            <h5 class="text-500 mb-0">Actual</h5>
+                                                                        </div>
+                                                                        <div class="py-3 col-md-6">
+                                                                            <h4 class="fw-normal text-600" id="LblDesfase"></h4>
+                                                                            <h5 class="text-500 mb-0">Desfase</h5>
+                                                                        </div>
+                                                                    </div>
+
+
+
+
+
+
+                                                                </div>
+
+                                                                <div class="col-md-8">
+                                                                    <div id="GraficaAvance">
+
+                                                                    </div>
+                                                                    <div id="scriptsAvance">
+                                                                    </div>
+
+                                                                </div>
+
+
+                                                            </div>
+
+
+
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="panel panel-default  projectcard" style="min-height:408px;">
+                                                                <div class="panel-body profile">
+                                                                    <div class="row headerproyecto">
+                                                                        <div class="col-md-12">
+                                                                            <h4>Puntos de historia </h4>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+
+                                                                <div class="col-md-3" style="margin-top:5%;">
+                                                                    <div class="mx-0 row">
+                                                                        <div class="border-all border-bottom py-3 col-md-12 ">
+                                                                            <h2 class=" font-extra-bold text-info text-600" id="LblTotalPH"></h2>
+                                                                            <h4 class="text-500 mb-0 text-info">
+                                                                                Total
+                                                                             
+                                                                            </h4>
+                                                                        </div>
+                                                                        <div class="border-all py-3 col-md-12">
+                                                                            <h2 class="  font-extra-bold  text-600  text-success " id="LblTerminadosPH"></h2>
+                                                                            <h4 class="text-500 mb-0  text-success">Terminados</h4>
+                                                                        </div>
+                                                                        <div class="border-all py-3 col-md-12 ">
+                                                                            <h2 class=" font-extra-bold  text-warning text-600" id="LblPendientesPH"></h2>
+                                                                            <h4 class="text-500 mb-0 text-warning">Pendientes</h4>
+                                                                        </div>
+                                                                       
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="col-md-9">
+                                                                    <div id="GraficasPPH">
+
+                                                                    </div>
+                                                                    <div id="scriptsPPH">
+                                                                    </div>
+
+                                                                </div>
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div id="GraficaActs">
+
+                                                        </div>
+                                                        <div id="scriptsActs">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-md-3">
+
+                                                    <div class="panel panel-default  projectcard" style="min-height:408px;">
+                                                        <div class="panel-body profile">
+                                                            <div class="row headerproyecto">
+                                                                <div class="col-md-12">
+                                                                    <h4>Sprints</h4>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-12">
+                                                            <div style="margin-top:5%;">
+                                                                <table class="table " id="">
+                                                                    <thead>
+                                                                    <tbody id="tblSprintDetalle">
+                                                                        <tr>
+                                                                        </tr>
+
+                                                                    </tbody>
+                                                                </table>
+
+                                                            </div>
+                                                        </div>
+
+
+
+
+                                                    </div>
+
+
+
+                                                </div>
+
+
+                                            </div>
+
+
+                                            <div class="row">
+
+                                            </div>
+
+
+
+
+                                        </div>
+                                        <div class="tab-pane" id="tab-first">
+                                            <div style="display: grid; grid-template-columns: repeat(2, 1fr)">
+                                                <div>
+                                                    <div style="padding-right: 150px;" class="form-group">
+                                                        <button class="btn btn-default pull-right" id="BtnGuardarDG">Guardar<span class="fa fa-floppy-o fa-right"></span></button>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div>
+                                                            <label class="col-md-3 col-xs-12 control-label " for="TxtClaveP">Clave*</label>
+                                                            <div class="col-md-8 col-xs-12">
+
+                                                                <input type="text" class="form-control ReqProyectoDG" id="TxtClaveP" maxlength="200" item="Clave" />
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div>
+                                                            <label class="col-md-3 col-xs-12 control-label " for="TxtNombreP">Nombre*</label>
+                                                            <div class="col-md-8 col-xs-12">
+
+                                                                <input type="text" class="form-control ReqProyectoDG" id="TxtNombreP" maxlength="200" item="Nombre" />
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div>
+                                                            <label class="col-md-3 col-xs-12 control-label " for="TxtNombreP">Descripcion*</label>
+                                                            <div class="col-md-8 col-xs-12">
+                                                                <textarea cols="6" class="form-control ReqProyectoDG" id="TxtDescripcionP" maxlength="1000" item="Descripción"> </textarea>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 col-xs-12 control-label">Cliente*</label>
+                                                        <div class="col-md-6 col-xs-12">
+                                                            <select class="form-control ReqProyectoDG" id="SelClientePr" item="Cliente"></select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 col-xs-12 control-label">Tipo proyecto*</label>
+                                                        <div class="col-md-6 col-xs-12">
+                                                            <select class="form-control ReqProyectoDG" id="SelTipoProyectoP" item="Tipo proyecto"></select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 col-xs-12 control-label">Líder*</label>
+                                                        <div class="col-md-6 col-xs-12">
+                                                            <select class="form-control ReqProyectoDG" id="SelLiderP" item="Líder"></select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 col-xs-12 control-label">Metodología*</label>
+                                                        <div class="col-md-6 col-xs-12">
+                                                            <select class="form-control ReqProyectoDG" id="SelMetodologiaP" item="Metodología"></select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 col-xs-12 control-label">Estatus*</label>
+                                                        <div class="col-md-6 col-xs-12">
+                                                            <select class="form-control ReqProyectoDG" id="SelEstatusP" item="Estatus">
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 col-xs-12 control-label">Visible</label>
+                                                        <div class="col-md-6 col-xs-12">
+                                                            <label class="switch switch-small" for="ChkActivo">
+                                                                <input type="checkbox" checked id="ChkActivo" />
+                                                                <span></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="tab-second">
+
+                                            <div class="row" style="padding-top:20px;">
+                                                <div class="col-md-12">
+                                                    <div class="col-md-4">
+                                                        <div class="tile tile-default" title="Capacidad mensual requerida para cumplir con el proyecto" style="cursor:pointer;">
+                                                            <div class="title tile-default" id="LblCapRequerida">0</div>
+                                                            <p>Capacidad requerida (hrs)</p>
+
+                                                        </div>
+
+
+                                                    </div>
+
+                                                    <div class="col-md-4">
+
+                                                        <div class="tile tile-info" title="Capacidad actual del equipo dedicado" style="cursor:pointer;">
+                                                            <div class="title tile-default"><span id="LblCapActual"> 0</span></div>
+                                                            <p>Capacidad actual (hrs)</p>
+
+                                                        </div>
+
+
+
+
+                                                    </div>
+                                                    <div class="col-md-4">
+
+                                                        <div class="tile " id="wCobertura" title="Capacidad cubierta" style="cursor:pointer;">
+                                                            <div class="title tile-default"><span id="LblCapacidadCubierta">0 </span> % </div>
+                                                            <p>Cobertura</p>
+
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+
+                                                <button class="btn btn-default pull-right" id="BtAgregarUsuario"><i class="fa fa-plus"></i> Agregar</button>
+
+                                            </div>
+
+                                            <div class="table-responsive">
+                                                <table class="table datatable text" id="TblEquipo">
+                                                    <thead>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th>Clave</th>
+                                                            <th>Nombre</th>
+                                                            <th>Rol</th>
+                                                            <th>Objetivo (hrs)</th>
+                                                            <th>Participación (%)</th>
+                                                            <th>Administrador</th>
+                                                            <th>Activo</th>
+                                                            <th>Eliminar</th>
+
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
+                                        <div class="tab-pane" id="tab-third">
+
+                                            <div class="page-content-wrap">
+
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="panel panel-default">
+
+                                                            <div class="panel-body tabs">
+                                                                <ul class="nav nav-tabs" role="tablist">
+                                                                    <li class="active"> <a href="#tab-lista" role="tab" data-toggle="tab"> <i class="fa fa-tasks"></i> Lista</a></li>
+                                                                    <li class="hidden-xs"><a href="#tab-kanban" role="tab" data-toggle="tab" onclick="page_content_onresize();"><i class="fa fa-columns"></i> Kanban</a></li>
+
+
+
+                                                                </ul>
+                                                            </div>
+                                                            <div class="panel-body tab-content">
+
+
+
+                                                                <div class="tab-pane" id="tab-kanban">
+                                                                    <div class="row push-up-10" id="tableroTickets">
+                                                                        <div class="col-md-1 x_panel" id="taskToDo" style="border: 2px; width: 19%;">
+
+
+                                                                            <div class="row headTasks">
+                                                                                <h4 id="LblAbierto">Abierto</h4>
+                                                                            </div>
+
+                                                                            <div class="tasks" id="tasks_assigned">
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-1 x_panel" id="taskProgress" style="width: 19%;">
+                                                                            <div class="row headTasks">
+                                                                                <h4 id="LblProgreso">En progreso</h4>
+                                                                            </div>
+                                                                            <div class="tasks" id="tasks_progreess">
+
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-md-1 x_panel" id="taskValidacion" style="width: 19%;">
+                                                                            <div class="row headTasks">
+                                                                                <h4 id="LblValidacion">Validación</h4>
+                                                                            </div>
+                                                                            <div class="tasks" id="task_validate">
+
+
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-1 x_panel" id="taskre" style="width: 19%;">
+
+                                                                            <div class="row headTasks">
+                                                                                <h4 id="LblRechazadas">Rechazadas</h4>
+                                                                            </div>
+                                                                            <div class="tasks" id="tasks_re">
+
+
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-1 x_panel" id="taskok" style="width: 19%;">
+
+
+                                                                            <div class="row headTasks">
+                                                                                <h4 id="LblTerminadas">Terminadas</h4>
+                                                                            </div>
+                                                                            <div class="tasks" id="tasks_ok">
+
+
+
+                                                                            </div>
+                                                                        </div>
+
+
+
+
+
+                                                                    </div>
+                                                                </div>
+
+
+
+                                                                <div class="tab-pane active" id="tab-lista">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+
+                                                                            <form class="form-horizontal">
+                                                                                <div class="form-group">
+
+                                                                                    <div class="btn-group pull-left ">
+                                                                                        <label class="pull-left control-label"> Agrupar por: &nbsp;&nbsp;  </label>
+                                                                                        <a class="btn btn-info" id="BtnVerFases">Fase</a>
+                                                                                        <a class="btn btn-default" id="BtnVerRequerimientos">HU</a>
+                                                                                        <a class="btn btn-default" id="BtnVerSprint">Sprint</a>
+                                                                                        <a class="btn btn-default" id="BtnVerRecursos">Recurso</a>
+                                                                                    </div>
+
+                                                                                    <div class="pull-right">
+
+                                                                                        <button class="btn btn-primary" id="BtnCancelacionM"><i class="fa fa-trash"></i>  Cancelar </button>
+
+                                                                                        @*<button class="btn btn-success " id="BtnNuevaActividadP"><i class="fa fa-plus"></i>Nuevo</button>*@
+
+
+                                                                                        <div class="btn-group  ">
+                                                                                            <button class="btn btn-default " id="BtnImportarAct"><i class="fa fa-arrow-circle-up"></i>  Importar</button>
+                                                                                            <button class="btn btn-default" id="BtnExportarActividaesProy"><i class="fa fa-arrow-circle-o-down"></i> Exportar</button>
+                                                                                        </div>
+
+
+
+
+
+
+
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </form>
+
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="table-responsive">
+                                                                        <table class="table datatable text" id="TblActividadesP">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th></th>
+                                                                                    <th></th>
+                                                                                    <th></th>
+                                                                                    <th>Nombre</th>
+                                                                                    <th>Horas Estimadas</th>
+                                                                                    <th>Horas Asign</th>
+                                                                                    <th>Horas Real</th>
+                                                                                    <th>Fecha Inicio Plan</th>
+                                                                                    <th>Fecha Fin Plan</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody></tbody>
+                                                                        </table>
+                                                                    </div>
+
+
+
+                                                                </div>
+
+                                                            </div>
+
+
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="filter-settingspanel">
+                                                <div class="filter-settings-icon"><span class="glyphicon glyphicon-filter"></span></div>
+                                                <h5>Filtrar</h5>
+                                                <div class="filter-settings-row">
+                                                    <label for="TxtRangoFechas">Fecha</label>
+                                                </div>
+                                                <div class="filter-settings-row">
+                                                    <input type="text" id="TxtRangoFechas" item="Fecha" class="form-control DateRangePicker col-xs-10" style="width: 83.33333333% !important;" />
+                                                    <span class="input-group-addon col-xs-1"><span class="glyphicon glyphicon-calendar"></span></span>
+
+                                                </div>
+                                                @*<div class="filter-settings-row">
+                                                        <label for="SelProyectoTF">Proyecto</label>
+                                                        <select class="selectpicker form-control" multiple data-live-search="true" id="SelProyectoF" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--"></select>
+                                                    </div>*@
+                                                <div class="filter-settings-row">
+                                                    <label for="SelActividadF">Fase</label>
+                                                    <select class="selectpicker form-control" multiple data-live-search="true" id="SelActividadF" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--">
+                                                    </select>
+                                                </div>
+                                                <div class="filter-settings-row">
+                                                    <label for="SelUsuarioAsignadoF">Asignado</label>
+                                                    <select class="selectpicker form-control" multiple data-live-search="true" id="SelUsuarioAsignadoF" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--"></select>
+
+                                                </div>
+                                                <div class="filter-settings-row">
+                                                    <label class="col-md-3 col-xs-12 control-label">Estatus</label>
+                                                    <select class="selectpicker" multiple data-live-search="true" id="SelEstatusF" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--">
+
+                                                        <option value="A" selected>Abierto</option>
+                                                        <option value="P" selected>En progreso</option>
+                                                        <option value="R" selected>Revisión</option>
+                                                        <option value="V" selected>Validada</option>
+                                                        <option value="L" selected>Liberada</option>
+                                                        <option value="C">Cancelada</option>
+                                                        <option value="X" selected>Rechazada</option>
+
+                                                    </select>
+                                                </div>
+
+                                                <div class="filter-settings-row">
+                                                    <button class="btn btn-default" id="BtnFiltrar">Aplicar</button>
+                                                </div>
+                                            </div>
+
+
+
+
+                                        </div>
+                                        <div class="tab-pane" id="tab-documents">
+                                            <div class="row">
+
+                                                <button class="btn btn-default pull-right" id="BtAgregaDocumento"><i class="fa fa-plus"></i> Agregar</button>
+
+                                            </div>
+
+                                            <div class="table-responsive">
+                                                <table class="table datatable text " id="TblDocumentos">
+                                                    @*<thead>
+                                                            <tr>
+                                                                <th></th>
+
+                                                                <th><span class="fa fa-file-o"></span></th>
+                                                                <th>Nombre</th>
+                                                                <th>Actualizado</th>
+                                                                <th>Actualizado por</th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody></tbody>*@
+                                                </table>
+                                            </div>
+
+                                        </div>
+                                        <div class="tab-pane" id="tab-backlog">
+                                            <div class="row" style="padding-bottom:15px;">
+
+                                                <div class="col-md-12 col-xs-12">
+
+                                                    <div class="pull-right">
+
+
+                                                        <div class="btn-group pull-left">
+                                                            <button class="btn btn-default " id="BtnImportarAct"><i class="fa fa-arrow-circle-up"></i>  Importar</button>
+                                                            <button class="btn btn-default " id="BtnImportarPR"><i class="fa fa-arrow-circle-up"></i>  Cargar PR</button>
+
+                                                        </div>
+
+
+
+                                                    </div>
+
+
+
+
+                                                </div>
+
+
+                                            </div>
+
+                                            <div id="toolbar" style="width:900px;">
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        @{
+                                                            var Workitems = ((Sesion)Session["Usuario" + Session.SessionID]).WorkItems;
+                                                            <select class="form-control  selectpicker " id="SelTipoBL" item="Tipo actividad">
+                                                                @{ foreach (var item in Workitems)
+                                                                    {
+                                                                        <option value='@item.ActividadTipoId' data-content="<span><img class='img-dt' src='../../Content/Project/Imagenes/@item.Url' alt='@item.Nombre' style='width:24px; height:24px;'> @item.Nombre</span>">@item.Nombre</option>
+
+
+                                                                    }
+                                                                }
+                                                            </select>
+                                                        }
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="btn-group">
+
+
+                                                            <button class="btn btn-default btn-condensed" onclick="ExpandCollappse('collapseAll'); return false;"><i class="fa fa-minus"></i></button>
+                                                            <button class="btn btn-default btn-condensed" onclick="ExpandCollappse('expandAll'); return false;"><i class="fa fa-plus"></i></button>
+                                                            <button class="btn btn-default btn-condensed" onclick="RoadmapBacklog(); return false;">Roadmap <i class="fa fa-rocket fa-right"></i></button>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+
+                                            <table id="tblBacklog"></table>
+
+
+
+
+
+
+
+
+
+                                        </div>
+                                        <div class="tab-pane" id="tab-sprints">
+
+
+
+
+
+                                            <div class="row" style="padding-top:15px; padding-bottom:15px;">
+
+                                                <div class="col-md-4">
+
+
+
+                                                    <select class="selectpicker form-control" multiple data-live-search="true" id="SelEstatusSP" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--">
+
+                                                        <option value="A" selected>Abierto</option>
+                                                        <option value="P" selected>Progreso</option>
+                                                        <option value="L" selected>Terminado</option>
+                                                        <option value="C">Cancelado</option>
+
+
+                                                    </select>
+
+
+
+
+
+
+                                                </div>
+
+                                                <div class="col-md-8">
+                                                    <button class="btn btn-default btn-condensed" onclick="RoadmapSprint(); return false;">Roadmap<i class="fa fa-rocket fa-right"></i></button>
+                                                    <button class="btn btn-default pull-right headersprint" id="BtnAgregarIteracion"> Crear Sprint</button>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-12 col-xs-12" id="colSprints" style="overflow-y:auto;">
+                                                <table class="table " id="">
+                                                    <thead>
+                                                    <tbody id="tblSprintWI">
+                                                        <tr>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+
+
+
+
+
+
+                                        </div>
+                                        <div class="tab-pane" id="tab-repositorios">
+
+
+
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <button class="btn btn-info pull-right" id="btnAgregarRepositorio"><i class="fa fa-plus"></i> Agregar</button>
+                                                </div>
+                                            </div>
+
+                                            <div class="table-responsive" style="padding: 0; margin-top: 15px">
+                                                <table class="table datatable text" id="tblProyectoRepositorio">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 22%;">Nombre</th>
+                                                            <th style="width: 22%;">Tipo</th>
+                                                            <th style="width: 22%;">Organizacion</th>
+                                                            <th style="width: 22%;">Proyecto</th>
+                                                            <th style="width: 8%;">Eliminar</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
+
+
+                                        <div class="tab-pane" id="tab-five">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="col-md-3">
+                                                        <div class="widget widget-default" id="statPlaneado">
+                                                            <div class="widget-title"> Planeado</div>
+                                                            <div class="widget-int"><span data-toggle="counter" id="lblstatCostoPlaneado"> </span></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="widget widget-default" id="statAcumulado">
+                                                            <div class="widget-title widget-default"> Acumulado</div>
+                                                            <div class="widget-int"><span data-toggle="counter" id="lblstatCostoAcumulado"> </span></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="widget widget-default" id="statDisponible">
+                                                            <div class="widget-title widget-default"> Disponible</div>
+                                                            <div class="widget-int"><span data-toggle="counter" id="lblCostoDisponible"> </span></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="widget" id="statPorcUtilizado">
+                                                            <div class="widget-title widget-default"> % Utilizado</div>
+                                                            <div class="widget-int"><span data-toggle="counter" id="lblstatPorcUtilizado"> </span></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="row" style="padding-top:30px">
+                                                <div class="col-md-4" style="overflow-y:auto;">
+
+                                                    <label class="col-md-3 control-label" for="TxtCostoP"> Costo planeado:</label>
+                                                    <div class="input-group push-down-10">
+                                                        <span style="background-color: #08c127; border-color: #08c127" class="input-group-addon">$</span>
+                                                        <input type="text" Id="TxtCostoP" class="form-control">
+                                                        <div class="input-group-btn">
+                                                            <button class="btn btn-success" id="btnGuardarCostoPlaneado"><span class="fa fa-floppy-o fa-right"></span></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8" style="border:2px;">
+
+
+                                                </div>
+
+
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+
+
+                                                    <button class="btn btn-info pull-right" id="btnExportarCostos"> <i class="fa fa-bars"></i> Exportar</button>
+
+                                                    <h3>Costos aplicados</h3>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="table-responsive">
+                                                        <table class="table text" id="tblCostoMes">
+                                                            <thead>
+                                                                <tr>
+
+                                                                    <th>Período</th>
+                                                                    <th>Costo </th>
+
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+                                        <div class="tab-pane" id="tab-board">
+                                            <div class="row" id="divFiltros">
+                                                <div class="col.md-12">
+                                                    <div class="col-md-3">
+                                                        <input type="text" id="TxtRangoFechasP" item="Fecha" class="form-control DateRangePicker col-xs-10" style="width: 83.33333333% !important;" />
+                                                        <span class="input-group-addon col-xs-1"><span class="glyphicon glyphicon-calendar"></span></span>
+
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label for="SelSprintT">Sprint</label>
+                                                        <select class="selectpicker" multiple data-live-search="true" id="SelSprintP" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--"></select>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label for="SelRecursoT">Responsable</label>
+                                                        <select class="selectpicker" multiple data-live-search="true" id="SelRecursoP" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--"></select>
+                                                    </div>
+                                                    <div class="col-md-1">
+
+                                                        <button class="btn btn-info" id="BtnFiltrarTP">
+                                                            <i class="fa fa-search">
+
+                                                            </i>
+                                                        </button>
+                                                    </div>
+                                                    @*<div class="col-md-1">
+
+
+                                                        </div>*@
+
+                                                </div>
+
+                                            </div>
+                                            <div class="franja">
+
+                                            </div>
+
+                                            <div class="row push-up-10" id="tableroTickets">
+                                                <div class="col-md-3 x_panel" id="taskToDo" style="border:2px;">
+
+
+                                                    <div class="row headTasks">
+                                                        <h4 id="LblAbierto">Abierto</h4>
+                                                    </div>
+
+                                                    <div class="tasks" id="tasks_assigned">
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 x_panel" id="taskProgress">
+                                                    <div class="row headTasks">
+                                                        <h4 id="LblProgreso">En progreso</h4>
+                                                    </div>
+                                                    <div class="tasks" id="tasks_progreess">
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2 x_panel" id="taskValidacion">
+                                                    <div class="row headTasks">
+                                                        <h4 id="LblValidacion">Validación</h4>
+                                                    </div>
+                                                    <div class="tasks" id="task_validate">
+
+
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2 x_panel" id="taskok">
+
+
+                                                    <div class="row headTasks">
+                                                        <h4 id="LblTerminadas">Terminadas</h4>
+                                                    </div>
+                                                    <div class="tasks" id="tasks_ok">
+
+
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2 x_panel" id="taskre">
+
+                                                    <div class="row headTasks">
+                                                        <h4 id="LblRechazadas">Rechazadas</h4>
+                                                    </div>
+                                                    <div class="tasks" id="tasks_re">
+
+
+
+                                                    </div>
+                                                </div>
+
+
+
+
+                                            </div>
+
+
+
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="modal" id="ModalAgregarUsuarios" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" id="BtnCerrarAgregarUsuario"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="TituloVal">Agregar usuarios</h4>
+            </div>
+            <div class="modal-body">
+                <!--inicia-->
+                <div class="row">
+                    <div class="table-responsive">
+                        <table class="table datatable text" id="TblAgreagarUsuarios">
+                            <thead>
+
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th>Clave</th>
+                                    <th>Nombre</th>
+                                    <th>Agregar</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+
+                    </div>
+                </div>
+                <!--termina-->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal" id="mdlListaControl" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="largeModalHead">Lista de Control</h4>
+            </div>
+            <div class="modal-body">
+                <!--inicia-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <form class="form-horizontal">
+                            <div style="position: absolute; right: 35px; z-index: 100;">
+                                <button type="button" class="btn btn-success" id="btnGuardarListaControl">Guardar<span class="fa fa-floppy-o fa-right"></span></button>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="txtNombre" class="col-md-2 control-label">Nombre</label>
+                                <div class="col-md-8 col-xs-12">
+                                    <label class="control-label" id="lblNombre" item="Nombre"></label>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="selProceso" class="col-md-2 control-label">Proceso</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <label class="control-label" id="lblProceso" item="Proceso"></label>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="selSubproceso" class="col-md-2 control-label">Subproceso</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <label class="control-label" id="lblSubproceso" item="Subproceso"></label>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="col-md-2 col-xs-12 control-label">Activar</label>
+                                <div class="col-md-2 col-xs-12">
+                                    <label class="switch switch-small">
+                                        <input type="checkbox" checked="" id="chkActivoControl">
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <hr class="col-md-12" style="border: none; height: 2px; background-color: #ccc;" />
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="selSubproceso" class="col-md-2 control-label">Control</label>
+                                <div class="col-md-9">
+                                    <textarea type="text" style="max-width: none !important; resize: vertical; min-height: 30px; max-height: 100px;" rows="3" class="form-control RequeridoControl" id="txtControl" item="Control"></textarea>
+                                </div>
+                                <input type="button" class="btn btn-primary col-md-1" id="btnAgregarControl" style="display: inline-block; padding: 5px" value="Agregar" />
+                            </div>
+                            <div class="table-responsive col-md-12">
+                                <table class="table datatable text" id="dtListaControlDetalle">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">Control</th>
+                                            <th class="text-center" style="width:10%">Editar</th>
+                                            <th class="text-center" style="width:10%">Eliminar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!--termina-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="mdlProyectoRepositorio" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="largeModalHead">Repositorio</h4>
+            </div>
+            <div class="modal-body">
+                <!--inicia-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <form class="form-horizontal">
+                            <div class="form-group col-md-12">
+                                <label for="txtNombre" class="col-md-2 control-label">Nombre</label>
+                                <div class="col-md-10 col-xs-12">
+                                    <input type="text" class="form-control" id="txtNombreRepositorio" item="Nombre" maxlength="200" />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="selProceso" class="col-md-2 control-label">Tipo</label>
+                                <div class="col-md-10 col-xs-12">
+                                    <select class="form-control" id="selTipoRepositorio" item="Repositorio">
+                                        <option value="-1">-- Seleccionar --</option>
+                                        <option value="1">Azure</option>
+                                        <option value="2">Github</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="selSubproceso" class="col-md-2 control-label">Organización</label>
+                                <div class="col-md-10 col-xs-12">
+                                    <input type="text" class="form-control" id="txtOrganizacionRepositorio" item="Nombre" maxlength="200" />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="col-md-2 col-xs-12 control-label">Proyecto</label>
+                                <div class="col-md-10 col-xs-12">
+                                    <input type="text" class="form-control" id="txtProyectoRepositorio" item="Nombre" maxlength="200" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!--termina-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="btnGuardarRepositorio">Guardar<span class="fa fa-floppy-o fa-right"></span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="ModalDetalleCostosMes" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="width:60%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="TituloDCM"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        @*<div class="pull-right">
+                                <button class="btn btn-info" id="BtnExportarDCM"><i class="fa fa-bars"></i> Exportar</button>
+                            </div>*@
+                        <div>
+                            <h3> Total: <span id="LblTotalCostoMesDet"> 0</span></h3>
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table datatable text" id="TblCostoMes">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Recurso</th>
+                                        <th>Mes/Año</th>
+                                        <th>% Dedicado</th>
+                                        <th>Costo aplicado</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="ModalFechas" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="TituloDCM">Configurar fechas</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+
+                            <label class="col-md-4 col-xs-12 control-label">Calcular fechas <span class="fa fa-info-circle" title="Calcula la fecha inicio, fecha fin y fecha compromiso de manera automática de acuerdo a las fechas de las actividades"></span></label>
+                            <div class="col-md-2 col-xs-12">
+                                <label class="switch switch-small">
+                                    <input type="checkbox" checked id="ChkCalculaFechas" onclick="CambiaModoFechas(this);" />
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div id="divFechasManual" class="hidden">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Fecha inicio</label>
+                                <div class="col-md-4 col-xs-12">
+                                    <div class="input-group">
+                                        <input type="text" id="TxtFechaIniProy" class="form-control ReqConFechas" item="Fecha inicio" />
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Fecha fin</label>
+                                <div class="col-md-4 col-xs-12">
+                                    <div class="input-group">
+                                        <input type="text" id="TxtFechaFinProy" class="form-control ReqConFechas" item="Fecha fin" />
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Fecha compromiso</label>
+                                <div class="col-md-4 col-xs-12">
+                                    <div class="input-group">
+                                        <input type="text" id="TxtFechaCompProy" class="form-control ReqConFechas" item="Fecha compromiso" />
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </form>
+
+
+
+
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="BtnGuardarFchas" onclick="GuardarConfigFechas();" class="btn btn-default" data-dismiss="modal">Guardar </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="ModalHoras" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="TituloDCM">Configurar horas</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+
+                            <label class="col-md-4 col-xs-12 control-label">Calcular horas <span class="fa fa-info-circle" title="Calcula las totales del proyecto de acuerdo a la cantidad de horas estimadas del proyecto"></span></label>
+                            <div class="col-md-2 col-xs-12">
+                                <label class="switch switch-small">
+                                    <input type="checkbox" checked id="ChkCalculaHoras" onclick="CambiaModoHoras(this);" />
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div id="divHorasManual" class="hidden">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Horas estimadas</label>
+                                <div class="col-md-4 col-xs-7"><input type="number" step="0.01" class="form-control ReqConHoras" id="TxtConfHorasProy" item="Horas" /></div>
+                            </div>
+
+
+                        </div>
+
+
+                    </form>
+
+
+
+
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="BtnGuardarConfHoras" onclick="GuardarConfigHoras();" class="btn btn-default" data-dismiss="modal">Guardar </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="MdlRoadMap" tabindex="-100" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg" style="width:100%; height:100%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="largeModalHead"> <i class="fa fa-rocket"></i> Roadmap</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6 col-xs-6">
+                        <div class="btn-group">
+                            <button class="btn btn-default btn-condensed" onclick="zoomOut()"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-default btn-condensed" onclick="zoomIn()"><i class="fa fa-plus"></i></button>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6 col-xs-6">
+                        <div class="btn-group pull-right">
+                            <button class="btn btn-default " onclick="CambiarZoom('year')">Año</button>
+                            <button class="btn btn-default " onclick="CambiarZoom('month')">Mes</button>
+                            <button class="btn btn-default " onclick="CambiarZoom('week')">Semana</button>
+                            <button class="btn btn-default " onclick="CambiarZoom('day')">Día</button>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div id="roadmap" style="height:700px; width: 100%; padding-top:10PX;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="MdlImportarDocProy" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="defModalHead">Cargar documento</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class=" control-label">Tipo de documento</label>
+                        <select class="form-control select ReqCargaDocs" id="SelTipoDocumentoP" item="Motivo">
+                            <option selected="selected">--Seleccione</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+
+
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <div class="col-md-12 col-xs-12 center">
+                            <input accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet ,application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/pdf, image/" type="file" class="fileinput btn-info fa fa-upload btn" name="files[]" id="FlImportaDoc" title=" Seleccionar" />
+                            <span class="help-block "></span>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12 col-xs-12 control-label">Archivos aceptados word, pdf, jpg, png, xlsx </label>
+                    </div>
+                    <br />
+
+                    <br />
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="BtnGuardarDoc" class="btn btn-success hidden" data-dismiss="modal"><span class="fa fa-arrow-circle-up"></span> Cargar </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="MdlCrearBLItem" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog" style="width:850px; margin-top:15%;">
+        <div class="modal-content">
+
+            <div class="modal-body">
+
+
+                <div class="row">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <ul class="breadcrumb">
+                                <li><a id="bc1"></a></li>
+                                <li><a id="bc2"></a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-condensed" id="BtnNewItemBLFM"><span class="fa fa-expand"></span></button>
+                                <button type="button" class="btn btn-default btn-condensed" data-dismiss="modal"><span class=" fa fa-times"> </span></button>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-1" style="width:95px">
+
+
+                        @{
+
+                            <select class="form-control  selectpicker " id="SelTipoSaveFM" item="Tipo actividad" style="width:71px">
+                                @{ foreach (var item in Workitems)
+                                    {
+                                        if (item.ActividadTipoId == 2)
+                                        {
+                                            <option value='@item.ActividadTipoId' style="min-height:35px;" item='@item.Nombre' selected data-content="<span><img class='img-dt' src='../../Content/Project/Imagenes/@item.Url' item='@item.Nombre' alt='@item.Nombre' title='@item.Nombre' style='width:24px; height:24px;'></span>"></option>
+
+                                        }
+                                        else
+                                        {
+                                            <option value='@item.ActividadTipoId' style="min-height:35px;" item='@item.Nombre' data-content="<span><img class='img-dt' src='../../Content/Project/Imagenes/@item.Url'  item='@item.Nombre'  alt='@item.Nombre' title='@item.Nombre' style='width:24px; height:24px;'></span>"></option>
+
+                                        }
+
+                                    }
+                                }
+                            </select>
+                        }
+                    </div>
+
+                    <div class="col-md-10 col-xs-11">
+                        <div class="input-group form-group">
+                            <p class="lead emoji-picker-container" style="text-align:left">
+                                <input id="TxtNewTFM" style="max-width:none; text-align:left;" maxlength="500" class="form-control" placeholder="Título" item="Id" data-emojiable="true">
+                            </p>
+                            <div class="input-group-btn">
+                                <button id="BtnSaveFM" class="btn btn-default " style="min-height:35px;"><span class="fa fa-save"></span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+@Html.Partial("~/Views/Actividades/ImportaActividades.cshtml")
+@Html.Partial("~/Views/Actividades/ImportarPeerReviews.cshtml")
+@Html.Partial("~/Views/Proyectos/CapturaCostoDirecto.cshtml")
+@Html.Partial("~/Views/Proyectos/CapturaCostoIndirecto.cshtml")
+@Html.Partial("~/Views/Proyectos/ImportaCostos.cshtml")
+@Html.Partial("~/Views/Proyectos/CapturaParticipacion.cshtml")
+@Html.Partial("~/Views/Proyectos/Sprint.cshtml")
+
+
+
+<input type="hidden" id="IdProyecto" value="0" />
+
+<input type="hidden" id="IdProDoc" value="0" />
+<input type="hidden" id="IdIteracion" value="0" />
+<input type="hidden" id="hdClave" value="@ViewBag.Clave" />
+<input type="hidden" id="urlCargaInicial" value="@Url.Action("ConsultaProyecto","Proyectos")" />
+<input type="hidden" id="urlActualizaEstatusProyecto" value="@Url.Action("CambiaEstatusProyecto","Proyectos")" />
+<input type="hidden" id="urlGuardarProyectoDG" value="@Url.Action("GuardarProyecto","Proyectos")" />
+
+@*Usuarios*@
+<input type="hidden" id="urlConsultaUsuariosProyecto" value="@Url.Action("ConsultaUsuariosProyectoV2","Proyectos")" />
+<input type="hidden" id="urlConsultaUsuariosAgregar" value="@Url.Action("ConsultaUsuariosAgregar","Proyectos")" />
+<input type="hidden" id="urlGuardarUsuariosProyecto" value="@Url.Action("GuardarUsuariosProyecto","Proyectos")" />
+<input type="hidden" id="urlEliminarUsuarioProyecto" value="@Url.Action("EliminarUsuarioProyecto","Proyectos")" />
+<input type="hidden" id="urlGuardaUsuarioAdministra" value="@Url.Action("GuardarUsuarioAdministra","Proyectos")" />
+
+@*Sprints*@
+
+<input type="hidden" id="urlCargaSprints" value="@Url.Action("ConsultarSprints","Proyectos")" />
+<input type="hidden" id="urlAsignaActividadSprint" value="@Url.Action("AsignaActividadSprint","Proyectos")" />
+<input type="hidden" id="urlTablero" value="@Url.Action("SprintReport","Proyectos")" />
+<input type="hidden" id="urlFiltrarBacklog" value="@Url.Action("FiltrarBacklog","Proyectos")" />
+
+@*Actividades*@
+
+<input type="hidden" id="urlCargaInicialCombosF" value="@Url.Action("CargaCombosFiltros", "Actividades")" />
+<input type="hidden" id="urlBuscarActividades" value="@Url.Action("ObtieneActividades", "Proyectos")" />
+<input type="hidden" id="urlSolicitaRevision" value="@Url.Action("SolicitaRevision", "Actividades")" />
+
+<input type="hidden" id="urlValidacionMasiva" value="@Url.Action("ValidacionMasiva", "Actividades")" />
+<input type="hidden" id="urlLiberacionMasiva" value="@Url.Action("LiberacionMasiva", "Actividades")" />
+<input type="hidden" id="urlCancelacionMasiva" value="@Url.Action("CancelacionMasiva", "Actividades")" />
+<input type="hidden" id="urlIniciaRechazo" value="@Url.Action("InicializaRechazo", "Actividades")" />
+
+
+@*Documentos*@
+<input type="hidden" id="urlGuardarDocumentoProy" value="@Url.Action("GuardarDocumento", "Proyectos")" />
+<input type="hidden" id="urlDescargarDocumento" value="@Url.Action("DescargarDocumento", "Proyectos")" />
+<input type="hidden" id="urlEliminarDocumento" value="@Url.Action("EliminarDocumento", "Proyectos")" />
+
+
+@*Costos*@
+<input type="hidden" id="urlCargaCostosProyecto" value="@Url.Action("ConsultaCostosV2", "Proyectos")" />
+<input type="hidden" id="urlImportarCostos" value="@Url.Action("ImportaCostoPlaneado", "Proyectos")" />
+
+<input type="hidden" id="urlObtieneCostosDetalle" value="@Url.Action("ObtieneCostosMensualesDetalle", "Proyectos")" />
+
+@*Indicadores*@
+<input type="hidden" id="urlConsultaIndicadores" value="@Url.Action("ConsultaIndicadores", "Proyectos")" />
+<input type="hidden" id="urlConsultaGannt" value="@Url.Action("ConsultaGannt", "Proyectos")" />
+<input type="hidden" id="urlImportaActividades" value="@Url.Action("ImportaActividadesV2","Actividades")" />
+<input type="hidden" id="urlImportaActividadesPR" value="@Url.Action("ImportaPeerReviews","Actividades")" />
+<input type="hidden" id="urlCargaTablero" value="@Url.Action("ObtieneTablero","Tablero")" />
+<input type="hidden" id="urlFlujoDetalle" value="@Url.Action("DetallePagos", "Proyectos")" />
+<input type="hidden" id="IdFlujoPago" value="0" />
+<input type="hidden" id="urlSprintReport" value="@Url.Action("SprintReport","Proyectos")" />
+<input type="hidden" id="urlConsultaConfigFechas" value="@Url.Action("ConsultaConfigFechas","Proyectos")" />
+<input type="hidden" id="urlGuardarConfigFechas" value="@Url.Action("GuardarConfigFechas","Proyectos")" />
+<input type="hidden" id="urlConsultaConfigHoras" value="@Url.Action("ConsultaConfigHoras","Proyectos")" />
+<input type="hidden" id="urlGuardarConfigHoras" value="@Url.Action("GuardarConfigHoras","Proyectos")" />
+
+<script type="text/javascript" src="~/Scripts/jquery.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>
+
+
+
+
+@Html.Hidden("LeerProyectoListaControl", Url.Action("LeerProyectoListaControl", "ListaControl"))
+@Html.Hidden("LeerProyectoListaControlPorId", Url.Action("LeerProyectoListaControlPorId", "ListaControl"))
+@Html.Hidden("EditarProyectoListaControl", Url.Action("EditarProyectoListaControl", "ListaControl"))
+@Html.Hidden("EditarProyectoListaControlDetalle", Url.Action("EditarProyectoListaControlDetalle", "ListaControl"))
+@Html.Hidden("EliminarProyectoListaControlDetalle", Url.Action("EliminarProyectoListaControlDetalle", "ListaControl"))
+@Html.Hidden("ActivarProyectoListaControl", Url.Action("ActivarProyectoListaControl", "ListaControl"))
+
+@Html.Hidden("LeerListaRevision", Url.Action("LeerListaRevision", "ListaRevision"))
+@Html.Hidden("ActivarListaRevision", Url.Action("ActivarListaRevision", "ListaRevision"))
+
+@Html.Hidden("LeerIssue", Url.Action("LeerIssue", "Issue"))
+@Html.Hidden("DescargarExcelIssue", Url.Action("DescargarExcelIssue", "Issue"))
+@*@Html.Partial("~/Views/Issue/Issue.cshtml")*@
+@Html.Partial("~/Views/Riesgo/Riesgo.cshtml")
+@Html.Partial("~/Views/ListaRevision/ListaRevision.cshtml")
+@Html.Partial("~/Views/Proyectos/SprintRetrospectiva.cshtml")
+
+
+<script type="text/javascript" src="~/Scripts/bootbox.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.powertip.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/smartwizard@5/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="~/Scripts/modal-steps.min.js"></script>
+<script type="text/javascript" src="~/Scripts/bootbox.min.js"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/jquery-treegrid@0.3.0/css/jquery.treegrid.css" rel="stylesheet">
+<link href="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/jquery-treegrid@0.3.0/js/jquery.treegrid.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/treegrid/bootstrap-table-treegrid.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/cookie/bootstrap-table-cookie.min.js"></script>
+
+<link rel="stylesheet" href="~/Content/DHTMLXGantt/dhtmlxgantt.css" />
+<link rel="stylesheet" href="~/Content/DHTMLXGantt/skins/dhtmlxgantt_material.css" />
+<script type="text/javascript" src="~/Scripts/dhtmlxgantt.js"></script>
+<script src="~/Scripts/Emoji/jquery.emojiarea.min.js"></script>
+<script src="~/Scripts/Emoji/emoji-picker.min.js"></script>
+<script src="~/Scripts/tinymce/tinymce.min.js"></script>
+
+
+
+
+@{
+    Random rnd = new Random();
+    <script src="~/Scripts/jquery.tagsinput.min.js?@rnd.Next()"></script>
+    <script src="~/Scripts/Project/Proyecto.js?@rnd.Next()"></script>
+    <script src="~/Scripts/Project/ActualizarImagenes.js?@rnd.Next()"></script>
+
+}
+
+
+<script src="~/Scripts/Project/ListaControlProyecto.js"></script>
+<script src="~/Scripts/Project/ListaRevision.js"></script>
+<script src="~/Scripts/Project/IssueProyecto.js"></script>
+<script src="~/Scripts/Project/Riesgos.js"></script>
+<script src="~/Scripts/Project/RiesgosProyecto.js"></script>

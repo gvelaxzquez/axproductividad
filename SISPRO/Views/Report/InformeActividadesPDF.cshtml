@@ -1,0 +1,253 @@
+﻿
+@using CapaDatos.Models;
+@model  ReporteIFTModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <link rel="stylesheet" href="~/Content/yitpro.css" />
+    <style>
+        body {
+           font-size: 10px;
+        }
+
+        /* Create three equal columns that floats next to each other */
+        .column {
+            float: left;
+            width: 30%;
+            padding: 10px;
+            height: 100%; /* Should be removed. Only for demonstration */
+        }
+
+        table td {
+            border-color: gray !important;
+            border: 1px solid !important;
+        }
+        table th {
+            border-color: gray !important;
+            border: 1px solid !important;
+        }
+        .columnTitle {
+            float: left;
+            width: 40%;
+            padding: 10px;
+            height: 100%; /* Should be removed. Only for demonstration */
+            text-align: center;
+        }
+
+        .column2 {
+            float: left;
+            width: 50%;
+            padding: 10px;
+            height: 100%; /* Should be removed. Only for demonstration */
+        }
+
+        .column3 {
+            float: left;
+            max-width: 25%;
+            min-width: 20%;
+            height: 100%; /* Should be removed. Only for demonstration */
+        }
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        div.a {
+            font-size: small;
+            line-height: 1.5;
+        }
+
+        div.botom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+   
+
+    </style>
+
+
+
+    @Styles.Render("~/Content/css")
+    @*@Scripts.Render("~/bundles/modernizr")*@
+    <meta name="viewport" content="width=device-width" />
+    <title>Informe actividades @Model.Clave @Model.Mes @Model.Anio</title>
+</head>
+<body>
+    <header>
+        <h1>
+            <div class="column3" style="max-width: 30% !important; width:30% !important">
+                <img style="height:70px; width:150px;" src="~/Content/Project/Imagenes/LogoPrincipal.png" />
+            </div>
+         
+        </h1>
+    </header>
+
+    <div class="row">
+        <div class="column3" style="max-width: 10% !important; width:10% !important">
+        
+        </div>
+        <div class="column3" style="max-width: 30% !important; width:30% !important">
+    
+        </div>
+
+        <div class="column3 text-center" style="max-width: 40% !important; width:40% !important">
+            <h3>
+                Reporte de Actividades del Mes de
+            </h3>
+
+            <h3>
+                @Model.Mes   @Model.Anio
+            </h3>
+        </div>
+
+        <div class="column3" style="max-width: 30% !important; width:30% !important">
+            @*<img src="~/Content/Project/Imagenes/P" />*@
+        </div>
+
+    </div>
+
+
+
+
+    <div class="row" style="padding-left:10px; padding-right:10px;">
+        <div class="col-md-12">
+            <h4 style="font-weight: bold;">
+                @Model.Recurso, @Model.Clave
+                <br />
+                Fecha generación: @DateTime.Now
+            </h4>
+        </div>
+        <br /><br />
+        <div>
+
+            <div class="" style="padding-left: 5px; padding-right: 5px; margin-bottom:20px;">
+                <table class="table table-bordered ">
+                    <thead>
+                        <tr role="row">
+                            <th class="text-center">#</th>
+                            <th class="text-left">Solución tecnológica</th>
+                            <th class="text-left">Tarea</th>
+                            <th class="text-left">Responsable</th>
+                            <th class="text-center">Inicio</th>
+                            <th class="text-center">Fin</th>
+                            <th class="text-center">T</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            var LstActividad = Model.LstActividades;
+
+                            foreach (var a in LstActividad)
+                            {
+                                                <tr role="row">
+                                                    <td class=" text-left"> <a href="https://app.yitpro.com/share/s/@a.IdActividad" target="_blank"> @a.IdActividadStr</a>  </td>
+                                                    <td class="text-left">@a.ProyectoStr</td>
+                                                    <td class=" text-left" width="40%"> @a.BR</td>
+                                                    <td class=" text-left">@a.ResponsableStr</td>
+                                                    <td class=" text-center">@a.FInicio.ToString("dd/MM/yyy")</td>
+                                                    <td class=" text-center">@a.FFin.ToString("dd/MM/yyy")</td>
+                                                    <td class=" text-right">@a.HorasAsignadas</td>
+                                                </tr>
+
+
+                            }
+                        }
+
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+        <div class="col-md-12 pull-right">
+            <h3>
+                Total: @Model.Total
+            </h3>
+        </div>
+
+    </div>
+    @*<div class="row" style="padding-left:5px; padding-right:5px;">
+
+
+
+        <div class="col-md-4 text-center column3" style="max-width: 33% !important; width:33% !important">
+            <h5 style="font-weight: bold;">Colaborador:</h5>
+            <h5>@Model.Recurso</h5>
+            <br /><br />
+            <label>__________________________________________________</label>
+            <p>Consorcio conformado por PLANMEDIA MEX,S.A. DE C.V. AXSIS TECNOLOGÍA, S.A. DE C.V. YCENTRO DE SOLUCIONES EN INFORMÁTICA,S.A. DE C.V.</p>
+
+        </div>
+
+        <div class="col-md-4 text-center column3" style="max-width: 33% !important; width:33% !important">
+            <h5 style="font-weight: bold;">Gerente de proyectos:</h5>
+            <h5>@Model.Gerente</h5>
+            <br /><br />
+            <label>__________________________________________________</label>
+            <p>Consorcio conformado por PLANMEDIA MEX,S.A. DE C.V. AXSIS TECNOLOGÍA, S.A. DE C.V. YCENTRO DE SOLUCIONES EN INFORMÁTICA,S.A. DE C.V.</p>
+
+        </div>
+
+
+
+
+        <div class="col-md-4 text-center column3" style="max-width: 33% !important; width:33% !important">
+            <h5 style="font-weight: bold;">Administrador del contrato:</h5>
+            <h5>@Model.ResponsableContrato</h5>
+            <br /><br />
+            <label>__________________________________________________</label>
+            <p>Dirección de Desarrollo de Sistemas</p>
+
+        </div>
+
+
+    </div>*@
+    <br />
+    <br />
+    <div class="row" style="padding-left:5px; padding-right:5px;">
+
+        @{
+
+            var LstUsuarios = Model.LstUsuarios.Where(w => w.IdTipoUsuario == 2).ToList();
+
+
+            foreach (var u in LstUsuarios)
+            {
+                <div class="col-md-4 text-center column3 pull-right" style="max-width: 33% !important; width:33% !important">
+                    <h4 style="font-weight: bold;">Validó y Autorizó:</h4>
+                    <h4>@u.Nombre</h4>
+                    <br /><br />
+                    <label>__________________________________________________</label>
+                    @*<p>Responsable del</p>
+                    <p>
+                        Subdirección de Soporte a Sistemas y Continuidad Operativa
+                    </p>*@
+
+                </div>
+
+
+            }
+        }
+
+
+
+
+
+
+
+
+
+    </div>
+</body>
+</html>

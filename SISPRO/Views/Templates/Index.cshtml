@@ -1,0 +1,145 @@
+﻿@using AxProductividad.Models;
+@{
+    ViewBag.Title = "Templates";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<link href="https://cdn.jsdelivr.net/npm/jquery-treegrid@0.3.0/css/jquery.treegrid.css" rel="stylesheet">
+<link href="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/jquery-treegrid@0.3.0/js/jquery.treegrid.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/treegrid/bootstrap-table-treegrid.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/cookie/bootstrap-table-cookie.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/mobile/bootstrap-table-mobile.min.js"></script>
+
+
+<div class="page-content-wrap">
+
+    <div class="row">
+
+        <div class="col-md-3">
+            <div id="toolbar">
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-default " id="BtnAgregarCategoria" title="Agregar categoría"><span class="fa fa-plus-circle"></span></button>
+                </div>
+
+                <div id="epic-div" class="epic-div hidden" style="height: 50px; background-color: white; position: absolute; top: 30px; left: 0px; z-index: 100; width: 400px; border: 1px solid gray; border-radius: 5px">
+
+                    <div style="margin-top: 5px;height: 15%" class="">
+
+                        <div class="col-md-12 col-xs-11">
+
+                            <div class="input-group form-group">
+
+                                <p class="lead emoji-picker-container" style="text-align:left">
+
+                                    <input id="TxtNewCategoria" style="max-width:none; text-align:left;" maxlength="500" class="form-control ReqCategoria" placeholder="Categoría" item="Categoría" data-emojiable="true">
+                                </p>
+
+                                <div class="input-group-btn">
+                                    <button id="BtnSaveCategoria" style="min-height:35px;" class="btn btn-default "><span class="fa fa-save"></span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <table id="table" data-cookie="true" data-cookie-id-table="table" data-mobile-responsive="true" data-show-header="false" data-searchable="true">
+            </table>
+
+        </div>
+        <div class="col-md-8">
+            <form class="form-horizontal">
+                <div class="panel-body">
+                    <div>
+
+                        <div class="form-group">
+
+                            <label class="col-md-2 col-xs-12 control-label">Nombre</label>
+                            <div class="col-md-8 col-xs-12">
+                                <input type="text" class="form-control ReqPlantilla" placeholder="Nombre" id="TxtNombrePlantilla" item="Nombre" maxlength="150">
+                            </div>
+                            <div class="col-md-2">
+
+                                <div class="btn-group">
+                                    <button class="btn btn-default btn-condensed" id="BtnNuevaPlantilla" title="Nuevo"><i class="fa fa-file-o"></i></button>
+                                    <button class="btn btn-default btn-condensed" id="BtnCopiarPlantilla" title="Copiar"> <i class="fa fa-copy"></i></button>
+                                    <button class="btn btn-default btn-condensed" id="BtnGuardarPlantilla" title="Guardar"> <i class="fa fa-save"></i></button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-12 control-label">Título  </label>
+                            <div class="col-md-8 col-xs-12">
+                                <input type="text" class="form-control ReqPlantilla" placeholder="Título" id="TxtTituloPlantilla" item="Título" maxlength="100">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-12 control-label">Categoría</label>
+                            <div class="col-md-6">
+                                <select class="form-control  selectpicker ReqPlantilla" data-live-search="true" id="SelCatPlantilla" item="Categoría">
+                                    <option value="-1" selected>--Seleccionar--</option>
+                                </select>
+                            </div>
+
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-12 control-label">Descripción</label>
+                            <div class="col-md-9 col-xs-12">
+                                <textarea class="form-control ReqPlantilla" rows="2" style="min-width:65%" id="TxtDescripcionPlantilla" item="Descripción"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-12 control-label">Activo</label>
+                            <div class="col-md-4 col-xs-12">
+                                <label class="switch switch-small">
+                                    <input type="checkbox" checked value="0" id="chkActivoPlantilla" />
+                                    <span></span>
+                                </label>
+
+                            </div>
+                            <div class="col-md-6">
+                                <span class="pull-right" style="margin-bottom:0px;display:none;" id="spActualizacion"> Última actualización por: <b><span id="lblIdUModPlantilla"></span></b>  el  <b><span id="lblFechaModPlantilla"></span></b></span>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </form>
+
+
+            <textarea id="TxtEditorPlantilla" class=" form-control ReqPlantilla" item="Categoría">
+
+  </textarea>
+        </div>
+
+    </div>
+
+</div>
+
+<input type="hidden" id="IdTemplate" value="0" />
+
+@{
+    Random rnd = new Random();
+    <script src="~/Scripts/Project/Templates.js?@rnd.Next()"></script>
+
+}
+
+
+
+
+
+
+
+

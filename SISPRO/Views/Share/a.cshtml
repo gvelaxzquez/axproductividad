@@ -1,0 +1,455 @@
+﻿
+@using CapaDatos.Models;
+@model  ActividadesModel
+@{
+
+    Layout = null;
+
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=YES">
+
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="white">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="black">
+
+    <title>YITPRO |  @Model.IdActividadStr</title>
+
+    <link rel="icon" type="images/x-icon" href="/Content/Project/Imagenes/@Model.TipoUrl" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+
+    <link rel="stylesheet" href="~/Content/yitpro.css" />
+
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/Layout")
+
+    <script language="javascript" type="text/javascript">
+
+
+      function CargaLoading() {
+          if (window.loading_screen === undefined) {
+              window.loading_screen = window.pleaseWait({
+              logo: "@Url.Content("~/Content/Project/Imagenes/LogoPrincipal.png")",
+              backgroundColor: 'rgba(255,255,255,0.8)',
+              immediately: true,
+              loadingHtml: " <i class='fa fa-circle-o-notch fa-spin' style='font-size:48px;color:#cf257d'></i>"
+
+          });
+          }
+      }
+      function FinalizaLoading() {
+          if (window.loading_screen !== undefined) {
+              window.loading_screen.finish();
+              window.loading_screen = undefined;
+           }
+       }
+
+
+        $(document).ready(function () {
+
+
+            var loadingTimeout;
+            $.ajaxSetup({
+                beforeSend: function () {
+                    CargaLoading();
+                },
+                complete: function () {
+                    FinalizaLoading();
+                    page_content_onresize();
+                    setTimeout(() => {
+                        resizeTaskList();
+                        page_content_onresize();
+                    }, 2500);
+                },
+                error: function () {
+                    FinalizaLoading();
+                    page_content_onresize();
+
+                }
+            });
+        });
+
+
+    </script>
+
+
+</head>
+
+<body>
+
+
+    <div class="page-content-wrap " style="min-height:800px">
+
+        <div class="row" style="padding-top:20px">
+            <div class="page-title">
+                <div class="col-md-1"></div>
+                <div class="col-md-8 col-xs-12 ">
+  
+
+                    <h4 class="">
+                        <img src="/Content/Project/Imagenes/@Model.TipoUrl" style="height:18px; width:18px" class="pull-left " alt="">    <span id=""><b> @Model.TipoNombre </b>  @Model.IdActividadStr</span>
+                    </h4>
+
+                </div>
+                <div class="col-md-2">
+                    <img src="~/Content/Project/Imagenes/LogoPrincipal.png" style="height:50px; width:125px" class="pull-left " alt="">
+
+                </div>
+              
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-6 col-xs-12" style="padding-left:1%">
+
+                <h5 class="">Título</h5>
+
+                <h3>
+                   @Model.BR
+                </h3>
+
+
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+
+            <div class="col-md-7 col-sm-12 col-xs-12" id="mdCont">
+
+                <div class="" style="border-bottom: none !important;" id="divTxtDescripcion">
+                    <div class="panel-group accordion accordion-dc">
+                        <div class="panel ">
+                            <div class="panel-heading headerproyecto">
+                                <h5 class="panel-title">
+                                    <a href="#accordion-Descripcion">
+                                        Descripción
+                                    </a>
+
+                                </h5>
+
+                            </div>
+                            <div class="panel-body panel-body-open" style="padding: 0px;" id="accordion-Descripcion">
+                                <div class="col-md-12 form-control" style="margin: 10px 0px; min-width: 100%; height: auto; border-color:#FFF;" id="divTxtDescripcion">
+
+                                    @Html.Raw(Model.Descripcion)
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+                @if (Model.TipoId == 4)
+                {
+                    <div class="" style="border-bottom: none !important;" id="divTxtCriterioA">
+                        <div class="panel-group accordion">
+                            <div class="panel ">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title">
+                                        <a href="#accordion-CriterioA">
+                                            Criterios de aceptación
+                                        </a>
+                                    </h5>
+                                </div>
+                                <div class="panel-body " style="padding: 0px;" id="accordion-CriterioA">
+                                    <div class="col-md-12 form-control" style="margin: 10px 0px; min-width: 100%; height: auto;">
+                                        @Html.Raw(Model.CriterioAceptacion)
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                }
+
+
+
+
+
+
+            </div>
+            <div class="col-md-3 col-sm-12 col-xs-12 rwclient" id="mdClas">
+
+
+                <div class="panel-group accordion accordion-dc" style="padding-bottom:10px;">
+                    <div class="panel ">
+                        <div class="panel-heading">
+                            <h5 class="panel-title">
+                                <a href="#accordion-Clasificacion">
+                                    Clasificación
+                                </a>
+                            </h5>
+                        </div>
+                        <div class="panel-body panel-body-open" style="padding: 0px;" id="accordion-Clasificacion">
+                            <form class="form-horizontal">
+                                <div class="panel-body">
+
+                                    <div class="form-group" id="divSelProyecto">
+                                        <label class="col-md-3 col-xs-5 control-label separator">Proyecto</label>
+                                        <label class="col-md-8 col-xs-5 control-label" id="">@Model.ProyectoStr</label>
+
+                                    </div>
+
+
+                                    <div class="form-group" id="divSelSprintA">
+                                        <label class="col-md-3 col-xs-5 control-label separator">Sprint</label>
+                                        <label class="col-md-8 col-xs-5 control-label" id="">@Model.Sprint</label>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 col-xs-5 control-label separator">Prioridad</label>
+                                        <label class="col-md-8 col-xs-5 control-label" id="">@Model.PrioridadStr</label>
+
+                                    </div>
+                                    <div class="form-group" id="divSelActividad">
+                                        <label class="col-md-3 col-xs-5 control-label separator">Fase</label>
+                                        <label class="col-md-8 col-xs-5 control-label" id="">@Model.TipoActividadStr</label>
+                                    </div>
+                                    <div class="form-group" id="divSelClasificacion">
+                                        <label class="col-md-3 col-xs-5 control-label separator" id="lblClasificacion">Clasificación</label>
+                                        <label class="col-md-8 col-xs-5 control-label" id="">@Model.ClasificacionStr</label>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="panel-group accordion accordion-dc">
+                    <div class="panel ">
+                        <div class="panel-heading">
+                            <h5 class="panel-title">
+                                <a href="#accordion-Plan">
+                                    Planeación
+                                </a>
+                            </h5>
+                        </div>
+                        <div class="panel-body panel-body-open" style="padding: 0px;" id="accordion-Plan">
+                            <form class="form-horizontal">
+                                <div class="panel-body">
+
+
+                                    <div class="form-group" id="divSelUsuarioAsignado">
+                                        <label class="col-md-3 col-xs-5 control-label separator">Asignado</label>
+                                        <label class="col-md-8 col-xs-5 control-label" id="">@Model.AsignadoStr</label>
+                                    </div>
+                                    <div class="form-group" id="divSelResponsable">
+                                        <label class="col-md-3 col-xs-5 control-label separator">Responsable</label>
+                                        <label class="col-md-8 col-xs-5 control-label" id="">@Model.ResponsableStr</label>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+            <div class="col-md-1 col-sm-12 col-xs-12 hide" id="mdRels">
+
+
+
+                <div class="panel-group accordion accordion-dc">
+                    <div class="panel ">
+                        <div class="panel-heading">
+                            <h5 class="panel-title">
+                                <a href="#accordion-WiRel">
+                                    Relacionados
+                                </a>
+                            </h5>
+                        </div>
+                        <div class="panel-body panel-body-open" style="padding: 0px;" id="accordion-WiRel">
+                            <form class="form-horizontal">
+                                <div class="panel-body">
+                                    <div id="divTrabajoRelacionado">
+                                
+                                        <div style="position:relative; text-align: right">
+                                            <i id="show-parents-div" class="fa fa-plus-circle" style="margin-right: -3px; font-size: 14px; color: #3fbae4; cursor: pointer;"></i>
+                                            <div id="parents-div" class="repo-div hidden" style="height: 100px; background-color: white; position: absolute; top: 30px; left: 0px; z-index: 100; width: 100%; border: 1px solid gray; border-radius: 5px">
+                                                <div style="height: 7%; margin-top: 5px; padding-right: 12px; font-size: 14px">
+                                                    <i id="hide-parents-div" style="cursor: pointer" class="fa fa-times-circle"></i>
+                                                </div>
+                                                <div style="margin-top: 10px;height: 15%" class="">
+
+                                                    <div class="col-md-12 col-xs-12">
+                                                        <select style="width:100%;" multiple="multiple" class="hidden" id="SelActividadSA"></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="" class="divMensajes div-parents-repo" style="min-height:150px;">
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-group accordion accordion-dc">
+                    <div class="panel ">
+                        <div class="panel-heading">
+                            <h5 class="panel-title">
+                                <a href="#accordion-Issues">
+                                    Issues
+                                </a>
+                            </h5>
+                        </div>
+                        <div class="panel-body panel-body-open" style="padding: 0px;" id="accordion-Issues">
+                            <form class="form-horizontal">
+                                <div class="panel-body">
+
+
+
+                                    <div id="divIssues">
+
+                                        <div style="position:relative; text-align: right">
+                                            <i id="show-issues-div" class="fa fa-plus-circle" style="margin-right: -3px; font-size: 14px; color: #3fbae4; cursor: pointer;"></i>
+                                            <div id="issues-div" class="repo-div hidden" style="height: 100px; background-color: white; position: absolute; top: 30px; left: 0px; z-index: 100; width: 100%; border: 1px solid gray; border-radius: 5px">
+                                                <div style="height: 7%; margin-top: 5px; padding-right: 12px; font-size: 14px">
+                                                    <i id="hide-issues-div" style="cursor: pointer" class="fa fa-times-circle"></i>
+                                                </div>
+                                                <div style="margin-top: 10px;height: 15%" class="">
+
+                                                    <div class="col-md-12 col-xs-12">
+                                                        <select class="form-control  selectpicker ReqIssuesAct" data-live-search="true" id="SelIssues" item="Issue">
+                                                            <option value="-1" selected>--Seleccionar -- </option>
+
+                                                        </select>
+                                                    </div>
+                                                    <div style="text-align:end; padding-right: 12px; margin-top: 18px;">
+                                                        <button style="" id="BtnAgregarIssueActividad" class="btn btn-default">Agregar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="" class="divMensajes div-issues-repo" style="min-height:150px;">
+
+                                        </div>
+
+                                    </div>
+
+
+
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-group accordion accordion-dc">
+                    <div class="panel ">
+                        <div class="panel-heading">
+                            <h5 class="panel-title">
+                                <a href="#accordion-dev">
+                                    Desarrollo
+                                </a>
+                            </h5>
+                        </div>
+                        <div class="panel-body panel-body-open" style="padding: 0px;" id="accordion-dev">
+                            <form class="form-horizontal">
+                                <div class="panel-body">
+                                    <div id="div-repositorio" class="hidden">
+
+                                        <div style="position:relative; text-align: right">
+                                            <i id="show-repo-div" class="fa fa-plus-circle" style="margin-right: -3px; font-size: 14px; color: #3fbae4; cursor: pointer;"></i>
+                                            <div id="repo-div" class="repo-div hidden" style="height: 250px; background-color: white; position: absolute; top: 30px; left: 0px; z-index: 100; width: 100%; border: 1px solid gray; border-radius: 5px">
+                                                <div style="height: 7%; margin-top: 5px; padding-right: 12px; font-size: 14px">
+                                                    <i id="hide-repo-div" style="cursor: pointer" class="fa fa-times-circle"></i>
+                                                </div>
+                                                <div style="margin-top: 5px;height: 15%" class="">
+                                                    <label class="col-md-2 col-xs-3 control-label">Repo.</label>
+                                                    <div class="col-md-10 col-xs-9">
+                                                        <select class="form-control ReqRepo" id="SelRepositorio" item="Repositorio">
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div style="margin-top: 5px;height: 15%" class="">
+                                                    <label class="col-md-2 col-xs-3 control-label">Tipo</label>
+                                                    <div class="col-md-10 col-xs-9">
+                                                        <select class="form-control ReqRepo" id="SelCommit" item="Tipo">
+                                                            <option value="-1">-- Seleccionar --</option>
+                                                            <option value="1">Commit</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div style="margin-top: 5px;height: 15%;" class="">
+                                                    <label class="col-md-2 col-xs-3 control-label">Id</label>
+                                                    <div class="col-md-10 col-xs-9">
+                                                        <input id="TxtIdLink" type="text" class="form-control ReqRepo" item="Id" />
+                                                    </div>
+                                                </div>
+                                                <div style="margin-top: 5px;height: 20%;" class="">
+                                                    <label class="col-md-2 col-xs-3 control-label">Desc.</label>
+                                                    <div class="col-md-10 col-xs-9">
+                                                        <textarea rows="2" id="TxtCommitDescripcion" type="text" class="form-control"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div style="text-align:end; padding-right: 12px; margin-top: 8px;">
+                                                    <button style="" id="btnAgregarActividadRepositorio" class="btn btn-default">Agregar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div id="" class="divMensajes div-comentarios-repo" style="min-height:150px;">
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <input type="hidden" id="IdActividad" value="@Model.IdActividad" />
+    <input type="hidden" id="Org" value="@ViewBag.Org" />
+
+
+
+</body>
+</html>
+

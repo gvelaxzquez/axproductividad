@@ -1,0 +1,56 @@
+﻿<div class="modal" id="ModalIteraciones" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" id="BtnCerrarAgregarIteracion"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="TituloSprintModal"></h4>
+            </div>
+            <div class="modal-body">
+                <!--inicia-->
+                <div class="row">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-12 control-label">Nombre</label>
+                            <div class="col-md-6 col-xs-12">
+                                <input type="text" class="form-control ReqIteracion" id="TxtNombreI" item="Nombre" maxlength="100" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-12 control-label">Objetivo</label>
+                            <div class="col-md-6 col-xs-12">
+                                <textarea rows="4" class="form-control ReqIteracion" id="TxtObjetivoI" item="Objetivo" maxlength="500"> </textarea>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Fecha inicio</label>
+                            <div class="col-md-4 col-xs-12">
+                                <div class="input-group">
+                                    <input type="text" id="TxtFechaInicioI" class="form-control ReqIteracion" item="Fecha inicio" />
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">Fecha fin</label>
+                            <div class="col-md-4 col-xs-12">
+                                <div class="input-group">
+                                    <input type="text" id="TxtFechaFinI" class="form-control ReqIteracion" item="Fecha inicio" />
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <!--termina-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="BtnGuardarSprint">Guardar<span class="fa fa-floppy-o fa-right"></span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<input type="hidden" id="urlGuardarSprint" value="@Url.Action("GuardarSprint","Proyectos")" />

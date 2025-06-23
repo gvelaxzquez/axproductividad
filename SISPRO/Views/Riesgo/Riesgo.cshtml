@@ -1,0 +1,302 @@
+﻿<div class="modal" id="mdlRiesgo" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="largeModalHead">Riesgos y oportunidades</h4>
+            </div>
+            <div class="modal-body">
+                <!--inicia-->
+                <div class="row">
+                    <div class="col-md-12 pb-20">
+                        <form class="form-horizontal">
+                            <div class="col-md-12">
+                                <h5 class="title-hr">Identificación <hr class="pull-right" /></h5>
+                            </div>
+                            <div class="form-group col-md-12 divNoRiesgo">
+                                <label for="lblNoRiesgo" class="col-md-2 control-label">No. </label>
+                                <div class="col-md-8 col-xs-12">
+                                    <label class="control-label lblNoRiesgo" id="" item="No. "></label>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="timeInicio" class="col-md-2 control-label">Fecha identificación</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <input type="date" class="form-control RequeridoRiesgo dateFechaIdentificacion" id="" item="Fecha identificación" />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="cmbCategoria" class="col-md-2 control-label">Categoría</label>
+                                <div class="col-md-8 col-xs-12">
+                                    <select class="form-control RequeridoRiesgo cmbCategoria" id="" item="Categoría">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="cmbFuente" class="col-md-2 control-label">Fuente</label>
+                                <div class="col-md-8 col-xs-12">
+                                    <select class="form-control RequeridoRiesgo cmbFuente" id="" item="Fuente">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="txtDescripcionRiesgo" class="col-md-2 control-label">Descripción</label>
+                                <div class="col-md-9 col-xs-12">
+                                    <textarea rows="2" maxlength="1500" class="form-control RequeridoRiesgo txtDescripcionRiesgo" id="" item="Descripción" style="min-height: 45px; max-height: 100px; max-width: none !important; resize: vertical"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="txtDescripcionEfecto" class="col-md-2 control-label">Efecto</label>
+                                <div class="col-md-9 col-xs-12">
+                                    <textarea rows="2" maxlength="1500" class="form-control RequeridoRiesgo txtDescripcionEfecto" id="" item="Descripción de efecto" style="min-height: 45px; max-height: 100px; max-width: none !important; resize: vertical"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="txtCausas" class="col-md-2 control-label">Causas</label>
+                                <div class="col-md-9 col-xs-12">
+                                    <textarea rows="2" maxlength="600" class="form-control RequeridoRiesgo txtCausas" id="" item="Causas" style="min-height: 45px; max-height: 100px; max-width: none !important; resize: vertical"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="txtEventoMaterializacion" class="col-md-2 control-label">Evento de posible materialización</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <input type="text" max="250" class="form-control RequeridoRiesgo txtEventoMaterializacion" id="" item="Evento de posible materialización" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-12 pb-20">
+                        <form class="form-horizontal">
+                            <div class="col-md-12">
+                                <h5 class="title-hr">Calificación y evaluación <hr class="pull-right" /></h5>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="cmbImpacto" class="col-md-2 control-label">Impacto</label>
+                                <div class="col-md-8 col-xs-12">
+                                    <select style="display: inline-block;" class="form-control RequeridoRiesgo cmbImpacto" id="" item="Impacto">
+                                    </select>
+                                    <i class="fa fa-question-circle tooltip-table" data-html="true" data-toggle="tooltip"
+                                       title="<table><thead style='border: 1px solid white'><tr><th style='width: 100px; text-align: center'>Cualitativo</th><th style='width: 150px; text-align: center'>En términos económicos</th><th style='width: 150px; text-align: center'>En términos de tiempo</th></tr></thead><tbody style='border: 1px solid white'><tr><td>Leve</td><td>1 - 5 %</td><td>1 - 5 %</td></tr><tr><td>Moderado</td><td>6 - 20 %</td><td>6 - 10 %</td></tr><tr><td>Severo</td><td>21 - 50 %</td><td>11 - 20 %</td></tr><tr><td>Critico</td><td>51 - 100 %</td><td>> 21 %</td></tr></tbody></table>"
+                                       style="font-size: 14px"></i>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="cmbProbabilidad" class="col-md-2 control-label">Probabilidad</label>
+                                <div class="col-md-8 col-xs-12">
+                                    <select style="display: inline-block" class="form-control RequeridoRiesgo cmbProbabilidad" id="" item="Probabilidad">
+                                    </select>
+                                    <i class="fa fa-question-circle"
+                                       title="<table><thead style='border: 1px solid white'><tr><th style='width: 100px; text-align: center'>Cualitativo</th><th style='width: 150px; text-align: center'>Cuantitativo</th></tr></thead><tbody style='border: 1px solid white'><tr><td>Nula</td><td>Probabilidad < 0.1</td></tr><tr><td>Baja</td><td>0.1 <= Probabilidad < 0.3</td></tr><tr><td>Moderada</td><td>0.3 <= Probabilidad < 0.7</td></tr><tr><td>Alta</td><td>0.8 <= Probabilidad < 1.0</td></tr></tbody></table>"
+                                       data-toggle="tooltip" data-html="true" style="font-size: 14px"></i>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="lblCalificacion" class="col-md-2 control-label">Calificación</label>
+                                <div class="col-md-8 col-xs-12">
+                                    <label class="control-label lblCalificacion" id="" item="Calificación"></label>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="lblSeveridad" class="col-md-2 control-label">Severidad</label>
+                                <div class="col-md-8 col-xs-12">
+                                    <label class="control-label lblSeveridad" style="font-size: 12px; padding-top: 2px; font-weight: 700" id="" item="Severidad"></label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <form class="form-horizontal">
+                        <div class="form-group col-md-12">
+                            <label class="col-md-2 col-xs-12 control-label">Activo</label>
+                            <div class="col-md-2 col-xs-12">
+                                <label class="switch switch-small">
+                                    <input type="checkbox" class="chkActivo" checked="" id="">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="hidden riesgo-proyecto" id="">
+                        <div class="col-md-12 pb-20">
+                            <form class="form-horizontal">
+                                <div class="col-md-12">
+                                    <h5 class="title-hr">Planeación de la respuesta <hr class="pull-right" /></h5>
+                                </div>
+                                <div class="table-responsive col-md-12">
+                                    <div class="col-md-12" style="display: flex; justify-content: flex-end; padding: 10px;">
+                                        <button class="btn btn-success btnNuevaEstrategia" id="">Nueva Estrategia</button>
+                                    </div>
+                                    <table class="table datatable text dtEstrategias" id="">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center" style="width:18%">Estrategia</th>
+                                                <th class="text-center" style="width:18%">Plan de mitigación</th>
+                                                <th class="text-center" style="width:18%">Responsable</th>
+                                                <th class="text-center" style="width:18%">Disparador del plan</th>
+                                                <th class="text-center" style="width:18%">Fecha identificación</th>
+                                                <th class="text-center" style="width:10%">Editar</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                @*<div class="form-group col-md-12">
+                                        <label for="cmbEstrategia" class="col-md-2 control-label">Estrategia</label>
+                                        <div class="col-md-8 col-xs-12">
+                                            <select class="form-control RequeridoRiesgo cmbEstrategia" id="" item="Estrategia">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="txtPlanMitigacion" class="col-md-2 control-label">Plan de mitigación</label>
+                                        <div class="col-md-9 col-xs-12">
+                                            <textarea rows="2" maxlength="600" class="form-control RequeridoRiesgo txtPlanMitigacion" id="" item="Plan de mitigación" style="min-height: 45px; max-height: 100px; max-width: none !important; resize: vertical"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="cmbResponsable" class="col-md-2 control-label">Responsable</label>
+                                        <div class="col-md-8 col-xs-12">
+                                            <select class="form-control RequeridoRiesgo cmbResponsable" id="" item="Responsable">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="txtDisparadorPlan" class="col-md-2 control-label">Disparador del plan</label>
+                                        <div class="col-md-9 col-xs-12">
+                                            <textarea rows="2" maxlength="600" class="form-control RequeridoRiesgo txtDisparadorPlan" id="" item="Disparador del plan" style="min-height: 45px; max-height: 100px; max-width: none !important; resize: vertical"></textarea>
+                                        </div>
+                                    </div>*@
+                            </form>
+                        </div>
+                        <div class="col-md-12 pb-20 div-Seguimiento hidden">
+                            <form class="form-horizontal">
+                                <div class="col-md-12">
+                                    <h5 class="title-hr">Seguimiento y control <hr class="pull-right" /></h5>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <div class="col-md-offset-2">
+                                        <button class="col-md-3 btn btn-info btnVerComentarios" id="">Ver Comentarios</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
+                <button class="btn btn-success btnGuardar" id=""><i class="fa fa-floppy-o"></i> Guardar</button>
+            </div>
+            <!--termina-->
+        </div>
+    </div>
+    @Html.Hidden("LeerCombos", Url.Action("LeerCombos", "RiesgoCatalogo"))
+    @Html.Hidden("LeerComboUsuarios", Url.Action("LeerComboUsuarios", "Riesgo"))
+    @Html.Hidden("CrearRiesgo", Url.Action("CrearRiesgo", "RiesgoCatalogo"))
+    @Html.Hidden("EditarRiesgo", Url.Action("EditarRiesgo", "RiesgoCatalogo"))
+    @Html.Hidden("CrearProyectoRiesgo", Url.Action("CrearProyectoRiesgo", "Riesgo"))
+    @Html.Hidden("EditarProyectoRiesgo", Url.Action("EditarProyectoRiesgo", "Riesgo"))
+    @Html.Hidden("LeerRiesgoPorId", Url.Action("LeerRiesgoPorId", "RiesgoCatalogo"))
+    @Html.Hidden("LeerProyectoRiesgoPorId", Url.Action("LeerProyectoRiesgoPorId", "Riesgo"))
+</div>
+
+<div class="modal" id="mdlRiesgoComentarios" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="largeModalHead"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div style="display: flex; flex-direction: column;">
+                            <div class="col-md-12" style="text-align: end;">
+                                <input type="checkbox" id="" class="chkMostrarHistorico" /> <label for="chkMostrarAuditor" style="margin-right: 5px;"> Historico</label>
+                            </div>
+                            <div id="" class="divMensajes div-comentarios">
+                            </div>
+                            <div style="width: 100%; border-top: 1px solid lightgray; padding-top: 10px">
+                                <textarea id="" maxlength="1000" class="form-control RequeridoComentario txtComentario" item="Comentario" rows="3" style="margin-bottom:5px; width: 100%; max-width: none; resize: vertical; max-height: 150px; min-height: 30px"></textarea>
+                                <button class="btn btn-default pull-right btnAgregarComentario" id=""><span class="fa fa-comment"></span> Agregar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Hidden("LeerRiesgoComentario", Url.Action("LeerRiesgoComentario", "Riesgo"))
+    @Html.Hidden("CrearRiesgoComentario", Url.Action("CrearRiesgoComentario", "Riesgo"))
+    @Html.Hidden("EliminarRiesgoComentario", Url.Action("EliminarRiesgoComentario", "Riesgo"))
+</div>
+
+<div class="modal" id="mdlEstrategia" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="largeModalHead">Estrategia</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form class="form-horizontal">
+                            <div class="form-group col-md-12">
+                                <label for="cmbEstrategia" class="col-md-2 control-label">Estrategia</label>
+                                <div class="col-md-8 col-xs-12">
+                                    <select class="form-control RequeridoEstrategia cmbEstrategia" id="" item="Estrategia">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="txtPlanMitigacion" class="col-md-2 control-label">Plan de mitigación</label>
+                                <div class="col-md-9 col-xs-12">
+                                    <textarea rows="2" maxlength="600" class="form-control RequeridoEstrategia txtPlanMitigacion" id="" item="Plan de mitigación" style="min-height: 45px; max-height: 100px; max-width: none !important; resize: vertical"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="cmbResponsable" class="col-md-2 control-label">Responsable</label>
+                                <div class="col-md-8 col-xs-12">
+                                    <select class="form-control RequeridoEstrategia cmbResponsable" id="" item="Responsable">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="txtDisparadorPlan" class="col-md-2 control-label">Disparador del plan</label>
+                                <div class="col-md-9 col-xs-12">
+                                    <textarea rows="2" maxlength="600" class="form-control RequeridoEstrategia txtDisparadorPlan" id="" item="Disparador del plan" style="min-height: 45px; max-height: 100px; max-width: none !important; resize: vertical"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="txtDisparadorPlan" class="col-md-2 control-label">Fecha de identificación</label>
+                                <div class="col-md-9 col-xs-12">
+                                    <input type="date" class="form-control RequeridoEstrategia dateFechaIdentificacionEstrategia" id="" item="Fecha identificación" />
+                                </div>
+                            </div>
+                        </form>
+                        <form class="form-horizontal">
+                            <div class="form-group col-md-12" style="margin-top: 15px">
+                                <label class="col-md-2 col-xs-12 control-label">Realizada</label>
+                                <div class="col-md-2 col-xs-12">
+                                    <label class="switch switch-small">
+                                        <input type="checkbox" class="chkRealizada" checked="" id="">
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
+                <button class="btn btn-success btnGuardarEstrategia" id=""><i class="fa fa-floppy-o"></i> Guardar</button>
+            </div>
+        </div>
+    </div>
+    @Html.Hidden("LeerEstrategia", Url.Action("LeerEstrategia", "Riesgo"))
+    @Html.Hidden("LeerEstrategiaPorId", Url.Action("LeerEstrategiaPorId", "Riesgo"))
+    @Html.Hidden("CrearEstrategia", Url.Action("CrearEstrategia", "Riesgo"))
+    @Html.Hidden("EditarEstrategia", Url.Action("EditarEstrategia", "Riesgo"))
+</div>

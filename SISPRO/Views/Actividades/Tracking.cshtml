@@ -1,0 +1,65 @@
+﻿
+@model List<CapaDatos.Models.ActividadTrackingModel>
+@{
+    ViewBag.Title = "Tracking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@{
+    var act = (CapaDatos.Models.ActividadesModel)ViewBag.Actividad;
+    <div class="page-title">
+        <div class="col-md-8 col-xs-12">
+            <h3><span class="fa fa-clock-o"></span> #  @act.IdActividad.ToString()  - @act.BR</h3>
+        </div>
+        <div class="col-md-4 col-xs-12">
+            <button type="button" class="btn btn-info pull-right" onclick="CapturarTamanoTrack()">Capturar tamaño<span class="fa fa-puzzle-piece fa-right"></span></button>
+            <button type="button" class="btn btn-danger pull-right" id="btnCapturarDefecto">Capturar defecto<span class="fa fa-bug fa-right"></span></button>
+        </div>
+
+    </div>
+
+
+}
+<div class="page-content-wrap">
+    <div class="row">
+        <div class="col-md-12">
+            @{
+                <input type="hidden" id="actividad" data-actividad="@act.IdActividad" data-proyecto="@act.ClaveProyecto" />
+                foreach (var a in @Model)
+                {
+                    var hora = (@a.Trabajado.Hours < 10 ? "0" + @a.Trabajado.Hours.ToString() : @a.Trabajado.Hours.ToString());
+                    var minutos = (@a.Trabajado.Minutes < 10 ? "0" + @a.Trabajado.Minutes.ToString() : @a.Trabajado.Minutes.ToString());
+                    var segundos = (@a.Trabajado.Seconds < 10 ? "0" + @a.Trabajado.Seconds.ToString() : @a.Trabajado.Seconds.ToString());
+                    <div id="chrono-@a.IdActividadTracking" class="chrono" item="#chrono-@a.IdActividadTracking" IdActTrack="@a.IdActividadTracking">
+                        <label>@a.Nombre</label>
+                        <div class="chrono-container">
+                            <div data-hours="@a.IdActividadTracking" class="chrono-hour">@hora</div>
+                            <div class="chrono-divider">:</div>
+                            <div data-minutes="@a.IdActividadTracking" class="chrono-minute">@minutos</div>
+                            <div class="chrono-divider">:</div>
+                            <div data-seconds="@a.IdActividadTracking" class="chrono-second">@segundos</div>
+                        </div>
+                        <button data-stage="@a.Nombre.Substring(0, a.Nombre.IndexOf("(") - 1)" data-initial-seconds="@a.Trabajado.TotalSeconds" data-id="@a.IdActividadTracking" class="chrono-start btn btn-success">Iniciar</button>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+@Html.Partial("~/Views/Actividades/CapturaDefecto.cshtml")
+
+<input type="hidden" id="IdActividadTrack" value="@ViewBag.IdActividad" />
+
+<input type="hidden" id="urlCargaInicialDefecto" value="@Url.Action("CargaInicialDefecto","Actividades")" />
+<input type="hidden" id="urlGuardarDefecto" value="@Url.Action("GuardarDefecto","Actividades")" />
+
+
+
+
+@{
+    Random rnd = new Random();
+    <script src="~/Scripts/Project/Tracking-v2.js?@rnd.Next()"></script>
+
+}
+

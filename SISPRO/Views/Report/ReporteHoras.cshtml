@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "Reporte de horas";
+}
+
+<link rel="stylesheet" href="~/Content/jquery.powertip.css" />
+
+<div class="page-title">
+    <h2><span class="fa fa-file-o"></span> Reporte de trabajo</h2>
+</div>
+
+<div class="col-md-12">
+    <div class="form-horizontal col-md-12" style=" display: flex; justify-content: space-between;">
+        <div class="form-group col-md-3">
+            <label for="dateFiltroInicio" class="col-md-3 control-label">Fecha</label>
+            <div class="col-md-9">
+                <input type="text" autocomplete="off" id="dateFecha" class="form-control DateRangePicker" />
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="dateFiltroInicio" class="col-md-2 control-label">Proyecto</label>
+            <div class="col-md-10">
+                <select class="form-control btn-group selectpicker show-tick" data-actions-box="true" data-live-search="true" id="cmbProyecto">
+                </select>
+            </div>
+        </div>
+        <div class="form-group col-md-1">
+            <div class="col-md-12" style="text-align:start">
+                <button class="btn btn-info" id="btnFiltrar"><span class="fa fa-search"></span></button>
+            </div>
+        </div>
+        <div class="col-md-2" style="text-align:end">
+            <button class="btn btn-primary" id="btnExportar" style="">Exportar <span class="fa fa-file-excel-o"></span></button>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default" style="border-top: none; padding-top: 0px">
+            <div class="panel-heading" style="border: none; padding-top: 0px;">
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table datatable text" id="dtReporte">
+                        <thead>
+                            <tr>
+                                <th class="text-center" width="7%">Recurso</th>
+                                <th class="text-center" width="10%">Asignadas</th>
+                                <th class="text-center" width="14%">Reportadas</th>
+                                <th class="text-center" width="9%">Finales</th>
+                                <th class="text-center" width="10%">% Reportadas</th>
+                                <th class="text-center" width="10%">% Finales</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/Scripts/jquery.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.powertip.js"></script>
+
+@Html.Hidden("LeerComboProyecto", Url.Action("LeerComboProyecto", "Report"))
+@Html.Hidden("LeerReporteHoras", Url.Action("LeerReporteHoras", "Report"))
+@Html.Hidden("DescargarExcelReporteHoras", Url.Action("DescargarExcelReporteHoras", "Report"))
+
+@section scripts{
+    <script type="text/javascript" src="~/Scripts/Project/ReporteTrabajo.js"></script>
+}

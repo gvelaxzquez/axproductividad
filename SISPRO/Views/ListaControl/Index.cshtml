@@ -1,0 +1,181 @@
+﻿@{
+    ViewBag.Title = "Listas de Control";
+}
+
+<div class="page-title">
+    <h2><span class="fa fa-list"></span> Listas de Control</h2>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="col-md-12" style="text-align: end">
+                    @*                    <input type="file" id="fileImportar" />*@
+                    <button class="btn btn-primary" id="btnModalImportar">Importar</button>
+                    <button class="btn btn-success" id="btnNuevo">Nuevo</button>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table datatable text" id="dtListaControl">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Nombre</th>
+                                <th class="text-center">Proceso</th>
+                                <th class="text-center">Subproceso</th>
+                                <th class="text-center" style="width:10%">Editar</th>
+                                <th class="text-center" style="width:10%">Activo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="mdlListaControl" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="largeModalHead">Lista de Control</h4>
+            </div>
+            <div class="modal-body">
+                <!--inicia-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <form class="form-horizontal">
+                            <div style="position: absolute; right: 35px; z-index: 100;">
+                                <button type="button" class="btn btn-success" id="btnGuardarListaControl">Guardar<span class="fa fa-floppy-o fa-right"></span></button>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="txtNombre" class="col-md-2 control-label">Nombre</label>
+                                <div class="col-md-8 col-xs-12">
+                                    <input type="text" class="form-control Requerido" id="txtNombre" item="Nombre" />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="selProceso" class="col-md-2 control-label">Proceso</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <select class="form-control Requerido" id="cmbProceso" item="Proceso">
+                                        <option value="-1">--Seleccione--</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="selSubproceso" class="col-md-2 control-label">Subproceso</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <select class="form-control Requerido" id="cmbSubproceso" item="Subproceso">
+                                        <option value="-1">--Seleccione--</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="col-md-2 col-xs-12 control-label">Activar</label>
+                                <div class="col-md-2 col-xs-12">
+                                    <label class="switch switch-small">
+                                        <input type="checkbox" checked="" id="chkActivo">
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <hr class="col-md-12" style="border: none; height: 2px; background-color: #ccc;" />
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="selSubproceso" class="col-md-2 control-label">Control</label>
+                                <div class="col-md-9">
+                                    <textarea type="text" style="max-width: none !important; resize: vertical; min-height: 30px; max-height: 100px;" rows="3" class="form-control RequeridoControl" id="txtControl" item="Control"></textarea>
+                                </div>
+                                <input type="button" class="btn btn-primary col-md-1" id="btnAgregarControl" style="display: inline-block; padding: 5px" value="Agregar" />
+                            </div>
+                            <div class="table-responsive col-md-12">
+                                <table class="table datatable text" id="dtListaControlDetalle">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">Control</th>
+                                            <th class="text-center" style="width:10%">Editar</th>
+                                            <th class="text-center" style="width:10%">Eliminar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!--termina-->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="mdlImportar" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close btn-PassClose" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="defModalHead">Importar Listas de Control</h4>
+            </div>
+            <br />
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="col-md-3 col-xs-12 control-label">Archivo (.XSLX)</label>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <input accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" type="file" class="fileinput btn-primary fa fa-upload" name="files[]" id="fileImportar" title=" Cargar" />
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div>
+                                <div class="col-md-2 col-xs-12">
+                                    <label class="control-label" for="rdo1"><input type="radio" id="rdo1" name="TipoCarga" value="1" checked/> Carga</label>
+                                </div>
+                                <div class="col-md-3 col-xs-12">
+                                    <label class="control-label" for="rdo2"><input type="radio" id="rdo2" name="TipoCarga" value="2" /> Actualización</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="col-md-12"><hr /></div>
+                    <div class="col-md-12">
+                        <div class="col-md-12 col-xs-12 text-left"><label class="control-label">Descargar <a href="~/Archivos/Formatos/Layout_Checklist.xlsx"> ejemplo formato XSLX </a> para ver el formato requerido.</label></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnImportar" class="btn btn-success"><span class="fa fa-arrow-circle-up"></span> Importar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="~/Scripts/jquery.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>
+
+@Html.Hidden("LeerComboProceso", Url.Action("LeerComboProceso", "ListaControl"))
+@Html.Hidden("LeerComboSubproceso", Url.Action("LeerComboSubproceso", "ListaControl"))
+@Html.Hidden("LeerListaControl", Url.Action("LeerListaControl", "ListaControl"))
+@Html.Hidden("LeerListaControlPorId", Url.Action("LeerListaControlPorId", "ListaControl"))
+@Html.Hidden("CrearListaControl", Url.Action("CrearListaControl", "ListaControl"))
+@Html.Hidden("EditarListaControl", Url.Action("EditarListaControl", "ListaControl"))
+@Html.Hidden("ActivarListaControl", Url.Action("ActivarListaControl", "ListaControl"))
+@Html.Hidden("EditarListaControlDetalle", Url.Action("EditarListaControlDetalle", "ListaControl"))
+@Html.Hidden("EliminarListaControlDetalle", Url.Action("EliminarListaControlDetalle", "ListaControl"))
+@Html.Hidden("ImportarListaControl", Url.Action("ImportarListaControl", "ListaControl"))
+
+@section scripts{
+    <script type="text/javascript" src="~/Scripts/bootbox.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/Project/ListaControl.js"></script>
+}

@@ -1,0 +1,77 @@
+﻿<div class="modal" id="MdlBuscarCasosPrueba" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg" style="width:70%; height:70%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" id="BtnCerrarBuscarCP"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="tbuscar">Agregar casos de prueba</h4>
+            </div>
+            <div class="modal-body">
+                <!--inicia-->
+                <div class="row">
+                    <div class="col-md-3">
+                        <h5>Historias de usuario</h5>
+                        <div class="input-group" style="padding-bottom: 5px;">
+
+                            <input type="text" id="TxtBusquedaCPHU"  class="form-control" placeholder="Ingrese un criterio de búsqueda" style="min-width:100%;">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" id="BtnBuscarCPHU"> <span class="fa fa-search"></span></button>
+                            </div>
+                        </div>
+
+                        <ul class="list-group border-bottom" id="ulHus" style="height:900px; overflow:scroll;">
+                        </ul>
+
+
+
+                    </div>
+                    <div class="col-md-9">
+                        <div class="row" style="padding-bottom:10px;">
+
+                            <button class="btn btn-default pull-right" id="BtnAgrearBWI"><i class="fa fa-plus"></i>  Agregar </button>
+
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table datatable text" id="TblWIBusqueda">
+                                <thead>
+
+                                    <tr>
+                                        <th><input type='checkbox' id="SeleccionarBWIT"></th>
+                                        <th>#</th>
+                                        <th>Título</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!--termina-->
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+<input type="hidden" id="IdProyectoBWICP" value="0" />
+<input type="hidden" id="IdCicloPBWICP" value="0" />
+
+<input type="hidden" id="urlConsultaBWICP" value="@Url.Action("BuscarWorkitems_RelacionadosQA", "Actividades")" />
+<input type="hidden" id="urlCargaInicialBWICP" value="@Url.Action("BuscarWorkItems_PorTipo", "Actividades")" />
+
+
+@{
+    Random rnd = new Random();
+    <script src="~/Scripts/Project/BuscarCasosPrueba.js?@rnd.Next()"></script>
+
+
+}

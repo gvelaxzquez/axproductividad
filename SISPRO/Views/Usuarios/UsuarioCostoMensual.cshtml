@@ -1,0 +1,285 @@
+﻿@{
+    ViewBag.Title = "Costos de Usuario";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+
+
+                <div class="col-md-12">
+
+
+                    <button class="btn btn-info pull-right" id="btnExportar"> <i class="fa fa-bars"></i> Exportar</button>
+                    <button class="btn btn-success pull-right" id="btnImportar"> <i class="fa fa-arrow-circle-up"></i> Importar</button>
+                    <h3> Costo mensual: <span id="lblCostoT"></span></h3>
+
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table text" id="dtCosto">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Clave</th>
+                                <th>Nombre</th>
+                                <th>Mes</th>
+                                <th>Año</th>
+                                <th>Costo mensual</th>
+                                <th>Distribución</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="filter-settings">
+        <div class="filter-settings-icon"><span class="glyphicon glyphicon-filter"></span></div>
+        <h5>Filtrar</h5>
+
+        <div class="filter-settings-row">
+            <label for="SelAnioFUCM">Año</label>
+
+            @{
+
+                var LstAnios2 = ViewBag.LstAnios;
+                <select class="selectpicker form-control" id="SelAnioFUCM" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--">
+                    @foreach (var i in LstAnios2)
+                    {
+                        <option value="@i.DescCorta">@i.DescCorta</option>
+
+                    }
+
+                </select>
+
+            }
+
+
+        </div>
+        <div class="filter-settings-row">
+            <label for="SelMesFUCM">Año</label>
+            <select class="selectpicker form-control" id="SelMesFUCM" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--">
+                <option selected="selected" value="-1">--Seleccione--</option>
+                <option value="1">Enero</option>
+                <option value="2">Febrero</option>
+                <option value="3">Marzo</option>
+                <option value="4">Abril</option>
+                <option value="5">Mayo</option>
+                <option value="6">Junio</option>
+                <option value="7">Julio</option>
+                <option value="8">Agosto</option>
+                <option value="9">Septiembre</option>
+                <option value="10">Octubre</option>
+                <option value="11">Noviembre</option>
+                <option value="12">Diciembre</option>
+
+            </select>
+
+
+        </div>
+
+        <div class="filter-settings-row">
+            <button class="btn btn-default" id="BtnFiltraUCM">Aplicar</button>
+        </div>
+    </div>
+
+</div>
+
+
+
+<div class="modal" id="ModalDistribuirCosto" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="TituloModalDist">Distribuir Costos </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-1 col-xs-12 control-label">Proyecto*</label>
+                            <div class="col-md-5 col-xs-12">
+
+
+
+                                @{
+                                    var LstProyectos = ViewBag.LstProyectos;
+                                    <select class="form-control ReqDCME selectpicker" data-live-search="true" id="SelProyectoDCM" item="Proyecto">
+                                        <option value="-1" selected>  -- Seleccionar -- </option>
+                                        @foreach (var i in LstProyectos)
+                                        {
+                                            <option value="@i.IdCatalogo">@i.DescLarga</option>
+
+                                        }
+                                    </select>
+                                }
+
+
+
+                            </div>
+                            <label class="col-md-2 col-xs-12 control-label">Porcentaje*</label>
+                            <div class="col-md-3 col-xs-12">
+                                <input type="number" step="0.01" class="form-control ReqDCME" id="TxtPorcentajeDCM" item="Porcentaje" />
+                            </div>
+
+                            <div class="col-md-1 col-xs-12"><button class="btn btn-info pull-right" id="btnAgregarCDM"><span class="fa fa fa-plus-square"></span></button></div>
+
+                        </div>
+
+                    </form>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="table-responsive">
+                        <table class="table datatable text" id="TblDistribucion">
+                            <thead>
+                                <tr>
+                                    <th width="60%">Proyecto </th>
+                                    <th width="20%">Porcentaje (%)</th>
+                                    <th width="10%">Editar</th>
+                                    <th width="10%">Eliminar</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnGuardarDCM" class="btn btn-success"> Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="mdlImportar" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close btn-PassClose" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="defModalHead">Importar Costos de Usuario</h4>
+            </div>
+            <br />
+            <div class="modal-body">
+                <div class="row">
+
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-5 control-label">Año*</label>
+                            <div class="col-md-8 col-xs-7">
+
+                                @{
+
+                                    var LstAnios = ViewBag.LstAnios;
+                                    <select class="selectpicker form-control" id="SelAnioUCM" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--">
+                                        @foreach (var i in LstAnios)
+                                        {
+                                            <option value="@i.DescCorta">@i.DescCorta</option>
+
+                                        }
+
+                                    </select>
+
+                                }
+
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-5 control-label">Mes*</label>
+                            <div class="col-md-8 col-xs-7">
+                                <select class="selectpicker form-control" id="SelMesUCM" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--">
+                                    <option selected="selected" value="-1">--Seleccione--</option>
+                                    <option value="1">Enero</option>
+                                    <option value="2">Febrero</option>
+                                    <option value="3">Marzo</option>
+                                    <option value="4">Abril</option>
+                                    <option value="5">Mayo</option>
+                                    <option value="6">Junio</option>
+                                    <option value="7">Julio</option>
+                                    <option value="8">Agosto</option>
+                                    <option value="9">Septiembre</option>
+                                    <option value="10">Octubre</option>
+                                    <option value="11">Noviembre</option>
+                                    <option value="12">Diciembre</option>
+
+                                </select>
+
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-12 control-label">Archivo (.XSLX)</label>
+                            <div class="col-md-8 col-xs-7">
+                                <input accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" type="file" class="fileinput btn-primary fa fa-upload" name="files[]" id="fileImportar" title=" Cargar" />
+                                <span class="help-block"></span>
+                            </div>
+
+
+                        </div>
+                    </form>
+
+
+                    @*<div class="col-md-12">
+                            <label class="col-md-3 col-xs-12 control-label">Archivo (.XSLX)</label>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <input accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" type="file" class="fileinput btn-primary fa fa-upload" name="files[]" id="fileImportar" title=" Cargar" />
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <br />*@
+
+                    <br />
+                    <div class="col-md-12"><hr /></div>
+                    <div class="col-md-12">
+                        <div class="col-md-12 col-xs-12 text-left"><label class="control-label">Descargar <a onclick="DescargarFormatoUCM();"> ejemplo formato XSLX </a> para ver el formato requerido.</label></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnImportarExcel" class="btn btn-success"><span class="fa fa-arrow-circle-up"></span> Importar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<input type="hidden" id="AnioActual" value="@ViewBag.Anio" />
+<input type="hidden" id="MesActual" value="@ViewBag.Mes" />
+
+<input type="hidden" id="MesDist" value="0" />
+<input type="hidden" id="AnioDist" value="0" />
+<input type="hidden" id="IdUsuarioDist" value="0" />
+
+
+<input type="hidden" id="urlCargaCostoDistribucion" value="@Url.Action("ObtieneDistribucionCosto","Usuarios")" />
+
+<input type="hidden" id="urlGuardarDistribucionCosto" value="@Url.Action("GuardarDistribucionCosto","Usuarios")" />
+
+<script type="text/javascript" src="~/Scripts/jquery.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.powertip.js"></script>
+
+@{
+
+
+    Random rnd = new Random();
+
+    <script src="~/Scripts/bootstrap-select.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/Project/UsuarioCostoMensual.js?@rnd.Next()"></script>
+}

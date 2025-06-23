@@ -1,0 +1,34 @@
+﻿
+@{
+    Layout = null;
+    var nombresistema = ViewBag.NombreSistema;
+    ViewBag.Title = "Login";
+}
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YITPRO | Login</title>
+</head>
+
+<div id="react-root">
+    <div id="login">
+
+    </div>
+
+</div>
+
+<!-- Incluye React, ReactDOM y el archivo bundle.js -->
+<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+
+
+@{
+    Random rnd = new Random();
+    <script src="~/wwwroot/js/bundle-login.js?@rnd.Next()"></script>
+
+}
+

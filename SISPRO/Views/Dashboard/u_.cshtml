@@ -1,0 +1,217 @@
+﻿
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-md-4 col-xs-12">
+            @*<div class="widget widget-default" id="wproyectos" style="cursor:pointer;">
+                    <div class="widget-title">Proyectos</div>
+                    <div class="widget-int"><span data-toggle="counter" id="LblProductividad"> 19 </span></div>
+                </div>*@
+            <a>
+                <div class="widget widget-default widget-item-icon">
+                    <div class="widget-item-left">
+                        <span class="fa fa-users"></span>
+                    </div>
+                    <div class="widget-data">
+                        <div class="widget-int num-count" id="wRecursos"></div>
+                        <div class="widget-title">Recursos</div>
+                        <div class="widget-subtitle">
+                            <ul class="list-inline small">
+                                <li class="list-inline-item">
+                                    <i class="fa fa-fw fa-circle text-success"></i> <span id="PLinea"> </span> En línea
+                                </li>
+                                <li class="list-inline-item">
+                                    <i class="fa fa-fw fa-circle text-warning"></i>  <span id="PAusentes"> </span> Ausentes
+                                </li>
+                                <li class="list-inline-item">
+                                    <i class="fa fa-fw fa-circle text-danger"></i>  <span id="PDesconectados"> </span> Desconectados
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+
+                </div>
+            </a>
+
+        </div>
+        <div class="col-md-4 col-xs-12">
+            <a href="#" onclick="VerRetardos();">
+                <div class="widget widget-default widget-item-icon">
+                    <div class="widget-item-left">
+                        <span class="fa fa fa-clock-o"></span>
+                    </div>
+                    <div class="widget-data">
+                        <div class="widget-int num-count" id="wRetardos"></div>
+                        <div class="widget-title">Retardos</div>
+                        @*<div class="widget-subtitle">
+                                <ul class="list-inline small">
+                                    <li class="list-inline-item">
+                                        <i class="fa fa-fw fa-circle text-info"></i> <span id="MAbiertos"> </span> Abiertos
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <i class="fa fa-fw fa-circle text-success"></i> <span id="MCompletados"> </span> Completados
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <i class="fa fa-fw fa-circle text-danger"></i>  <span id="MPendientes"> </span> Pendientes
+                                    </li>
+                                </ul>
+
+
+                            </div>*@
+                    </div>
+
+                </div>
+            </a>
+
+            @*<div class="widget widget-default" id="wproyectos" style="cursor:pointer;">
+                    <div class="widget-title">Milestones</div>
+                    <div class="widget-int"><span data-toggle="counter" id="LblProductividad"> 19 </span></div>
+                </div>*@
+
+        </div>
+        <div class="col-md-4 col-xs-12">
+            <a href="#" onclick="VerIncidencias();">
+                <div class="widget widget-default widget-item-icon">
+                    <div class="widget-item-left">
+                        <span class="fa fa-exclamation-circle"></span>
+                    </div>
+                    <div class="widget-data">
+                        <div class="widget-int num-count" id="wIncidencias"></div>
+                        <div class="widget-title">Incidencias</div>
+                        @*<div class="widget-subtitle">
+                                <ul class="list-inline small">
+
+                                    <li class="list-inline-item">
+                                        <i class="fa fa-fw fa-circle text-success"></i> <span id="ICompletados"> </span> Completados
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <i class="fa fa-fw fa-circle text-danger"></i>  <span id="IPendientes"> </span> Pendientes
+                                    </li>
+                                </ul>
+
+
+                            </div>*@
+                    </div>
+
+                </div>
+            </a>
+        </div>
+        @*<div class="col-md-3 col-xs-12">
+                <a >
+                    <div class="widget widget-default widget-item-icon">
+                        <div class="widget-item-left">
+                            <span class="fa fa-bar-chart-o"></span>
+                        </div>
+                        <div class="widget-data">
+                            <div class="widget-int num-count"><span data-toggle="counter" id="wProductividad">  </span>%</div>
+                            <div class="widget-title">Productividad</div>
+                            <div class="widget-subtitle">
+                                <ul class="list-inline small">
+
+                                    <li class="list-inline-item">
+                                        <i class="fa fa-fw fa-circle text-info"></i> <span id="ProductividadMes"> </span> % Acumulado mes
+                                    </li>
+
+                                </ul>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </a>
+
+
+            </div>*@
+    </div>
+    <br />
+
+    <br />
+
+    <div class="row" style="padding-bottom:10px;">
+
+        <div class="col-md-12">
+            <div>
+                <a class="btn btn-info pull-right" href="@Url.Action("InformeAsistencia", "Report")"><i class="fa fa-arrow-right"></i> Ir a informe de asistencia</a>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <div class="table-responsive">
+                <table class="table datatable text" id="TblAsistencia">
+                    <thead>
+                        <tr>
+
+                            <th width="5%"></th>
+                            <th width="15%">Nombre</th>
+                            <th width="5%">Estatus</th>
+                            <th width="12%">Hora Entrada</th>
+                            <th width="12%">Hora Salida </th>
+                            <th width="12%">Hora Entrada </th>
+                            <th width="12%">Hora Salida </th>
+
+                            <th width="10%">Incidencias</th>
+
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+
+            </div>
+
+        </div>
+
+        <!--<div class="col-md-6 col-xs-12">
+
+            <h5>Carga de trabajo</h5>
+            <div class="table-responsive">
+                <table class="table datatable text" id="TblCargaTrabajo">
+                    <thead>
+                        <tr>
+
+                            <th></th>
+                            <th>Nombre</th>-->
+        @*<th>Nivel</th>
+            <th>Estándar diario </th>*@
+        <!--<th> # Actividades</th>
+                            <th>Horas disponibles</th>
+                            <th>Horas asignadas</th>
+                            <th>Carga trabajo</th>
+
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+
+            </div>
+        </div>-->
+
+    </div>
+
+
+
+
+</div>
+
+@Html.Partial("~/Views/Usuarios/Incidencias.cshtml")
+@Html.Partial("~/Views/Usuarios/Retardos.cshtml")
+
+
+@{
+    Random rnd = new Random();
+    <script src="~/Scripts/Project/DashboardAsistencia.js?@rnd.Next()"></script>
+
+}
+
+
+<input type="hidden" id="urlConsultaControlAsistencia" value="@Url.Action("ConsultaControlAsistencia","Dashboard")" />

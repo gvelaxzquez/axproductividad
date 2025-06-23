@@ -1,0 +1,192 @@
+﻿
+@{
+    ViewBag.Title = "Configuración de autorizaciones";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="page-title">
+    <div class="title_left col-xs-12" ">
+        <h2><span class="fa fa-sitemap"></span> Configuración de autorizaciones</h2>
+    </div>
+
+</div>
+
+
+<div class="x_panel">
+    <div class="col-md-12">
+        <div class="x_title">
+
+            <div class="row">
+                @*<form class="form-horizontal">
+                        <div id="ConfOficinas" style="margin-bottom:10px;display:none">
+                            <div class="form-group">
+                                <label class="col-md-1 control-label">Oficina</label>
+                                <div class="col-md-4 col-xs-12">
+                                    <select class="selectpicker form-control ReqNuevaAut" item="Oficina" id="SelOficina">
+                                        <option selected="selected" value="-1">--Seleccione--</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-1 control-label">Proceso</label>
+                            <div class="col-md-4 col-xs-12">
+                                <select class="selectpicker form-control ReqNuevaAut" item="Proceso" id="SelProceso">
+                                    <option selected="selected" value="-1">--Seleccione--</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>*@
+                <div class="col-md-12">
+                    <button class="btn btn-success pull-right" id="BtnNuevaAutorizacion" style="width:auto">Nueva autorización <span class="fa fa-plus fa-right"></span></button>
+                    @*<button class="btn btn-success pull-right" id="BtnNuevoEstatus" style="margin-right:10px;">Nuevo estatus <span class="fa fa-plus fa-right"></span></button><br /><br />*@
+                </div>
+
+            </div>
+            <div class="x_content">
+                <table class="table table-striped  dataTable no-footer" id="TblAutorizaciones">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th>Autorización</th>
+                            <th></th>
+                            <th></th>
+                            <th>Tipo asignación</th>
+                            <th>Asignado</th>
+                            @*<th></th>*@
+                            @*<th>Asignar</th>*@
+                            <th>Monto mínimo</th>
+                            <th>Aprobar c/autorización</th>
+                            <th>Activo</th>
+                            <th>Editar</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <button class="btn btn-success pull-right hide" id="BtnGuardarCambios">Guardar<span class="fa fa-floppy-o fa-right"></span></button><br /><br />
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal" id="ModalEditarAutorizacion" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="defModalHead">Autorización</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <form class="form-horizontal">
+
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Nombre*</label>
+                                <div class="col-md-8 col-xs-12">
+                                    <input type="text" class="form-control ReqAut" item="Nombre autorización" id="TxtNombreA" maxlength="30" />
+                                </div>
+                            </div>
+                            <div id="MostrarNuevo">
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Secuencia</label>
+                                    <div class="col-md-8 col-xs-12">
+                                        <label class="control-label" id="TxtSecuencia"></label>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Tipo de asignación*</label>
+                                    <div class="col-md-6">
+                                        <select class="selectpicker form-control ReqAut ReqSel SelTipoAut" id="SelTipoAut" item="Tipo de autorización">
+                                            <option selected="selected" value="-1">--Seleccione--</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="">
+                                    <label class="col-md-3 col-xs-12 control-label">Asignar*</label>
+                                    <div class="col-md-6">
+                                        <select class="selectpicker form-control" id="SelAsignar" item="Asignar autorización">
+                                            <option selected="selected" value="-1">--Seleccione--</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Monto mínimo autorizar*</label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="txtMontoMin" item="Costo Unitario" class="form-control ReqAut" onkeypress="return SoloNumeros(event, 'txtMontoMin')" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Aprobar con autorización</label>
+                                    <div class="col-md-3 col-xs-12">
+                                        <label class="switch switch-small">
+                                            <input type="checkbox" checked id="ChkAprobarAutorizacion" />
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Activo</label>
+                                    <div class="col-md-3 col-xs-12">
+                                        <label class="switch switch-small">
+                                            <input type="checkbox" checked id="ChkActivo" />
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="BtnGuardarAutorizacion"> Guardar <span class="fa fa-floppy-o fa-right"></span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>
+<script src="~/Scripts/Project/Autorizaciones.js"></script>
+
+@Html.Hidden("urlInicializar", @Url.Action("Inicializar", "Home"))
+<input type="hidden" id="urlCargaInicial" value="@Url.Action("CargaInicial","Autorizaciones")" />
+<input type="hidden" id="urlConsultaProceso" value="@Url.Action("ConsultarProceso","Autorizaciones")" />
+<input type="hidden" id="urlGuardarAutorizacion" value="@Url.Action("GuardarAutorizacion","Autorizaciones")" />
+<input type="hidden" id="urlGuardarEstatus" value="@Url.Action("GuardarEstatus","Autorizaciones")" />
+<input type="hidden" id="urlGuardarCambiosAutorizacion" value="@Url.Action("GuardarCambiosAutorizaciones","Autorizaciones")" />
+<input type="hidden" id="urlGuardarCambiosFlujo" value="@Url.Action("GuardarCambiosFlujo","Autorizaciones")" />
+<input type="hidden" id="IdAutorizacion" value="0" />
+
+<input type="hidden" id="IdProceso" value="0" />
+<input type="number" class="hidden" id="Secuencia" value="0" />
+
+<select id="cmbUsuarios" class="hidden">
+    <option selected="selected" value="-1">--Seleccione--</option>
+</select>
+<select id="cmbTUsuarios" class="hidden">
+    <option selected="selected" value="-1">--Seleccione--</option>
+</select>
+<select id="CmbTipoAut" class="hidden">
+    <option selected="selected" value="-1">--Seleccione--</option>
+</select>
+
+<select id="CmbEstatusOrigen" class="hidden">
+    <option selected="selected" value="-1">--Seleccione--</option>
+</select>
+<select id="CmbEstatusDestino" class="hidden">
+    <option selected="selected" value="-1">--Seleccione--</option>
+</select>
+

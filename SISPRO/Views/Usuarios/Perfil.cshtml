@@ -1,0 +1,275 @@
+﻿<div class="modal" id="ModalPerfil" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg" style="width:90%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="TituloPerfil">Perfil</h4>
+
+            </div>
+            <div class="modal-body">
+                <!--inicia-->
+                <div class="row">
+                    <div class="col-md-3 col-sm-4 col-xs-5">
+
+                        <form action="#" class="form-horizontal">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <h3 id="lblNombrePH"><span class="fa fa-user"></span> </h3>
+                                    <p id="lblTituloP"></p>
+                                    <div class="text-center" id="user_image">
+                                        <img id="FotoPerfil" class="img-resource ">
+                                    </div>
+                                </div>
+                                <div class="panel-body form-group-separated">
+
+                                    @*<div class="form-group">
+                                            <div class="col-md-12 col-xs-12">
+                                                <a href="#" class="btn btn-primary btn-block" data-toggle="modal">Cambiar foto</a>
+                                            </div>
+                                        </div>*@
+                                    <div class="form-group">
+                                        <label class="col-md-4 col-xs-5 control-label">Clave</label>
+                                        <div class="col-md-8 col-xs-7 line-height-base" id="lblClaveP"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 col-xs-5 control-label">Nombre completo</label>
+                                        <div class="col-md-8 col-xs-7 line-height-base" id="lblNombreP"></div>
+                                    </div>
+                                    @*<div class="form-group">
+                                            <label class="col-md-4 col-xs-5 control-label">Fecha ingreso</label>
+                                            <div class="col-md-8 col-xs-7 line-height-base" id="lblFechaIP" ></div>
+                                        </div>*@
+                                    <div class="form-group">
+                                        <label class="col-md-4 col-xs-5 control-label">E-mail</label>
+                                        <div class="col-md-8 col-xs-7 line-height-base" id="lblEmailP"></div>
+                                    </div>
+                                    @*<div class="form-group">
+                                            <label class="col-md-4 col-xs-5 control-label">Nivel</label>
+                                            <div class="col-md-8 col-xs-7" id="lblNivelP"></div>
+                                        </div>*@
+                                    @*<div class="form-group">
+                                            <label class="col-md-4 col-xs-5 control-label">Fecha cambio nivel</label>
+                                            <div class="col-md-8 col-xs-7" id="lblFechaCP"></div>
+                                        </div>*@
+                                    <div class="form-group">
+                                        <label class="col-md-4 col-xs-5 control-label">Líder</label>
+                                        <div class="col-md-8 col-xs-7 line-height-base" id="lblLiderP"></div>
+                                    </div>
+                                    @*<div class="form-group">
+                                            <label class="col-md-4 col-xs-5 control-label">Organización</label>
+                                            <div class="col-md-8 col-xs-7 line-height-base" id="lblOrganizacionP"></div>
+                                        </div>*@
+
+
+
+
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="col-md-9 col-sm-8 col-xs-7">
+
+                        <div class="row">
+                            <div class="panel-body tabs">
+                                <ul class="nav nav-tabs" role="tablist">
+
+                                    <li class="active" id="liActividadesprofile"><a href="#tab-firstprofile" role="tab" data-toggle="tab" id="Actividadesprofile">Plan</a></li>
+                                    <li id="liBugsprofile"><a href="#tab-secondprofile" role="tab" data-toggle="tab" id="Bugsprofile"> Bugs</a></li>
+                                    <li id="liComentariosprofile"><a href="#tab-thirdrofile" role="tab" data-toggle="tab" id="Comentariosprofile">Actividad</a></li>
+                                    <li id="liPerformanceprofile"><a href="#tab-fourprofile" role="tab" data-toggle="tab" id="Performanceprofile">Performance</a></li>
+                                    <li id="liFeedbackprofile"><a href="#tab-fiveprofile" role="tab" data-toggle="tab" id="Feedbackprofile">Retroalimentación</a></li>
+                                    @*<li><a href="#tab-third" role="tab" data-toggle="tab" id="Comentarios">Comentarios</a></li>*@
+                                    @*<li><a href="#tab-four" role="tab" data-toggle="tab" id="Aprobaciones">Aprobaciones</a></li>*@
+                                </ul>
+
+                                <div class="panel-body tab-content">
+                                    <div class="tab-pane active" id="tab-firstprofile">
+
+                                        <div class="row">
+                                            <a class="pull-right" href="@Url.Action("Index", "Actividades")"> Ir a actividades</a>
+
+                                        </div>
+
+                                        <div id="CalendarPerfil">
+
+                                        </div>
+
+
+                                        <!--<div class="panel-group accordion accordion-dc">
+                                            <div class="panel">
+                                                <div class="panel-heading">
+                                                    <span class="panel-title">
+
+                                                        <a href="#acAtrasadasprofile">
+                                                            <span class="iconshow fa fa-chevron-right"></span>
+                                                            Atrasadas <label id="NumTareasAprofile"> (0)</label>
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                                <div class="panel-body" id="acAtrasadasprofile" style="display:none;">
+
+                                                    <div class="tasks" id="PAtrasadasprofile">
+
+
+                                                    </div>
+
+
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="panel-group accordion accordion-dc">
+                                            <div class="panel">
+                                                <div class="panel-heading">
+                                                    <span class="panel-title">
+
+                                                        <a href="#acHoyprofile">
+                                                            <span class="iconshow fa fa-chevron-right"></span>
+                                                            Hoy <label id="NumTareasH"> (0)</label>
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                                <div class="panel-body" id="acHoyprofile" style="display:none;">
+                                                    <div class="tasks" id="pHoyprofile">
+
+
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="panel-group accordion accordion-dc">
+                                            <div class="panel">
+                                                <div class="panel-heading">
+                                                    <span class="panel-title">
+
+                                                        <a href="#acSiguientesprofile">
+                                                            <span class="iconshow fa fa-chevron-right"></span>
+                                                            Siguientes <label id="NumTareasSprofile"> (0)</label>
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                                <div class="panel-body" id="acSiguientesprofile" style="display:none;">-->
+                                        <!--inicia-->
+                                        <!--<div class="tasks" id="pSiguientesprofile">
+
+
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+
+                                        </div>-->
+
+                                    </div>
+                                    <div class="tab-pane" id="tab-secondprofile">
+                                        <div class="row">
+                                            <a class="pull-right" href="@Url.Action("Bugs", "Actividades")"> Ir a Bugs</a>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="tasks" id="pBugsprofile">
+
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="tab-pane" id="tab-thirdrofile">
+                                        <div class="row">
+                                            <div class="messages messages-img" id="pComentariosprofile">
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane active" id="tab-fourprofile">
+                                        <div class="row">
+                                            <label class="check" onclick="MostrarGraficaP()"><input type="radio" class="iradio" id="RdoGraficaM" name="RdoGraficaM" checked="checked" value="1" /> Grafica </label>
+                                            <label class="check" onclick="MostrarTablaP()"><input type="radio" class="iradio" name="RdoGraficaM" id="RdoTablaM" value="2" /> Tabla</label>
+                                            <div class="modal-body" id="GraficasPerfil">
+                                            </div>
+                                            <div class="modal-body" id="TablasPerfil">
+                                            </div>
+
+
+                                        </div>
+                                        <div id="scriptsprofile">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane" id="tab-fiveprofile">
+                                        <div class="row">
+                                            <div class="col-md-3 col-xs-12">
+                                                <h5> Estado de ánimo</h5>
+                                                <div class="table-responsive">
+                                                    <div class="table-responsive">
+                                                        <table class="table datatable text" id="tblFeels">
+                                                            @*<thead>
+                                                                    <tr>
+                                                                        <th>Fecha</th>
+                                                                        <th>Respuesta</th>
+                                                                    </tr>
+                                                                </thead>*@
+                                                            <tbody>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-9 col-xs-12">
+                                                <h5> Feedback</h5>
+                                                <div class="table-responsive">
+                                                    <div class="table-responsive">
+                                                        <table class="table datatable text" id="tblFeedback">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Fecha</th>
+                                                                    <th>Pregunta</th>
+                                                                    <th>Respuesta</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
+                </div>
+
+
+            </div>
+            <!--termina-->
+        </div>
+    </div>
+    <input type="hidden" id="urlConsultaPerfil" value="@Url.Action("ConsultarPerfil","Usuarios")" />
+    <input type="hidden" id="IdUPerfil" value="0" />
+    @{
+        Random rnd = new Random();
+        <script src="~/Scripts/Project/Perfil.js?@rnd.Next()"></script>
+
+    }
+
+
+</div>

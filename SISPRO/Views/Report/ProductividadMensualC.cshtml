@@ -1,0 +1,248 @@
+﻿
+@{
+    ViewBag.Title = "Productividad mensual";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-title">
+    @*<h2> Productividad mensual</h2>*@
+    <div class="filter-settings">
+        <div class="filter-settings-icon"><span class="glyphicon glyphicon-filter"></span></div>
+        <h5>Filtrar</h5>
+
+        <div class="filter-settings-row">
+            <label for="SelAnio">Año</label>
+            <select class="form-control select ReqFiltroCons" id="SelAnio" item="Año">
+                @*<option selected="selected" value="-1">--Seleccione--</option>
+                    <option value="2016">2016</option>
+                    <option value="2017">2017</option>
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                    <option value="2028">2028</option>
+                    <option value="2029">2029</option>
+                    <option value="2030">2030</option>*@
+            </select>
+        </div>
+        <div class="filter-settings-row">
+            <label for="SelMes">Mes</label>
+            <select class="form-control select ReqFiltroCons" id="SelMes" item="Mes">
+                <option selected="selected" value="-1">--Seleccione--</option>
+                <option value="1">Enero</option>
+                <option value="2">Febrero</option>
+                <option value="3">Marzo</option>
+                <option value="4">Abril</option>
+                <option value="5">Mayo</option>
+                <option value="6">Junio</option>
+                <option value="7">Julio</option>
+                <option value="8">Agosto</option>
+                <option value="9">Septiembre</option>
+                <option value="10">Octubre</option>
+                <option value="11">Noviembre</option>
+                <option value="12">Diciembre</option>
+
+            </select>
+        </div>
+        <div class="filter-settings-row">
+            <label for="SelRecursoCons">Recurso</label>
+            <select class="selectpicker form-control" multiple data-live-search="true" id="SelRecursoCons" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--"></select>
+
+        </div>
+
+        <div class="filter-settings-row">
+            <button class="btn btn-default" id="BtnFiltrarCons">Aplicar</button>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="page-content-wrap">
+
+    @{
+
+        var IdTipoU2 = ViewBag.IdTipoUsuario;
+      
+        var clase = "hide";
+
+        if (IdTipoU2 != 14  )
+        {
+            clase = "show";
+
+        }
+
+        <div class="row">
+            <div class="panel-body tabs">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="active"><a href="#tab-first" role="tab" data-toggle="tab" id="DevTeam">DevTeam</a></li>
+                    @*<li class="@clase"><a href="#tab-second" role="tab" data-toggle="tab" id="AdminProys"> Administradores de proyecto</a></li>*@
+                </ul>
+                <div class="panel-body tab-content">
+                    <div class="tab-pane active" id="tab-first">
+                        <div id="DivDevTeam">
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+
+                                            <div class="btn-group pull-right">
+                                                <button class="btn btn-info" id="BtnExportarPDT"><i class="fa fa-bars"></i> Exportar</button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="table-responsive">
+                                    <table class="table datatable text" id="TblCompensacion">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Colaborador</th>
+                                                <th>Nivel</th>
+                                                <th>Estandár mes</th>
+                                                <th>Horas solicitadas</th>
+                                                <th>Horas liberadas</th>
+                                                @*<th>Bono cumplimiento</th>
+                                                <th>Horas adicionales</th>
+                                                <th>Bono horas</th>
+                                                <th>Total</th>*@
+                                                <th>Productividad</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab-second">
+                        <div id="DivAdminProys">
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+
+                                            <div class="btn-group pull-right">
+                                                <button class="btn btn-info" id="BtnExportarPA"><i class="fa fa-bars"></i> Exportar</button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="table-responsive">
+                                    <table class="table datatable text" id="TblCompensacionLider">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Colaborador</th>
+                                                <th>Proyectos</th>
+                                                <th>Bono potencial</th>
+                                                <th>Bono a pagar</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+    }
+
+
+    @*<div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+
+
+
+                <br />
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table datatable text" id="TblCompensacion">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Recurso</th>
+                                    <th>Nivel</th>
+                                    <th>Estandár mes</th>
+                                    <th>Horas solicitadas</th>
+                                    <th>Horas liberadas</th>
+                                    <th>Bono cumplimiento</th>
+                                    <th>Horas adicionales</th>
+                                    <th>Bono horas</th>
+                                    <th>Total</th>
+                                    <th>Productividad</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+
+
+
+</div>
+
+
+
+<table class="table datatable text hide" id="TblCompensacionesExportar">
+    <thead>
+        <tr>
+            <th>Recurso</th>
+            <th>Nivel</th>
+            <th>Estandár mes</th>
+            <th>Horas solicitadas</th>
+            <th>Horas liberadas</th>
+            @*<th>Bono cumplimiento</th>
+            <th>Horas adicionales</th>
+            <th>Bono horas</th>
+            <th>Total</th>*@
+            <th>Productividad</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+
+<input type="hidden" id="urlConsultaCompensaciones" value="@Url.Action("ConsultaCompensaciones","Report")" />
+<input type="hidden" id="urlIniConsultaComp" value="@Url.Action("InicializarProductividadMensual","Report")" />
+
+
+
+
+@{
+    Random rnd = new Random();
+    <script src="~/Scripts/Project/ProductividadMensualC.js"></script>
+    @*<script src="~/Scripts/Project/ProductividadMensual.js?@rnd.Next()"></script>*@
+
+}

@@ -1,0 +1,282 @@
+﻿
+@using AxProductividad.Models;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=YES">
+
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="white">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="black">
+
+    <title> YITPRO | @ViewBag.Title </title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="~/Content/DHTMLXGantt/dhtmlxgantt.css" />
+    <link rel="stylesheet" href="~/Content/DHTMLXGantt/skins/dhtmlxgantt_material.css" />
+    @*<link rel="stylesheet" href="~/Content/yitpro.css" />*@
+
+    <link rel="stylesheet" href="~/Content/fullcalendar.css" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+
+    <script type="text/javascript" src="~/Scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>
+
+    <script src="https://fastly.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+    @*<script src="~/Scripts/jquery.tagsinput.min.js"></script>*@
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.4.1.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="https://use.fontawesome.com/234ae4dc96.js"></script>
+    <script src="~/Scripts/moment.js"></script>
+    <script src="~/Scripts/moment-with-locales.js"></script>
+    <script src="~/Scripts/fullcalendar.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.5/dist/locale-all.min.js"></script>
+
+    <script src="~/Scripts/jquery.tagsinput.min.js"></script>
+
+    <link href="~/Content/Emoji/emoji.css" rel="stylesheet">
+
+    <script src="~/Scripts/Emoji/config.min.js"></script>
+    <script src="~/Scripts/Emoji/util.min.js"></script>
+    <script src="~/Scripts/Emoji/jquery.emojiarea.min.js"></script>
+    <script src="~/Scripts/Emoji/emoji-picker.min.js"></script>
+    <script src="~/Scripts/tinymce/tinymce.min.js"></script>
+
+
+
+</head>
+<body>
+    @*@{
+        var asistencia = ((bool)Session["Asistencia" + Session.SessionID]);
+
+        if (asistencia)
+        {
+
+            <nav class="social">
+                <ul>
+                    <li onclick="CapturaAsistencia();"><a href="#"><i class="fa fa-clock-o"></i>  Asistencia</a></li>
+                </ul>
+            </nav>
+        }
+
+    }*@
+
+
+
+
+    <div class="page-container">
+
+        @*<div class="page-container page-navigation-toggled page-container-wide">*@
+ 
+
+        <div class="page-content" style="height: auto !important">
+
+        
+
+
+            <div class="mensajes" style="z-index: 9999; position: absolute"></div>
+            <div class="mensajesConfirmacion" style="z-index: 9999; position: absolute"></div>
+            <div class="page-content-wrap">
+
+                @RenderBody()
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    @Html.Hidden("usuario-correo")
+
+    <script type="text/javascript" src="~/Scripts/timeout-dialog.js"></script>
+
+    <input type="hidden" id="urlTracking" value="@Url.Action("Tracking", "Actividades")" />
+    @Html.Hidden("urlActualizaPass", @Url.Action("ActualizaContrasenia", "Usuarios"))
+    @Html.Hidden("urlAlertas", @Url.Action("ActualizaAlerta", "Home"))
+    @Html.Hidden("urlKeepAlive", @Url.Action("Keepalive", "Home"))
+
+    <input type="hidden" id="urlBuscarActividades" value="@Url.Action("BuscarActividades","Actividades")" />
+    <input type="hidden" id="urlGuardarTracking" value="@Url.Action("GuardarTracking", "Actividades")" />
+    <input type="hidden" id="urlGuardarUF" value="@Url.Action("GuardarFeels", "Usuarios")" />
+    <input type="hidden" id="ResultadoUF" value="0" />
+
+    @{
+        var capf = ((int)Session["CapturaF" + Session.SessionID]);
+        <input type="hidden" id="CapturaF" value="@capf" />
+
+    }
+
+
+    @{
+        var cv = ((int)Session["CV" + Session.SessionID]);
+        <input type="hidden" id="CV" value="@cv" />
+
+    }
+
+
+
+
+    <script language="javascript" type="text/javascript">
+
+
+        function CargaLoading() {
+            if (window.loading_screen === undefined) {
+                window.loading_screen = window.pleaseWait({
+                logo: "@Url.Content("~/Content/Project/Imagenes/LogoPrincipal.png")",
+                backgroundColor: 'rgba(255,255,255,0.8)',
+                immediately: false,
+               // loadingHtml: "<i class='fa fa-rotate-right fa-spin text-default'></i><p class='loading-message'>Cargando...</p>"
+                loadingHtml: " <i class='fa fa-circle-o-notch fa-spin' style='font-size:48px;color:#cf257d'></i>"
+
+            });
+            }
+        }
+        function FinalizaLoading() {
+            if (window.loading_screen !== undefined) {
+                window.loading_screen.finish();
+                window.loading_screen = undefined;
+             }
+         }
+
+         $(document).ready(function () {
+             setInterval(Keepalive, 180000);
+
+             var loadingTimeout;
+           /*  javascript: window.history.forward(1);*/
+
+             $.ajaxSetup({
+                 beforeSend: function () {
+                    CargaLoading();
+                 },
+                 complete: function () {
+                     FinalizaLoading();
+                     page_content_onresize();
+                     setTimeout(() => {
+                         resizeTaskList();
+                         page_content_onresize();
+                     }, 2500);
+                 },
+                 error: function () {
+                     FinalizaLoading();
+                     page_content_onresize();
+
+                 }
+             });
+
+
+             ActualizaAlerta();
+
+
+             setInterval(ActualizaAlerta, 180000);
+
+         });
+
+
+         //function ActualizaAlerta() {
+         //    var url = $('#urlAlertas').val();
+
+         //    $.ajax({
+
+         //        url: url,
+         //        type: "POST",
+         //        contentType: "application/json; charset=utf-8",
+         //        dataType: "json",
+         //        async: false,
+         //      /*  beforeSend: function () { return;},*/
+         //        success: function (data) {
+
+         //            if (data.Exito) {
+
+         //                $('#NotInternas').empty();
+         //                $('#NotExternas').empty();
+
+         //                $('#NoNotif').text(data.NoAlertas);
+
+         //                $('#NotInternas').append(data.ComentariosI);
+         //                $('#NotExternas').append(data.ComentariosE);
+
+         //            }
+         //            else {
+
+         //                MensajeError(data.Mensaje);
+         //            }
+         //        },
+         //        error: function (xmlHttpRequest, textStatus, errorThrown) {
+
+         //            MensajeError(data.Mensaje);
+         //        }
+         //    });
+         //    return false;
+
+         //}
+
+         function Keepalive() {
+
+             var url = $('#urlKeepAlive').val();
+
+             $.ajax({
+
+                 url: url,
+                 type: "POST",
+                 contentType: "application/json; charset=utf-8",
+                 dataType: "json",
+                 async: false,
+                 success: function (data) {
+                     $('div.pg-loading-screen').remove();
+                 },
+
+             });
+             return false;
+         }
+
+        $(".ts-button").on("click", function () {
+            $(".theme-settings").toggleClass("active");
+        });
+
+
+        $("#BtnCloseNotif").on("click", function () {
+            $(".theme-settings").toggleClass("active");
+        });
+
+    </script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/Layout")
+
+
+    @Html.Partial("~/Views/QA/RunTC.cshtml")
+    @Html.Partial("~/Views/Actividades/Actividades.cshtml")
+    @RenderSection("scripts", required: false)
+
+    @Html.Partial("~/Views/Actividades/ListaActividades.cshtml")
+    @Html.Partial("~/Views/Actividades/ListaTrabajoCapturado.cshtml")
+
+    @Html.Partial("~/Views/Actividades/Validaciones.cshtml")
+    @Html.Partial("~/Views/Actividades/Rechazo.cshtml")
+
+    @Html.Partial("~/Views/Actividades/CapturaTamano.cshtml")
+    @Html.Partial("~/Views/Usuarios/Perfil.cshtml")
+    @Html.Partial("~/Views/Usuarios/Asistencia.cshtml")
+
+
+    @Html.Partial("~/Views/Actividades/CapturaTrabajo.cshtml")
+
+</body>
+</html>

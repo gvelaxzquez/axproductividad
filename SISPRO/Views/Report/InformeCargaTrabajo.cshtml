@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "Carga trabajo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="page-title">
+    <h2><span class="fa fa-clock-o"></span> Informe carga de trabajo</h2>
+</div>
+
+
+<div class="page-title">
+
+    <div class="col-md-3">
+        <input type="text" id="TxtRangoFechas" item="Fecha" class="form-control DateRangePicker col-xs-10" style="width: 83.33333333% !important;" />
+        <span class="input-group-addon col-xs-1"><span class="glyphicon glyphicon-calendar"></span></span>
+
+    </div>
+    <div class="col-md-1">
+
+        <button class="btn btn-info" id="BtnFiltrarCT">
+            <i class="fa fa-search">
+
+            </i>
+        </button>
+    </div>
+
+
+</div>
+<br />
+<br />
+
+
+
+
+<div class="page-content-wrap" style="margin-top:30px;" id="divReporte">
+
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="row">
+
+                <div class="col-md-12 col-xs-12">
+                    <div class="table-responsive">
+                        <table class="table datatable text" id="TblInforme">
+                            <thead>
+                                <tr>
+
+                                    <th></th>
+                                    <th>Nombre</th>
+                                    <th>Nivel</th>
+                                    <th>Estándar diario </th>
+                                    <th> # Actividades</th>
+                                    <th>Horas disponibles</th>
+                                    <th>Horas asignadas</th>
+                                    <th>Carga trabajo</th>
+
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+</div>
+<script src="~/Scripts/Project/InformeCargaTrabajo.js"></script>
+
+<input type="hidden" id="urlConsultaCargaTrabajo" value="@Url.Action("ConsultaCargaTrabajo","Report")" />

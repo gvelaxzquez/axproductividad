@@ -1,0 +1,444 @@
+﻿
+@{
+    ViewBag.Title = "Usuarios";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="panel panel-default">
+            <div class="col-md-12">
+                <div class="col-md-9">
+                    <div class="col-md-6">
+                        <div class="tile tile-default" title="Horas que ha reportado este mes (todo tipo de actividades)" style="cursor:pointer;">
+                            <div class="title tile-default" id="LblLicenciasA"></div>
+                            <p>Licencias contratadas</p>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="tile tile-default text-info" title="Días del mes que se han realizado capturas" style="cursor:pointer;">
+                            <div class="title tile-default" id="LblLicenciasU"></div>
+                            <p>Licencias activas</p>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+                <div class="col-md-3">
+                    <button class="btn btn-success pull-right" id="BtnNuevo">Nuevo</button><br /><br />
+                </div>
+
+
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table datatable text hide" id="TblUsuarios">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th>Clave</th>
+                                <th class="col-md-3 col-xs-12">Nombre</th>
+                                <th>Correo</th>
+                                <th>Tipo de usuario</th>
+                                <th>Departamento</th>
+                                <th>Activo</th>
+                                <th>Editar</th>
+                                <th>Permisos</th>
+                                <th>Contraseña</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@* Modal edicion de usuarios *@
+<div class="modal" id="ModalEditarUsuario" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="largeModalHead">Usuario</h4>
+            </div>
+            <div class="modal-body">
+                <!--inicia-->
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <form class="form-horizontal">
+
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Clave</label>
+                                <div class="col-md-3 col-xs-12">
+                                    <input type="text" class="form-control ReqUsuario" id="TxtNumEmpleado" item="Num. Empleado" placeholder="xxx-xxx" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Nombre</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <input type="text" class="form-control ReqUsuario" id="TxtNombre" item="Nombre" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Apellido paterno</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <input type="text" class="form-control ReqUsuario" id="TxtApellidoP" item="Apellido paterno" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Apellido materno</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <input type="text" class="form-control ReqUsuario" id="TxtApellidoM" item="Apellido materno" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Fecha ingreso</label>
+                                <div class="col-md-4 col-xs-12">
+                                    <div class="input-group">
+                                        <input type="text" id="TxtFechaIngreso" class="form-control ReqUsuario" item="Fecha ingreso" />
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Correo</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <input type="text" class="form-control ReqUsuario" id="TxtCorreo" item="Correo" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Nivel</label>
+                                <div class="col-md-6">
+                                    <select class="form-control ReqUsuario" id="SelNivel" item="Tipo nivel">
+                                        <option selected="selected" value="-1">--Seleccione--</option>
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Tipo usuario</label>
+                                <div class="col-md-6">
+                                    <select class="form-control ReqUsuario" id="SelTipoUsuario" item="Tipo usuario">
+                                        <option selected="selected" value="-1">--Seleccione--</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Líder</label>
+                                <div class="col-md-6">
+                                    <select class="form-control" id="SelGerenteArea" item="Gerente de área">
+                                        <option selected="selected">--Seleccione--</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Organización</label>
+                                <div class="col-md-6">
+                                    <select class="form-control ReqUsuario" id="SelDepartamento" item="Departamento">
+                                        <option selected="selected">--Seleccione--</option>
+
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Fecha cambio nivel</label>
+                                <div class="col-md-4 col-xs-12">
+                                    <div class="input-group">
+                                        <input type="text" id="TxtFechaCambioNivel" class="form-control ReqUsuario" item="Fecha cambio nivel" />
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Autorizaciones de actividades</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <select class="selectpicker form-control" multiple data-live-search="true" item="Autorizaciones de requisiciones" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--" id="SelAutorizacionesReq"></select>
+                                </div>
+                            </div>
+                            @*<div class="form-group">
+                                    <label class="col-md-3 col-xs-12 control-label">Autorizaciones de avances de obra</label>
+                                    <div class="col-md-6 col-xs-12">
+
+                                        <select class="selectpicker form-control" multiple data-live-search="true" item="Autorizaciones de avances de obra" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--" id="SelAutorizacionesAvances"></select>
+                                    </div>
+                                </div>*@
+
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label"></label>
+                                <div class="col-md-4 col-xs-12">
+                                    <img class="img-responsive img-circle" id="FotoUsuario" src="~/Archivos/Fotos/default.jpg" alt="Foto" width="100px" height="130px" />
+                                    <span class="help-block "></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Foto</label>
+                                <div class="col-md-4 col-xs-12">
+
+                                    <span class="btn btn-success  btn-file fileinput-new" style="cursor:pointer">
+                                        Cargar
+                                        <input style="cursor:pointer" type="file" accept="image/x-png,image/jpeg" name="filename" id="Foto" title="Cargar" onchange="readURL(this)">
+                                    </span>
+                                    &nbsp;
+                                    <br />
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Activar</label>
+                                <div class="col-md-3 col-xs-12">
+                                    <label class="switch switch-small">
+                                        <input type="checkbox" checked id="ChkActivo" />
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Bloqueado</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <label class="switch switch-small">
+                                        <input type="checkbox" checked id="ChkBloqueo" />
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Captura actividades</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <label class="switch switch-small">
+                                        <input type="checkbox" checked id="ChkCaptura" />
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+                <!--termina-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="BtnGuardarUsuario">Guardar<span class="fa fa-floppy-o fa-right"></span></button>
+            </div>
+        </div>
+    </div>
+</div>
+@* Modal para la nueva contraseña  *@
+<div class="modal" id="ModalCambiarContrasena" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title tituloModalContrasena" id="defModalHead">Contraseña de [Nombre usuario]</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group">
+
+                        <div class="col-md-3 col-xs-12 text-center"><label class="control-label">Nueva contraseña</label></div>
+                        <div class="col-md-9 col-xs-12">
+                            <input type="password" class="form-control reqContrasna" id="TxtContasena" item="Nueva contraseña" />
+                        </div><br /><br />
+
+                    </div>
+                    <div class="form-group">
+
+                        <div class="col-md-3 col-xs-12 text-center"><label class="control-label">Confirmar contraseña</label></div>
+                        <div class="col-md-9 col-xs-12"><input type="password" class="form-control reqContrasna" id="TxtRepiteContasena" item="Confirmar contraseña" /> </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="BtnGuardarContrasena">Guardar<span class="fa fa-floppy-o fa-right"></span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Modal para editar o guardar los permisos de tipos de usuario *@
+<div class="modal" id="ModalPermisosTipoUsuario" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="largeModalHead">Permisos de usuario</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <form class="form-horizontal">
+                            <table class="table table-condensed" id="TblPermisos">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th class=" col-md-4 col-xs-12">
+                                            Pantalla
+                                        </th>
+                                        <th>
+                                            <label class="switch switch-small">
+                                                <input type="checkbox" checked id="ChkDAcceder" />
+                                                <span></span>
+                                            </label>Acceder
+                                        </th>
+                                        <th>
+                                            <label class="switch switch-small">
+                                                <input type="checkbox" checked id="ChkDGuardar" />
+                                                <span></span>
+                                            </label>Guardar
+                                        </th>
+                                        <th>
+                                            <label class="switch switch-small">
+                                                <input type="checkbox" checked id="ChkDEditar" />
+                                                <span></span>
+                                            </label>Editar
+                                        </th>
+                                        <th>
+                                            <label class="switch switch-small">
+                                                <input type="checkbox" checked id="ChkDImprimir" />
+                                                <span></span>
+                                            </label>Imprimir
+                                        </th>
+                                        <th>
+                                            <label class="switch switch-small">
+                                                <input type="checkbox" checked id="ChkDEliminar" />
+                                                <span></span>
+                                            </label>Eliminar
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+
+                                    <tr>
+                                        <td>Usuarios</td>
+
+                                        <td>
+                                            <label class="switch switch-small">
+                                                <input type="checkbox" checked value="0" />
+                                                <span></span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label class="switch switch-small">
+                                                <input type="checkbox" checked value="0" />
+                                                <span></span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label class="switch switch-small">
+                                                <input type="checkbox" checked value="0" />
+                                                <span></span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label class="switch switch-small">
+                                                <input type="checkbox" checked value="0" />
+                                                <span></span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <label class="switch switch-small">
+                                                <input type="checkbox" checked value="0" />
+                                                <span></span>
+                                            </label>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="BtnGuardarPermisos">Guardar<span class="fa fa-floppy-o fa-right"></span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Modal edicion de usuarios *@
+<div class="modal" id="ModalUsuarioCostos" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="largeModalHead">Costos</h4>
+            </div>
+            <div class="modal-body">
+                <!--inicia-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-md-4 col-xs-12 control-label">Mensual</label>
+                                <div class="col-md-8 col-xs-12">
+                                    <input type="number" class="form-control ReqUsuarioCosto" id="TxtCostoMensual" item="Costo mensual" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 col-xs-12 control-label">Por Hora</label>
+                                <div class="col-md-8 col-xs-12">
+                                    <input type="number" class="form-control ReqUsuarioCosto" id="TxtCostoHora" item="Costo por hora" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!--termina-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="BtnGuardarCostos">Guardar<span class="fa fa-floppy-o fa-right"></span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/Scripts/jquery.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>
+<script src="~/Scripts/fullcalendar.min.js"></script>
+<script src="~/Scripts/Project/Usuario.js"></script>
+
+
+
+<input type="hidden" id="IdUsuario" value="0" />
+
+<input type="hidden" id="urlCargaInicial" value="@Url.Action("CargaInicial","Usuarios")" />
+<input type="hidden" id="urlGuardarDatosU" value="@Url.Action("GuardarDatosUsuario","Usuarios")" />
+<input type="hidden" id="urlConsultarDatosU" value="@Url.Action("ConsultarDatosUsuario", "Usuarios")" />
+<input type="hidden" id="urlConsultarPermisoU" value="@Url.Action("ConsultarPermisos","Usuarios")" />
+<input type="hidden" id="urlGuardarPermisosU" value="@Url.Action("GuardarPermisos","Usuarios")" />
+<input type="hidden" id="urlGuardarDatosContrasenaU" value="@Url.Action("CambiarContrasena","Usuarios")" />
+<input type="hidden" id="urlGuardarFoto" value="@Url.Action("GuardaFoto","Usuarios")" />
+
+
+
+
+

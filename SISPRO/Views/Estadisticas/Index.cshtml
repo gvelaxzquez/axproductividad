@@ -1,0 +1,270 @@
+﻿
+
+@{
+    ViewBag.Title = "Estadisticas de requisiciones";
+}
+ <div class="page-title">
+    <h2><span class="fa fa-list-alt"></span> Estadisticas de requisiciones</h2>
+</div>
+
+
+<div class="page-content-wrap">
+
+    <div class="row">
+        <div class="col-md-12">
+ 
+            <div class="panel panel-default">
+                <div class="panel-heading">
+          
+                    <div class="panel-group accordion accordion-dc">
+
+                        <div class="panel panel-colorful">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a href="#accTwoColSeven">
+                                        Filtros
+                                    </a>
+                                </h4>
+                            </div>
+                            <div class="panel-body" id="accTwoColSeven">
+                       
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div>
+                                            <button class="btn btn-success pull-right" id="BtGenerarH">Generar</button><br /><br />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <form class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label class="col-md-3 control-label">Fecha inicio</label>
+                                                    <div class="col-md-4 col-xs-12">
+                                                        
+                                                            <div class="input-group"  id="FinicioH">
+                                                                <input type="text" id="TxtFechaInicioH" class="form-control" />
+                                                                <span class="input-group-addon" id="DivTxtFechaInicioH"><span class="glyphicon glyphicon-calendar"></span></span>
+                                                            </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-3 col-xs-12 control-label">Tipo de requisición</label>
+                                                    <select class="selectpicker" multiple data-live-search="true" id="SelTipoRequisicionH" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--">
+                                                        <option value="2">Servicio</option>
+                                                        <option value="1">Producto</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-3 col-xs-12 control-label">Clasificación</label>
+                                                    <select class="selectpicker" multiple data-live-search="true" id="SelClasificacionH" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--"></select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-3 col-xs-12 control-label">Giro</label>
+                                                    <select class="selectpicker" multiple data-live-search="true" id="SelGiroH" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--"></select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-3 col-xs-12 control-label">Departamento</label>
+                                                    <select class="selectpicker" multiple data-live-search="true" id="SelDepartamentoH" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--"></select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-3 col-xs-12 control-label">No.Orden de compra</label>
+                                                    <div class="col-md-5 col-xs-12">
+                                                        <input type="text" class="form-control" placeholder="Rangos por (,) o (-)" id="TxtNOrdeCompraH" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-3 col-xs-12 control-label">No. Requisicion</label>
+                                                    <div class="col-md-5 col-xs-12">
+                                                        <input type="text" class="form-control" placeholder="Rangos por (,) o (-)" id="TxtNRequisicionH" />
+                                                    </div>
+                                                </div>
+
+
+                                            </form>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <form class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label class="col-md-3 control-label">Fecha final</label>
+                                                    <div class="col-md-4 col-xs-12">
+                                                        <div class="input-group">
+                                                            <input type="text" id="TxtFechaFinalH" class="form-control" />
+                                                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-3 col-xs-12 control-label">Tipo de compra</label>
+                                                    <select class="selectpicker" multiple data-live-search="true" id="SelTipoCompraH" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--">
+                                                        <option value="1">Nacional</option>
+                                                        <option value="2">Extranjera</option>
+
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-3 col-xs-12 control-label">Proveedor</label>
+                                                    <select class="selectpicker" multiple data-live-search="true" id="SelProveedorH" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--"></select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-3 col-xs-12 control-label">Prioridad</label>
+                                                    <select class="selectpicker" multiple data-live-search="true" id="SelPioridadH" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--">
+                                                        <option value="1">Urgente</option>
+                                                        <option value="0">No urgente</option>
+
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-3 col-xs-12 control-label">Estatus</label>
+                                                    <select class="selectpicker" multiple data-live-search="true" id="SelEstatusH" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--">
+
+                                                        <option value="A">Aprobada</option>
+                                                        <option value="S">Aprobada por compras</option>
+                                                        <option value="C">Cancelada</option>
+                                                        <option value="G">Generada</option>
+                                                        <option value="P">Procesada</option>
+                                                        <option value="R">Rechazada</option>
+                                                        <option value="V">Validada</option>
+                                                        <option value="X">Vencida</option>
+
+
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-3 col-xs-12 control-label">AFE</label>
+                                                    <div class="col-md-5 col-xs-12">
+                                                        <input type="text" class="form-control" placeholder="Rangos por (,) o (-)" id="TxtAFEBR" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-3 col-xs-12 control-label">Costo total</label>
+                                                    <div class="col-md-5 col-xs-12">
+                                                        <input type="text" class="form-control" placeholder="Rangos por (,) o (-)" id="TxtCostoTotal" />
+                                                    </div>
+                                                </div>
+
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="col-md-1 col-xs-12">
+                                        <div class="Estatus-aprobada">
+                                            <label class="col-md-1 col-xs-12" id="LblInidicadorProcesada"> </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1 Estatus-rechazada">
+                                        <label class="col-md-1 col-xs-12" id="LblInidicadorDistintoProcesada"> </label>
+
+                                    </div>
+                                    <div class="btn-group pull-right">
+                                        <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Exportar</button>
+                                        <ul class="dropdown-menu">
+                                             <li><a href="#" onclick="$('#TblEstadisticaReqExportar').removeClass('hide'); $('#TblEstadisticaReqExportar').tableExport({ type: 'excel', escape: 'false' }); $('#TblEstadisticaReqExportar').addClass('hide');"><img src='~/Content/Project/Imagenes/xls.png' width="24" /> XLS</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+
+
+                </div>
+                     <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table datatable text" id="TblEstadisticaReq">
+                                <thead>
+                                    <tr>
+                                        <th>No. Requisición</th>
+                                        <th>Proveedor</th>
+                                        <th>Clasificación</th>
+                                        <th>Usuario creo</th>
+                                        <th>Departamento</th>
+                                        <th>No.Lineas</th>
+                                        <th>Prioridad</th>
+                                        <th>Fecha aprobación</th>
+                                        <th>Días de proceso</th>
+                                        <th>Fecha limite</th>
+                                        <th>Orden de compra</th>
+                                        <th>Fecha cierre</th>
+                                        <th>Ciclo</th>
+                                        <th>En tiempo</th>
+                                        <th>Cta. Depto.</th>
+                                        <th>Cuenta</th>
+                                        <th>Estatus</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+
+                        </div>
+                    </div>
+             </div>
+        </div>
+
+    </div>
+</div>
+
+<div class=""><table class="table datatable text hide" id="TblEstadisticaReqExportar">
+    <thead>
+        <tr>
+            <th>No. Requisición</th>
+            <th>Proveedor</th>
+            <th>Clasificación</th>
+            <th>Usuario creo</th>
+
+            <th>Departamento</th>
+            <th>No.Lineas</th>
+            <th>Prioridad</th>
+            <th>Fecha aprobación</th>
+            <th>Días de proceso</th>
+            <th>Fecha limite</th>
+            <th>Orden de compra</th>
+            <th>Fecha cierre</th>
+            <th>Ciclo</th>
+            <th>En tiempo</th>
+            <th>Cta. Depto.</th>
+            <th>Cuenta</th>
+            <th>Estatus</th>
+
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+</div>
+
+<input type="hidden" id="urlCargaInicialHistoricos" value="@Url.Action("CargaInicial","Historico")" />
+<input type="hidden" id="urlCargaClasificionReqHistoricos" value="@Url.Action("CargaClasificionProdServModal","Historico")" />
+
+<input type="hidden" id="urlCargaProveedoresDepReqHistorico" value="@Url.Action("CargaProveedoresDepartamentoModal","Historico")" />
+
+<input type="hidden" id="urlGenerarDatosEstadisticasReqHistorico" value="@Url.Action("GenerarDatosEstadisticas", "Estadisticas")" />
+<input type="hidden" id="urlConsultarIndicadoresEstadisticas" value="@Url.Action("CargaInicial", "Estadisticas")" />
+
+
+<script type="text/javascript" src="~/Scripts/jquery.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>
+
+<script src="~/Scripts/TableExport-master/tableExport.js"></script>
+<script src="~/Scripts/TableExport-master/jquery.base64.js"></script>
+<script src="~/Scripts/TableExport-master/html2canvas.js"></script>
+<script src="~/Scripts/TableExport-master/jspdf/libs/sprintf.js"></script>
+<script src="~/Scripts/TableExport-master/jspdf/jspdf.js"></script>
+<script src="~/Scripts/TableExport-master/jspdf/libs/base64.js"></script>
+
+<script src="~/Scripts/Project/Estadisticas.js"></script>
+

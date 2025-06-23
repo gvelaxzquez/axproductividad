@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BDYITPRO_ACCESOSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cuenta">
+          <Key>
+            <PropertyRef Name="IdCuenta" />
+          </Key>
+          <Property Name="IdCuenta" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdOrganizacion" Type="bigint" Nullable="false" />
+          <Property Name="Correo" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Contrasena" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ApPaterno" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ApMaterno" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="FechaRegistro" Type="smalldatetime" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CuentaOrganizacion">
+          <Key>
+            <PropertyRef Name="IdCuentaOrg" />
+          </Key>
+          <Property Name="IdCuentaOrg" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCuenta" Type="bigint" Nullable="false" />
+          <Property Name="IdOrganizacion" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Organizacion">
+          <Key>
+            <PropertyRef Name="IdOrganizacion" />
+          </Key>
+          <Property Name="IdOrganizacion" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="RFC" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Licencias" Type="int" Nullable="false" />
+          <Property Name="FechaRegistro" Type="smalldatetime" Nullable="false" />
+          <Property Name="FechaVencimiento" Type="smalldatetime" Nullable="false" />
+          <Property Name="Servidor" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Usuario" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Contrasena" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ActiveDirectoryAuth" Type="bit" />
+          <Property Name="BD" Type="nvarchar" MaxLength="100" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="KeySecret" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Api" Type="bit" />
+        </EntityType>
+        <Association Name="FK_Cuenta_Organizacion">
+          <End Role="Organizacion" Type="Self.Organizacion" Multiplicity="1" />
+          <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organizacion">
+              <PropertyRef Name="IdOrganizacion" />
+            </Principal>
+            <Dependent Role="Cuenta">
+              <PropertyRef Name="IdOrganizacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CuentaOrganizacion_Cuenta">
+          <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="1" />
+          <End Role="CuentaOrganizacion" Type="Self.CuentaOrganizacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cuenta">
+              <PropertyRef Name="IdCuenta" />
+            </Principal>
+            <Dependent Role="CuentaOrganizacion">
+              <PropertyRef Name="IdCuenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CuentaOrganizacion_Organizacion">
+          <End Role="Organizacion" Type="Self.Organizacion" Multiplicity="1" />
+          <End Role="CuentaOrganizacion" Type="Self.CuentaOrganizacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organizacion">
+              <PropertyRef Name="IdOrganizacion" />
+            </Principal>
+            <Dependent Role="CuentaOrganizacion">
+              <PropertyRef Name="IdOrganizacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BDYITPRO_ACCESOSModelStoreContainer">
+          <EntitySet Name="Cuenta" EntityType="Self.Cuenta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CuentaOrganizacion" EntityType="Self.CuentaOrganizacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Organizacion" EntityType="Self.Organizacion" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Cuenta_Organizacion" Association="Self.FK_Cuenta_Organizacion">
+            <End Role="Organizacion" EntitySet="Organizacion" />
+            <End Role="Cuenta" EntitySet="Cuenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CuentaOrganizacion_Cuenta" Association="Self.FK_CuentaOrganizacion_Cuenta">
+            <End Role="Cuenta" EntitySet="Cuenta" />
+            <End Role="CuentaOrganizacion" EntitySet="CuentaOrganizacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CuentaOrganizacion_Organizacion" Association="Self.FK_CuentaOrganizacion_Organizacion">
+            <End Role="Organizacion" EntitySet="Organizacion" />
+            <End Role="CuentaOrganizacion" EntitySet="CuentaOrganizacion" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BDYITPRO_ACCESOSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cuenta">
+          <Key>
+            <PropertyRef Name="IdCuenta" />
+          </Key>
+          <Property Name="IdCuenta" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdOrganizacion" Type="Int64" Nullable="false" />
+          <Property Name="Correo" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Contrasena" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ApPaterno" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ApMaterno" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FechaRegistro" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Organizacion" Relationship="Self.FK_Cuenta_Organizacion" FromRole="Cuenta" ToRole="Organizacion" />
+          <NavigationProperty Name="CuentaOrganizacion" Relationship="BDYITPRO_ACCESOSModel.FK_CuentaOrganizacion_Cuenta" FromRole="Cuenta" ToRole="CuentaOrganizacion" />
+        </EntityType>
+        <EntityType Name="Organizacion">
+          <Key>
+            <PropertyRef Name="IdOrganizacion" />
+          </Key>
+          <Property Name="IdOrganizacion" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RFC" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Licencias" Type="Int32" Nullable="false" />
+          <Property Name="FechaRegistro" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FechaVencimiento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Servidor" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Usuario" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Contrasena" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BD" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Cuenta" Relationship="Self.FK_Cuenta_Organizacion" FromRole="Organizacion" ToRole="Cuenta" />
+          <Property Name="ActiveDirectoryAuth" Type="Boolean" />
+          <Property Name="KeySecret" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Api" Type="Boolean" />
+          <NavigationProperty Name="CuentaOrganizacion" Relationship="BDYITPRO_ACCESOSModel.FK_CuentaOrganizacion_Organizacion" FromRole="Organizacion" ToRole="CuentaOrganizacion" />
+        </EntityType>
+        <Association Name="FK_Cuenta_Organizacion">
+          <End Role="Organizacion" Type="Self.Organizacion" Multiplicity="1" />
+          <End Role="Cuenta" Type="Self.Cuenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organizacion">
+              <PropertyRef Name="IdOrganizacion" />
+            </Principal>
+            <Dependent Role="Cuenta">
+              <PropertyRef Name="IdOrganizacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BDYITPRO_ACCESOSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cuenta" EntityType="Self.Cuenta" />
+          <EntitySet Name="Organizacion" EntityType="Self.Organizacion" />
+          <AssociationSet Name="FK_Cuenta_Organizacion" Association="Self.FK_Cuenta_Organizacion">
+            <End Role="Organizacion" EntitySet="Organizacion" />
+            <End Role="Cuenta" EntitySet="Cuenta" />
+          </AssociationSet>
+          <EntitySet Name="CuentaOrganizacion" EntityType="BDYITPRO_ACCESOSModel.CuentaOrganizacion" />
+          <AssociationSet Name="FK_CuentaOrganizacion_Cuenta" Association="BDYITPRO_ACCESOSModel.FK_CuentaOrganizacion_Cuenta">
+            <End Role="Cuenta" EntitySet="Cuenta" />
+            <End Role="CuentaOrganizacion" EntitySet="CuentaOrganizacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CuentaOrganizacion_Organizacion" Association="BDYITPRO_ACCESOSModel.FK_CuentaOrganizacion_Organizacion">
+            <End Role="Organizacion" EntitySet="Organizacion" />
+            <End Role="CuentaOrganizacion" EntitySet="CuentaOrganizacion" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="CuentaOrganizacion">
+          <Key>
+            <PropertyRef Name="IdCuentaOrg" />
+          </Key>
+          <Property Name="IdCuentaOrg" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCuenta" Type="Int64" Nullable="false" />
+          <Property Name="IdOrganizacion" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Cuenta" Relationship="BDYITPRO_ACCESOSModel.FK_CuentaOrganizacion_Cuenta" FromRole="CuentaOrganizacion" ToRole="Cuenta" />
+          <NavigationProperty Name="Organizacion" Relationship="BDYITPRO_ACCESOSModel.FK_CuentaOrganizacion_Organizacion" FromRole="CuentaOrganizacion" ToRole="Organizacion" />
+        </EntityType>
+        <Association Name="FK_CuentaOrganizacion_Cuenta">
+          <End Type="BDYITPRO_ACCESOSModel.Cuenta" Role="Cuenta" Multiplicity="1" />
+          <End Type="BDYITPRO_ACCESOSModel.CuentaOrganizacion" Role="CuentaOrganizacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cuenta">
+              <PropertyRef Name="IdCuenta" />
+            </Principal>
+            <Dependent Role="CuentaOrganizacion">
+              <PropertyRef Name="IdCuenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CuentaOrganizacion_Organizacion">
+          <End Type="BDYITPRO_ACCESOSModel.Organizacion" Role="Organizacion" Multiplicity="1" />
+          <End Type="BDYITPRO_ACCESOSModel.CuentaOrganizacion" Role="CuentaOrganizacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organizacion">
+              <PropertyRef Name="IdOrganizacion" />
+            </Principal>
+            <Dependent Role="CuentaOrganizacion">
+              <PropertyRef Name="IdOrganizacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BDYITPRO_ACCESOSModelStoreContainer" CdmEntityContainer="BDYITPRO_ACCESOSEntities">
+          <EntitySetMapping Name="Cuenta">
+            <EntityTypeMapping TypeName="BDYITPRO_ACCESOSModel.Cuenta">
+              <MappingFragment StoreEntitySet="Cuenta">
+                <ScalarProperty Name="IdCuenta" ColumnName="IdCuenta" />
+                <ScalarProperty Name="IdOrganizacion" ColumnName="IdOrganizacion" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ApPaterno" ColumnName="ApPaterno" />
+                <ScalarProperty Name="ApMaterno" ColumnName="ApMaterno" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Organizacion">
+            <EntityTypeMapping TypeName="BDYITPRO_ACCESOSModel.Organizacion">
+              <MappingFragment StoreEntitySet="Organizacion">
+                <ScalarProperty Name="Api" ColumnName="Api" />
+                <ScalarProperty Name="KeySecret" ColumnName="KeySecret" />
+                <ScalarProperty Name="ActiveDirectoryAuth" ColumnName="ActiveDirectoryAuth" />
+                <ScalarProperty Name="IdOrganizacion" ColumnName="IdOrganizacion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
+                <ScalarProperty Name="Licencias" ColumnName="Licencias" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+                <ScalarProperty Name="FechaVencimiento" ColumnName="FechaVencimiento" />
+                <ScalarProperty Name="Servidor" ColumnName="Servidor" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+                <ScalarProperty Name="BD" ColumnName="BD" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CuentaOrganizacion">
+            <EntityTypeMapping TypeName="BDYITPRO_ACCESOSModel.CuentaOrganizacion">
+              <MappingFragment StoreEntitySet="CuentaOrganizacion">
+                <ScalarProperty Name="IdOrganizacion" ColumnName="IdOrganizacion" />
+                <ScalarProperty Name="IdCuenta" ColumnName="IdCuenta" />
+                <ScalarProperty Name="IdCuentaOrg" ColumnName="IdCuentaOrg" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

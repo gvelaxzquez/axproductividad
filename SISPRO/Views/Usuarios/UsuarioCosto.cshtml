@@ -1,0 +1,136 @@
+﻿@{
+    ViewBag.Title = "Costos de Usuario";
+}
+
+<div class="page-title">
+    <h2><span class="fa fa-users"></span> Costos de Usuario</h2>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="col-md-12" style="text-align: end">
+                    <button class="btn btn-primary" id="btnExportar">Exportar</button>
+                    <button class="btn btn-primary" id="btnImportar">Importar</button>
+                    <button class="btn btn-success" id="btnNuevo">Nuevo</button>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table text" id="dtCosto">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Costo Mensual</th>
+                                <th>Costo Hora</th>
+                                <th>Editar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Modal para editar o guardar los tipos de usuario *@
+<div class="modal" id="mdlCosto" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="defModalHead">Costos de usuario</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <div style="margin-bottom: 15px; height: 30px">
+                                    <label class="col-md-3 col-xs-12 control-label " for="TxtNombre">Usuario</label>
+                                    <div class="col-md-6 col-xs-12">
+                                        <select class="form-control ReqCosto selectpicker" data-live-search="true" id="cmbUsuarios" item="Usuario">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div style="margin-bottom: 15px; height: 30px">
+                                    <label class="col-md-3 col-xs-12 control-label " for="TxtNombre">Costo Mensual</label>
+                                    <div class="col-md-6 col-xs-12">
+                                        <input type="text" class="form-control" id="txtCostoMensual" item="Costo Mensual" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="col-md-3 col-xs-12 control-label " for="TxtNombre">Costo por Hora</label>
+                                    <div class="col-md-6 col-xs-12">
+                                        <input type="text" class="form-control" id="txtCostoHora" item="Costo por Hora" />
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="btnGuardar">Guardar<span class="fa fa-floppy-o fa-right"></span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="mdlImportar" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close btn-PassClose" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="defModalHead">Importar Costos de Usuario</h4>
+            </div>
+            <br />
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="col-md-3 col-xs-12 control-label">Archivo (.XSLX)</label>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <input accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" type="file" class="fileinput btn-primary fa fa-upload" name="files[]" id="fileImportar" title=" Cargar" />
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div>
+                                <div class="col-md-2 col-xs-12">
+                                    <label class="control-label" for="rdo1"><input type="radio" id="rdo1" name="TipoCarga" value="c" checked /> Carga</label>
+                                </div>
+                                <div class="col-md-3 col-xs-12">
+                                    <label class="control-label" for="rdo2"><input type="radio" id="rdo2" name="TipoCarga" value="a" /> Actualización</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="col-md-12"><hr /></div>
+                    <div class="col-md-12">
+                        <div class="col-md-12 col-xs-12 text-left"><label class="control-label">Descargar <a href="~/Archivos/Formatos/Costos.xlsx"> ejemplo formato XSLX </a> para ver el formato requerido.</label></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnImportarExcel" class="btn btn-success"><span class="fa fa-arrow-circle-up"></span> Importar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/Scripts/jquery.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.powertip.js"></script>
+
+@section scripts{
+    <script src="~/Scripts/bootstrap-select.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/Project/UsuarioCostoMensual.js"></script>
+}

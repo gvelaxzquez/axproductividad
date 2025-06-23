@@ -1,0 +1,814 @@
+﻿
+
+@using CapaDatos.Models;
+@model  IndicadoresModel
+
+
+@{
+    ViewBag.Title = @Model.Recurso;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<meta charset="utf-8" />
+<link type="text/css" href="~/Content/glanceyear.css" />
+<script src="~/Scripts/easypiechart.min.js"></script>
+<script src="~/Scripts/jquery.easypiechart.min.js"></script>
+<script src="~/Scripts/jquery.glanceyear.js"></script>
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-md-1">
+
+        </div>
+        <div class=" col-md-1 hidden-xs ">
+
+            @{
+                Random rnd1 = new Random();
+                if (!ViewBag.Consulta)
+                {
+
+
+
+                    <input type="file" accept="image/x-png,image/jpeg" id="FotoProfile" class="hide">
+                    <div class="text-center imgcontent" id="ImgProfile" style="cursor:pointer;">
+                        <img src="/Archivos/Fotos/@(String.Format("{0}{1}{2}", ViewBag.Clave, ".jpg?", rnd1.Next()))" class="img-thumbnail" style="height:120px; width:120px;" id="FotoUsuario">
+
+
+                        <p class="titleimg" type=""><i class="fa fa-pencil"></i> Cambiar  </p>
+
+                    </div>
+
+
+                }
+                else
+                {
+
+                   
+                    <div class="text-center imgcontent" id="" >
+                        <img src="/Archivos/Fotos/@(String.Format("{0}{1}{2}", ViewBag.Clave, ".jpg?", rnd1.Next()))" class="img-thumbnail" style="height:120px; width:120px;" id="FotoUsuario">
+                    </div>
+
+                }
+
+
+            }
+
+
+        </div>
+        <div class="col-md-4  col-xs-12">
+
+            @{
+
+
+                if (!ViewBag.Consulta)
+                {
+                    if (DateTime.Now.Hour < 12)
+                    {
+                        <h3 style="margin-top:5%"> 🌅 Buenos días, @Model.Recurso  </h3>
+
+                    }
+                    else if (DateTime.Now.Hour == 12)
+                    {
+                        <h3 style="margin-top:5%"> ☀️ Buenos días (tardes ya), @Model.Recurso  </h3>
+
+                    }
+
+                    else if (DateTime.Now.Hour > 1 && DateTime.Now.Hour < 19)
+                    {
+                        <h3 style="margin-top:5%">  ☀️ Buenas tardes, @Model.Recurso  </h3>
+                    }
+                    else
+                    {
+                        <h3 style="margin-top:5%"> 🌙 Buenas noches, @Model.Recurso (¿Qué haces aquí? deberías descansar) </h3>
+                    }
+                }
+                else
+                {
+                    <h3 style="margin-top:5%"> @Model.Recurso  </h3>
+
+                }
+
+            }
+
+
+        </div>
+        <div class="col-md-6 col-xs-12 ">
+
+
+            <div class="col-md-3">
+                <div class="tile tile-default" title="Horas productivas que se esperan este mes ((Dias laborales - Dias vacaciones - Dias festivos) *  Objetivo diario)" style="cursor:pointer;">
+                    <div class="title tile-default" id="">@Model.Objetivo hrs.</div>
+                    <p>Objetivo</p>
+
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="tile tile-default text-info" title="Horas productivas generadas al momento (Suma de horas asignadas en actividades con estatus Liberado)" style="cursor:pointer;">
+                    <div class="title tile-default" id="">@Model.HorasProductivas hrs.</div>
+                    <p>Valor ganado</p>
+
+                </div>
+            </div>
+
+
+            @{
+                if (Model.Productividad > 80)
+                {
+                    <div class="col-md-3">
+                        <div class="tile tile-default text-success" title="Productividad actual (Valor ganado / Objetivo al día)" style="cursor:pointer;">
+                            <div class="title tile-default " id="">@Model.Productividad %</div>
+                            <p>Productividad</p>
+
+                        </div>
+                    </div>
+                }
+                else if (Model.Productividad > 60)
+                {
+                    <div class="col-md-3">
+                        <div class="tile tile-default text-warning" title="Productividad actual (Valor ganado / Objetivo al día)" style="cursor:pointer;">
+                            <div class="title tile-default " id="">@Model.Productividad %</div>
+                            <p>Productividad</p>
+
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-md-3">
+                        <div class="tile tile-default text-danger" title="Productividad actual (Valor ganado / Objetivo al día)" style="cursor:pointer;">
+                            <div class="title tile-default " id="">@Model.Productividad %</div>
+                            <p>Productividad</p>
+
+                        </div>
+                    </div>
+
+
+                }
+
+
+
+            }
+
+            @{
+                if (Model.CargaPorc > 80)
+                {
+                    <div class="col-md-3">
+                        <div class="tile tile-default text-success" title="Carga de trabajo (Suma de horas asignadas en el mes / Objetivo)" style="cursor:pointer;">
+                            <div class="title tile-default " id="">@Model.CargaPorc %</div>
+                            <p>Carga de trabajo</p>
+
+                        </div>
+                    </div>
+                }
+                else if (Model.CargaPorc > 60)
+                {
+                    <div class="col-md-3">
+                        <div class="tile tile-default text-warning" title="Carga de trabajo (Suma de horas asignadas en el mes / Objetivo)" style="cursor:pointer;">
+                            <div class="title tile-default " id="">@Model.CargaPorc %</div>
+                            <p>Carga de trabajo</p>
+
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-md-3">
+                        <div class="tile tile-default text-danger" title="Carga de trabajo (Suma de horas asignadas en el mes / Objetivo)" style="cursor:pointer;">
+                            <div class="title tile-default " id="">@Model.CargaPorc %</div>
+                            <p>Carga de trabajo</p>
+
+                        </div>
+                    </div>
+
+
+                }
+
+
+
+            }
+
+
+
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-9 col-xs-12">
+            <div class="row">
+
+                <div class="col-md-9 col-xs-12">
+                    <div class="col-md-12">
+                        <div class="panel panel-default  projectcard">
+                            <div class="panel-body profile">
+                                <div class="row headerproyecto">
+                                    <div class="col-md-12">
+                                        <a>  <h4 id="">Captura </h4></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-3">
+                                    <div class="tile tile-default" title="Horas que ha reportado este mes (todo tipo de actividades)" style="cursor:pointer;">
+                                        <div class="title tile-default" id="">@Model.HorasReportadas hrs.</div>
+                                        <p>Horas capturadas</p>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="tile tile-default" title="Días del mes que se han realizado capturas" style="cursor:pointer;">
+                                        <div class="title tile-default" id="LblObjetivo">@Model.Capturas</div>
+                                        <p>Días capturados</p>
+
+                                    </div>
+                                </div>
+
+
+                                @{
+                                    if (Model.PorcCaptura > 80)
+                                    {
+                                        <div class="col-md-3">
+                                            <div class="tile tile-default text-success" title="Porcentaje de días capturados (Dias capturados / Días Transcurridos - 1 )" style="cursor:pointer;">
+                                                <div class="title tile-default" id="">@Model.PorcCaptura %</div>
+                                                <p>Cumplimiento captura</p>
+
+                                            </div>
+                                        </div>
+                                    }
+                                    else if (Model.CargaPorc > 60)
+                                    {
+                                        <div class="col-md-3">
+                                            <div class="tile tile-default text-warning" title="Porcentaje de días capturados (Dias capturados / Días Transcurridos - 1 )" style="cursor:pointer;">
+                                                <div class="title tile-default" id="">@Model.PorcCaptura %</div>
+                                                <p>Cumplimiento captura</p>
+
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-3">
+                                            <div class="tile tile-default text-danger" title="Porcentaje de días capturados (Dias capturados / Días Transcurridos - 1 )" style="cursor:pointer;">
+                                                <div class="title tile-default" id="">@Model.PorcCaptura %</div>
+                                                <p>Cumplimiento captura</p>
+
+                                            </div>
+                                        </div>
+
+
+                                    }
+
+
+                                }
+
+
+                                @{
+                                    if (Model.FechaActualizacion >= DateTime.Now.AddDays(-2))
+                                    {
+                                        <div class="col-md-3">
+                                            <div class="tile tile-default text-success" title="Fecha de última captura" style="cursor:pointer;">
+                                                <div class="title tile-default" id="">@Model.FechaActualizacion.ToShortDateString()</div>
+                                                <p>Actualización</p>
+
+                                            </div>
+                                        </div>
+                                    }
+                                    else if (Model.FechaActualizacion >= DateTime.Now.AddDays(-4))
+                                    {
+                                        <div class="col-md-3">
+                                            <div class="tile tile-default text-warning" title="Fecha de última captura" style="cursor:pointer;">
+                                                <div class="title tile-default" id="">@Model.FechaActualizacion.ToShortDateString()</div>
+                                                <p>Actualización</p>
+
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-3">
+                                            <div class="tile tile-default text-danger" title="Fecha de última captura" style="cursor:pointer;">
+                                                <div class="title tile-default" id="">@Model.FechaActualizacion.ToShortDateString()</div>
+                                                <p>Actualización</p>
+
+                                            </div>
+                                        </div>
+
+                                    }
+
+
+
+                                }
+
+
+
+                            </div>
+
+                            <div class="col-md-12 col-centered">
+
+                                <div class="row">
+                                    <div class="col-md-12 col-xs-12">
+                                        <div class="btn-group pull-right">
+                                            <a class="btn btn-info" style="font-size:9px" id="BtnVerTrabajado" title="Muestra el informe de horas trabajadas por día">Trabajado</a>
+                                            <a class="btn btn-default" style="font-size:9px" id="BtnVerCapturas" title="Muestra el informe de capturas realizadas por día">Captura</a>
+                                            <a class="btn btn-default" style="font-size:9px" id="BtnVerValorGanado" title="Muestra el informe de valor ganado por día">Valor ganado</a>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-1 hidden-xs">
+
+                                </div>
+                                <div class="col-md-10 col-xs-12">
+
+
+                                    <div class="glanceyear-content" id="heatmaptrabajado">
+
+                                    </div>
+
+                                    <div class="glanceyear-content" id="heatmapcaptura" style="display:none;">
+
+                                    </div>
+
+                                    <div class="glanceyear-content" id="heatmapvg" style="display:none;">
+
+                                    </div>
+
+
+
+                                </div>
+                                <div class="col-md-1 hidden-xs">
+
+                                </div>
+
+
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="panel panel-default  projectcard" style="min-height:408px;">
+                            <div class="panel-body profile">
+                                <div class="row headerproyecto">
+                                    <div class="col-md-6">
+                                        <a href="@Url.Action("Index", "Actividades")">  <h4 id="">Mis actividades </h4></a>
+                                    </div>
+                                    <div class="col-md-6">
+
+
+                                        <div class="btn-group pull-right">
+                                            <button class="btn btn-default btn-condensed" onclick="VerActCalendario();" title="Ver calendario"><i class="fa fa-th"></i></button>
+                                            <button class="btn btn-default btn-condensed" onclick="VerActListado();" title="Ver listado"><i class="fa fa-list"></i></button>
+
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+
+                                <div id="divTasks" style="display:none;">
+
+
+                                    <div class="panel-group accordion accordion-dc">
+
+                                        <div class="panel">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title title tile-warning">
+                                                    <a href="#accBugs">
+                                                        Bugs  (<lable  id="lbltotbugs"> 0 </lable>)
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div class="panel-body" style="padding: 0px; display: none;" id="accBugs">
+                                                <!--inicia-->
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <table id="tblBugs" data-cookie="true" data-cookie-id-table="table" data-mobile-responsive="true">
+                                                        </table>
+
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="panel-group accordion accordion-dc">
+
+                                        <div class="panel">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title title tile-warning">
+                                                    <a href="#accAtrasadas">
+                                                        Atrasadas  (<lable id="lbltotatras"> 0 </lable>)
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div class="panel-body "  style="padding: 0px; display: none;" id="accAtrasadas">
+                                                <!--inicia-->
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <table id="tblAtrasado" data-cookie="true" data-cookie-id-table="table" data-mobile-responsive="true">
+                                                        </table>
+
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="panel-group accordion accordion-dc">
+
+                                        <div class="panel">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title title tile-warning">
+                                                    <a href="#accHoy">
+                                                        Hoy (<lable  id="lbltothoy"> 0 </lable>)
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div class="panel-body panel-body-open" id="accHoy">
+                                                <!--inicia-->
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <table id="tblHoy" data-cookie="true" data-cookie-id-table="table" data-mobile-responsive="true">
+                                                        </table>
+
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="panel-group accordion accordion-dc">
+
+                                        <div class="panel">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title title tile-warning">
+                                                    <a href="#accNext">
+                                                        Siguiente semana  (<lable id="lbltotnext">0</lable>)
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div class="panel-body "  style="padding: 0px; display: none;" id="accNext">
+                                                <!--inicia-->
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <table id="tblSemana" data-cookie="true" data-cookie-id-table="table" data-mobile-responsive="true">
+                                                        </table>
+
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+
+
+                                </div>
+
+
+                                <div id="divCalendar" >
+                                    <div id="Calendar" >
+
+                                    </div>
+                                </div>
+                                </div>
+                             
+
+
+
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+
+                <div class="col-md-3 col-xs-12">
+                    <div class="row">
+                        <div class="panel panel-default  projectcard">
+                            <div class="panel-body profile">
+                                <div class="row headerproyecto">
+                                    <div class="col-md-12">
+                                        <a>  <h4 id=""> Velocidad </h4></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+
+                                @{
+
+
+
+                                    <div class="tile tile-default" title="Tareas completadas" style="cursor:pointer;">
+                                        <div class="title tile-default" id="">@Model.Liberadas</div>
+                                        <p>Tareas completadas</p>
+
+                                    </div>
+
+                                    <div class="tile tile-default" title="Tareas completadas" style="cursor:pointer;">
+                                        <div class="title tile-default" id="">@Model.Estimadas</div>
+                                        <p>Promedio diario de tareas</p>
+
+                                    </div>
+
+                                    <div class="tile tile-default" title="" style="cursor:pointer;">
+                                        <div class="title tile-default" id="">@Model.Proceso</div>
+                                        <p>Horas diarias promedio</p>
+
+                                    </div>
+
+                                    if (Model.Bugs == 0)
+                                    {
+
+
+
+
+
+                                        <a href="@Url.Action("Bugs", "Actividades")" target="_blank">
+                                            <div class="tile tile-success" title="Defectos activos" style="cursor:pointer;">
+                                                <div class="title tile-default" id="">@Model.Bugs</div>
+                                                <p>Bugs</p>
+
+                                            </div>
+                                        </a>
+                                    }
+
+                                    else
+                                    {
+                                        <a href="@Url.Action("Bugs", "Actividades")" target="_blank">
+                                            <div class="tile tile-danger" title="Defectos activos" style="cursor:pointer;">
+                                                <div class="title tile-default" id="">@Model.Bugs</div>
+                                                <p>Bugs</p>
+
+                                            </div>
+                                        </a>
+
+                                    }
+
+                                }
+
+
+                                <div class="tile tile-default" title="" style="cursor:pointer;">
+                                    <div id="GraficaPDash">
+
+                                    </div>
+                                    <div id="scriptsPDash">
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+
+
+
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+
+                    </div>
+                    <div class="row center">
+               
+                    </div>
+                </div>
+
+
+
+
+            </div>
+
+
+        </div>
+        <div class="col-md-3 col-xs-12">
+            <div class="panel panel-default  projectcard" style="min-height:408px;">
+                <div class="panel-body profile">
+                    <div class="row headerproyecto">
+                        <div class="col-md-12">
+                            <a>  <h4 id="tNot">  </h4></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="messages messages-img" id="pComentarios" style="height:900px; overflow:scroll;">
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="panel panel-default  projectcard">
+                <div class="panel-body profile">
+                    <div class="row headerproyecto">
+                        <div class="col-md-12">
+                            <a>  <h4 id="">Performance histórico </h4></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="padding-top:40px;">
+                    <div class="col-md-2">
+
+                        @*<h4>Incentivos</h4>*@
+                        <table id="TblBonos" data-cookie="true" data-cookie-id-table="table" data-pagination="true" data-page-list="[10, 25, 50, 100, all]" data-mobile-responsive="true">
+                        </table>
+
+                        @*<div class="col-md-12">
+                                <div class="panel panel-default  projectcard" style="min-height:140px;">
+                                    <div class="panel-body profile">
+                                        <div class="row headerproyecto">
+                                            <div class="col-md-12">
+                                                <h4 id="">Histórico bonos </h4>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <table id="TblBonos" data-cookie="true" data-cookie-id-table="table" data-pagination="true" data-page-list="[10, 25, 50, 100, all]" data-mobile-responsive="true">
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>*@
+
+                    </div>
+                    <div class="col-md-9">
+
+
+
+                        <div class="col-md-12" style="height:110px;">
+
+                            <div class="col-md-1"></div>
+                            <div class="col-md-10">
+                                <h4>Último mes</h4>
+
+                                @{
+
+                                    var i2 = ViewBag.MesAnterior;
+
+                                    <div class="col-md-3">
+                                        <div class="tile tile-default" title="Horas que se reportaron" style="cursor:pointer;">
+                                            <div class="title tile-default" id="">@i2.HorasReportadas</div>
+                                            <p>Horas capturadas</p>
+
+                                        </div>
+                                    </div>
+
+
+                                    if (i2.PorcCaptura > 80)
+                                    {
+                                        <div class="col-md-3">
+                                            <div class="tile tile-default text-success" title="Porcentaje de días capturados (Dias con captura / Dias laborales)" style="cursor:pointer;">
+                                                <div class="title tile-default" id="">@i2.PorcCaptura %</div>
+                                                <p>Cumplimiento captura</p>
+
+                                            </div>
+                                        </div>
+                                    }
+                                    else if (i2.CargaPorc > 60)
+                                    {
+                                        <div class="col-md-3">
+                                            <div class="tile tile-default text-warning" title="Porcentaje de días capturados (Dias con captura / Dias laborales)" style="cursor:pointer;">
+                                                <div class="title tile-default" id="">@i2.PorcCaptura %</div>
+                                                <p>Cumplimiento captura</p>
+
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-3">
+                                            <div class="tile tile-default text-danger" title="Porcentaje de días capturados (Dias con captura / Dias laborales)" style="cursor:pointer;">
+                                                <div class="title tile-default" id="">@i2.PorcCaptura %</div>
+                                                <p>Cumplimiento captura</p>
+
+                                            </div>
+                                        </div>
+
+
+                                    }
+
+                                    <div class="col-md-3">
+                                        <div class="tile tile-default " title="Horas productivas generadas (Suma de horas asignadas terminadas en el mes)" style="cursor:pointer;">
+                                            <div class="title tile-default" id="">@i2.HorasProductivas hrs.</div>
+                                            <p>Valor ganado</p>
+
+                                        </div>
+                                    </div>
+
+                                    if (i2.Productividad > 80)
+                                    {
+                                        <div class="col-md-3">
+                                            <div class="tile tile-default text-success" title="Productividad total (Valor ganado mes / Objetivo mensual)" style="cursor:pointer;">
+                                                <div class="title tile-default " id="">@i2.Productividad %</div>
+                                                <p>Productividad</p>
+
+                                            </div>
+                                        </div>
+                                    }
+                                    else if (i2.Productividad > 60)
+                                    {
+                                        <div class="col-md-3">
+                                            <div class="tile tile-default text-warning" title="Productividad total (Valor ganado mes / Objetivo mensual)" style="cursor:pointer;">
+                                                <div class="title tile-default " id="">@i2.Productividad %</div>
+                                                <p>Productividad</p>
+
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-3">
+                                            <div class="tile tile-default text-danger" title="Productividad total (Valor ganado mes / Objetivo mensual)" style="cursor:pointer;">
+                                                <div class="title tile-default " id="">@i2.Productividad %</div>
+                                                <p>Productividad</p>
+
+                                            </div>
+                                        </div>
+
+
+                                    }
+
+
+
+
+                                }
+
+
+
+
+
+
+                            </div>
+
+                            <div class="col-md-1"></div>
+
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="modal-body" id="GraficasPerformance">
+                            </div>
+                            <div id="scriptsPerformance">
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+<input type="hidden" id="IdUsuario" value="@Model.IdUsuario" />
+<input type="hidden" id="hdClaveUser" value="@ViewBag.Clave" />
+
+<input type="hidden" id="urlGuardarFoto" value="@Url.Action("GuardaFoto","Usuarios")" />
+
+@Html.Partial("~/Views/Actividades/ListaActividadesDia.cshtml")
+@{
+    Random rnd = new Random();
+    @*<script src="~/Scripts/Project/PerfilDashboard.js"></script>*@
+    <script src="~/Scripts/Project/PerfilDashboard.js?@rnd.Next()"></script>
+
+}
+

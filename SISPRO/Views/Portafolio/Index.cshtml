@@ -1,0 +1,305 @@
+﻿
+@{
+    ViewBag.Title = "Portafolio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/easypiechart.min.js"></script>
+<script src="~/Scripts/jquery.easypiechart.min.js"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/jquery-treegrid@0.3.0/css/jquery.treegrid.css" rel="stylesheet">
+<link href="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/jquery-treegrid@0.3.0/js/jquery.treegrid.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/treegrid/bootstrap-table-treegrid.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/cookie/bootstrap-table-cookie.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/mobile/bootstrap-table-mobile.min.js"></script>
+
+
+@*<link rel="stylesheet" href="~/Content/DHTMLXGantt/dhtmlxgantt.css" />
+<link rel="stylesheet" href="~/Content/DHTMLXGantt/skins/dhtmlxgantt_material.css" />*@
+<script type="text/javascript" src="~/Scripts/dhtmlxgantt.js"></script>
+
+
+<div class="container-fluid">
+    <div class="filter-settings">
+        <div class="filter-settings-icon"><span class="glyphicon glyphicon-filter"></span></div>
+        <h5>Filtrar</h5>
+        <div class="filter-settings-row">
+            @{
+                var LstLideres = ViewBag.LstLideres;
+                <label for="SelResponsablePortafolio">Responsable</label>
+                <select class="form-control ReqFP selectpicker" data-live-search="true" data-live-search-placeholder="Buscar..." data-actions-box="true" id="SelResponsablePortafolio" item="Responsable" style="width:50%">
+                    <option value="-1" selected> --  Todos --</option>
+                    @foreach (var i in LstLideres)
+                    {
+                        <option value="@i.IdCatalogo">@i.DescLarga</option>
+
+                    }
+                </select>
+            }
+
+            </div>
+            <div class="filter-settings-row">
+                <button class="btn btn-default" id="BtnFiltrarPortafolio">Aplicar</button>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+
+            <div class="col-md-2 col-xs-12" style="background-color:#F0F8FF">
+                <div class="col-md-12 col-xs-12">
+
+                    <a href="@Url.Action("Index", "Proyectos")" target="_blank"> 
+                        <div class="widget widget-default widget-item-left" style="background: #F0F8FF; margin-bottom: 10px;">
+
+                            <div class="widget-data-left">
+                                <div class="widget-title">Proyectos</div>
+                                <div class="widget-int num-count" id="wProyectos"></div>
+
+                                @*<div class="widget-subtitle">
+                                    <ul class="list-inline small">
+                                        <li class="list-inline-item">
+                                            <i class="fa fa-fw fa-circle text-success"></i> <span id="PATiempo"> </span> A tiempo
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <i class="fa fa-fw fa-circle text-danger"></i>  <span id="PAtrasados"> </span> Atrasados
+                                        </li>
+                                    </ul>
+
+                                </div>*@
+                            </div>
+
+                        </div>
+                    </a>
+
+                </div>
+                <div class="col-md-12 col-xs-12">
+                    <a href="@Url.Action("Index", "Sprints")" target="_blank">
+                        <div class="widget widget-default widget-item-left" style="background: #F0F8FF; margin-bottom: 10px;">
+
+                            <div class="widget-data-left">
+                                <div class="widget-title">Sprints</div>
+                                <div class="widget-int num-count" id="wSprints"></div>
+
+                                @*<div class="widget-subtitle">
+                                    <ul class="list-inline small">
+                                        <li class="list-inline-item">
+                                            <i class="fa fa-fw fa-circle text-info"></i> <span id="SAbiertos"> </span> Abiertos
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <i class="fa fa-fw fa-circle text-warning"></i> <span id="SProgreso"> </span> Progreso
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <i class="fa fa-fw fa-circle text-success"></i>  <span id="STerminados"> </span> Terminados
+                                        </li>
+                                    </ul>
+
+
+                                </div>*@
+                            </div>
+
+                        </div>
+                    </a>
+
+
+                </div>
+                <div class="col-md-12 col-xs-12">
+
+                    <div class="widget widget-default widget-item-left" style="background: #F0F8FF; margin-bottom: 10px;">
+
+                        <div class="widget-data-left">
+                            <div class="widget-title">Milestones</div>
+                            <div class="widget-int num-count" id="wMilestones"></div>
+
+                            @*<div class="widget-subtitle">
+                                <ul class="list-inline small">
+
+                                    <li class="list-inline-item">
+                                        <i class="fa fa-fw fa-circle text-info"></i> <span id="MAbiertos"> </span> Abiertos
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <i class="fa fa-fw fa-circle text-success"></i>  <span id="MTerminados"> </span> Completados
+                                    </li>
+
+                                </ul>
+
+
+                            </div>*@
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-md-12 col-xs-12">
+                    <a href="@Url.Action("Index", "Issue")" target="_blank">
+                        <div class="widget widget-default widget-item-left" style="background:#F0F8FF; margin-bottom:10px;">
+
+                            <div class="widget-data-left">
+                                <div class="widget-title">Issues</div>
+                                <div class="widget-int num-count" id="wIssues"></div>
+
+                                @*<div class="widget-subtitle">
+                                    <ul class="list-inline small">
+
+                                        <li class="list-inline-item">
+                                            <i class="fa fa-fw fa-circle text-info"></i> <span id="MAbiertos"> </span> Abiertos
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <i class="fa fa-fw fa-circle text-success"></i>  <span id="MTerminados"> </span> Completados
+                                        </li>
+
+                                    </ul>
+
+
+                                </div>*@
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+            <div class="col-md-10 col-xs-12">
+
+                <div class="row">
+                    <div class="col-md-6 col-xs-6">
+                        <div class="btn-group">
+                            <button class="btn btn-default btn-condensed" onclick="zoomOut()"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-default btn-condensed" onclick="zoomIn()"><i class="fa fa-plus"></i></button>
+                            @*<button class="btn btn-default btn-condensed" onclick="exportData('pdf')"><i class="fa fa-file-pdf-o"></i></button>*@
+                        </div>
+
+                    </div>
+                    <div class="col-md-6 col-xs-6">
+                        <div class="btn-group pull-right">
+                            <button class="btn btn-default " onclick="CambiarZoom('year')">Año</button>
+                            <button class="btn btn-default " onclick="CambiarZoom('month')">Mes</button>
+                            <button class="btn btn-default " onclick="CambiarZoom('week')">Semana</button>
+                            <button class="btn btn-default " onclick="CambiarZoom('day')">Día</button>
+
+
+                        </div>
+
+
+
+
+                    </div>
+
+
+                </div>
+
+
+                <div id="roadmap" style="height:400px; width: 100%; padding-top:10PX;"></div>
+
+
+            </div>
+
+
+
+
+        </div>
+
+
+        <div class="row" style="padding-top:20px;">
+
+            <div class="col-md-8">
+                <div class="panel panel-default  projectcard">
+                    <div class="panel-body profile">
+                        <div class="row headerproyecto">
+                            <div class="col-md-6">
+                                <h4 id="">Mis Proyectos </h4>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-12" id="DivProyectostabla">
+                        <table id="tblProyectos"></table>
+
+                    </div>
+
+
+
+
+
+
+
+
+
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4" style="background-color:#F0F8FF">
+
+                <div class="panel panel-default  projectcard" style="min-height:408px; background-color:#F0F8FF">
+                    <div class="panel-body profile" style="background-color:#F0F8FF">
+                        <div class="row headerproyecto">
+                            <div class="col-md-10">
+                                <h4>Sprints</h4>
+                            </div>
+                            <div class="col-md-2 col-xs-2">
+                               
+                                    <button class="btn btn-default btn-condensed pull-right" onclick="VerTodosSprints()" id="BtnShowAllSprints" style="display:none;"><i class="fa fa-refresh" ></i></button>
+                            
+                             
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div style="margin-top:5%;max-height:900px; overflow:scroll;">
+                            <table class="table " id="">
+                                <thead>
+                                <tbody id="tblSprintDetalle">
+                                    <tr>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+
+
+
+
+    </div>
+
+<div id="scripts">
+
+</div>
+<div id="scriptsequipo">
+
+</div>
+
+
+@{
+    Random rnd = new Random();
+    <script src="~/Scripts/Project/Portafolio.js?@rnd.Next()"></script>
+    @*<script src="~/Scripts/Project/Portafolio.js"></script>*@
+
+}
+
+
+
+@Html.Hidden("urlCargarPortafolio", @Url.Action("CargaPortafolio", "Portafolio"))
+<input type="hidden" id="urlVerProyecto" value="@Url.Action("Proyecto","Proyectos")" />
+<input type="hidden" id="urlSprintReport" value="@Url.Action("SprintReport","Proyectos")" />

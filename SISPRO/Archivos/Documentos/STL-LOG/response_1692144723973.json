@@ -1,0 +1,10 @@
+{
+  "idUsuario": 0,
+  "idOrganizacion": 0,
+  "numEmpleado": null,
+  "nombre": "admin",
+  "apPaterno": "abc",
+  "apMaterno": null,
+  "correo": null,
+  "contrasena": null
+}

@@ -1,0 +1,128 @@
+﻿
+@{
+    ViewBag.Title = "Resumen horas proyecto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="page-title">
+    <h2><span class="fa fa-tasks"></span> Resumen horas</h2>
+</div>
+
+<div class="page-content-wrap">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-group accordion accordion-dc">
+
+                        <div class="panel panel-colorful">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a href="#accTwoColSeven">
+                                        Filtros
+                                    </a>
+                                </h4>
+                            </div>
+                            <div class="panel-body panel-body-open" id="accTwoColSeven">
+                                <!--inicia-->
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div>
+                                            <button class="btn btn-success pull-right" id="BtnFiltrarRepHrs">Filtrar</button><br /><br />
+                                        </div>
+                                        <div class="col-md-8">
+                                            @*<form class="form-horizontal">*@
+                                                <div class="form-group">
+                                                    <label class="col-md-1 control-label">Rango</label>
+                                                    <div class="col-md-5 col-xs-12">
+                                                        <input type="text" id="TxtRangoFechas" item="Fecha" class="form-control DateRangePicker col-xs-10" style="width: 83.33333333% !important;" />
+                                                        <span class="input-group-addon col-xs-1"><span class="glyphicon glyphicon-calendar"></span></span>
+                                                    </div>
+                                                </div>
+
+                                            @*</form>*@
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <form class="form-horizontal">
+                            <div class="form-group">
+
+                                <div class="btn-group pull-right">
+                                    <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Exportar</button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="#" onclick="$('#TblReporteHorasExportar').removeClass('hide'); $('#TblReporteHorasExportar').tableExport({ type: 'excel', escape: 'false' }); $('#TblReporteHorasExportar').addClass('hide');"><img src='~/Content/Project/Imagenes/xls.png' width="24" /> XLS</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+                <br />
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table datatable text" id="TblReporteHoras">
+                            <thead>
+                                <tr>
+                                    <th>Proyecto</th>
+                                    <th>Líder</th>
+                                    <th>Horas Facturables</th>
+                                    <th>Horas Progreso</th>
+                                    <th>Horas Terminadas</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<table class="table datatable text hide" id="TblReporteHorasExportar">
+    <thead>
+        <tr>
+            <<th>Proyecto</th>
+            <th>Líder</th>
+            <th>Horas Facturables</th>
+            <th>Horas Asignadas</th>
+            <th>Horas Finales</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+
+<input type="hidden" id="urlConsultaReporteHoras" value="@Url.Action("ConsultaReporteHoras","Report")" />
+
+
+<script type="text/javascript" src="~/Scripts/Project/ResumenHorasProyecto.js"></script>
+
+
+<script src="~/Scripts/TableExport-master/tableExport.js"></script>
+<script src="~/Scripts/TableExport-master/jquery.base64.js"></script>
+<script src="~/Scripts/TableExport-master/html2canvas.js"></script>
+<script src="~/Scripts/TableExport-master/jspdf/libs/sprintf.js"></script>
+<script src="~/Scripts/TableExport-master/jspdf/jspdf.js"></script>
+<script src="~/Scripts/TableExport-master/jspdf/libs/base64.js"></script>
+

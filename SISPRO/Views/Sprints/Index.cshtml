@@ -1,0 +1,222 @@
+﻿
+@{
+    ViewBag.Title = "Sprints";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/DHTMLXGantt/dhtmlxgantt.css" />
+<link rel="stylesheet" href="~/Content/DHTMLXGantt/skins/dhtmlxgantt_material.css" />
+<script type="text/javascript" src="~/Scripts/dhtmlxgantt.js"></script>
+
+<div class="page-content-wrap">
+
+    <div class="panel panel-default" id="headersprint">
+
+        <div class="">
+            <div class="row">
+                <div class="col-md-6">
+                    @{
+                        var LstProyectos = ViewBag.LstProyectos;
+                        @*<label for="SelProyectoSP">Proyecto</label>*@
+                        <select class="form-control ReqFP selectpicker" data-live-search="true" data-live-search-placeholder="Buscar..." data-actions-box="true" id="SelProyectoSP" item="Proyecto" style="width:50%">
+                            <option value="-1" selected>  -- Seleccionar -- </option>
+                            @foreach (var i in LstProyectos)
+                            {
+                                <option value="@i.IdCatalogo">@i.DescLarga</option>
+
+                            }
+                        </select>
+                    }
+
+                </div>
+                <div class="col-md-2">
+                    @*<label for="SelEstatusF">Estatus</label>*@
+                    <select class="selectpicker form-control" multiple data-live-search="true" id="SelEstatusSP" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--">
+
+                        <option value="A" selected>Abierto</option>
+                        <option value="P" selected>Progreso</option>
+                        <option value="L">Terminado</option>
+                        <option value="C">Cancelado</option>
+
+
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    @*<button class="btn btn-success pull-right" id="BtnNuevo">Nuevo</button>*@
+                    <button class="btn btn-success btn-block" id="BtnAgregarIteracion"><span class="fa fa-plus"></span> Nuevo Sprint</button>
+                </div>
+
+                @*<div class="col-md-4">
+
+                    <button class="btn btn-default  headersprint" id="BtnAgregarIteracion"> Crear Sprint</button>
+                </div>*@
+            </div>
+        </div>
+
+        <div class="row headersprint" style="margin-top:10px;">
+
+
+
+            <div class="panel-body tabs">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="active" id="liLista" ><a href="#tab-lista" role="tab" data-toggle="tab"> <i class="fa fa-circle-o-notch"></i> Sprints</a></li>
+                    <li><a href="#tab-roadmap" role="tab" data-toggle="tab"><i class="fa fa-rocket"></i> Roadmap</a></li>
+                    <li id="liData" class="hide"><a href="#tab-data" role="tab" data-toggle="tab" onclick="ConsultaGraficasSprintData();ConsultaGraficasSprintHoras();"><i class="fa fa-line-chart"></i> Data</a></li>
+                </ul>
+            </div>
+
+            <div class="panel-body tab-content">
+
+                <div class="tab-pane active" id="tab-lista">
+
+                    <div class="col-md-12 col-xs-12" id="colSprints" style="overflow-y:auto;">
+                        <table class="table " id="">
+                            <thead>
+                            <tbody id="tblSprintDetalle">
+                                <tr>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab-roadmap">
+                    <div class="row">
+                        <div class="col-md-6 col-xs-6">
+                            <div class="btn-group">
+                                <button class="btn btn-default btn-condensed" onclick="zoomOut()"><i class="fa fa-minus"></i></button>
+                                <button class="btn btn-default btn-condensed" onclick="zoomIn()"><i class="fa fa-plus"></i></button>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6 col-xs-6">
+                            <div class="btn-group pull-right">
+                                <button class="btn btn-default " onclick="CambiarZoom('year')">Año</button>
+                                <button class="btn btn-default " onclick="CambiarZoom('month')">Mes</button>
+                                <button class="btn btn-default " onclick="CambiarZoom('week')">Semana</button>
+                                <button class="btn btn-default " onclick="CambiarZoom('day')">Día</button>
+
+
+                            </div>
+
+
+
+
+                        </div>
+
+
+                    </div>
+
+                    <div id="roadmap" style="height:500px; width: 100%; padding-top:10PX;"></div>
+                </div>
+                <div class="tab-pane" id="tab-data">
+
+
+
+
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="" style="border-bottom: none !important;">
+                                <div class="panel-group accordion accordion-dc">
+                                    <div class="panel ">
+                                        <div class="panel-heading">
+                                            <h5 class="panel-title">
+                                                <a href="#accordion-FG">
+                                                    Velocidad
+                                                </a>
+                                                <br />
+                                
+                                            </h5>
+                                        </div>
+                                        <div class="panel-body panel-body-open" style="padding: 0px;" id="accordion-FG">
+                                            <div class="col-md-12 col-xs-12 col-centered ">
+                                                <div id="GraficasSprint">
+
+                                                </div>
+                                                <div id="scriptsSprints">
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="" style="border-bottom: none !important;">
+                                <div class="panel-group accordion accordion-dc">
+                                    <div class="panel ">
+                                        <div class="panel-heading">
+                                            <h5 class="panel-title">
+                                                <a href="#accordion-FG2">
+                                                    Horas por Sprint
+                                                </a>
+                                                <br />
+                                         
+                                            </h5>
+                                        </div>
+                                        <div class="panel-body panel-body-open" style="padding: 0px;" id="accordion-FG2">
+                                            <div class="col-md-12 col-xs-12 col-centered ">
+                                                <div id="GraficasSprintHoras">
+
+                                                </div>
+                                                <div id="scriptsSprintsHoras">
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+
+
+
+        </div>
+
+
+
+
+    </div>
+
+
+
+
+</div>
+@Html.Partial("~/Views/Proyectos/Sprint.cshtml")
+@Html.Partial("~/Views/Proyectos/SprintRetrospectiva.cshtml")
+
+<input type="hidden" id="urlCargaSprints" value="@Url.Action("ConsultarSprintsV3","Proyectos")" />
+<input type="hidden" id="urlSprintReport" value="@Url.Action("SprintReport","Proyectos")" />
+<input type="hidden" id="urlAsignaActividadSprint" value="@Url.Action("AsignaActividadSprint","Proyectos")" />
+<input type="hidden" id="urlFiltrarBacklog" value="@Url.Action("FiltrarBacklog","Proyectos")" />
+
+
+@{
+    Random rnd = new Random();
+    @*<script src="~/Scripts/Project/Sprints.js?@rnd.Next()"></script>*@
+    <script src="~/Scripts/Project/Sprints.js?@rnd.Next()"></script>
+
+}
+
+
+

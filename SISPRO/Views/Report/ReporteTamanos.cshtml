@@ -1,0 +1,146 @@
+﻿@{
+    ViewBag.Title = "Reporte de tamaños";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-title">
+    <h2><span class="fa fa-puzzle-piece"></span> Reporte de tamaños</h2>
+</div>
+
+<div class="page-content-wrap">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-group accordion accordion-dc">
+
+                        <div class="panel panel-colorful">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a href="#accTwoColSeven">
+                                        Filtros
+                                    </a>
+                                </h4>
+                            </div>
+                            <div class="panel-body panel-body-open" id="accTwoColSeven">
+                                <!--inicia-->
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div>
+                                            <button class="btn btn-success pull-right" id="BtnFiltrarRT">Filtrar</button><br /><br />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">Proyecto*</label>
+                                                <div class="col-md-6 col-xs-12">
+                                                    <select class="form-control ReqReporteT selectpicker" data-live-search="true" id="SelProyectoRT" item="Proyecto"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <form class="form-horizontal">
+                            <div class="form-group">
+
+                                <div class="btn-group pull-right">
+                                    <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Exportar</button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="#" onclick="$('#TblReporteTamanosExportar').removeClass('hide'); $('#TblReporteTamanosExportar').tableExport({ type: 'excel', escape: 'false' }); $('#TblReporteTamanosExportar').addClass('hide');"><img src='~/Content/Project/Imagenes/xls.png' width="24" /> XLS</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+                <br />
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table datatable text" id="TblReporteTamanos">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2">Actividad</th>
+                                    <th rowspan="2">Descripcion</th>
+                                    <th rowspan="2">Parte</th>
+                                    <th rowspan="2">Tipo </th>
+                                    <th colspan="4">Estimado</th>
+                                    <th colspan="4">Actual</th>
+                                </tr>
+                                <tr>
+                                    <th>Base</th>
+                                    <th>Quitar</th>
+                                    <th>Cambiar</th>
+                                    <th>Añadir</th>
+                                    <th>Base</th>
+                                    <th>Quitar</th>
+                                    <th>Cambiar</th>
+                                    <th>Añadir</th>
+
+                                </tr>
+
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<table class="table datatable text hide" id="TblReporteTamanosExportar">
+    <thead>
+        <tr>
+            <th>Actividad</th>
+            <th>Descripción</th>
+            <th>Parte</th>
+            <th>Tipo</th>
+            <th>E- Base</th>
+            <th>E -Cambiar</th>
+            <th>E- Quitar</th>
+            <th>E- Añadir</th>
+            <th>A- Base</th>
+            <th>A -Cambiar</th>
+            <th>A- Quitar</th>
+            <th>A- Añadir</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+
+<input type="hidden" id="urlCargaInicialRT" value="@Url.Action("CargaReporteTamanos","Report")" />
+<input type="hidden" id="urlConsultaRT" value="@Url.Action("ObtieneReporteTamanos","Report")" />
+
+<script type="text/javascript" src="~/Scripts/Project/ReporteTamanos.js"></script>
+
+
+<script src="~/Scripts/TableExport-master/tableExport.js"></script>
+<script src="~/Scripts/TableExport-master/jquery.base64.js"></script>
+<script src="~/Scripts/TableExport-master/html2canvas.js"></script>
+<script src="~/Scripts/TableExport-master/jspdf/libs/sprintf.js"></script>
+<script src="~/Scripts/TableExport-master/jspdf/jspdf.js"></script>
+<script src="~/Scripts/TableExport-master/jspdf/libs/base64.js"></script>

@@ -1,0 +1,278 @@
+﻿
+@{
+    ViewBag.Title = "KPIS";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/easypiechart.min.js"></script>
+<script src="~/Scripts/jquery.easypiechart.min.js"></script>
+<div class="container-fluid">
+    <div class="filter-settings">
+        <div class="filter-settings-icon"><span class="glyphicon glyphicon-filter"></span></div>
+        <h5>Filtrar</h5>
+        <div class="filter-settings-row">
+            <label for="SelAnioKPI">Año</label>
+            <select class="form-control selectpicker ReqFiltroCons" id="SelAnioKPI" item="Año">
+            </select>
+        </div>
+        <div class="filter-settings-row">
+            <label for="SelMesKPI">Mes</label>
+            <select class="form-control ReqFiltroCons selectpicker" id="SelMesKPI" item="Mes">
+                <option selected="selected" value="-1">--Seleccione--</option>
+                <option value="1">Enero</option>
+                <option value="2">Febrero</option>
+                <option value="3">Marzo</option>
+                <option value="4">Abril</option>
+                <option value="5">Mayo</option>
+                <option value="6">Junio</option>
+                <option value="7">Julio</option>
+                <option value="8">Agosto</option>
+                <option value="9">Septiembre</option>
+                <option value="10">Octubre</option>
+                <option value="11">Noviembre</option>
+                <option value="12">Diciembre</option>
+
+            </select>
+        </div>
+
+
+        <div class="filter-settings-row">
+            <button class="btn btn-default" id="BtnFiltrarKPIS">Aplicar</button>
+        </div>
+    </div>
+    <div class="row">
+        <h2>Operativos</h2>
+        <div class="col-md-12 col-xs-12 ">
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="tile tile-default text-info" title="Capacidad de producción" style="cursor:pointer;">
+                        <div class="title tile-default" id="LblObjetivo">0</div>
+                        <p>Objetivo</p>
+
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="tile tile-default text-info" title="Horas que se capturaron por parte del equipo" style="cursor:pointer;">
+                        <div class="title tile-default" id="LblCapturado">0</div>
+                        <p>Horas capturadas</p>
+
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="tile tile-default text-info" title="Horas que se invirtieron en resolver defectos" style="cursor:pointer;">
+                        <div class="title tile-default" id="LblHorasDefectos">0</div>
+                        <p>Horas defectos</p>
+                        <p><span id="LblCantDefectos" style="font-weight:bold"> 0 </span> defectos</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="tile tile-default text-info" title="Horas que representan un valor ganado real de los proyectos" style="cursor:pointer;">
+                        <div class="title tile-default" id="LblValorGanado">0</div>
+                        <p>Valor ganado </p>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="tile tile-default "  id="tLblCapturaPorc"  title="Cumplimiento en capturas" style="cursor:pointer;">
+                        <div class="title tile-default" id="LblCapturaPorc">0%</div>
+                        <p>Captura</p>
+
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="tile tile-default"  id="tLblCalidadPorc"  title="Porcentaje de calidad | horas defectos /  valor ganado" style="cursor:pointer;">
+                        <div class="title tile-default" id="LblCalidadPorc">0</div>
+                        <p>Calidad</p>
+
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="tile tile-default" id="tLblProductividad" title="Productividad  valor ganado/objetivo" style="cursor:pointer;">
+                        <div class="title tile-default" id="LblProductividad"></div>
+                        <p>Productividad</p>
+
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="tile tile-default" id="tLblEficiencia" title="Eficiencia en la operacion , es la capacidad productiva real ala que estamos trabajando,  Calidad * Productividad" style="cursor:pointer;">
+                        <div class="title tile-default" id="LblEficiencia"> </div>
+                        <p>Eficiencia</p>
+
+                    </div>
+                </div>
+
+            </div>
+    
+
+
+
+        </div>
+
+  
+        <div class="col-md-12 col-xs-12">
+   
+
+        </div>
+ 
+
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel-body">
+
+
+                <div class="row" id="GraficaEficiencia">
+
+                </div>
+                <div class="row" id="Tablas">
+
+                </div>
+                <div id="scriptsEficiencia">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        <br />
+        <div class="row">
+            <h2>Financieros</h2>
+            <div class="col-md-7 col-xs-12">
+                <div class="" style="border-bottom: none !important;">
+                    <div class="panel-group accordion accordion-dc">
+                        <div class="panel ">
+                            <div class="panel-heading">
+                                <h5 class="panel-title">
+                                    <a href="#accordion-FG">
+                                        Últimos 12 meses
+                                    </a>
+                                    <br />
+                                    @*<small>Mes actual</small>*@
+
+                                </h5>
+                            </div>
+                            <div class="panel-body panel-body-open" style="padding: 0px;" id="accordion-FG">
+                                <div class="col-md-12 col-xs-12 col-centered ">
+                                    <div id="GraficaFinancieros" style="max-height:350px;">
+
+                                    </div>
+                                    <div id="scriptsFinancieros">
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 col-xs-12">
+
+                <div class="" style="border-bottom: none !important;">
+                    <div class="panel-group accordion accordion-dc">
+                        <div class="panel ">
+                            <div class="panel-heading">
+                                <h5 class="panel-title">
+                                    <a href="#accordion-OP">
+
+                                    </a>
+                                    <br />
+
+
+                                </h5>
+                            </div>
+                            <div class="panel-body panel-body-open" style="padding: 0px;" id="accordion-OP">
+                                <div class="col-md-6 col-xs-12">
+
+                                    <div class="col-md-12 col-centered ">
+
+
+                                        <h5 id="tfinmes">Mensual</h5>
+                                        <span class="chart cRentabilidad chartOEE" data-percent="0">
+                                            <span class="percentOEE"></span><br>
+                                            <p>Rentabilidad</p>
+                                        </span>
+
+                                    </div>
+
+
+
+
+
+                                    <div class="mx-0 row">
+
+                                        <a href="@Url.Action("FlujoPagos", "Proyectos")">
+                                            <div class="border-bottom border-all  py-3 col-md-6 col-centered ">
+                                                <h4 class="fw-normal text-600" id="LblIngresosM">0</h4>
+                                                <h5 class="text-500 mb-0">Ingresos</h5>
+                                            </div>
+                                        </a>
+                                        <a href="@Url.Action("Costos", "Proyectos")">
+                                            <div class="py-3 col-md-6 border-all border-bottom col-centered  ">
+                                                <h4 class="fw-normal text-600" id="LblCostosM">0</h4>
+                                                <h5 class="text-500 mb-0">Costos</h5>
+                                            </div>
+                                        </a>
+                                    </div>
+
+
+
+
+
+
+                                </div>
+                                <div class="col-md-6 col-xs-12">
+
+                                    <div class="col-md-12 col-centered ">
+
+
+                                        <h5 id="tfinanio">Anual</h5>
+                                        <span class="chart cRentabilidadAnual chartOEE" data-percent="0">
+                                            <span class="percentOEE"></span><br>
+                                            <p>Rentabilidad</p>
+                                        </span>
+
+                                    </div>
+
+                                    <div class="mx-0 row">
+
+                                        <a href="@Url.Action("FlujoPagos", "Proyectos")">
+                                            <div class="border-bottom border-all  py-3 col-md-6 col-centered ">
+                                                <h4 class="fw-normal text-600" id="LblIngresosAnual">0</h4>
+                                                <h5 class="text-500 mb-0">Ingresos</h5>
+                                            </div>
+                                        </a>
+                                        <a href="@Url.Action("Costos", "Proyectos")">
+                                            <div class="py-3 col-md-6 border-all border-bottom col-centered  ">
+                                                <h4 class="fw-normal text-600" id="LblCostosAnual">0</h4>
+                                                <h5 class="text-500 mb-0">Costos</h5>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+@{
+    Random rnd = new Random();
+    @*<script src="~/Scripts/Project/KPIS.js"></script>*@
+    <script src="~/Scripts/Project/KPIS.js?@rnd.Next()"></script>
+
+}
+

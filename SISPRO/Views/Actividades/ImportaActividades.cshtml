@@ -1,0 +1,51 @@
+﻿
+
+
+<div class="modal" id="ModalImportarActividades" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close btn-PassClose" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="defModalHead">Importar actividades en XLSX</h4>
+            </div>
+            <br />
+            <br />
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-3 col-xs-12 control-label">Archivo (.XSLX)</label>
+                        <div class="col-md-6 col-xs-12">
+                            <input accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" type="file" class="fileinput btn-primary fa fa-upload" name="files[]" id="FlImportaActividades" title="Cargar" />
+                            <span class="help-block "></span>
+                        </div>
+                       
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <div class="row">
+                          
+                            <div>
+                                <div class="col-md-2 col-xs-12"><label class="check" for="RdoCarga1" id="LblCarga1"><input type="radio" class="iradio" name="TipoCarga" id="RdoCarga1" value="1" /> Carga  </label></div>
+                                <div class="col-md-3 col-xs-12">
+                                    <label class="check" for="RdoCarga2" id="LblCarga2"><input type="radio" class="iradio" name="TipoCarga" id="RdoCarga2" value="2" /> Actualización</label>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <br />
+
+                    <div class="form-group">
+
+                        <div class="col-md-12 col-xs-12 text-left"><label class="control-label">Descargar <a href="~/Archivos/Formatos/Layout_act.xlsx"> ejemplo formato XSLX </a> para ver el formato requerido.</label></div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="BtnImportarActividad" class="btn btn-success hidden" data-dismiss="modal" ><span class="fa fa-arrow-circle-up"></span>Cargar </button>
+            </div>
+        </div>
+    </div>
+</div>

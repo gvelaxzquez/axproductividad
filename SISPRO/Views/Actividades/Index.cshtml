@@ -1,0 +1,432 @@
+﻿@using AxProductividad.Models;
+@{
+    ViewBag.Title = "Actividades";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="page-content-wrap">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+
+
+                <div class="panel-body tabs">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#tab-kanban" role="tab" data-toggle="tab" onclick=""><i class="fa fa-columns"></i> Kanban</a></li>
+                        <li><a href="#tab-lista" role="tab" data-toggle="tab" onclick="page_content_onresize();"> <i class="fa fa-tasks"></i> Lista</a></li>
+                        <li><a href="#tab-calendario" role="tab" data-toggle="tab"> <i class="fa fa-calendar"></i> Calendario</a></li>
+                      
+
+                            
+                                                <li class="pull-right">
+
+                                                    <div class="btn-group ">
+                                                        @{
+                                                            var U = ((Sesion)Session["usuario" + Session.SessionID]).Usuario;
+                                                            if (U.Captura)
+                                                            {
+                                                                <button class="btn btn-default" id="BtnImportarAct"><i class="fa fa-arrow-circle-o-up"></i> Importar</button>
+
+                                                                }
+                                                            }
+                                                            <button class="btn btn-default" id="BtnExportarActividaes"><i class="fa fa-arrow-circle-o-down"></i> Exportar</button>
+                                                        </div>
+
+
+                                                </li>
+
+
+
+
+
+
+                    </ul>
+                </div>
+                <div class="panel-body tab-content">
+
+
+
+                    <div class="tab-pane active" id="tab-kanban">
+                        <div class="row push-up-10" id="tableroTickets">
+                            <div class="col-md-1 x_panel" id="taskToDo" style="border: 2px; width: 19%;">
+
+
+                                <div class="row headTasks">
+                                    <h4 id="LblAbierto">Abierto</h4>
+                                </div>
+
+                                <div class="tasks" id="tasks_assigned">
+
+                                </div>
+                            </div>
+                            <div class="col-md-1 x_panel" id="taskProgress" style="width: 19%;">
+                                <div class="row headTasks">
+                                    <h4 id="LblProgreso">En progreso</h4>
+                                </div>
+                                <div class="tasks" id="tasks_progreess">
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-1 x_panel" id="taskValidacion" style="width: 19%;">
+                                <div class="row headTasks">
+                                    <h4 id="LblValidacion">Validación</h4>
+                                </div>
+                                <div class="tasks" id="task_validate">
+
+
+
+                                </div>
+                            </div>
+                            <div class="col-md-1 x_panel" id="taskre" style="width: 19%;">
+
+                                <div class="row headTasks">
+                                    <h4 id="LblRechazadas">Rechazadas</h4>
+                                </div>
+                                <div class="tasks" id="tasks_re">
+
+
+
+                                </div>
+                            </div>
+                            <div class="col-md-1 x_panel" id="taskok" style="width: 19%;">
+
+
+                                <div class="row headTasks">
+                                    <h4 id="LblTerminadas">Terminadas</h4>
+                                </div>
+                                <div class="tasks" id="tasks_ok">
+
+
+
+                                </div>
+                            </div>
+
+
+
+
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="tab-pane" id="tab-lista">
+                        <div class="panel-body tabs">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="active"><a class="btn btn-info" href="#tab-first" role="tab" data-toggle="tab" id="Todo">Todo</a></li>
+                                <li><a class="btn btn-info" href="#tab-second" role="tab" data-toggle="tab" id="Autorizar">Pendiente autorizar</a></li>
+                                <li><a class="btn btn-info" href="#tab-third" role="tab" data-toggle="tab" id="Liberar">Pendiente liberar</a></li>
+
+                            </ul>
+
+                            <div class="panel-body tab-content">
+                                <div class="tab-pane active" id="tab-first">
+
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            @*<div class="pull-left">
+                                                    <button class="btn btn-primary" id="BtnCancelacionM"><i class="fa fa-trash"></i>  Cancelar </button>
+
+                                                    <button class="btn btn-info" id="BtnExportarActividaes"><i class="fa fa-bars"></i> Exportar</button>
+                                                </div>*@
+                                            <table class="table datatable text" id="">
+                                                <thead>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td> Estimado</td>
+                                                        <td> Asignado </td>
+                                                        <td> Real </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td> <label id="lblTotalEstimadas"> </label></td>
+                                                        <td> <label id="lblTotalAsignadas"></label> </td>
+                                                        <td> <label id="lblTotalReal"></label></td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                        <div class="col-md-3">
+
+
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="pull-right">
+                                                <button class="btn btn-primary" id="BtnCancelacionM"><i class="fa fa-trash"></i>  Cancelar </button>
+
+                                                @*<button class="btn btn-info" id="BtnExportarActividaes"><i class="fa fa-bars"></i> Exportar</button>*@
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                    <br />
+                                    <div class="table-responsive">
+                                        <table class="table datatable text" id="TblActividades">
+                                            <thead>
+                                                <tr>
+                                                    <th><input type='checkbox' id="ChkTodosT"></th>
+                                                    <th>ID</th>
+                                                    <th>Título</th>
+                                                    <th>P</th>
+                                                    <th>Estatus</th>
+                                                    <th>Asignado</th>
+                                                    <th>Sprint</th>
+                                                    <th>Estimado</th>
+                                                    <th>Asignado</th>
+                                                    <th>Real</th>
+                                                    <th>Fecha objetivo</th>
+                                                    <th>Fecha real</th>
+                                                    <th> <i class="fa fa-cogs"></i></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                            @*<tfoot></tfoot>*@
+                                        </table>
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="tab-second">
+                                    <div class="row">
+                                        <div class="col-md-12">
+
+                                            <div class="col-md-3">
+
+                                                <table class="table datatable text" id="">
+                                                    <thead>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td> Estimado</td>
+                                                            <td> Asignado </td>
+                                                            <td> Real </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td> <label id="lblTotalEstimadasV"> </label></td>
+                                                            <td> <label id="lblTotalAsignadasV"></label> </td>
+                                                            <td> <label id="lblTotalRealV"></label></td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                            <div class="col-md-9">
+                                                <div class="btn-group pull-right">
+                                                    <button class="btn btn-primary pull-right" id="BtnValidacionM"><i class="fa fa-check-circle"></i>  Verificar </button>
+                                                </div>
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+
+
+                                    <br />
+                                    <div class="table-responsive">
+                                        <table class="table datatable text" id="TblActividadesV">
+                                            <thead>
+                                                <tr>
+                                                    <th><input type='checkbox' id="ChkTodosV"></th>
+                                                    <th>ID</th>
+                                                    <th>Título</th>
+                                                    <th>P</th>
+                                                    <th>Estatus</th>
+                                                    <th>Asignado</th>
+                                                    <th>Sprint</th>
+                                                    <th>Estimado</th>
+                                                    <th>Asignado</th>
+                                                    <th>Real</th>
+                                                    <th>Fecha objetivo</th>
+                                                    <th>Fecha real</th>
+                                                    <th> <i class="fa fa-cogs"></i></th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                            <tfoot></tfoot>
+                                        </table>
+
+                                    </div>
+
+                                </div>
+                                <div class="tab-pane" id="tab-third">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-3">
+
+                                                <table class="table datatable text" id="">
+                                                    <thead>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td> Estimado</td>
+                                                            <td> Asignado </td>
+                                                            <td> Real </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td> <label id="lblTotalEstimadasL"> </label></td>
+                                                            <td> <label id="lblTotalAsignadasL"></label> </td>
+                                                            <td> <label id="lblTotalRealL"></label></td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                            <div class="col-md-9">
+                                                <div class="btn-group pull-right">
+                                                    <button class="btn btn-success pull-right" id="BtnLiberacionM"><i class="fa fa-check-circle"></i>  Liberar </button>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+
+                                    <br />
+                                    <div class="table-responsive">
+                                        <table class="table datatable text" id="TblActividadesL">
+                                            <thead>
+                                                <tr>
+                                                    <th><input type='checkbox' id="ChkTodosL"></th>
+                                                    <th>ID</th>
+                                                    <th>Título</th>
+                                                    <th>P</th>
+                                                    <th>Estatus</th>
+                                                    <th>Asignado</th>
+                                                    <th>Sprint</th>
+                                                    <th>Estimado</th>
+                                                    <th>Asignado</th>
+                                                    <th>Real</th>
+                                                    <th>Fecha objetivo</th>
+                                                    <th>Fecha real</th>
+                                                    <th> <i class="fa fa-cogs"></i></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                            <tfoot></tfoot>
+                                        </table>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="tab-calendario">
+                        <div id="Calendar">
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="filter-settings">
+    <div class="filter-settings-icon"><span class="glyphicon glyphicon-filter"></span></div>
+    <h5>Filtrar</h5>
+    <div class="filter-settings-row">
+        <label for="TxtRangoFechas">Fecha</label>
+    </div>
+    <div class="filter-settings-row">
+        <input type="text" id="TxtRangoFechas" item="Fecha" class="form-control DateRangePicker col-xs-10" style="width: 83.33333333% !important;" />
+        <span class="input-group-addon col-xs-1"><span class="glyphicon glyphicon-calendar"></span></span>
+
+    </div>
+    <div class="filter-settings-row">
+        <label for="SelProyectoTF">Proyecto</label>
+        <select class="selectpicker form-control" multiple data-live-search="true" id="SelProyectoF" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--"></select>
+    </div>
+    <div class="filter-settings-row">
+        <label for="SelSprintTF">Sprint</label>
+        <select class="selectpicker form-control" multiple data-live-search="true" id="SelSprintF" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--"></select>
+    </div>
+
+    <div class="filter-settings-row">
+        <label for="SelTipoA">Tipo</label>
+        @{
+            var Workitems = ((Sesion)Session["Usuario" + Session.SessionID]).WorkItems;
+            <select class="form-control  selectpicker pull-right" id="SelTipoF" item="Tipo actividad" multiple data-live-search="true">
+                @*<select class="form-control  selectpicker pull-right" id="SelTipoF" item="Tipo actividad"  data-live-search="true">*@
+                @*<option value="-1" selected> -- Todos --</option>*@
+                @{ foreach (var item in Workitems)
+                    {
+                        <option value='@item.ActividadTipoId' data-content="<span><img class='img-dt' src='Content/Project/Imagenes/@item.Url' alt='@item.Nombre' style='width:24px; height:24px;'> @item.Nombre</span>">@item.Nombre</option>
+
+
+                    }
+                }
+            </select>
+        }
+    </div>
+
+    <div class="filter-settings-row">
+        <label for="SelActividadF">Fase</label>
+        <select class="selectpicker form-control" multiple data-live-search="true" id="SelActividadF" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--">
+        </select>
+    </div>
+    <div class="filter-settings-row">
+        <label for="SelUsuarioAsignadoF">Asignado</label>
+        <select class="selectpicker form-control" multiple data-live-search="true" id="SelUsuarioAsignadoF" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--"></select>
+
+    </div>
+    <div class="filter-settings-row">
+        <label class="col-md-3 col-xs-12 control-label">Estatus</label>
+        <select class="selectpicker" multiple data-live-search="true" id="SelEstatusF" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--">
+
+            <option value="A" selected>Abierto</option>
+            <option value="P" selected>En progreso</option>
+            <option value="R" selected>Revisión</option>
+            <option value="V" selected>Validada</option>
+            <option value="L" selected>Liberada</option>
+            <option value="C">Cancelada</option>
+            <option value="X" selected>Rechazada</option>
+
+        </select>
+    </div>
+
+    <div class="filter-settings-row">
+        <button class="btn btn-default" id="BtnFiltrar">Aplicar</button>
+    </div>
+</div>
+
+
+@Html.Partial("~/Views/Actividades/ImportaActividades.cshtml")
+@Html.Partial("~/Views/Actividades/CapturaTiempo.cshtml")
+
+<input type="hidden" id="urlCargaInicialCombosF" value="@Url.Action("CargaCombosFiltros", "Actividades")" />
+<input type="hidden" id="urlBuscarActividades" value="@Url.Action("ObtieneActividadesV2", "Actividades")" />
+<input type="hidden" id="urlSolicitaRevision" value="@Url.Action("SolicitaRevision", "Actividades")" />
+
+<input type="hidden" id="urlValidacionMasiva" value="@Url.Action("ValidacionMasiva", "Actividades")" />
+<input type="hidden" id="urlLiberacionMasiva" value="@Url.Action("LiberacionMasiva", "Actividades")" />
+<input type="hidden" id="urlCancelacionMasiva" value="@Url.Action("CancelacionMasiva", "Actividades")" />
+<input type="hidden" id="urlIniciaRechazo" value="@Url.Action("InicializaRechazo", "Actividades")" />
+<input type="hidden" id="urlImportaActividades" value="@Url.Action("ImportaActividadesV2", "Actividades")" />
+
+
+@{
+    Random rnd = new Random();
+    @*<script src="~/Scripts/Project/PanelActividades.js"></script>*@
+    <script src="~/Scripts/Project/PanelActividades.js?@rnd.Next()"></script>
+}
+
+

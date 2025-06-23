@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="51575fbb06034bf99d41f718d9c462b2" Name="Diagram1" ZoomLevel="77">
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.CatalogoGeneral" Width="1.5" PointX="0.75" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.Configuracion" Width="1.5" PointX="0.625" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.Graficas" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.Menu" Width="1.5" PointX="12" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.NivelesSemanas" Width="1.5" PointX="9" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.TipoUsuario" Width="1.5" PointX="6.75" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.TipoUsuarioPermisos" Width="1.5" PointX="14.25" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.UsuarioAutorizacion" Width="1.5" PointX="11.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.UsuarioPermisos" Width="1.5" PointX="14.25" PointY="10.125" IsExpanded="true" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_TipoUsuarioPermisos_Menu" ManuallyRouted="false" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_UsuarioPermisos_Menu" ManuallyRouted="false" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_TipoUsuarioPermisos_TipoUsuario" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ActividadLog" Width="1.5" PointX="20.625" PointY="9.75" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ActividadValidaciones" Width="1.5" PointX="18.75" PointY="5.375" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.UsuarioIncidencias" Width="1.5" PointX="17.25" PointY="15" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_UsuarioIncidencias_CatalogoGeneral" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.CalendarioTrabajo" Width="1.5" PointX="3.375" PointY="7.75" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.Cliente" Width="1.5" PointX="9.375" PointY="4.875" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.HistoricoCompensacion" Width="1.5" PointX="5.375" PointY="9.75" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.Autorizacion" Width="1.5" PointX="0.75" PointY="6" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadValidaciones_Autorizacion" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_UsuarioAutorizacion_Autorizacion" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.TipoActividadFase" Width="1.5" PointX="3" PointY="11.75" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_TipoActividadFase_CatalogoGeneral" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ActividadTracking" Width="1.5" PointX="25.375" PointY="8.5" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadTracking_TipoActividadFase" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ActividadArchivo" Width="1.5" PointX="28.375" PointY="15.25" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ActividadDefecto" Width="1.5" PointX="25.375" PointY="3.75" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadDefecto_CatalogoGeneral" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadDefecto_TipoActividadFase" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadDefecto_TipoActividadFase1" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.DiasFestivos" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.Niveles" Width="1.5" PointX="6.75" PointY="5.5" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_NivelesSemanas_Niveles" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ActividadDependencia" Width="1.5" PointX="25.375" PointY="16.375" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ListaControl" Width="1.5" PointX="3" PointY="20.75" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ListaControlDetalle" Width="1.5" PointX="5.25" PointY="21" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ListaControl_CatalogoGeneral" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ListaControl_CatalogoGeneral1" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ListaControlDetalle_ListaControl" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ProyectoListaControl" Width="1.5" PointX="15.875" PointY="19.125" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ProyectoListaControlDetalle" Width="1.5" PointX="18.125" PointY="19.875" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoListaControl_ListaControl" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoListaControlDetalle_ListaControlDetalle" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ListaControlProyectoDetalle_ListaControlProyecto" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.Auditoria" Width="1.5" PointX="18.125" PointY="24" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_Auditoria_ProyectoListaControl" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.AuditoriaControl" Width="1.5" PointX="20.375" PointY="19" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_AuditoriaControl_AuditoriaControl" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_AuditoriaControl_ListaControlProyectoDetalle" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.AuditoriaControlHallazgo" Width="1.5" PointX="22.625" PointY="21.25" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_AuditoriaControlHallazgo_AuditoriaControl" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ActividadTamano" Width="1.5" PointX="28.375" PointY="8.875" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadTamano_CatalogoGeneral" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ProyectoIssueComentario" Width="1.5" PointX="20.5" PointY="2.375" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ProyectoIssue" Width="1.5" PointX="17.375" PointY="0.5" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoIssue_CatalogoGeneral" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoIssue_CatalogoGeneral1" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoIssueComentario_ProyectoIssue" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.RiesgoEvaluacion" Width="1.5" PointX="3.375" PointY="3.75" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.RiesgoImpacto" Width="1.5" PointX="11.375" PointY="10.75" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.RiesgoProbabilidad" Width="1.5" PointX="3.375" PointY="15.75" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.Riesgo" Width="1.5" PointX="13.625" PointY="18.75" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_Riesgo_CatalogoGeneral" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_Riesgo_CatalogoGeneral2" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_Riesgo_RiesgoImpacto" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_Riesgo_RiesgoProbabilidad" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ProyectoRiesgoComentario" Width="1.5" PointX="28.125" PointY="18.75" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.AuditoriaActividadMejora" Width="1.5" PointX="30.375" PointY="19.5" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_AuditoriaActividadMejora_Auditoria" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ListaControlCorreo" Width="1.5" PointX="5.25" PointY="24.75" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ListaControlCorreo_ListaControl" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ProyectoRiesgo" Width="1.5" PointX="25.875" PointY="19.25" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoRiesgos_CatalogoGeneral" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoRiesgos_CatalogoGeneral2" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoRiesgoComentario_ProyectoRiesgo" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoRiesgos_Riesgo" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoRiesgos_RiesgoImpacto" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoRiesgos_RiesgoProbabilidad" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ProyectoRiesgoEstrategia" Width="1.5" PointX="31.125" PointY="14.875" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoRiesgoEstrategia_CatalogoGeneral" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoRiesgoEstrategia_ProyectoRiesgo" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ListaRevision" Width="1.5" PointX="22.875" PointY="0.75" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ListaRevisionDetalle" Width="1.5" PointX="29.875" PointY="9.75" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ListaRevision_CatalogoGeneral" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ListaRevision_CatalogoGeneral1" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ListaRevisionDetalle_ListaRevision1" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ActividadListaRevision" Width="1.5" PointX="33.375" PointY="11.875" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadListaRevision_ListaRevisionDetalle" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ActividadListaRevisionHallazgo" Width="1.5" PointX="35.625" PointY="13.5" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadListaRevisionHallazgo_ActividadListaRevision" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.TipoRepositorio" Width="1.5" PointX="21.375" PointY="7.125" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ProyectoRepositorio" Width="1.5" PointX="22.875" PointY="10.25" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ActividadRepositorio" Width="1.5" PointX="33.375" PointY="7.5" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadRepositorio_ProyectoRepositorio" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.UsuarioCosto" Width="1.5" PointX="7.375" PointY="24.75" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ProyectoCD" Width="1.5" PointX="25.875" PointY="0.75" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoCD_CatalogoGeneral" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ProyectoCI" Width="1.5" PointX="19.875" PointY="14" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoCI_CatalogoGeneral" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.Usuario" Width="1.5" PointX="9" PointY="8.125" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadArchivo_Usuario" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadDefecto_Usuario" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadListaRevision_Usuario" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadListaRevision_Usuario1" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadListaRevisionHallazgo_Usuario" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadListaRevisionHallazgo_Usuario1" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadLog_Usuario" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadRepositorio_Usuario" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadTamano_Usuario" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_AuditoriaControl_Usuario" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_Usuario_CatalogoGeneral" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ListaRevision_Usuario" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ListaRevision_Usuario1" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ListaRevisionDetalle_Usuario" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ListaRevisionDetalle_Usuario1" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_Usuario_Niveles" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoCD_Usuario" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoCD_Usuario1" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoCD_Usuario2" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoCI_Usuario" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoCI_Usuario1" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoIssue_Usuario" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoIssue_Usuario1" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoIssue_Usuario2" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoIssueComentario_Usuario" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoIssueComentario_Usuario1" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoRepositorio_Usuario" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoRiesgos_Usuario1" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoRiesgoComentario_Usuario" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoRiesgoComentario_Usuario1" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoRiesgoEstrategia_Usuario" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoRiesgoEstrategia_Usuario1" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_Riesgo_Usuario" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_Usuario_TipoUsuario" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_Usuario_Usuario" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_UsuarioAutorizacion_Usuario" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_UsuarioIncidencias_Usuario" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_UsuarioIncidencias_Usuario1" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_UsuarioPermisos_Usuario" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ActividadTrabajo" Width="1.5" PointX="35.625" PointY="9.75" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadTrabajo_Usuario" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoRiesgos_CatalogoGeneral1" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoRiesgos_Usuario" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ActividadIssue" Width="1.5" PointX="33.625" PointY="4.5" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadIssue_ProyectoIssue" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.LogEventos" Width="1.5" PointX="11.25" PointY="18.625" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_LogEventos_CatalogoGeneral" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_LogEventos_Usuario" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.UsuarioAsistencia" Width="1.5" PointX="11.25" PointY="21.625" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_UsuarioAsistencia_Usuario" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.NivelesHoras" Width="1.5" PointX="11.25" PointY="25.125" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_NivelHoras_Niveles" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_NivelHoras_NivelHoras" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_NivelHoras_Usuario" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.UsuarioCostoMensual" Width="1.5" PointX="22.375" PointY="14.75" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.UsuarioCostoDistribucion" Width="1.5" PointX="19.875" PointY="0.75" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_UsuarioCostoDistribucion_Usuario" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.UsuarioFeels" Width="1.5" PointX="11.25" PointY="2.125" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_UsuarioFeels_Usuario" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ProyectoUsuario" Width="1.5" PointX="16.875" PointY="10.375" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoUsuarios_Usuario" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.Pregunta" Width="1.5" PointX="12.625" PointY="32" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.PreguntaRespuesta" Width="1.5" PointX="14.875" PointY="24.125" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_PreguntaRespuesta_Pregunta" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_PreguntaRespuesta_Usuario" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ActividadTipoCampos" Width="1.5" PointX="31.125" PointY="27.25" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ActividadRelacion" Width="1.5" PointX="40.75" PointY="10.875" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.CicloPrueba" Width="1.5" PointX="28.875" PointY="23.625" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_CicloPrueba_Usuario" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.CicloPrueba_CasosPrueba" Width="1.5" PointX="36.375" PointY="11.25" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_CicloPrueba_CasosPrueba_CicloPrueba" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.FlujoPagoDet_Actividad" Width="1.5" PointX="33.375" PointY="16.5" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.FlujoPagoDetalle" Width="1.5" PointX="18.125" PointY="29.5" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_FlujoPagoDet_Actividad_FlujoPagoDetalle" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.FlujoPago" Width="1.5" PointX="15.875" PointY="27.875" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_FlujoPagoDetalle_FlujoPago" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.Proyecto" Width="1.5" PointX="13.625" PointY="0.75" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_Proyecto_CatalogoGeneral" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_Proyecto_CatalogoGeneral1" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_Proyecto_CatalogoGeneral2" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_CicloPrueba_Proyecto" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_Proyecto_Cliente" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_FlujoPagos_Proyecto" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ListaRevision_Proyecto" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ListaControlProyecto_Proyecto1" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_Proyecto_Usuario" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_Proyecto_Usuario1" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_Proyecto_Usuario2" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoCD_Proyecto" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoCI_Proyecto" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoIssue_Proyecto" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoRepositorio_Proyecto" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoRiesgos_Proyecto" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoUsuarios_Proyecto" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_UsuarioCostoDistribucion_Proyecto" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ActividadTipo" Width="1.5" PointX="25.875" PointY="12.75" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadTipoCampos_ActividadTipoCampos" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.Query" Width="1.5" PointX="0.75" PointY="26" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.QueryShare" Width="1.5" PointX="21.25" PointY="30.375" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_QueryShare_Query" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_QueryShare_Usuario" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_QueryShare_Usuario1" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ProyectoDocumentos" Width="1.5" PointX="19.875" PointY="0.75" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoDocumentos_Proyecto" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoDocumentos_Usuario" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoDocumentos_Usuario1" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.Plantilla" Width="1.5" PointX="24.25" PointY="28" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_Plantilla_CatalogoGeneral" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_Plantilla_Usuario" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_Plantilla_Usuario1" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ActividadComentario" Width="1.5" PointX="36.375" PointY="12.125" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.UsuarioComentario" Width="1.5" PointX="38.625" PointY="21.125" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadComentario_Usuario" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_UsuarioComentario_ActividadComentario" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_UsuarioComentario_Usuario" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ProyectoIteracionShare" Width="1.5" PointX="36.125" PointY="6.125" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoIteracionShare_Usuario" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoIteracionShare_Usuario1" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ProyectoIteracionComplete" Width="1.5" PointX="38.375" PointY="7.25" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoIteracionComplete_Usuario" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.ProyectoIteracion" Width="1.5" PointX="28.875" PointY="3.125" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoIteracion_Proyecto" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoIteracion_Usuario" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoIteracionComplete_ProyectoIteracion" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoIteracionShare_ProyectoIteracion" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.Actividad" Width="1.5" PointX="41.375" PointY="0.75" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_Actividad_ActividadTipo" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_Actividad_ListaRevision" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_Actividad_Proyecto" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_Actividad_ProyectoIteracion" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadArchivo_Actividad" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadComentario_Actividad" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadDefecto_Actividad" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadDependencia_Actividad" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadDependencia_Actividad1" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadIssue_Actividad" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadListaRevision_Actividad" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadLog_Actividad" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadRelacion_Actividad" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadRelacion_Actividad1" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadRepositorio_Actividad" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadTamano_Actividad" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadTrabajo_Actividad" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadTracking_Actividad" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ActividadValidaciones_Actividad" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_AuditoriaActividadMejora_Actividad" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_CicloPrueba_CasosPrueba_Actividad" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_CicloPrueba_CasosPrueba_Actividad1" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_FlujoPagoDet_Actividad_Actividad" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_ProyectoIteracionComplete_Actividad" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.WorkFlow" Width="1.5" PointX="31.125" PointY="4" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_Actividad_WorkFlow" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_WorkFlow_ActividadTipo" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_WorkFlow_Proyecto" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.WorkFlowConfig" Width="1.5" PointX="20.375" PointY="25.75" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.WorkFlowConfigDetail" Width="1.5" PointX="3.375" PointY="27.75" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.Views" Width="1.5" PointX="5.375" PointY="29.375" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.WorkSpace" Width="1.5" PointX="11.25" PointY="36.5" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_WorkSpace_Usuario" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_WorkSpace_Usuario1" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.WorkSpaceShare" Width="1.5" PointX="13.5" PointY="27.75" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_WorkSpaceShare_Usuario" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_WorkSpaceShare_Usuario1" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_WorkSpaceShare_WorkSpace" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.WorkSpaceTabs" Width="1.5" PointX="15.5" PointY="32.75" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_WorkSpaceTabs_Usuario" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_WorkSpaceTabs_WorkSpace" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.Widget" Width="1.5" PointX="7.375" PointY="28.75" />
+        <EntityTypeShape EntityType="BDProductividad_DEVModel.WorkSpaceTabsFile" Width="1.5" PointX="26.75" PointY="28.25" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_WorkSpaceTabsFile_Usuario" />
+        <AssociationConnector Association="BDProductividad_DEVModel.FK_WorkSpaceTabsFile_WorkSpaceTabs" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

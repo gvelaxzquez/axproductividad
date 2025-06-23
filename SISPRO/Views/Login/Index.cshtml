@@ -1,0 +1,207 @@
+﻿
+
+@{
+    Layout = null;
+    var nombresistema = ViewBag.NombreSistema;
+    ViewBag.Title = "Login";
+}
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YITPRO | Login</title>
+</head>
+
+<div id="react-root">
+    <div id="login">
+
+    </div>
+
+</div>
+
+<!-- Incluye React, ReactDOM y el archivo bundle.js -->
+<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+
+
+@{
+    Random rnd = new Random();
+    <script src="~/wwwroot/js/bundle-login.js?@rnd.Next()"></script>
+
+}
+
+
+
+
+
+@*<!DOCTYPE html>
+
+    <html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> @ViewBag.NombreSistema | Login</title>
+
+        <link rel="stylesheet" type="text/css" id="theme" href="~/Content/theme-default.css?V1.1" />
+        <link rel="stylesheet prefetch" href="~/Content/font-awesome.min.css" />
+        <link rel="stylesheet" href="~/Content/Project/Login.css?V1.1">
+        <link rel="stylesheet" href="~/Content/Project/Mensajes.css" />
+        <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/Content/please-wait.css" />
+        <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+
+
+
+    </head>
+
+    <body>
+
+
+        <div class="mensajes"></div>
+        <div class="containerlogin">
+            <div class="formlogin">
+                <div class="thumbnail">
+                    <img src="~/Content/Project/Imagenes/LogoPrincipal.png" />
+                </div>
+                <div class="row login-main" id="Login">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <form class="login-form " id="frmLogin">
+
+                            <div>
+                                <h5> <b>Inicia sesión con tú cuenta</b></h5>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12" style="padding-top:1em;">
+                                <input id="TxtUsuario" type="email" class="form-control" placeholder="Usuario" name="Usuario" required />
+                                <br />
+                                <input id="TxtContrasena" type="password" class="form-control" placeholder="Contraseña" name="Contrasena" required />
+                                <br />
+                                <div class="pull-left" style="padding-bottom:1em">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="ChkRecordar">
+                                        <label class="form-check-label" for="ChkRecordar" id="TextoRecordarContrasena">
+                                            Recordar credenciales
+                                        </label>
+                                    </div>
+
+                                </div>
+                                <br />
+                                <button id="BtnLogin" class="btnLogin">Continuar</button>
+                                <br /><br />
+
+
+                                <br />
+                                <br />
+                                <a style="cursor:pointer;" onclick="IrRecuperar();">¿Olvidó su contraseña?</a>
+                            </div>
+                        </form>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="row login-main" id="Recuperar" hidden>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <form class="login-form" id="frmRecuperar">
+
+                            <div>
+                                <h5> <b>Ingresa tu cuenta de correo</b></h5>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12" style="padding-top:1em;">
+                                <input id="TxtUsuarioRecuperar" type="email" class="form-control" placeholder="Usuario" name="UsuarioRecuperar" required />
+                                <br />
+                                <button id="BtnRecuperar" class="btnLogin">Enviar correo recuperación</button>
+                                <br /><br />
+                                <br />
+                                <br />
+                                <a style="cursor:pointer;" onclick="RegresaLogin();">Regresar a inicio de sesión</a>
+
+                            </div>
+                        </form>
+
+                    </div>
+
+
+                </div>
+
+                <div class="row login-main" id="Confirmar" hidden>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <form class="login-form" id="frmConfirmar">
+
+                            <div>
+                                <h5 id="mensajeconfirma"> Te enviamos la información de acceso</h5>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12" style="padding-top:1em;">
+
+                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAABmJLR0QA/wD/AP+gvaeTAAAOSUlEQVR4nO2dfXSU1ZnAf/edzIQA0bBQ+bB+YEQrUEXqQTfqbs6eXVuVzORjZtZq1aVbqctxRa1i134Y6oIVZFW2LZt2z5aDpx6dmZDMBLHHbqtdQV3tQgARMGL4qAkpxCIfCUwy77N/zGeSSZiZvPPOBPI7J+fkvu/N89y8z9x7n/u8z70Do+QVylBpDs+XEe3vUGI1VG6+IqoHpf8Gv3uHUSKNM0h1/VRCshcoMkzmyKCbHv0yNroPGSFMM0IIABK6gnPPGABFFHKlUcIKjBKEqMTedhKlNhomOx8RuQ0YF/5dGTbSGGeQvhymscadJdn5gcPXStQgBmLckDWKIWSrh6ROhediLHwh180AIMRhmtwHctmE3BrE4V0E6ieIwe53pmgIdt8iAs7/yF0Tcoqqxui10PBQKJy5bECuhyxL9JeCggI0LTefD13X6e3tHdCmXJBrg8SYe+0cpl96SU50t+7bz3vv/yEnuvsz6mXlGaMGyTPyZsjasrWZ5m3bc6Jb1/Wc6E1Grg0Siv6SMKnmmpw2JLdDlqIekJy2oS8C4stlA3LbQxqda3A0bkAFL8hpO6KI7U/4Kw/msgm5HrKIPICcPoR8YtTLyjPM6yHlbxRwfucPUOoq03Qagv4hVnkKrzt05rrDxzyDnHfECeqHSD7N4amgIKjtAl4xQ5t5Q5aGIe+cc4LQbpYq83pIo+tNqjzlhLR5KBkZc5coHdT/Eqj5H7NUmutlNbh/D/zeVJ0jDPMMYvdPRvX8Gphjmk5jaEbTvkpD9Z/MUGbiHNI7n5FnDIA5hPT5ZikzzyCh0O9AOkzTZxyH0Cy/M0uZeUNWk7uVhXUX0TnpItN0GsHEIwf5+bd7zFJn7qTeNvFSLFyD6Pn0Hn1wlCYcmqABH5ul0sRJ3XcdindACjAu0S/LCCith4r6G2iq2WKGRvPmECUzyYdgZvpYsTDLLGXmPSCbeAlq5cDVpuk0hu1YQ6a9IzHPIF53N/BN0/SNUMwzSG2txtbZixG+lHVdis/oPb2CV+/6c9Z1GczgBllYZ+XT8eNTliSqeMj7zbOrgH8zLU+xoHAssNgUXaKKuf1XE1Kuf+GJE4O50n0NUv5GAed13o/iPjq42tj+I8fNzRpVJ0xUFqCgMPXaHYWCw7cDpA6b1CW+a4k/8vJfjuH8zkbgq0a2NEaj63UqvJVYuB7Jds6o3kpw7Nrs6hgWCrga1E8JUsGtGyt57bbTkGiQkuKVSJaMEaXJ5Qf8WdUx4lBfo7DrGeAhiBrE7p+M9NwfrXLhtGl8efYsiorGpCz2yJFO3tr8tsGNHRncfGMZkyZNTLl+d/cpduzcyaeftoUvCItweZbhdR8OG0T1lhMxTlFREWU3XI9mSW9UKbCmMOFU1M9FyVfQRshSXRcB/kDAuXWoagXWAmw2W8pibTYbf3n9PF597dd0d58CsHJalQPeyFOUydHKE0pK0jZGSji8ZSCbADVi3quHPzY6VZ6baHC/Y6Roi8XChJISursjb7Y1bQpEQydKxSygsvXhFaaTX5tzUkVDt0zPhuCExw6RfSnmLQwLxctprkOp2abpNIYd2HIYOjl69Chtbe1MmzrV2M+z1x0EHjZQ4shFoK29naNHjw64NcAgJ7u6eGvz2xQXj+fy0lIuv+wyY+aU0UQ5dNE5cOAgu3d/xOfHjiWtM+iQdfz4CbY2b2PX7j2Ulk7nyhkzsFqHcabMOZwo19vbyyet+9jzUQtdXV1D1k1mkOOETyjQAE6dOsXOnbtoadnLjBmlzCgtpbAwjTBBFI1DebXxIB0yTJQ7ffo0LXv30tKyl2Aw2P+2DpwE+sQAkxnktyjLo0joQWAhMAYgGAyyc+cudu3aw8UXfZFZM69ifBqxx3MpUe5kVxcffdTCJ637km1ECgKvoGlPo+vLgcrEm8mHrMaqvcBi7P7laMF/QtRioATC27/27T/A/v0HmTp1CrNnXcWECSkGOs/yRLnPjx1j9+49HDjwR3QZsE3uBPBfWNRK1tf8EQDHQOdtaLc34OgAaqlseB7pXQQ8CGoygCC0tbfTdqidaVOmnjl0YG6i3CEQN37XWyboorPzM/bsaaHtUHuS/WDSAaxGFfyMxqqBblU/UluHhAUt59aNq7Cd/HtQT0DkjKiIC9fWfoZhVuudj5iWKDcF1H2AKQbZvuODZJf3ITyPjPkFTRVDz+QJpDeWv3bbafyuddj0WYh8HRgsxjMJu+9eFtbF3TJzE+WC6FKfFckL66zYffcCkwap0YzI17HplxNwvpCOMSDTlXrYJ38ZeJkqz02EtMdRJKZbjkexlo6JP6bSW4dVnsNrYqJcV/cRXvtGckc/U25ZN44xY79FB4+guDhJjc3AM/hrNoDK2J8cfuikwb0J2ITddy2Kh4E7iZ8XMgVRTxJUD+PwreWI+jHraz4Ztk4zqXhpEhbrA4h6AOg/UeoIG7Hoy40KPhoXywqHqO+hsmFpf5cZOA94kJB8G4fPQ4in2OBsMUx3Nqiuv4SQPAL8IzLg5Li469pQvctItcYHF4dwmYFC4G4s3IXdtxFYSsCZH6e+RKlaPxtdX0JI7gD6hyYGuq4Gk71ob9RltvtXQc83UbIE1LTIXS0y58zH4YuMvc6mrLUlFaJzoa7fTv+wqnAYTX6GVVbjdX+WzWZkP/wecBwHXqD8l3WcX/w+0D/8fiMQwOF7G1HPEKhuGs6kmB6isK+vQMnj6JQNEt3eSKHujCT6ZR3z3odMGHc9eh9jtAKJL37KUOLHUf8h4lvBlM6XsrYNYGGdlUMT70TVLwFmJqnRSXwC/ytClhLAFIOYE1OqrdXQtWcTrryLv6YUTb8ZYUO/2jMjLvMBKr21uDznG9aOW9aNw+5bTMfEj1GsZaAxNgN2gqcuS1gzjadXnjKsDWfAHINsmX03cF2kJIh6FJTQ4N5EwFmBMBd4kYTTgYi5zNoBHL4XqK6fmrH+ipcmUemtpWjsfhTPQ591hI6wAU0vw++8Cb+zKbKG+VGshmIBFfVzM9afBtk3iMtThEr451CvEKjZ3KdOwLkVv/MelOVKYDVwKuFu1GVuxeFbx3zfjJR1V9dfgsP3ApptH6KepO86Igi8iKbNJuCsGLCOsEkdsDNS0rDoK1PWOwyyb5Ae9SjxT2QQpX1/0LqNVXvxOxcj1ktRshRIDMZFXebd2H1N2H3XDSIl7Lo6fOsISQvwIH1PoD4BrMaiSvE77xl0HeF1h9Dku7GyqL/B4bttyP/VALJrELt/cnh4iqKei6xThibg6KDRVYtYL0Z4CKQt4W7YZVa8j8O3CYevInanynMTdl8Tur4duJvEdYRwGCVLsemX4HcuTmkd0eDagJLfJFxZRfkbWXWEsutlqd5/JTzkhB9IYejptP4+0WUuKV6A8B2gNKFG3GUGkrquwidoPItNX5uR66osjyH6FsIf3i9R0nkfsCZtOSmSvR5i910NsiBWVlKL1/15RrLeXHCKRucarv3gCsAO6r1+NcoiP4lsB7mXYxOvpNG5JuN1REP1tohHFkZnqaGeXz+y10MUK4kHGXcz+bNfDFtmba0ONAFNg0SZwaCoax906xOoHhdQjOILBLXvAv9iiOx+ZKeHVHpvBW6Ja5HHDF/kRV1mXc0D1gJr0dW8mOtq5Go/HAZKXEc9RHV9Vk59Nr6HuDwWgmpFwpU3aHD1X/wZR1PN+8CCM9YbLjZ9JUHtW8BFwBh65WnCrxoMxfge0qMtJB6v0tETvawRjNfdjVI/jJUVd2Cvv9FoNcYaxO4vRkhs9FqzNtybwpwd60D9X6SkUPIsiKEJ5MYaRPU8AUyJlLqQglpD5eea2lodpSf2+BtwrK8xUoVxBqmu/yLhVXGUZ3J9Bm5WaHS9CRKIX5AV3Loxg1TO5BhnkF5ZAYyNlD6lu2uVYbLzDZElQNRrnE5h9wNGiTbGIJWeeSjuiJWF7/H6PScNkZ2PBNx7QOJfiyTyfSpeGiwtKC2MMYhozxJ97SlsY+4HLxoiN5/pDT4JRF/nlqDZfmCE2OEbxFHvBG6OlZV6NLKiPrt59a4/gyTG5hbh8CR7+5gWwzOIy2NDyfL4BQngr/nvYbZp5GCT1cQPNytAacuHqp4KwzNIj+WfEaIvjHpBshLfyVu87iAiT8TKggNH/d8OR2TmBrn9VxP6NAZZg9/94XAaMyIJuLyI2hS/ICuprc34uWZukILCWuAvIqWj6D0/Gqr6WY0W+g7xjQhzIjkEmYnK6K8qG0qB++MXZBlNdx7JtBEjnkb3e6DiexAVy7hlXUZfXJxhDwmtAqJnSbQSHPfvmck5m7AsAaJbDy5kbNEjmUhJ3yBVnr9GcMTKIo9HjxY6p/FXHgQV/2CKWpJJ6lJ6BkmW8BZw5vRLtPIKKVgGsa/lyCjBLj2DbJ31DZIlvI0SJuA43icHLYMEu9QN4vIUgYpbXHh5QMLbKGDVf84wEuxSN0j/hDfNYkjs5qzD6w4h6vFYOc0Eu9QMUrX+gowS3s5VAjWvAq8nXEk5wS41g+iyjMSEN1uaCW/nIsJjxJPHowl2Z+TMBnF4ZoL8Q8JfPJlxwtu5RMC5HUk/wS6FHqI9RzxdaDcXdP5nhk08B7F+j/BhPiQk2A1J2CC6JOzpju0DBPv6r5HthLezmYCjAyWJXla/BDsV37Mv+ucQNYio5nglmUelz43LY0HpiYvA32Y14e1sJTRmFRDNtI8m2IGj/k6Qr8TqaZYtENttKgrH+ndB5kVuC4qPE951AOo9FPuz3PyzE5FrgCuiJWAbcA2x56/ewV9TRvwCkclbexvIWmb3KEk5iqaVRTcOxSd1v/tD0MuAd3PVsnMP9U6iMWCwc0crPXPAMgfRJye9P8rwUFoHhJppdDefufIoOeX/AYgy2EwANDPMAAAAAElFTkSuQmCC">
+                                <br />
+                                <br />
+                                <br />
+                                <a style="cursor:pointer;" onclick="RegresaLoginConf();">Regresar a inicio de sesión</a>
+
+                            </div>
+                        </form>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <br /><br /><br /><br />
+                <div class="pull-left">
+                    ©@DateTime.Now.Year - Axsis tecnología
+                </div>
+            </div>
+
+            <script src="~/Scripts/jquery.min.js"></script>
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+            <script src="~/Scripts/Project/Mensajes2.js"></script>
+            <script src="~/Scripts/bootstrap.min.js"></script>
+            <script src="~/Scripts/please-wait.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+            <script language="javascript" type="text/javascript">
+            function CargaLoading() {
+                window.loading_screen = window.pleaseWait({
+                    logo: "@Url.Content("~/Content/Project/Imagenes/LogoPrincipal.png")",
+                    backgroundColor: 'rgba(255,255,255,0.8)',
+                    immediately: true,
+                    loadingHtml: "<i class='fa fa-rotate-right fa-spin text-default'></i><p class='loading-message'>Cargando...</p>"
+                });
+            }
+            </script>
+
+
+
+            @{
+                Random rnd = new Random();
+                <script src="~/Scripts/Project/Login.js?@rnd.Next()"></script>
+                <script src="~/Scripts/Project/FuncionesGenerales.js?@rnd.Next()"></script>
+
+            }
+
+
+
+        </div>
+        @Html.Hidden("urlLogin", @Url.Action("Login", "Login"))
+        @Html.Hidden("urlHome", @Url.Action("Index", "Home"))
+        @Html.Hidden("urlRecuperarPass", @Url.Action("RecuperarContrasena", "Login"))
+
+    </body>
+
+    </html>*@
+

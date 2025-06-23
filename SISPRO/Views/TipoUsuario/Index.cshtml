@@ -1,0 +1,216 @@
+﻿
+@{
+    ViewBag.Title = "Tipos de usuarios";
+}
+
+<div class="page-title">
+    <h2><span class="fa fa-users"></span> Tipos de usuarios</h2>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div>
+                    <button class="btn btn-success pull-right" id="BtnNuevo">Nuevo</button><br /><br />
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table datatable text hide" id="TblTipoUsuario">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th class="col-md-4 col-xs-12">Tipo</th>
+                                <th>Activo</th>
+                                <th>Protegido</th>
+                                <th>Permisos</th>
+                                <th>Editar</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script type="text/javascript" src="~/Scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>
+    <script src="~/Scripts/Project/TipoUsuario.js"></script>
+</div>
+
+@* Modal para editar o guardar los tipos de usuario *@
+<div class="modal" id="ModalEditarTipoUsuario" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="defModalHead">Tipo de usuario</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <div>
+                                    <label class="col-md-3 col-xs-12 control-label " for="TxtNombre">Tipo de usuario</label>
+                                    <div class="col-md-8 col-xs-12">
+
+                                        <input type="text" class="form-control ReqTipoUsuario" id="TxtNombre" maxlength="200" item="Tipo de usuario"/>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Activo</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <label class="switch switch-small" for="ChkActivo">
+                                        <input type="checkbox" checked  id="ChkActivo" />
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Protegido</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <label class="switch switch-small" for="ChkBloqueado">
+                                        <input type="checkbox" checked id="ChkBloqueado"/>
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="BtnGuardar">Guardar<span class="fa fa-floppy-o fa-right"></span></button>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+
+@* Modal para editar o guardar los permisos de tipos de usuario *@
+<div class="modal" id="ModalPermisosTipoUsuario" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="largeModalHead">Permisos de tipo de usuario</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <form class="form-horizontal">
+                            <div class="table-responsive">
+                                <table class="table table-condensed" id="TblPermisos">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th class=" col-md-4 col-xs-12">
+                                                Pantalla
+                                            </th>
+                                            <th>
+                                                <label class="switch switch-small">
+                                                    <input type="checkbox" checked id="ChkDAcceder" />
+                                                    <span></span>
+                                                </label>Acceder
+                                            </th>
+                                            <th>
+                                                <label class="switch switch-small">
+                                                    <input type="checkbox" checked id="ChkDGuardar" />
+                                                    <span></span>
+                                                </label>Guardar
+                                            </th>
+                                            <th>
+                                                <label class="switch switch-small">
+                                                    <input type="checkbox" checked id="ChkDEditar" />
+                                                    <span></span>
+                                                </label>Editar
+                                            </th>
+                                            <th>
+                                                <label class="switch switch-small">
+                                                    <input type="checkbox" checked id="ChkDImprimir" />
+                                                    <span></span>
+                                                </label>Imprimir
+                                            </th>
+                                            <th>
+                                                <label class="switch switch-small">
+                                                    <input type="checkbox" checked id="ChkDEliminar" />
+                                                    <span></span>
+                                                </label>Eliminar
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+
+                                        <tr>
+                                            <td>Usuarios</td>
+
+                                            <td>
+                                                <label class="switch switch-small">
+                                                    <input type="checkbox" checked value="0" />
+                                                    <span></span>
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label class="switch switch-small">
+                                                    <input type="checkbox" checked value="0" />
+                                                    <span></span>
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label class="switch switch-small">
+                                                    <input type="checkbox" checked value="0" />
+                                                    <span></span>
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label class="switch switch-small">
+                                                    <input type="checkbox" checked value="0" />
+                                                    <span></span>
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <label class="switch switch-small">
+                                                    <input type="checkbox" checked value="0" />
+                                                    <span></span>
+                                                </label>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="BtnGuardarPermisos">Guardar<span class="fa fa-floppy-o fa-right"></span></button>
+            </div>
+        </div>
+    </div>
+
+
+    <input type="hidden" id="IdTipoUsuario" value="0" />
+
+    <input type="hidden" id="urlCargaInicial" value="@Url.Action("CargaInicial","TipoUsuario")" />
+    <input type="hidden" id="urlConsultarDatosTU" value="@Url.Action("ConsultarDatosTipoUsuario", "TipoUsuario")" />
+    <input type="hidden" id="urlGuardarDatosTU" value="@Url.Action("GuardarDatos","TipoUsuario")" />
+    <input type="hidden" id="urlConsultarPermisoTU" value="@Url.Action("ConsultarPermisos","TipoUsuario")" />
+    <input type="hidden" id="urlGuardarPermisosTU" value="@Url.Action("GuardarPermisos","TipoUsuario")" />
+
+</div>

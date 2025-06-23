@@ -1,0 +1,296 @@
+﻿
+@{
+    ViewBag.Title = "Informe de asistencia";
+}
+
+
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.4.0/css/buttons.dataTables.min.css" />
+
+@*<div class="page-title">
+
+    <h3><span class="fa fa-clock-o"></span> Reportes de asistencia</h3>
+
+</div>*@
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="panel panel-default tabs">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="active"><a href="#tab-diario" role="tab" data-toggle="tab">  Diario</a></li>
+                <li><a href="#tab-mensual" role="tab" data-toggle="tab"> Mensual </a></li>
+
+            </ul>
+        </div>
+        <div class="panel-body tab-content">
+            <div id="tab-diario" class="tab-pane active">
+                <div class="row" style="padding-bottom:15px;">
+
+                    <div class="col-md-3">
+                        <input type="text" id="TxtRangoFechasRDA" item="Fecha" class="form-control DateRangePicker col-xs-10" style="width: 83.33333333% !important;" />
+                        <span class="input-group-addon col-xs-1"><span class="glyphicon glyphicon-calendar"></span></span>
+
+                    </div>
+                    <div class="col-md-6">
+                        <label for="SelRecurso">Recurso</label>
+                        <select data-width="80%" class="selectpicker" data-live-search="true" id="SelRecursosRDA" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--"></select>
+                    </div>
+                    <div class="col-md-1">
+
+                        <button class="btn btn-default" id="BtnFiltrarRDA">
+                            <i class="fa fa-search">
+
+                            </i>
+                        </button>
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="row">
+
+
+                    <div class="col-md-6 col-xs-12">
+                        <a href="#" onclick="VerRetardos();">
+                            <div class="widget widget-default widget-item-icon">
+                                <div class="widget-item-left">
+                                    <span class="fa fa fa-clock-o"></span>
+                                </div>
+                                <div class="widget-data">
+                                    <div class="widget-int num-count" id="wRetardos">0</div>
+                                    <div class="widget-title">Retardos</div>
+
+                                </div>
+
+                            </div>
+                        </a>
+
+
+
+                    </div>
+                    <div class="col-md-4 col-xs-12">
+                        <a href="#" onclick="VerIncidenciasRDA();">
+                            <div class="widget widget-default widget-item-icon">
+                                <div class="widget-item-left">
+                                    <span class="fa fa-exclamation-circle"></span>
+                                </div>
+                                <div class="widget-data">
+                                    <div class="widget-int num-count" id="wIncidencias">0</div>
+                                    <div class="widget-title">Incidencias</div>
+
+                                </div>
+
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+                <br />
+
+                <br />
+
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">
+                        <div class="table-responsive">
+                            <table class="table datatable text" id="TblAsistenciaDiaria">
+                                <thead>
+                                    <tr>
+
+                                        <th></th>
+                                        <th width="15%">Nombre</th>
+                                        <th width="5%">Fecha</th>
+
+                                        <th width="12%">Hora Entrada</th>
+                                        <th width="12%">Hora Salida </th>
+                                        <th width="12%">Hora Entrada </th>
+                                        <th width="12%">Hora Salida </th>
+                                        <th>Tiempo retraso </th>
+                                        <th>Tiempo comida </th>
+                                        <th>Tiempo trabajado </th>
+                                        <th width="5%">Incidencias</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+            <div id="tab-mensual" class="tab-pane">
+                <div class="row" style="padding-bottom:15px;">
+
+                    <div class="col-md-2">
+                        <label for="SelAnioRMA">Año</label>
+                        <select data-width="80%" class="selectpicker" data-live-search="true" id="SelAnioRMA" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--">
+
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
+                            <option selected="selected" value="2023">2023</option>
+                            <option value="2024">2024</option>
+                        </select>
+
+                    </div>
+                    <div class="col-md-2">
+                        <label for="SelMesRMA">Mes</label>
+                        <select data-width="80%" class="selectpicker" data-live-search="true" id="SelMesRMA" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--">
+                            <option selected="selected" value="-1">--Seleccione--</option>
+                            <option value="1">Enero</option>
+                            <option value="2">Febrero</option>
+                            <option value="3">Marzo</option>
+                            <option value="4">Abril</option>
+                            <option value="5">Mayo</option>
+                            <option value="6">Junio</option>
+                            <option value="7">Julio</option>
+                            <option value="8">Agosto</option>
+                            <option value="9">Septiembre</option>
+                            <option value="10">Octubre</option>
+                            <option value="11">Noviembre</option>
+                            <option value="12">Diciembre</option>
+
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="SelRecurso">Recurso</label>
+                        <select data-width="80%" class="selectpicker" data-live-search="true" id="SelRecursosRMA" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--"></select>
+                    </div>
+
+                    <div class="col-md-1">
+
+                        <button class="btn btn-default" id="BtnFiltrarRMA">
+                            <i class="fa fa-search">
+
+                            </i>
+                        </button>
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="row">
+
+
+                    <div class="col-md-6 col-xs-12">
+                        <a href="#" onclick="VerRetardos2();">
+                            <div class="widget widget-default widget-item-icon">
+                                <div class="widget-item-left">
+                                    <span class="fa fa fa-clock-o"></span>
+                                </div>
+                                <div class="widget-data">
+                                    <div class="widget-int num-count" id="wMRetardos">0</div>
+                                    <div class="widget-title">Retardos</div>
+
+                                </div>
+
+                            </div>
+                        </a>
+
+
+
+                    </div>
+                    <div class="col-md-4 col-xs-12">
+                        <a href="#" onclick="VerIncidenciasRMA();">
+                            <div class="widget widget-default widget-item-icon">
+                                <div class="widget-item-left">
+                                    <span class="fa fa-exclamation-circle"></span>
+                                </div>
+                                <div class="widget-data">
+                                    <div class="widget-int num-count" id="wMIncidencias">0</div>
+                                    <div class="widget-title">Incidencias</div>
+
+                                </div>
+
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+                <br />
+
+                <div class="row" style="padding-bottom:10px;">
+                    <div class="col-md-12">
+                        <div class="btn-group ">
+                            <a class="btn btn-info" id="BtnVerAcumulado">Acumulado</a>
+                            <a class="btn btn-default" id="BtnVerMes">Asistencia mensual</a>
+
+                            <a class="btn btn-default" id="BtnVerMesHoras">Asistencia mensual horas</a>
+                        </div>
+
+                    </div>
+                </div>
+
+                <br />
+
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">
+
+                        <div id="divAcumulado">
+                            <div class="table-responsive">
+                                <table class="table datatable text" id="TblAsistenciaMesResumen">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th width="15%">Nombre</th>
+                                            <th>Tiempo trabajo</th>
+                                            <th>Retrasos </th>
+                                            <th>Tiempo Retrasos </th>
+                                            <th>Imprimir</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+
+                            </div>
+                        </div>
+
+                        <div id="divMes">
+                            <div class="table-responsive">
+                                <table class="table datatable text" id="TblAsistenciaMes">
+                                </table>
+
+                            </div>
+                        </div>
+
+                        <div id="divMesHoras">
+                            <div class="table-responsive">
+                                <table class="table datatable text" id="TblAsistenciaMesHoras">
+                                </table>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+<script type="text/javascript" src="~/Scripts/moment.js"></script>
+<script type="text/javascript" src="~/Scripts/moment-with-locales.min.js"></script>
+<script type="text/javascript" src="~/Scripts/Project/InformeAsistencia.js"></script>
+
+@Html.Partial("~/Views/Usuarios/Incidencias.cshtml")
+@Html.Partial("~/Views/Usuarios/Retardos.cshtml")
+
+<input type="hidden" id="urlObtenerReporteAsistenciaDiario" value="@Url.Action("ObtenerReporteAsistenciaDiario","Report")" />
+<input type="hidden" id="urlObtenerReporteAsistenciaMensual" value="@Url.Action("ObtenerReporteAsistenciaMensual","Report")" />
+@Html.Hidden("urlObtenerInformeAsisenciaPDF", Url.Action("InformeAsistenciaPDF", "Report"))
+
+<input type="hidden" id="urlInicializar" value="@Url.Action("Inicializar","Home")" />

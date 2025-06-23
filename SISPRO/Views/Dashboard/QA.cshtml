@@ -1,0 +1,247 @@
+﻿
+@{
+    ViewBag.Title = "QA Center";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/easypiechart.min.js"></script>
+<script src="~/Scripts/jquery.easypiechart.min.js"></script>
+<div class="container-fluid">
+    <div class="filter-settings">
+        <div class="filter-settings-icon"><span class="glyphicon glyphicon-filter"></span></div>
+        <h5>Filtrar</h5>
+        <div class="filter-settings-row">
+            <label for="SelAnioKPI">Año</label>
+            <select class="form-control selectpicker ReqFiltroCons" id="SelAnioKPI" item="Año">
+            </select>
+        </div>
+        <div class="filter-settings-row">
+            <label for="SelMesKPI">Mes</label>
+            <select class="form-control ReqFiltroCons selectpicker" id="SelMesKPI" item="Mes">
+                <option selected="selected" value="-1">--Seleccione--</option>
+                <option value="1">Enero</option>
+                <option value="2">Febrero</option>
+                <option value="3">Marzo</option>
+                <option value="4">Abril</option>
+                <option value="5">Mayo</option>
+                <option value="6">Junio</option>
+                <option value="7">Julio</option>
+                <option value="8">Agosto</option>
+                <option value="9">Septiembre</option>
+                <option value="10">Octubre</option>
+                <option value="11">Noviembre</option>
+                <option value="12">Diciembre</option>
+
+            </select>
+        </div>
+        <div class="filter-settings-row">
+            <label for="SelProyectosF">Proyecto</label>
+            <select class="form-control selectpicker ReqFiltroCons" id="SelProyectosQAF" item="Proyecto">
+            </select>
+        </div>
+
+        <div class="filter-settings-row">
+            <button class="btn btn-default" id="BtnFiltrarKPIS">Aplicar</button>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+
+        <div class="col-md-3 col-xs-12">
+            <div class="panel panel-default projectcard" style="min-height:408px;">
+                <div class="panel-body profile">
+                    <div class="row headerproyecto">
+                        <div class="col-md-12">
+                            <h4>Indicadores de calidad</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+
+                    <div class="col-md-6">
+
+
+
+                     <span class="chart ccalidadmes " data-percent="0">
+                            <span class="percent"></span><br>
+                            <p>Mes actual</p>
+                        </span>
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <span class="chart ccalidadanual" data-percent="0">
+                            <span class="percent"></span><br>
+                            <p>Anual</p>
+                        </span>
+
+                    </div>
+
+
+                    <h5><b>Total defectos</b></h5>
+                    <div class="mx-0 row">
+
+                        <div class="border-end border-all py-3 col-md-6">
+                            <h4 class="fw-normal text-600" id="LblDefectosMes"></h4>
+                            <h5 class="text-500 mb-0">
+                                Mes
+                            </h5>
+                        </div>
+                        <div class="border-all py-3 col-md-6">
+                            <h4 class="fw-normal text-600" id="LblDefectosAnual"></h4>
+                            <h5 class="text-500 mb-0">Anual</h5>
+                        </div>
+    
+                    </div>
+
+                    <h5><b>Horas dedicadas</b></h5>
+                    <div class="mx-0 row" style="padding-bottom:5px;">
+
+                        <div class="border-end border-all py-3 col-md-6">
+                            <h4 class="fw-normal text-600" id="LblDensidad"></h4>
+                            <h5 class="text-500 mb-0">Mes</h5>
+                        </div>
+                        <div class="py-3 col-md-6 border-all">
+                            <h4 class="fw-normal text-600" id="LblDensidadAnual"></h4>
+                            <h5 class="text-500 mb-0">Anual</h5>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+
+
+            </div>
+
+
+
+        </div>
+        <div class="col-md-9 col-xs-12">
+            <div class="panel panel-default projectcard" style="min-height:350px;">
+                <div class="panel-body profile">
+                    <div class="row headerproyecto">
+                        <div class="col-md-12">
+                            <h4>Últimos 12 meses</h4>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-12">
+                    <div id="GraficaCalidad">
+
+                    </div>
+                    <div id="scriptsCalidad">
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-md-8 col-xs-12">
+            <div class="row">
+                <div class="panel panel-default projectcard" style="min-height:350px;">
+                    <div class="panel-body profile">
+                        <div class="row headerproyecto">
+                            <div class="col-md-12">
+                                <h4>Estatus de casos de prueba</h4>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-md-12">
+                        <div id="GraficaEstatusCP">
+
+                        </div>
+                        <div id="scriptsEstatusCP">
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="row">
+              
+                    <div id="GraficaPQA">
+
+                    </div>
+                    <div id="scriptsPQA">
+
+                    </div>
+
+             
+            </div>
+
+
+        </div>
+
+        <div class="col-md-4 col-xs-12">
+
+            <div class="panel panel-default  projectcard" style="min-height:408px;">
+                <div class="panel-body profile">
+                    <div class="row headerproyecto">
+                        <div class="col-md-12">
+                            <a href="@Url.Action("Index", "QA")">  <h4 id="tCC">Ciclos activos</h4></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12" id="colSprints" style="max-height:1200px; overflow:scroll;">
+                            <table class="table " id="">
+                                <thead>
+                                <tbody id="tblCasosPrueba">
+                                    <tr>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+
+    </div>
+
+
+</div>
+<input type="hidden" id="urlRun" value="@Url.Action("Run","QA")" />
+@{
+    Random rnd = new Random();
+    <script src="~/Scripts/Project/QADashboard.js?@rnd.Next()"></script>
+ 
+
+}
+

@@ -1,0 +1,89 @@
+﻿@{
+    ViewBag.Title = "Riesgos y oportunidades";
+}
+
+<link rel="stylesheet" href="~/Content/jquery.powertip.css" />
+
+<div id="modulo-riesgos">
+    <div class="page-title">
+        <h2><span class="fa fa-exclamation-triangle"></span> Riesgos y oportunidades</h2>
+    </div>
+    <div class="form-horizontal col-md-12" style=" display: flex; justify-content: space-between;">
+        <div class="form-group col-md-6">
+            <label for="cmbFiltroProyecto" class="col-md-2 control-label">Proyecto</label>
+            <div class="col-md-10">
+                <select class="form-control cmbFiltroProyecto" style="max-width: none" id="">
+                </select>
+            </div>
+        </div>
+        <div class="form-group col-md-1">
+            <div class="col-md-12" style="text-align:start">
+                <button class="btn btn-info btnFiltrar" id=""><span class="fa fa-search"></span></button>
+            </div>
+        </div>
+        <div class="col-md-offset-3  col-md-2" style="text-align:end">
+            <button class="btn btn-primary btnExportar" id="" style="">Exportar <span class="fa fa-file-excel-o"></span></button>
+            <button class="btn btn-success btnNuevo" id="">Nuevo</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default" style="border-top: none">
+                <div class="panel-body">
+                    <table class="table dtRiesgo" id="">
+                        <thead>
+                            <tr>
+                                <th class="text-center">No.</th>
+                                <th class="text-center">F. Ident.</th>
+                                <th class="text-center">Categoría</th>
+                                <th class="text-center">Fuente</th>
+                                <th class="text-center">Descripción</th>
+                                <th class="text-center">Descripción efecto</th>
+                                <th class="text-center">Causas</th>
+                                <th class="text-center">Evento materialización</th>
+                                <th class="text-center">Impacto</th>
+                                <th class="text-center">Probabilidad</th>
+                                <th class="text-center">Calificación</th>
+                                <th class="text-center">Severidad</th>
+                                <th class="text-center"></th>
+                            </tr>
+                            <tr>
+                                <th class="text-center" style="border-right: 1px solid lightgray;"><input style="width: 100%;" placeholder="No." type="text" class="form-control search-input" /></th>
+                                <th class="text-center"><input style="width: 100%;" placeholder="F. Ident..." type="text" class="form-control search-input" /></th>
+                                <th class="text-center"><input style="width: 100%;" placeholder="Categoría..." type="text" class="form-control search-input" /></th>
+                                <th class="text-center"><input style="width: 100%;" placeholder="Fuente..." type="text" class="form-control search-input" /></th>
+                                <th class="text-center"><input style="width: 100%;" placeholder="Descripción..." type="text" class="form-control search-input" /></th>
+                                <th class="text-center"><input style="width: 100%;" placeholder="Descripción efecto..." type="text" class="form-control search-input" /></th>
+                                <th class="text-center"><input style="width: 100%;" placeholder="Causas..." type="text" class="form-control search-input" /></th>
+                                <th class="text-center"><input style="width: 100%;" placeholder="Evento materialización..." type="text" class="form-control search-input" /></th>
+                                <th class="text-center"><input style="width: 100%;" placeholder="Impacto..." type="text" class="form-control search-input" /></th>
+                                <th class="text-center"><input style="width: 100%;" placeholder="Probabilidad..." type="text" class="form-control search-input" /></th>
+                                <th class="text-center"><input style="width: 100%;" placeholder="Calificación..." type="text" class="form-control search-input" /></th>
+                                <th class="text-center"><input style="width: 100%;" placeholder="Severidad..." type="text" class="form-control search-input" /></th>
+                                <th class="text-center" style="border-left: 1px solid lightgray;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Hidden("LeerComboProyecto", Url.Action("LeerComboProyecto", "Riesgo"))
+    @Html.Hidden("LeerProyectoRiesgo", Url.Action("LeerProyectoRiesgo", "Riesgo"))
+    @Html.Hidden("EliminarProyectoRiesgo", Url.Action("EliminarProyectoRiesgo", "Riesgo"))
+    @Html.Hidden("DescargarExcelRiesgo", Url.Action("DescargarExcelRiesgo", "Riesgo"))
+    @Html.Partial("~/Views/Riesgo/Riesgo.cshtml")
+</div>
+
+<script type="text/javascript" src="~/Scripts/jquery.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>
+
+@section scripts{
+    <script type="text/javascript" src="~/Scripts/bootbox.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.powertip.js"></script>
+    <script type="text/javascript" src="~/Scripts/Project/ActualizarImagenes.js"></script>
+    <script type="text/javascript" src="~/Scripts/Project/Riesgos.js"></script>
+    <script type="text/javascript" src="~/Scripts/Project/RiesgosProyecto.js"></script>
+}

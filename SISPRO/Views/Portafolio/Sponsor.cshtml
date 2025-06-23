@@ -1,0 +1,237 @@
+﻿@using AxProductividad.Models;
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/jquery-treegrid@0.3.0/css/jquery.treegrid.css" rel="stylesheet">
+<link href="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/jquery-treegrid@0.3.0/js/jquery.treegrid.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/treegrid/bootstrap-table-treegrid.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/cookie/bootstrap-table-cookie.min.js"></script>
+
+<script src="~/Scripts/easypiechart.min.js"></script>
+<script src="~/Scripts/jquery.easypiechart.min.js"></script>
+<div class="page-title">
+
+    @{
+        var User = ((Sesion)Session["usuario" + Session.SessionID]).Usuario;
+
+
+        <h2> Hola, <b id=""> @User.NombreCompleto</b> </h2>
+
+    }
+
+
+</div>
+
+
+
+<div class="row">
+    <div class="col-md-12 hide" id="DivProyectos">
+
+
+    </div>
+
+
+</div>
+
+<div class="row">
+
+
+    <div class="col-md-7 col-xs-12">
+        <div class="panel panel-default  projectcard">
+            <div class="panel-body profile">
+                <div class="row headerproyecto">
+                    <div class="col-md-12">
+              
+                        <h4 id="">  <span class=" fa fa-list-ul"></span> Workitems </h4>
+
+                    </div>
+                 
+                </div>
+            </div>
+            <div class="col-md-12 col-xs-12">
+                <div class="row">
+                    <div class="panel-body tabs">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="active"><a href="#tab-pendiente" role="tab" data-toggle="tab" id="tP" class="btn btn-default" >@*<i class="fa fa-list-ul"></i>*@ Pendientes de aprobar</a></li>
+                            <li class=""><a href="#tab-aprobado" role="tab" data-toggle="tab" id="tA" class="btn btn-default" >@*<i class="fa fa-list-ul"></i>*@ Aprobado  </a></li>
+
+                        </ul>
+                    </div>
+
+                    <div class="panel-body tab-content">
+                        <div class="tab-pane active" id="tab-pendiente">
+
+                            <div class="row headerCP">
+                                <div class="col-md-12 ">
+
+                                    <table class="table datatable text" id="tblPendiente">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Proyecto</th>
+                                                <th>Título</th>
+                                                <th>Estatus</th>
+                                                <th>Fecha envío</th>
+                                            </tr>
+                                        </thead>
+
+                                    </table>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="tab-pane " id="tab-aprobado">
+
+                            <div class="row headerCP">
+                                <div class="col-md-12 ">
+
+                                    <table class="table datatable text" id="tblAprobado">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Proyecto</th>
+                                                <th>Título</th>
+                                                <th>Estatus</th>
+                                                <th>Fecha aprobación</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                 
+
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="col-md-5 col-xs-12">
+
+        <div class="col-md-12">
+            <div class="panel panel-default  projectcard">
+                <div class="panel-body profile">
+                    <div class="row headerproyecto">
+                        <div class="col-md-12">
+                            <h4 id="">  <span class=" fa fa-circle-o-notch"></span> Sprints </h4>
+
+                        </div>
+                        <div class="col-md-6">
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-xs-12">
+                    <div @*style="margin-top:5%;max-height:900px; overflow:scroll;"*@>
+                        <table class="table " id="">
+                            <thead>
+                            <tbody id="tblSprintDetalle">
+                                <tr>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-md-12">
+            <div class="panel panel-default  projectcard">
+                <div class="panel-body profile">
+                    <div class="row headerproyecto">
+                        <div class="col-md-12">
+                            <h4 id="">  <span class=" fa fa-filter"></span> Mis querys </h4>
+
+                        </div>
+                        <div class="col-md-6">
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-xs-12">
+                    <div class="row">
+
+                        <div class="row headerCP">
+                            <div class="row invoice">
+
+                                <div class="col-md-12">
+                                    <div class="paymant-table">
+
+
+                                        @{
+                                            var LstQ = ViewBag.LstQuerys;
+
+
+                                            foreach (var i in LstQ)
+                                            {
+                                                <a href="#" class="plantilla" onclick="VerQuery('@i.IdUnique')">
+                                                    @i.Nombre
+
+                                                </a>
+
+                                            }
+
+                                        }
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+   
+       
+    </div>
+
+
+
+
+
+
+<div id="scripts">
+
+</div>
+
+
+<input type="hidden" id="urlCargaInicial" value="@Url.Action("ConsultaProyectosCliente","Proyectos")" />
+<input type="hidden" id="urlVerProyecto" value="@Url.Action("MiProyecto","Proyectos")" />
+<input type="hidden" id="urlSprintReport" value="@Url.Action("SprintReport","Proyectos")" />
+
+@{
+    Random rnd = new Random();
+    <script src="~/Scripts/Project/ClienteProyecto.js?@rnd.Next()"></script>
+
+}
+

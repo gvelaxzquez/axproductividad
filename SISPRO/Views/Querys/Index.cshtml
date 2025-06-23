@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "Mis querys";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="https://cdn.jsdelivr.net/npm/jquery-treegrid@0.3.0/css/jquery.treegrid.css" rel="stylesheet">
+<link href="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/jquery-treegrid@0.3.0/js/jquery.treegrid.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/treegrid/bootstrap-table-treegrid.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/cookie/bootstrap-table-cookie.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/mobile/bootstrap-table-mobile.min.js"></script>
+
+<div class="page-content-wrap">
+
+    <div class="row">
+        <div class="col-md-1 col-xs-12">
+
+        </div>
+        <div class="col-md-5 col-xs-12">
+            <h3> Creados por mi</h3>
+            <table id="TbQuerysM" data-cookie="true" data-cookie-id-table="table" data-pagination="true" data-page-list="[10, 25, 50, 100, all]" data-mobile-responsive="true"   data-show-header="false" >
+            </table>
+
+        </div>
+        <div class="col-md-5 col-xs-12">
+            <h3> Compartidos conmigo</h3>
+            <table id="TbQuerysC" data-cookie="true" data-cookie-id-table="table" data-pagination="true" data-page-list="[10, 25, 50, 100, all]" data-mobile-responsive="true"   data-show-header="false">
+            </table>
+
+        </div>
+        <div class="col-md-1 col-xs-12">
+
+        </div>
+    </div>
+</div>
+
+
+
+
+@{
+    Random rnd = new Random();
+   
+    <script src="~/Scripts/Project/MisQuerys.js?@rnd.Next()"></script>
+
+}
+
+

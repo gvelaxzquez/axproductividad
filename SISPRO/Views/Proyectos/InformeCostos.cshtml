@@ -1,0 +1,169 @@
+﻿@{
+    ViewBag.Title = "Informe de costos";
+}
+
+<div class="container-fluid" id="informeCostos">
+    <div class="page-title">
+        <h2><span class="fa fa-money"></span> Informe de Costos</h2>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-3" style="padding: 0px 10px;">
+            <label for="dateRangoFechas">Rango de fechas</label>
+            <input id="dateInformeCostoPeriodo" type="text" class="form-control DateRangePicker" style="max-width: unset;" />
+        </div>
+        <div class="form-group col-md-3" style="padding: 0px 10px;">
+            <label for="cmbProyectos">Proyectos</label>
+            <select id="cmbInformeCostoProyecto" class="form-control btn-group selectpicker" data-actions-box="true" data-live-search="true">
+                <option value="-1">--Seleccionar--</option>
+            </select>
+        </div>
+        <div class="form-group col-md-1" style="padding: 0px 10px;">
+            <input type="text" style="visibility: hidden;" />
+            <button id="btnInformaCostoBuscar" class="btn btn-primary"><span class="fa fa-search"></span></button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12"><h3>Costos</h3></div>
+        <div class="col-md-3">
+            <div class="tile tile-default" title="Presupuesto total del proyecto" style="cursor:pointer;">
+                <div class="title tile-default " id="lblInformeCostoPresupuesto">0</div>
+                <p>Presupuesto</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="tile tile-default" title="Costos directos" style="cursor:pointer;">
+                <div class="title tile-default " id="lblInformeCostoDirecto">0</div>
+                <p>Directo</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="tile tile-default" title="Costos indirectos" style="cursor:pointer;">
+                <div class="title tile-default " id="lblInformeCostoIndirecto">0</div>
+                <p>Indirecto</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="tile tile-default" title="Total de costos aplicados" style="cursor:pointer;">
+                <div class="title tile-default " id="lblInformeCostoTotal">0</div>
+                <p>Total</p>
+            </div>
+        </div>
+    </div>
+    @*<div class="row">
+            <div class="col-md-12"><h3>Rentabilidad</h3></div>
+            <div class="col-md-3">
+                <div class="tile tile-default" title="Rentabilidad en porcentaje" style="cursor:pointer; min-height: unset;">
+                    <div class="title tile-default">0 %</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="tile tile-default" title="Rentabilidad en costo" style="cursor:pointer; min-height: unset;">
+                    <div class="title tile-default">$ 0.00</div>
+                </div>
+            </div>
+        </div>*@
+    <div class="row">
+        <div class="col-md-6">
+            <div class="col-md-12" style="display: flex; flex-direction: row; justify-content: space-between; z-index: 2">
+                <h3>Costos por Fase</h3>
+                <a id="expGraficaFases" href='#' class="a-circular"><span class='fa fa-expand'></span></a>
+            </div>
+            <div id="main" style="width: 600px;height:400px;"></div>
+        </div>
+        <div class="col-md-6">
+            <div class="col-md-12" style="display: flex; flex-direction: row; justify-content: space-between; z-index: 2">
+                <h3>Costos por Recurso</h3>
+                <a id="expGraficaRecurso" href='#' class="a-circular"><span class='fa fa-expand'></span></a>
+            </div>
+            <div id="main2" style="width: 600px;height:400px;"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-12" style="display: flex; flex-direction: row; justify-content: space-between; z-index: 2">
+                <h3>Costos por Periodo</h3>
+                <a id="expGraficaPeriodo" href='#' class="a-circular"><span class='fa fa-expand'></span></a>
+            </div>
+            <div id="main3" style="width: 100%;height:400px;"></div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="mdlInformeCostoDetalle" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="largeModalHead">Costos</h4>
+            </div>
+            <div class="modal-body">
+                <!--inicia-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <form class="form-horizontal">
+                            <div style="text-align: end;margin-bottom: 20px" class="col-md-12">
+                                <button type="button" class="btn btn-primary" id="btnInformeCostosExp">Exportar<span class="fa fa-file-excel-o"></span></button>
+                            </div>
+                            <div class="table-responsive col-md-12">
+                                <table class="table datatable text" id="dtInformeCostoDetalle">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Fase</th>
+                                            <th>Fecha</th>
+                                            <th>Costo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!--termina-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal grafica -->
+<div class="modal" id="ModalGrafica" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+    <div class="modal-fullscreen">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="NombreGrafica"></h4>
+                <button type="button" id="BtnCerrarGraf" class="close fa fa-compress" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <label class="check" onclick="MostrarGraficasM()"><input type="radio" class="iradio" id="RdoGraficaM" name="RdoGraficaM" checked value="1" /> Grafica </label>
+                <label class="check" onclick="MostrarTablasM()"><input type="radio" class="iradio" name="RdoGraficaM" id="RdoTablaM" value="2" /> Tabla</label>
+            </div>
+            <div class="modal-body" id="GraficaModal">
+            </div>
+            <div class="modal-body" id="TablaModal">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="scriptsmodal">
+
+</div>
+
+@section scripts{
+    <script src="~/Scripts/echarts.min.js"></script>
+    <script src="~/Scripts/TableExport-master/tableExport.js"></script>
+    <script src="~/Scripts/TableExport-master/jquery.base64.js"></script>
+    <script src="~/Scripts/TableExport-master/html2canvas.js"></script>
+    <script src="~/Scripts/TableExport-master/jspdf/libs/sprintf.js"></script>
+    <script src="~/Scripts/TableExport-master/jspdf/jspdf.js"></script>
+    <script src="~/Scripts/TableExport-master/jspdf/libs/base64.js"></script>
+
+}
+
+
+@{
+    Random rnd = new Random();
+    <script src="~/Scripts/Project/InformeCostos.js?@rnd.Next()"></script>
+
+}

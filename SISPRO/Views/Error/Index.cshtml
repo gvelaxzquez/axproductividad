@@ -1,0 +1,78 @@
+﻿
+
+@{
+    Layout = null;
+    ViewBag.Title = "Error";
+}
+
+<!DOCTYPE html>
+
+
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=YES">
+
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="white">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="black">
+
+    <title>YITPRO  - ERROR</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+    <link href="~/Content/theme-default.css" rel="stylesheet" />
+    @*<link href="~/Content/yitpro.css" rel="stylesheet" />*@
+
+    <script type="text/javascript" src="~/Scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>
+    <script src="https://use.fontawesome.com/234ae4dc96.js"></script>
+
+
+
+
+</head>
+
+
+
+<body>
+    <div class="error-container">
+        <div class="error-code">Oh, algo salió mal...</div>
+        <div class="error-text">Ha ocurrido un error inesperado o se ha realizado una petición no autorizada</div>
+        <div class="error-subtext">Consulte al administrador del sistema.</div>
+        <div class="error-actions">
+            <div class="row">
+                <div class="col-md-12">
+                   
+
+                    @{
+
+                        var home = ((string)Session["Home" + Session.SessionID]);
+                        <a class="btn btn-info btn-block btn-lg" href="@home">Regresar al inicio</a>
+
+                    }
+
+                  
+
+
+                </div>
+               
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+</body>
+
+
+</html>

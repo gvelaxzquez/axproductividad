@@ -1,0 +1,790 @@
+﻿@using AxProductividad.Models;
+@{
+    ViewBag.Title = "Sprint Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/easypiechart.min.js"></script>
+<script src="~/Scripts/jquery.easypiechart.min.js"></script>
+<link rel="stylesheet" href="~/Content/DHTMLXGantt/dhtmlxgantt.css" />
+<link rel="stylesheet" href="~/Content/DHTMLXGantt/skins/dhtmlxgantt_material.css" />
+<script type="text/javascript" src="~/Scripts/dhtmlxgantt.js"></script>
+
+
+<div class="page-content-wrap">
+
+    <div class="panel panel-default">
+
+        <div class="panel-heading">
+
+            <div class="row">
+                <!--<div class="col-md-8">-->
+                @*<h5>
+                        <span id="lblNombreP"></span>
+                    </h5>
+                    <h4>
+                        <span id="lblNombreSprint"><b></b></span>
+                    </h4>*@
+                <!--</div>
+
+                <div class="col-md-4">
+
+
+
+
+
+                </div>-->
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="col-md-10">
+                            <label> Objetivo:</label>   <p id="lblObjetivo"></p>
+                        </div>
+                        @*<div class="col-md-2">
+                                <label> Fecha inicio:</label>   <p id="lblFechaInicio"></p>
+                            </div>*@
+                        @*<div class="col-md-2">
+                                <label> Fecha fin:</label>   <p id="lblFechaFin"></p>
+                            </div>*@
+                        @*<div class="col-md-2">
+                                <label> Puntos de historia:</label>  <span class="badge badge-info" id="LblPuntosH"> </span>
+                            </div>*@
+                    </div>
+                    <div class="col-md-6">
+
+                        <div class="btn-group pull-right">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    <span id="BtnEstatusSP"> Abierto</span>
+                                    <span id="spEstatusCSP" class="fa fa-fw fa-circle text-progress pull-right"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+
+                                @{
+                                    var U = ((Sesion)Session["usuario" + Session.SessionID]).Usuario;
+                                    if (U.IdTipoUsuario != 19)
+                                    {
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#" id="BtnActualizaProgresoSprint" onclick="ActualizaEstatusSprint('P')"> <i class="fa fa-fw fa-circle text-progress pull-right"></i>Iniciar</a></li>
+                                            <li><a href="#" id="BtnActualizaAbiertoSprint" onclick="ActualizaEstatusSprint('A')"> <i class="fa fa-fw fa-circle text-info pull-right"></i>Abierto</a></li>
+                                            <li><a href="#" id="BtnActualizaTerminarSprint" onclick="AbrirModalSprintRetrospectiva(0,@ViewBag.IdIteracion)"> <i class="fa fa-fw fa-circle text-success pull-right"></i>Terminar</a></li>
+
+                                            <li class="divider"></li>
+                                            <li><a href="#" id="BtnActualizaCancelarSprint" onclick="ActualizaEstatusSprint('C')"> <i class="fa fa-fw fa-circle text-muted pull-right"></i>Cancelar</a></li>
+
+                                        </ul>
+
+                                    }
+
+                                }
+
+
+                            </div>
+
+                            @{
+                               
+                                if (U.IdTipoUsuario != 19)
+                                {
+                                    <button type="button" class="btn btn-default" id="BtnModificarSprint" title="Editar"> Editar <span class="fa fa-pencil"></span></button>
+                                    <button type="button" class="btn btn-default" id="BtnCompartirSprint" title="Compartir"> Compartir <span class="fa fa-share-alt"></span></button>
+
+                                }
+                            }
+
+
+                            @{
+
+                                //var U = ((Sesion)Session["usuario" + Session.SessionID]).Usuario;
+                                if (U.Captura)
+                                {
+                                    <button type="button" class="btn btn-default" onclick="BuscarActividadesSprint()">Agregar items<span class="fa fa-plus-circle  fa-right"></span></button>
+                                    <button class="btn btn-default" id="BtnImportarAct"><i class="fa fa-arrow-circle-o-up"></i> Importar</button>
+
+                                }
+                            }
+
+                            <button id="BtnVerRetrospectiva" class="btn btn-default" onclick="AbrirModalSprintRetrospectiva(1,@ViewBag.IdIteracion)"> Retrospectiva <i class="fa fa-comments-o pull-right"></i></button>
+
+                        </div>
+
+                        @*<a class="btn btn-default pull-right" id="BtnModificarSprint"><i class="fa fa-pencil"></i></a>*@
+
+                        @*<a id="BtnVerRetrospectiva" class="btn btn-default pull-right" onclick="AbrirModalSprintRetrospectiva(1,@ViewBag.IdIteracion)" href="#"> Ver retrospectiva <i class="fa fa-comments-o pull-right"></i></a>*@
+                    </div>
+
+
+                    @*<a class="btn btn-default pull-right" id="BtnOcultarInd"><span class="fa fa-angle-up"></span> </a>
+                        <a class="btn btn-default pull-right" id="BtnMostrarInd"><span class="fa fa-angle-down"></span> </a>*@
+                </div>
+
+            </div>
+
+
+
+
+        </div>
+
+        <div class="row">
+
+            <div class="panel-body tabs">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="active"><a href="#tab-data" role="tab" data-toggle="tab" onclick="resizeTaskList(); page_content_onresize();"> <i class="fa fa-dashboard"></i> Resumen</a></li>
+                    <li class=""><a href="#tab-lista" role="tab" data-toggle="tab" onclick="resizeTaskList(); page_content_onresize();"> <i class="fa fa-tasks"></i> Lista</a></li>
+                    <li class="hidden-xs"><a href="#tab-kanban" role="tab" data-toggle="tab" onclick="resizeTaskList(); page_content_onresize();"><i class="fa fa-columns"></i> Kanban</a></li>
+                    <li><a href="#tab-calendario" role="tab" data-toggle="tab"> <i class="fa fa-calendar"></i> Calendario</a></li>
+                    <li id="liData"><a href="#tab-graficas" role="tab" data-toggle="tab" onclick="ConsultaGraficasSprint(); "><i class="fa fa-line-chart"></i> Data</a></li>
+                    @*<li><a href="#tab-roadmap" role="tab" data-toggle="tab"><i class="fa fa-rocket"></i> Roadmap</a></li>*@
+
+                    @*<li class="pull-right">
+
+            <div class="btn-group ">
+
+            </div>
+
+
+
+        </li>*@
+                </ul>
+            </div>
+
+            <div class="panel-body tab-content">
+                <div class="tab-pane active" id="tab-data">
+                    <div class="row" id="divIndicadores">
+
+
+                        <div class="col-md-5">
+                            <div class="panel panel-default " style="min-height:285px;">
+                                <div class="panel-body ">
+                                    @*<div class="row headerproyecto">
+                                <div class="col-md-12">
+                                    <h4>Avance</h4>
+                                </div>
+                            </div>*@
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="tile tile-default text-info" title="Porcentaje de avance" style="cursor:pointer;border-right:0px !important;">
+                                        <div class="title tile-default" id="LblPorcAvanceSprint"></div>
+                                        <p>Avance</p>
+
+                                    </div>
+
+
+
+                                </div>
+
+                                <div class="col-md-12">
+
+                                    <div class="col-md-4">
+                                        <div class="tile tile-default text-info" title="Fecha inicio" style="cursor:pointer;">
+                                            <div class="title tile-default" id="lblFechaInicio"></div>
+                                            <p>Inicio</p>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="tile tile-default text-success" title="Fecha fin" style="cursor: pointer;">
+                                            <div class="title tile-default" id="lblFechaFin"></div>
+                                            <p>Fin</p>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="tile tile-default " id="tlProyectada" title="Fecha que se proyecta terminar de acuerdo a la velocidad actual" style="cursor: pointer; border-right: 0px !important;">
+                                            <div class="title tile-default" id="lblFechaProyectada"></div>
+                                            <p id="plblFechaProyectada"></p>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-12">
+
+
+                                    <div class="mx-0 row" style="padding-top:0">
+                                        @*<div class="py-3 col-md-12 border-all ">
+            <h4 class="fw-normal text-600" id="LblPuntosHistoria">50</h4>
+            <h5 class="text-500 mb-0">Puntos de historia</h5>
+        </div>*@
+
+
+
+                                        <div class="border-all  py-3 col-md-4 ">
+                                            <h4 class="fw-normal text-600 " style="font-weight:bold !important;" id="LblCantActividades"></h4>
+                                            <h5 class="text-500 mb-0 " style="font-weight:bold;">Tareas</h5>
+                                        </div>
+                                        <div class="border-all  py-3 col-md-4">
+                                            <h4 class="fw-normal text-600" id="LblCantActividadesTerminadas"></h4>
+                                            <h5 class="text-500 mb-0">Completadas</h5>
+                                        </div>
+
+                                        <div class="border-all  py-3 col-md-4">
+                                            <h4 class="fw-normal text-600" id="LblCantActividadesPendientes">0</h4>
+                                            <h5 class="text-500 mb-0">Pendientes</h5>
+                                        </div>
+
+
+                                        <div class="border-all  py-3 col-md-4 border-end">
+                                            <h4 class="fw-normal text-600" style="font-weight:bold !important;" id="LblHorasTotales"></h4>
+                                            <h5 class="text-500 mb-0" style="font-weight:bold !important;">Horas Totales</h5>
+                                        </div>
+                                        @*<div class="border-all  py-3 col-md-6">
+            <h4 class="fw-normal text-600" id="LblCantActividadesTerminadas"></h4>
+            <h5 class="text-500 mb-0">Completadas</h5>
+        </div>*@
+                                        <div class="py-3 col-md-4 border-all  ">
+                                            <h4 class="fw-normal text-600" id="LblHorasTerminadas"></h4>
+                                            <h5 class="text-500 mb-0">Terminadas</h5>
+                                        </div>
+                                        <div class="py-3 col-md-4 border-all  ">
+                                            <h4 class="fw-normal text-600" id="LblHorasPendientes"></h4>
+                                            <h5 class="text-500 mb-0">Pendientes</h5>
+                                        </div>
+
+
+
+
+
+                                        <div class="border-all  border-bottom py-3 col-md-4">
+                                            <h4 class="fw-normal text-600 " style="font-weight:bold !important;" id="LblPuntosH"></h4>
+                                            <h5 class="text-500 mb-0 " style="font-weight:bold !important;">Puntos historia</h5>
+                                        </div>
+
+                                        <div class="border-all  border-bottom py-3 col-md-4">
+                                            <h4 class="fw-normal text-600 "  id="LblPuntosC">0</h4>
+                                            <h5 class="text-500 mb-0 " >Completados</h5>
+                                        </div>
+                                        <div class="border-all  border-bottom py-3 col-md-4">
+                                            <h4 class="fw-normal text-600 "  id="LblPuntosP">0</h4>
+                                            <h5 class="text-500 mb-0 " >Pendientes</h5>
+                                        </div>
+                                        <div class="border-all  border-bottom py-3 col-md-6">
+                                            <h4 class="fw-normal text-600" id="LblVelRequerida"></h4>
+                                            <h5 class="text-500 mb-0">Velocidad (hrs/día)</h5>
+                                        </div>
+                                        <div class="border-all py-3 col-md-6 border-end">
+                                            <h4 class="fw-normal text-600" id="LblVelActual"></h4>
+                                            <h5 class="text-500 mb-0">Actual (hrs/día)</h5>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                @*<div class="col-md-4">
+                            <span class="chart cavanceactual" data-percent="100">
+                                <span class="percent"></span><br>
+                                <p>Avance</p>
+                            </span>
+                        </div>*@
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="panel panel-default projectcard" style="min-height:285px;">
+                                <div class="panel-body ">
+                                    <div class="row headerproyecto">
+                                        <div class="col-md-12">
+                                            <h4>Burndown</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="GraficaBurndown" style="max-height:300px;">
+
+                                </div>
+                                <div id="scriptsBurndown">
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-xs-6">
+                            <div class="btn-group">
+                                <button class="btn btn-default btn-condensed" onclick="zoomOut()"><i class="fa fa-minus"></i></button>
+                                <button class="btn btn-default btn-condensed" onclick="zoomIn()"><i class="fa fa-plus"></i></button>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6 col-xs-6">
+                            <div class="btn-group pull-right">
+                                <button class="btn btn-default " onclick="CambiarZoom('year')">Año</button>
+                                <button class="btn btn-default " onclick="CambiarZoom('month')">Mes</button>
+                                <button class="btn btn-default " onclick="CambiarZoom('week')">Semana</button>
+                                <button class="btn btn-default " onclick="CambiarZoom('day')">Día</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="roadmap" style="max-height:300px; width: 100%; padding-top:10PX;padding-bottom:50px"></div>
+                    </div>
+               
+                </div>
+
+                <div class="tab-pane " id="tab-kanban">
+                    <div class="filter-settings">
+                        <div class="filter-settings-icon"><span class="glyphicon glyphicon-filter"></span></div>
+                        <h5>Filtrar</h5>
+                        <div class="filter-settings-row">
+                            <label for="TxtRangoFechasSFT">Fecha</label>
+                        </div>
+                        <div class="filter-settings-row">
+                            <input type="text" id="TxtRangoFechasSFT" item="Fecha" class="form-control DateRangePicker col-xs-10" style="width: 83.33333333% !important;" />
+                            <span class="input-group-addon col-xs-1"><span class="glyphicon glyphicon-calendar"></span></span>
+
+                        </div>
+                        <div class="filter-settings-row">
+                            <label for="SelHUSFA">Historia de usuario</label>
+                            <select class="selectpicker form-control" data-live-search="true" id="SelHUSFT" data-actions-box="true"></select>
+                        </div>
+
+
+                        <div class="filter-settings-row">
+                            <label for="SelTipoSFA">Tipo</label>
+                            @{
+                                var Workitems2 = ((Sesion)Session["Usuario" + Session.SessionID]).WorkItems;
+                                <select class="form-control  selectpicker pull-right" id="SelTipoSFT" item="Tipo actividad">
+                                    @*<select class="form-control  selectpicker pull-right" id="SelTipoF" item="Tipo actividad"  data-live-search="true">*@
+                                    <option value="-1" selected> -- Seleccionar --</option>
+                                    @{ foreach (var item in Workitems2)
+                                        {
+                                            <option value='@item.ActividadTipoId' data-content="<span><img class='img-dt' src='https://app.yitpro.com/Content/Project/Imagenes/@item.Url' alt='@item.Nombre' style='width:24px; height:24px;'> @item.Nombre</span>">@item.Nombre</option>
+
+
+                                        }
+                                    }
+                                </select>
+                            }
+                        </div>
+
+                        <div class="filter-settings-row">
+                            <label for="SelUsuarioAsignadoSFA">Asignado</label>
+                            <select class="selectpicker form-control" data-live-search="true" id="SelUsuarioAsignadoSFT" data-actions-box="true"></select>
+
+                        </div>
+                        <div class="filter-settings-row">
+                            <label class="col-md-3 col-xs-12 control-label">Estatus</label>
+                            <select class="selectpicker" multiple data-live-search="true" id="SelEstatusSFT" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--">
+
+                                <option value="A" selected>Abierto</option>
+                                <option value="P" selected>En progreso</option>
+                                <option value="R" selected>Revisión</option>
+                                <option value="V" selected>Validada</option>
+                                <option value="L" selected>Liberada</option>
+                                <option value="C">Cancelada</option>
+                                <option value="X" selected>Rechazada</option>
+
+                            </select>
+                        </div>
+
+                        <div class="filter-settings-row">
+                            <button class="btn btn-default" id="BtnFiltrarSFT">Aplicar</button>
+                        </div>
+                    </div>
+
+
+                    <div class="row push-up-10" id="tableroTickets">
+                        <div class="col-md-1 x_panel" id="taskToDo" style="border: 2px; width: 19%;">
+
+
+                            <div class="row headTasks">
+                                <h4 id="LblAbierto">Abierto</h4>
+                            </div>
+
+                            <div class="tasks" id="tasks_assigned">
+
+                            </div>
+                        </div>
+                        <div class="col-md-1 x_panel" id="taskProgress" style="width: 19%;">
+                            <div class="row headTasks">
+                                <h4 id="LblProgreso">En progreso</h4>
+                            </div>
+                            <div class="tasks" id="tasks_progreess">
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-1 x_panel" id="taskValidacion" style="width: 19%;">
+                            <div class="row headTasks">
+                                <h4 id="LblValidacion">Resuelto</h4>
+                            </div>
+                            <div class="tasks" id="task_validate">
+                            </div>
+                        </div>
+                        <div class="col-md-1 x_panel" id="taskre" style="width: 19%;">
+
+                            <div class="row headTasks">
+                                <h4 id="LblRechazadas">Rechazadas</h4>
+                            </div>
+                            <div class="tasks" id="tasks_re">
+
+
+
+                            </div>
+                        </div>
+                        <div class="col-md-1 x_panel" id="taskok" style="width: 19%;">
+                            <div class="row headTasks">
+                                <h4 id="LblTerminadas">Terminadas</h4>
+                            </div>
+                            <div class="tasks" id="tasks_ok">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane " id="tab-lista">
+                    <div class="filter-settings">
+                        <div class="filter-settings-icon"><span class="glyphicon glyphicon-filter"></span></div>
+                        <h5>Filtrar</h5>
+                        <div class="filter-settings-row">
+                            <label for="TxtRangoFechasSFA">Fecha</label>
+                        </div>
+                        <div class="filter-settings-row">
+                            <input type="text" id="TxtRangoFechasSFA" item="Fecha" class="form-control DateRangePicker col-xs-10" style="width: 83.33333333% !important;" />
+                            <span class="input-group-addon col-xs-1"><span class="glyphicon glyphicon-calendar"></span></span>
+
+                        </div>
+                        <div class="filter-settings-row">
+                            <label for="SelHUSFA">Historia de usuario</label>
+                            <select class="selectpicker form-control"  data-live-search="true" id="SelHUSFA"  data-actions-box="true" ></select>
+                        </div>
+
+
+                        <div class="filter-settings-row">
+                            <label for="SelTipoSFA">Tipo</label>
+                            @{
+                                var Workitems = ((Sesion)Session["Usuario" + Session.SessionID]).WorkItems;
+                                <select class="form-control  selectpicker pull-right" id="SelTipoSFA" item="Tipo actividad" >
+                                    @*<select class="form-control  selectpicker pull-right" id="SelTipoF" item="Tipo actividad"  data-live-search="true">*@
+                                    <option value="-1" selected> -- Seleccionar --</option>
+                                    @{ foreach (var item in Workitems)
+                                        {
+                                            <option value='@item.ActividadTipoId' data-content="<span><img class='img-dt' src='https://app.yitpro.com/Content/Project/Imagenes/@item.Url' alt='@item.Nombre' style='width:24px; height:24px;'> @item.Nombre</span>">@item.Nombre</option>
+
+
+                                        }
+                                    }
+                                </select>
+                            }
+                        </div>
+
+                        <div class="filter-settings-row">
+                            <label for="SelUsuarioAsignadoSFA">Asignado</label>
+                            <select class="selectpicker form-control"  data-live-search="true" id="SelUsuarioAsignadoSFA" data-actions-box="true" ></select>
+
+                        </div>
+                        <div class="filter-settings-row">
+                            <label class="col-md-3 col-xs-12 control-label">Estatus</label>
+                            <select class="selectpicker" multiple data-live-search="true" id="SelEstatusSFA" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--">
+
+                                <option value="A" selected>Abierto</option>
+                                <option value="P" selected>En progreso</option>
+                                <option value="R" selected>Revisión</option>
+                                <option value="V" selected>Validada</option>
+                                <option value="L" selected>Liberada</option>
+                                <option value="C">Cancelada</option>
+                                <option value="X" selected>Rechazada</option>
+
+                            </select>
+                        </div>
+
+                        <div class="filter-settings-row">
+                            <button class="btn btn-default" id="BtnFiltrarSFA">Aplicar</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+
+                            <form class="form-horizontal">
+                                <div class="form-group">
+
+                                    <div class="btn-group pull-left ">
+                                        <a class="btn btn-default">Agrupar por: </a>
+                                        <a class="btn btn-info" id="BtnVerTodo">Sin agrupación</a>
+                                        <a class="btn btn-default" id="BtnVerHUS">Historia usuario</a>
+                                        <a class="btn btn-default" id="BtnVerFases">Fases</a>
+                                        <a class="btn btn-default" id="BtnVerClasificacion">Clasificación</a>
+                                        <a class="btn btn-default" id="BtnVerAsignado">Asignado</a>
+                                    </div>
+                                </div>
+
+                            </form>
+
+                        </div>
+                        <div class="col-md-4">
+                            <select class="selectpicker form-control headerCP hide" multiple data-live-search="true" id="SelEstatusASP" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--">
+
+                                <option value="A" selected>Abierto</option>
+                                <option value="P" selected>En progreso</option>
+                                <option value="R" selected>Revisión</option>
+                                <option value="V" selected>Validada</option>
+                                <option value="L" selected>Liberada</option>
+                                <option value="C">Cancelada</option>
+                                <option value="X" selected>Rechazada</option>
+
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="table-responsive" id="divtblFases" style="display:none;">
+                        <table class="table datatable text" id="TblActividadesSprintA">
+                            <thead>
+                                <tr>
+
+                                    <th></th>
+                                    <th>Nombre</th>
+                                    <th>Plan</th>
+                                    <th>Terminado</th>
+                                    <th>Real</th>
+                                    <th>Avance</th>
+                                    <th>Fecha Inicio</th>
+                                    <th>Fecha Fin </th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+
+                    <div class="table-responsive" id="divtblClasificacion" style="display:none;">
+                        <table class="table datatable text" id="TblActividadesClasificacionA">
+                            <thead>
+                                <tr>
+
+                                    <th></th>
+                                    <th>Nombre</th>
+                                    <th>Plan</th>
+                                    <th>Terminado</th>
+
+                                    <th>Real</th>
+                                    <th>Avance</th>
+                                    <th>Fecha Inicio</th>
+                                    <th>Fecha Fin </th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+
+                    <div class="table-responsive" id="divtblAsignado" style="display:none;">
+                        <table class="table datatable text" id="TblActividadesAsignadoA">
+                            <thead>
+                                <tr>
+
+                                    <th></th>
+                                    <th>Nombre</th>
+                                    <th>Plan</th>
+                                    <th>Terminado</th>
+                                    <th>Real</th>
+                                    <th>Avance</th>
+
+                                    <th>Fecha Inicio</th>
+                                    <th>Fecha Fin </th>
+                                    <th>Capacidad</th>
+                                    <th>Performance</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+
+                    <div class="table-responsive" id="divtblHus" style="display:none;">
+                        <table class="table datatable text" id="TblActividadesSprintHu">
+                            <thead>
+                                <tr>
+
+                                    <th></th>
+                                    <th>Id</th>
+                                    <th>Nombre</th>
+                                    <th>Plan</th>
+                                    <th>Terminado</th>
+                                    <th>Real</th>
+                                    <th>Avance</th>
+
+                                    <th>Fecha Inicio</th>
+                                    <th>Fecha Fin </th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                    <div class="table-responsive" id="divtblTodo">
+                        <table class="table datatable text" id="TblActividadesSprint">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Id</th>
+                                    <th>Título</th>
+                                    <th>Estatus</th>
+                                    <th>Asignado</th>
+                                    <th>Fase</th>
+                                    <th>Estimado</th>
+                                    <th>Asignado</th>
+                                    <th>Real</th>
+                                    <th>Fecha objetivo</th>
+                                    <th>Fecha real</th>
+                                </tr>
+
+                            </thead>
+                        </table>
+                    </div>
+
+
+
+                </div>
+                <div class="tab-pane" id="tab-calendario">
+                    <div id="Calendar">
+
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab-graficas">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="GraficasSprints">
+
+                            </div>
+                            <div id="scriptsSprints">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                @*<div class="tab-pane" id="tab-roadmap">
+            <div class="row">
+                <div class="col-md-6 col-xs-6">
+                    <div class="btn-group">
+                        <button class="btn btn-default btn-condensed" onclick="zoomOut()"><i class="fa fa-minus"></i></button>
+                        <button class="btn btn-default btn-condensed" onclick="zoomIn()"><i class="fa fa-plus"></i></button>
+                    </div>
+
+                </div>
+                <div class="col-md-6 col-xs-6">
+                    <div class="btn-group pull-right">
+                        <button class="btn btn-default " onclick="CambiarZoom('year')">Año</button>
+                        <button class="btn btn-default " onclick="CambiarZoom('month')">Mes</button>
+                        <button class="btn btn-default " onclick="CambiarZoom('week')">Semana</button>
+                        <button class="btn btn-default " onclick="CambiarZoom('day')">Día</button>
+                    </div>
+                </div>
+            </div>
+            <div id="roadmap" style="height:500px; width: 100%; padding-top:10PX;"></div>
+        </div>*@
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="modal" id="ModalShareSR" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" id="BtnCerrarCompartirSR"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="TituloShareSR"> </h4>
+            </div>
+            <div class="modal-body">
+                <!--inicia-->
+                <div class="row">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+
+                            <div class="row">
+                                @*<div class="col-md-12">
+
+                                    <h5><i class="fa fa-globe"></i> Cualquiera </h5>
+                                    <small> Compartir a cualquier usuario no importa que no tenga acceso</small>
+                                    <div class="input-group">
+                                        <label id="TxtUrlShareQE" type="text" class="form-control btnshareqe" item="Id"></label>
+                                        <div class="input-group-btn">
+                                            <button id="btnshareqe" data-clipboard-target="#TxtUrlShareQE" class="btn btn-default btnshareqe"><span class="fa fa-copy"></span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" style="padding-top:20px">
+                                    <h5><i class="fa fa-desktop"></i> Con acceso a YITPRO </h5>
+
+                                    <div class="input-group">
+                                        <label id="TxtUrlShareQI" type="text" class="form-control btnshareqi" item="Id"></label>
+                                        <div class="input-group-btn">
+                                            <button id="btnshareqi" data-clipboard-target="#TxtUrlShareQI" class="btn btn-default"><span class="fa fa-copy"></span></button>
+                                        </div>
+                                    </div>
+
+                                </div>*@
+
+
+                         
+                                        <div class="col-md-12" style="padding-top:5px">
+                                            <h5><i class="fa fa-users"></i> Usuarios especificos</h5>
+                                            @*<small> Aparecera en las sección Mis querys > Compartidos</small>*@
+                                            <select class="selectpicker form-control" multiple data-live-search="true" id="SelUsuariosShareSR" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Todos--"></select>
+
+                                        </div>
+                                        <div class="col-md-12" style="padding-top:20px">
+
+                                            <button class="btn btn-default pull-right" id="BtnGuardarCompartirSR"> Aplicar</button>
+                                        </div>
+
+                             
+
+
+
+
+
+                            </div>
+
+
+
+                        </div>
+
+                    </form>
+
+                </div>
+                <!--termina-->
+            </div>
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="BtnGuardarQ">Guardar<span class="fa fa-floppy-o fa-right"></span></button>
+                </div>*@
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+@Html.Partial("~/Views/Actividades/ImportaActividades.cshtml")
+@Html.Partial("~/Views/Actividades/CapturaTiempo.cshtml")
+@Html.Partial("~/Views/Actividades/BuscarWorkitems.cshtml")
+@Html.Partial("~/Views/Proyectos/Sprint.cshtml")
+@Html.Partial("~/Views/Proyectos/SprintRetrospectiva.cshtml")
+
+<input type="hidden" id="IdIteracion" value="@ViewBag.IdIteracion" />
+<input type="hidden" id="IdProyectoIteracion" value="0" />
+<input type="hidden" id="urlConsultaSprintReport" value="@Url.Action("ConsultaSprintReport", "Proyectos")" />
+<input type="hidden" id="urlActualizaEstatusSprint" value="@Url.Action("CambiaEstatusSprint", "Proyectos")" />
+<input type="hidden" id="urlAsignacionSprintMasiva" value="@Url.Action("AsignacionSprintMasiva", "Actividades")" />
+<input type="hidden" id="urlImportaActividades" value="@Url.Action("ImportaActividadesV2", "Actividades")" />
+
+
+@{
+    Random rnd = new Random();
+    @*<script src="~/Scripts/Project/SprintReport.js"></script>*@
+    <script src="~/Scripts/Project/SprintReport.js?@rnd.Next()"></script>
+
+}

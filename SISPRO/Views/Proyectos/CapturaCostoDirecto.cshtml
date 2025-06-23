@@ -1,0 +1,106 @@
+﻿<div class="modal" id="ModalCapturarCosto" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="TituloRec">Capturar costo</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form class="form-horizontal">
+                        <div id="divActualizacion" style="position: absolute; top: 10px; right: 20px; width: 100%; text-align: end;">
+                            <label class="control-label">Actualizar </label>
+                            <i id="btnSincronizar" style="margin-left: 5px; color: forestgreen; font-size: 16px; cursor: pointer" class="fa fa-refresh"></i>
+                        </div>
+                        <div class="form-group" id="divDedicadoCD">
+                            <label class="col-md-2 col-xs-12 control-label">Dedicado: </label>
+                            <div class="col-md-3 col-xs-12">
+                                <input style="background-color: white; color: black" class="form-control " id="lblDedicadoCD" item="Dedicado" disabled />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-12 control-label">Aplicado</label>
+                            <div class="col-md-6 col-xs-12">
+                                <label class="switch switch-small">
+                                    <input type="checkbox" id="ChkAplicado" />
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-12 control-label">Fase*</label>
+                            <div class="col-md-6">
+                                <select class="form-control selectpicker" data-live-search="true" id="SelActividadCosto" item="Tipo actividad"></select>
+                            </div>
+
+                        </div>
+                        <div class="form-group" id="divSelectRecurso">
+                            <label class="col-md-2 col-xs-12 control-label">Recurso*</label>
+                            <div class="col-md-6">
+                                <select class="form-control  selectpicker" data-live-search="true" id="SelRecursoCosto" item="Recurso"></select>
+                            </div>
+                        </div>
+                        <div class="form-group" id="divNombreRecurso">
+                            <label class="col-md-2 col-xs-12 control-label">Nombre*</label>
+
+                            <div class="col-md-6 col-xs-12">
+                                <input maxlength="100" class="form-control " id="TxtNombreRecCosto" item="Nombre" />
+                            </div>
+
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-12 control-label">Costo*</label>
+
+                            <div class="col-md-3 col-xs-12">
+                                <input type="number" step="0.01" class="form-control ReqCostoplan" id="TxtCostoMensual" item="Costo" />
+                            </div>
+
+
+                        </div>
+                        <br />
+
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-12 control-label">Fecha inicio</label>
+                            <div class="col-md-3 col-xs-12">
+                                <div class="input-group">
+                                    <input type="text" id="TxtFechaIniCosto" class="form-control ReqCosto" item="Fecha inicio" />
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </div>
+                            <label class="col-md-2 col-xs-12 control-label">Fecha fin </label>
+                            <div class="col-md-3 col-xs-12">
+                                <div class="input-group">
+                                    <input type="text" id="TxtFechaFinCosto" class="form-control ReqCosto" item="Fecha fin" />
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <br />
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="BtnGuardarCosto">Guardar<span class="fa fa-floppy-o fa-right"></span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="IdProyectoCosto" value="0" />
+<input type="hidden" id="IdProyectoCD" value="0" />
+
+<input type="hidden" id="urlRegistraCosto" value="@Url.Action("GuardarCosto","Proyectos")" />
+<input type="hidden" id="urlCargaInicialCapturaCosto" value="@Url.Action("CargaInicialCosto","Proyectos")" />
+<input type="hidden" id="urlConsultaCosto" value="@Url.Action("ConsultaCosto","Proyectos")" />
+
+
+@{
+    Random rnd = new Random();
+    <script src="~/Scripts/Project/CapturaCosto.js?@rnd.Next()"></script>
+
+}
+
+
+

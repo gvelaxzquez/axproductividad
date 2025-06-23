@@ -1,0 +1,263 @@
+﻿
+@{
+    ViewBag.Title = "Consulta compensaciones";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-title">
+    <h2> Consulta productividad mensual</h2>
+</div>
+
+<div class="page-content-wrap">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <!--<div class="panel-heading hide">
+                    <div class="panel-group accordion accordion-dc">
+
+                        <div class="panel panel-colorful">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a href="#accTwoColSeven">
+                                        Filtros
+                                    </a>
+                                </h4>
+                            </div>
+                            <div class="panel-body panel-body-open" id="accTwoColSeven">-->
+                <!--inicia-->
+                <!--<div class="row">
+                                    <div class="col-md-12">
+                                        <div>
+                                            <button class="btn btn-success pull-right" id="BtnFiltrarCons">Filtrar</button><br /><br />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <form class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label class="col-md-3 control-label">Año</label>
+                                                    <div class="col-md-3 col-xs-12">
+                                                        <select class="form-control select ReqFiltroCons" id="SelAnio" item="Año">
+                                                            <option selected="selected" value="-1">--Seleccione--</option>
+                                                            <option value="2016">2016</option>
+                                                            <option value="2017">2017</option>
+                                                            <option value="2018">2018</option>
+                                                            <option value="2019">2019</option>
+                                                            <option value="2020">2020</option>
+                                                            <option value="2021">2021</option>
+                                                            <option value="2022">2022</option>
+                                                            <option value="2023">2023</option>
+                                                            <option value="2024">2024</option>
+                                                            <option value="2025">2025</option>
+                                                            <option value="2026">2026</option>
+                                                            <option value="2027">2027</option>
+                                                            <option value="2028">2028</option>
+                                                            <option value="2029">2029</option>
+                                                            <option value="2030">2030</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-md-3 col-xs-12 control-label">Recurso</label>
+                                                    <select class="selectpicker" multiple data-live-search="true" id="SelRecursoCons" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--"></select>
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <form class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label class="col-md-3 control-label">Mes</label>
+                                                    <div class="col-md-4 col-xs-12">
+                                                        <select class="form-control select ReqFiltroCons" id="SelMes" item="Mes">
+                                                            <option selected="selected" value="-1">--Seleccione--</option>
+                                                            <option value="1">Enero</option>
+                                                            <option value="2">Febrero</option>
+                                                            <option value="3">Marzo</option>
+                                                            <option value="4">Abril</option>
+                                                            <option value="5">Mayo</option>
+                                                            <option value="6">Junio</option>
+                                                            <option value="7">Julio</option>
+                                                            <option value="8">Agosto</option>
+                                                            <option value="9">Septiembre</option>
+                                                            <option value="10">Octubre</option>
+                                                            <option value="11">Noviembre</option>
+                                                            <option value="12">Diciembre</option>
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-3 control-label">Guardar</label>
+                                                    <div class="col-md-4 col-xs-12">
+                                                        <div class="col-md-6 col-xs-12">
+                                                            <label class="switch switch-small">
+                                                                <input type="checkbox" checked id="ChkGuardar" />
+                                                                <span></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>-->
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <form class="form-horizontal">
+                            <div class="form-group">
+
+                                <div class="btn-group pull-left">
+                                    <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Exportar</button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="#" onclick="$('#TblCompensacionesExportar').removeClass('hide'); $('#TblCompensacionesExportar').tableExport({ type: 'excel', escape: 'false' }); $('#TblCompensacionesExportar').addClass('hide');"><img src='~/Content/Project/Imagenes/xls.png' width="24" /> XLS</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+                <br />
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table datatable text" id="TblCompensacion">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Recurso</th>
+                                    <th>Nivel</th>
+                                    <th>Estandár mes</th>
+                                    <th>Horas solicitadas</th>
+                                    <th>Horas liberadas</th>
+                                    <th>Bono cumplimiento</th>
+                                    <th>Horas adicionales</th>
+                                    <th>Bono horas</th>
+                                    <th>Total</th>
+                                    <th>Productividad</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="filter-settings">
+    <div class="filter-settings-icon"><span class="glyphicon glyphicon-filter"></span></div>
+    <h5>Filtrar</h5>
+
+    <div class="filter-settings-row">
+        <label for="SelAnio">Año</label>
+        <select class="form-control select ReqFiltroCons" id="SelAnio" item="Año">
+            <option selected="selected" value="-1">--Seleccione--</option>
+            <option value="2016">2016</option>
+            <option value="2017">2017</option>
+            <option value="2018">2018</option>
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+            <option value="2026">2026</option>
+            <option value="2027">2027</option>
+            <option value="2028">2028</option>
+            <option value="2029">2029</option>
+            <option value="2030">2030</option>
+        </select>
+    </div>
+    <div class="filter-settings-row">
+        <label for="SelMes">Fase</label>
+        <select class="form-control select ReqFiltroCons" id="SelMes" item="Mes">
+            <option selected="selected" value="-1">--Seleccione--</option>
+            <option value="1">Enero</option>
+            <option value="2">Febrero</option>
+            <option value="3">Marzo</option>
+            <option value="4">Abril</option>
+            <option value="5">Mayo</option>
+            <option value="6">Junio</option>
+            <option value="7">Julio</option>
+            <option value="8">Agosto</option>
+            <option value="9">Septiembre</option>
+            <option value="10">Octubre</option>
+            <option value="11">Noviembre</option>
+            <option value="12">Diciembre</option>
+
+        </select>
+    </div>
+    <div class="filter-settings-row">
+        <label for="SelRecursoCons">Recurso</label>
+        <select class="selectpicker form-control" multiple data-live-search="true" id="SelRecursoCons" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--"></select>
+
+    </div>
+
+    <div class="filter-settings-row">
+        <button class="btn btn-default" id="BtnFiltrarCons">Aplicar</button>
+    </div>
+
+</div>
+
+<table class="table datatable text hide" id="TblCompensacionesExportar">
+    <thead>
+        <tr>
+            <th>Recurso</th>
+            <th>Nivel</th>
+            <th>Estandár mes</th>
+            <th>Horas solicitadas</th>
+            <th>Horas liberadas</th>
+            <th>Bono cumplimiento</th>
+            <th>Horas adicionales</th>
+            <th>Bono horas</th>
+            <th>Total</th>
+            <th>Productividad</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+
+<input type="hidden" id="urlConsultaCompensaciones" value="@Url.Action("ConsultaCompensaciones","ConsultaCompensaciones")" />
+<input type="hidden" id="urlIniConsultaComp" value="@Url.Action("Inicializar","ConsultaCompensaciones")" />
+
+
+
+
+@{
+    Random rnd = new Random();
+    <script src="~/Scripts/Project/ConsultaCompensaciones.js?@rnd.Next()"></script>
+
+}
+
+
+
+
+
+
+<script src="~/Scripts/TableExport-master/tableExport.js"></script>
+<script src="~/Scripts/TableExport-master/jquery.base64.js"></script>
+<script src="~/Scripts/TableExport-master/html2canvas.js"></script>
+<script src="~/Scripts/TableExport-master/jspdf/libs/sprintf.js"></script>
+<script src="~/Scripts/TableExport-master/jspdf/jspdf.js"></script>
+<script src="~/Scripts/TableExport-master/jspdf/libs/base64.js"></script>
+

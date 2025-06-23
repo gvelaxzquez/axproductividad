@@ -1,0 +1,68 @@
+﻿
+<div class="modal" id="ModalTrabajoCapturado" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" ><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="tDetalleTD"></h4>
+            </div>
+            <div class="modal-body">
+                <!--inicia-->
+
+                <div class="row">
+
+
+                    @*<div class="col-md-2">
+
+                    </div>*@
+                    <div class="col-md-6">
+                        <div class="tile tile-default " id="" title="Cantidad de tareas" style="cursor:pointer;">
+                            <div class="title tile-default " id="LblTotalDTDT"></div>
+                            <p>Tareas</p>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="tile tile-default " id="tLblProductividadM" title="Tiempo total" style="cursor:pointer;">
+                            <div class="title tile-default " id="LblTotalDTDH"></div>
+                            <p>Horas</p>
+
+                        </div>
+                    </div>
+
+                    @*<div class="col-md-2">
+
+                    </div>*@
+
+
+                </div>
+
+                <div class="row">
+                    <div class="table-responsive">
+                        <table class="table datatable text" id="TblTrabajoCapturadoDia">
+                            <thead>
+                                <tr>
+
+                                    <th width="15%">#</th>
+                                    <th>Descripción</th>
+                                    <th>Fecha</th>
+                                    <th>Captura</th>
+                                    <th>Tiempo</th>
+                                    <th>Comentario</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+                <!--termina-->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<input type="hidden" id="urlConsultaTiemposCapturadosDia" value="@Url.Action("ConsultaTiemposCapturadosDia","Actividades")" />
+<input type="hidden" id="urlConsultaTiemposTrabajadoDia" value="@Url.Action("ConsultaTiemposTrabajadoDia","Actividades")" />

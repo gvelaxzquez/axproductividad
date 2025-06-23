@@ -1,0 +1,151 @@
+﻿
+
+@{
+    ViewBag.Title = "Reporte de tiempos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-title">
+    <h2><span class="fa fa-clock-o"></span> Reporte de tiempos</h2>
+</div>
+
+<div class="page-content-wrap">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-group accordion accordion-dc">
+
+                        <div class="panel panel-colorful">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a href="#accTwoColSeven">
+                                        Filtros
+                                    </a>
+                                </h4>
+                            </div>
+                            <div class="panel-body panel-body-open" id="accTwoColSeven">
+                                <!--inicia-->
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div>
+                                            <button class="btn btn-success pull-right" id="BtnFiltrarRT">Filtrar</button><br /><br />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">Proyecto*</label>
+                                                <div class="col-md-6 col-xs-12">
+                                                    <select class="form-control ReqReporteT selectpicker" data-live-search="true" id="SelProyectoRT" item="Proyecto"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">Fase*</label>
+                                                <div class="col-md-6 col-xs-12">
+                                                    <select class="form-control ReqReporteT selectpicker" data-live-search="true" id="SelTipoActividadIdRT" item="Fase"></select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <form class="form-horizontal">
+                            <div class="form-group">
+
+                                <div class="btn-group pull-right">
+                                    <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Exportar</button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="#" onclick="$('#TblReporteTiemposExportar').removeClass('hide'); $('#TblReporteTiemposExportar').tableExport({ type: 'excel', escape: 'false' }); $('#TblReporteTiemposExportar').addClass('hide');"><img src='~/Content/Project/Imagenes/xls.png' width="24" /> XLS</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+                <br />
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table datatable text" id="TblReporteTiempos">
+                            <thead>
+                                <tr>
+                                   
+                                    <th>Actividad</th>
+                                    <th>Descripción</th>
+                                    <th>Recurso</th>
+                                    <th>Nivel</th>
+                                    <th>SubFase</th>
+                                    <th>Trabajado</th>
+                                    <th>Trabajado(Hrs)</th>
+                                    <th>Defectos inyectados</th>
+                                    <th>Tiempo inyectados (Hrs)</th>
+                                    <th>Defectos removidos</th>
+                                    <th>Tiempo removidos (Hrs)</th>
+                                   
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<table class="table datatable text hide" id="TblReporteTiemposExportar">
+    <thead>
+        <tr>
+            <th>Actividad</th>
+            <th>Descripción</th>
+            <th>Recurso</th>
+            <th>Nivel</th>
+            <th>SubFase</th>
+            <th>Trabajado</th>
+            <th>Trabajado(Hrs)</th>
+            <th>Defectos inyectados</th>
+            <th>Tiempo inyectados (Hrs)</th>
+            <th>Defectos removidos</th>
+            <th>Tiempo removidos (Hrs)</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+
+<input type="hidden" id="urlCargaInicialRT" value="@Url.Action("CargaReporteTiempos","Report")" />
+<input type="hidden" id="urlConsultaRT" value="@Url.Action("ObtieneReporteTiempos","Report")" />
+
+<script type="text/javascript" src="~/Scripts/Project/ReporteTiempos.js"></script>
+
+
+<script src="~/Scripts/TableExport-master/tableExport.js"></script>
+<script src="~/Scripts/TableExport-master/jquery.base64.js"></script>
+<script src="~/Scripts/TableExport-master/html2canvas.js"></script>
+<script src="~/Scripts/TableExport-master/jspdf/libs/sprintf.js"></script>
+<script src="~/Scripts/TableExport-master/jspdf/jspdf.js"></script>
+<script src="~/Scripts/TableExport-master/jspdf/libs/base64.js"></script>

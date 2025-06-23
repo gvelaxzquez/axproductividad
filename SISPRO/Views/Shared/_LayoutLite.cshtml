@@ -1,0 +1,107 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/Content/yitpro.css" />
+</head>
+<body>
+
+    <div class="page-container">
+
+        <div class="page-sidebar">
+            <ul class="x-navigation">
+                <li class="xn-logo xn-principal">
+                    <a href="@Url.Action("Index", "Home") "></a>
+                    <a href="#" class="x-navigation-control xn-principal"></a>
+                </li>
+                <li class="xn-profile">
+                    <div class="profile">
+                        <div class="profile-data">
+                            <div class="profile-data-name">@ViewBag.NombreSistema</div>
+                        </div>
+                    </div>
+                </li>
+
+                @{
+                    var sesion = Session["usuario" + Session.SessionID] ;
+                    var lstMenuPadres = sesion.Menu.Where(menu => menu.IdMenuPadre == null).OrderBy(id => id.Orden).ToList();
+
+                    foreach (var item in lstMenuPadres)
+                    {
+                        var hijos = sesion.Menu.Where(subMenu => subMenu.IdMenuPadre == item.IdMenu).OrderBy(id => id.Orden).ToList();
+
+                        if (hijos.Count > 0)
+                        {
+                            <li class="xn-openable">
+
+                                <a href="#"><span class="@item.Icono"></span> <span class="xn-text">@item.Descripcion</span></a>
+                                <ul>
+                                    @foreach (var hijo in hijos)
+                                    {
+                                        <li><a href="@Url.Action(@hijo.Accion, @hijo.Controlador)"><span class="@hijo.Icono"></span>@hijo.Descripcion</a></li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                    }
+                }
+            </ul>
+        </div>
+
+        <div class="page-content">
+            <ul class="x-navigation x-navigation-horizontal x-navigation-panel">
+                <li class="xn-icon-button xn-principal">
+                    <a href="#" class="x-navigation-minimize xn-principal"><span class="fa fa-dedent"></span></a>
+                </li>
+                <li class="xn-icon-button pull-right xn-principal">
+                    <a href="#" class="mb-control xn-principal" data-box="#mb-signout"><span class="fa fa-sign-out"></span></a>
+                </li>
+                <li class="xn-icon-user pull-right xn-principal">
+                    <a class="mb-control xn-principal">
+                        <i class="fa fa-user"></i>
+                        <span class="visible-lg-inline visible-md-inline">@sesion.Usuario.NombreCompleto</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="franja"></div>
+            <div class="mensajes" style="z-index: 9999; position: absolute"></div>
+            <div class="mensajesConfirmacion" style="z-index: 9999; position: absolute"></div>
+            <div class="page-content-wrap">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <!-- MESSAGE BOX-->
+    <div class="message-box animated fadeIn" data-sound="alert" id="mb-signout">
+        <div class="mb-container">
+            <div class="mb-middle">
+                <div class="mb-title"><span class="fa fa-sign-out"></span>¿Deseas <strong>Salir</strong> ?</div>
+
+                <div class="mb-footer">
+                    <div class="pull-right">
+                        <a href=@Url.Action("Index","Login") class="btn btn-success btn-lg">Si</a>
+                        <button class="btn btn-default btn-lg mb-control-close">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="~/Scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/icheck.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/bootstrap-select.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/DataTables/dataTables.bootstrap.js"></script>
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

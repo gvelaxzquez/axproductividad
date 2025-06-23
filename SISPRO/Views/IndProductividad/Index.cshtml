@@ -1,0 +1,240 @@
+﻿
+@{
+    ViewBag.Title = "Estadisticas de productividad";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<div class="page-title">
+    <h2><span class="fa fa-bar-chart-o"></span> Estadisticas de productividad</h2>
+</div>*@
+
+@*<script type="text/javascript" src="~/Scripts/echarts.min.js"></script>*@
+@*<script type="text/javascript" src="~/Scripts/codemirror.js"></script>*@
+
+<div class="container-fluid">
+    <div class="filter-settings">
+        <div class="filter-settings-icon"><span class="glyphicon glyphicon-filter"></span></div>
+        <h5>Filtrar</h5>
+
+        <div class="filter-settings-row">
+            <label for="SelAnioG">Año</label>
+            <select class="selectpicker form-control" multiple data-live-search="true" id="SelAnioG" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--">
+
+                <option value="2017">2017</option>
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+                <option value="2026">2026</option>
+                <option value="2027">2027</option>
+                <option value="2028">2028</option>
+                <option value="2029">2029</option>
+                <option value="2030">2030</option>
+
+            </select>
+        </div>
+        <div class="filter-settings-row">
+            <label for="SelMesG">Mes</label>
+            <select class="selectpicker form-control" multiple data-live-search="true" id="SelMesG" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--">
+
+                <option value="1">Enero</option>
+                <option value="2">Febrero</option>
+                <option value="3">Marzo</option>
+                <option value="4">Abril</option>
+                <option value="5">Mayo</option>
+                <option value="6">Junio</option>
+                <option value="7">Julio</option>
+                <option value="8">Agosto</option>
+                <option value="9">Septiembre</option>
+                <option value="10">Octubre</option>
+                <option value="11">Noviembre</option>
+                <option value="12">Diciembre</option>
+
+            </select>
+        </div>
+        <div class="filter-settings-row">
+            <label for="SelRecursosG">Asignado</label>
+            <select class="selectpicker form-control" multiple data-live-search="true" id="SelRecursosG" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--"></select>
+
+        </div>
+        <div class="filter-settings-row">
+            <label for="SelGraficasG">Grafica</label>
+            <select class="selectpicker form-control" multiple data-live-search="true" id="SelGraficasG" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--"></select>
+
+        </div>
+
+        <div class="filter-settings-row">
+            <button class="btn btn-default" id="BtnGenerarGrafica">Aplicar</button>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <!--<div class="panel-heading hide">
+                    <div class="panel-group accordion accordion-dc">
+
+                        <div class="panel panel-colorful">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a href="#accTwoColSeven">
+                                        Filtros
+                                    </a>
+                                </h4>
+                            </div>
+
+
+                            <div class="panel-body panel-body-open" id="accTwoColSeven">-->
+                <!--inicia-->
+                <!--<div class="row">
+                                    <div class="col-md-12">
+                                        <div>
+                                            <button class="btn btn-success pull-right" id="BtnGenerarGrafica">Filtrar</button><br /><br />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <form class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label class="col-md-3 control-label">Año</label>
+                                                    <div class="col-md-4 col-xs-12">
+                                                        <select class="selectpicker" multiple data-live-search="true" id="SelAnioG" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--">
+
+                                                            <option value="2017">2017</option>
+                                                            <option value="2018">2018</option>
+                                                            <option value="2019">2019</option>
+                                                            <option value="2020">2020</option>
+                                                            <option value="2021">2021</option>
+                                                            <option value="2022">2022</option>
+                                                            <option value="2023">2023</option>
+                                                            <option value="2024">2024</option>
+                                                            <option value="2025">2025</option>
+                                                            <option value="2026">2026</option>
+                                                            <option value="2027">2027</option>
+                                                            <option value="2028">2028</option>
+                                                            <option value="2029">2029</option>
+                                                            <option value="2030">2030</option>
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-md-3 col-xs-12 control-label">Recurso</label>
+                                                    <div class="col-md-4 col-xs-12">
+                                                        <select class="selectpicker" multiple data-live-search="true" id="SelRecursosG" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--"></select>
+                                                    </div>
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <form class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label class="col-md-3 control-label">Mes</label>
+                                                    <div class="col-md-4 col-xs-12">
+                                                        <select class="selectpicker" multiple data-live-search="true" id="SelMesG" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--">
+
+                                                            <option value="1">Enero</option>
+                                                            <option value="2">Febrero</option>
+                                                            <option value="3">Marzo</option>
+                                                            <option value="4">Abril</option>
+                                                            <option value="5">Mayo</option>
+                                                            <option value="6">Junio</option>
+                                                            <option value="7">Julio</option>
+                                                            <option value="8">Agosto</option>
+                                                            <option value="9">Septiembre</option>
+                                                            <option value="10">Octubre</option>
+                                                            <option value="11">Noviembre</option>
+                                                            <option value="12">Diciembre</option>
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-3 col-xs-12 control-label">Gráfica</label>
+                                                    <div class="col-md-4 col-xs-12">
+                                                        <select class="selectpicker" multiple data-live-search="true" id="SelGraficasG" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--"></select>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>-->
+
+            </div>
+            <div class="panel-heading">
+                <label class="check" onclick="MostrarGraficas()"><input type="radio" class="iradio" id="RdoGraficaG" name="RdoGraficaG" checked="checked" value="1" /> Grafica </label>
+                <label class="check" onclick="MostrarTablas()"><input type="radio" class="iradio" name="RdoGraficaG" id="RdoTablaG" value="2" /> Tabla</label>
+                <button class="btn btn-success pull-right" id="BtnLimpiar">Limpiar</button><br /><br />
+            </div>
+            <div class="panel-body">
+
+
+                <div class="row" id="Graficas">
+
+                </div>
+                <div class="row" id="Tablas">
+
+                </div>
+            </div>
+
+            <div id="scripts">
+
+            </div>
+
+        </div>
+    </div>
+
+    @*</div>*@
+    <!-- Modal grafica -->
+    <div class="modal" id="ModalGrafica" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+        <div class="modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="NombreGrafica"></h4>
+                    <button type="button" id="BtnCerrarGraf" class="close fa fa-compress" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <label class="check" onclick="MostrarGraficasM()"><input type="radio" class="iradio" id="RdoGraficaM" name="RdoGraficaM" checked="checked" value="1" /> Grafica </label>
+                    <label class="check" onclick="MostrarTablasM()"><input type="radio" class="iradio" name="RdoGraficaM" id="RdoTablaM" value="2" /> Tabla</label>
+
+                </div>
+                <div class="modal-body" id="GraficaModal">
+                </div>
+                <div class="modal-body" id="TablaModal">
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="scriptsmodal">
+
+    </div>
+
+</div>
+<input type="hidden" id="urlCargaInicialGraficas" value="@Url.Action("CargaInicial","IndProductividad")" />
+<input type="hidden" id="urlFiltrarGraficas" value="@Url.Action("FiltrarGraficas","IndProductividad")" />
+
+
+@{
+    Random rnd = new Random();
+    <script src="~/Scripts/Project/Graficas.js?@rnd.Next()"></script>
+
+}
+
+
+<script src="~/Scripts/TableExport-master/tableExport.js"></script>
+<script src="~/Scripts/TableExport-master/jquery.base64.js"></script>
+<script src="~/Scripts/TableExport-master/html2canvas.js"></script>
+<script src="~/Scripts/TableExport-master/jspdf/libs/sprintf.js"></script>
+<script src="~/Scripts/TableExport-master/jspdf/jspdf.js"></script>
+<script src="~/Scripts/TableExport-master/jspdf/libs/base64.js"></script>

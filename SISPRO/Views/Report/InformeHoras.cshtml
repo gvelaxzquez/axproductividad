@@ -1,0 +1,224 @@
+﻿
+@{
+    ViewBag.Title = "Informe de horas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@*<div class="page-title">
+    <h2><span class="fa fa-clock-o"></span> Informe horas proyecto</h2>
+</div>*@
+
+
+<div class="page-title">
+
+    <div class="col-md-3">
+        <input type="text" id="TxtRangoFechas" item="Fecha" class="form-control DateRangePicker col-xs-10" style="width: 83.33333333% !important;" />
+        <span class="input-group-addon col-xs-1"><span class="glyphicon glyphicon-calendar"></span></span>
+
+    </div>
+    <div class="col-md-6">
+        <label for="SelProyectoIH">Proyecto</label>
+        <select data-width="80%" class="selectpicker" data-live-search="true" id="SelProyectoIH" data-live-search-placeholder="Seleccione proyecto" data-actions-box="true" title="--Seleccione proyecto--"></select>
+    </div>
+
+    <div class="col-md-1">
+
+        <button class="btn btn-info" id="BtnFiltrarIH">
+            <i class="fa fa-search">
+
+            </i>
+        </button>
+    </div>
+
+</div>   
+
+
+
+
+<br />
+<br />
+
+
+
+
+<div class="page-content-wrap" style="margin-top:30px;" id="divReporte">
+
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <div class="widget widget-default widget-padding-sm">
+                            <div class="widget-big-int" id="LblHorasEstimadas">0</div>
+                            <div class="widget-subtitle">Horas estimadas</div>
+                            <div class="widget-buttons widget-c3">
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="widget widget-default widget-padding-sm">
+                            <div class="widget-big-int" id="LblHorasAsignadas">0</div>
+                            <div class="widget-subtitle">Horas asignadas</div>
+
+                            <div class="widget-buttons widget-c3">
+
+                                <div class="col">
+                                    <a href="#"></a>
+                                </div>
+                                <div class="col">
+                                    <a href="#"></a>
+                                </div>
+                                <div class="col">
+                                    <a href="#" id="lblGAPAE" title="Estimado vs asignado"><span class="fa" id="GAPAE"></span></a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="widget widget-default widget-padding-sm">
+                            <div class="widget-big-int " id="LblHorasReales">0</div>
+                            <div class="widget-subtitle">Horas reales</div>
+
+                            <div class="widget-buttons widget-c3">
+
+                                <div class="col">
+                                    <a href="#"></a>
+                                </div>
+                                <div class="col">
+                                    <a href="#" id="lblGAPRE" title="Estimado vs real"><span class="fa " id="GAPRE"></span>  </a>
+                                </div>
+                                <div class="col">
+                                    <a href="#" id="lblGAPRA" title="Asignado vs real"><span class="fa " id="GAPRA"> </span></a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-md-12 col-xs-12">
+                    <h3> Horas por fase </h3>
+                    <div class="table-responsive">
+                        <table class="table datatable text" id="TblInformeFases">
+                            <thead>
+                                <tr>
+
+                                    <th width="15%">Fase</th>
+                                    <th>Estimadas</th>
+                                    <th>Asignadas</th>
+                                    <th>Reales</th>
+                                    <th> Estimado / Asignado</th>
+                                    <th> Real / Estimado</th>
+                                    <th> Real / Asignado</th>
+
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+
+                    </div>
+                </div>
+                <div class="col-md-12 col-xs-12">
+                    <h3> Horas por recurso</h3>
+                    <div class="table-responsive">
+                        <table class="table datatable text" id="TblInformeRecurso">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th width="15%">Recurso</th>
+                                    <th>Estimadas</th>
+                                    <th>Asignadas</th>
+                                    <th>Reales</th>
+                                    <th> Estimado / Asignado</th>
+                                    <th> Real / Estimado</th>
+                                    <th> Real / Asignado</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="row">
+
+                <div class="col-md-12 col-xs-12">
+                    <h3> Horas por historia de usuario</h3>
+                    <div class="table-responsive">
+                        <table class="table datatable text" id="TblInformeRequerimiento">
+                            <thead>
+                                <tr>
+
+                                    <th width="15%">Requerimiento</th>
+                                    <th>Estimadas</th>
+                                    <th>Asignadas</th>
+                                    <th>Reales</th>
+                                    <th> Estimado / Asignado</th>
+                                    <th> Real / Estimado</th>
+                                    <th> Real / Asignado</th>
+
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="row">
+
+                <div class="col-md-12 col-xs-12">
+                    <h3> Horas por sprint</h3>
+                    <div class="table-responsive">
+                        <table class="table datatable text" id="TblInformeSprint">
+                            <thead>
+                                <tr>
+
+                                    <th width="15%">Requerimiento</th>
+                                    <th>Estimadas</th>
+                                    <th>Asignadas</th>
+                                    <th>Reales</th>
+                                    <th> Estimado / Asignado</th>
+                                    <th> Real / Estimado</th>
+                                    <th> Real / Asignado</th>
+
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+</div>
+<script src="~/Scripts/Project/InformeHoras.js"></script>
+
+<input type="hidden" id="urlConsultaListaProyecto" value="@Url.Action("CargaComboProyecto","Proyectos")" />
+<input type="hidden" id="urlConsultaInformeHoras" value="@Url.Action("ConsultaInformeHoras","Report")" />

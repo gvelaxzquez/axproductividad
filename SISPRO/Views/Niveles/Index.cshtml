@@ -1,0 +1,268 @@
+﻿
+@{
+    ViewBag.Title = "Niveles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@*<div class="page-title">
+    <h2><span class="fa fa-level-up"></span> Niveles</h2>
+</div>*@
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div>
+                    <button class="btn btn-success pull-right" id="BtnNuevoNivel">Nuevo</button><br /><br />
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table datatable text" id="TblNiveles">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Nombre</th>
+                                <th>Factor cumplimiento</th>
+                                <th>Factor horas</th>
+                                <th>Estándar diario</th>
+                                <th>Activo</th>
+                                <th>Editar</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+@* Modal para editar o guardar los clientes *@
+<div class="modal" id="ModalNiveles" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="defModalHead">Alta/Edición Nivel</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="row col-md-12">
+                    <button type="button" class="btn btn-success pull-right" id="BtnGuardarNivel">Guardar<span class="fa fa-floppy-o fa-right"></span></button>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <div>
+                                    <label class="col-md-3 col-xs-12 control-label " for="TxtNombreN">Nombre</label>
+                                    <div class="col-md-8 col-xs-12">
+
+                                        <input type="text" class="form-control ReqNivel" id="TxtNombreN" maxlength="200" item="Nombre" />
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div>
+                                    <label class="col-md-3 col-xs-12 control-label " for="TxtFactorC">Factor bono cumplimiento</label>
+                                    <div class="col-md-8 col-xs-12">
+
+                                        <input type="number" class="form-control ReqNivel" id="TxtFactorC" maxlength="200" item="Factor bono cumplimiento" />
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div>
+                                    <label class="col-md-3 col-xs-12 control-label " for="TxtFactorH">Factor bono horas</label>
+                                    <div class="col-md-8 col-xs-12">
+
+                                        <input type="number" class="form-control ReqNivel" id="TxtFactorH" maxlength="200" item="Factor bono horas" />
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label " for="TxtEstandarD">Estandár diario</label>
+                                <div class="col-md-8 col-xs-12">
+
+                                    <input type="number" min="1" class="form-control ReqNivel" id="TxtEstandarD" maxlength="200" item="Estándar diario" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Activo</label>
+                                <div class="col-md-3 col-xs-12">
+                                    <label class="switch switch-small">
+                                        <input type="checkbox" checked id="ChkActivoN" />
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                        </form>
+
+
+                    </div>
+
+                </div>
+
+                <div class="row" id="divMeses">
+                    <div class="col-md-12">
+
+                        <div class="panel panel-default tabs">
+                            <ul class="nav nav-tabs" role="tablist">
+
+                                <li class="active"><a href="#tab-secondactivity" role="tab" data-toggle="tab">Mensual </a></li>
+                            </ul>
+                            <div class="panel-body tab-content">
+
+
+                                <div class="tab-pane active" id="tab-secondactivity" style="min-height:50px;">
+
+                                    <div class="col-md-12">
+
+                                        <label class="col-md-3 col-xs-12 control-label " for="SelAnioHom">Año</label>
+                                        <div class="col-md-8 col-xs-12">
+
+                                            <select class="form-control selectpicker ReqNivelMeses" id="SelAnioNivel" item="Año">
+                                                <option selected="selected" value="-1">--Seleccione--</option>
+
+
+                                                <option value="2021">2021</option>
+                                                <option value="2022">2022</option>
+                                                <option value="2023">2023</option>
+                                                <option value="2024">2024</option>
+                                            </select>
+                                        </div>
+                                        <br />
+
+                                        <div style="padding-top:35px; padding-bottom:35px;">
+                                            <label class="col-md-3 col-xs-12 control-label " for="TxtEneroN">Enero</label>
+
+                                            <div class="col-md-8 col-xs-12">
+
+                                                <input type="number" min="1" class="form-control ReqNivelMeses" id="TxtEneroN" maxlength="200" item="Enero" />
+                                            </div>
+                                            <label class="col-md-3 col-xs-12 control-label " for="TxtFebreroN">Febrero</label>
+
+                                            <div class="col-md-8 col-xs-12">
+
+                                                <input type="number" class="form-control ReqNivelMeses" id="TxtFebreroN" maxlength="200" item="Febrero" />
+                                            </div>
+                                            <label class="col-md-3 col-xs-12 control-label " for="TxtMarzoN">Marzo</label>
+
+                                            <div class="col-md-8 col-xs-12">
+
+                                                <input type="number" class="form-control ReqNivelMeses" id="TxtMarzoN" maxlength="200" item="Marzo" />
+                                            </div>
+                                            <label class="col-md-3 col-xs-12 control-label " for="TxtAbrilN">Abril</label>
+
+                                            <div class="col-md-8 col-xs-12">
+
+                                                <input type="number" class="form-control ReqNivelMeses" id="TxtAbrilN" maxlength="200" item="Abril" />
+                                            </div>
+                                            <label class="col-md-3 col-xs-12 control-label " for="TxtMayoN">Mayo</label>
+                                            <div class="col-md-8 col-xs-12">
+
+                                                <input type="number" class="form-control ReqNivelMeses" id="TxtMayoN" maxlength="200" item="Mayo" />
+                                            </div>
+
+                                            <label class="col-md-3 col-xs-12 control-label " for="TxtJunioN">Junio</label>
+                                            <div class="col-md-8 col-xs-12">
+
+                                                <input type="number" class="form-control ReqNivelMeses" id="TxtJunioN" maxlength="200" item="Junio" />
+                                            </div>
+                                            <label class="col-md-3 col-xs-12 control-label " for="TxtJulioN">Julio</label>
+
+                                            <div class="col-md-8 col-xs-12">
+
+                                                <input type="number" class="form-control ReqNivelMeses" id="TxtJulioN" maxlength="200" item="Julio" />
+                                            </div>
+
+                                            <label class="col-md-3 col-xs-12 control-label " for="TxtAgostoN">Agosto</label>
+
+                                            <div class="col-md-8 col-xs-12">
+
+                                                <input type="number" class="form-control ReqNivelMeses" id="TxtAgostoN" maxlength="200" item="Agosto" />
+                                            </div>
+
+                                            <label class="col-md-3 col-xs-12 control-label " for="TxtSeptiembreN">Septiembre</label>
+
+                                            <div class="col-md-8 col-xs-12">
+
+                                                <input type="number" class="form-control ReqNivelMeses" id="TxtSeptiembreN" maxlength="200" item="Septiembre" />
+                                            </div>
+
+                                            <label class="col-md-3 col-xs-12 control-label " for="TxtOctubreN">Octubre</label>
+
+                                            <div class="col-md-8 col-xs-12">
+
+                                                <input type="number" class="form-control ReqNivelMeses" id="TxtOctubreN" maxlength="200" item="Octubre" />
+                                            </div>
+
+                                            <label class="col-md-3 col-xs-12 control-label " for="TxtNoviembreN">Noviembre</label>
+
+                                            <div class="col-md-8 col-xs-12">
+
+                                                <input type="number" class="form-control ReqNivelMeses" id="TxtNoviembreN" maxlength="200" item="Noviembre" />
+                                            </div>
+
+                                            <label class="col-md-3 col-xs-12 control-label " for="TxtDiciembreN">Diciembre</label>
+
+                                            <div class="col-md-8 col-xs-12">
+
+                                                <input type="number" class="form-control ReqNivelMeses" id="TxtDiciembreN" maxlength="200" item="Diciembre" />
+                                            </div>
+
+
+
+
+                                        </div>
+                                        <div class="row col-md-12" style="padding-top:20px;">
+                                            <button type="button" class="btn btn-success pull-right" id="BtnGuardarNivelMeses">Guardar<span class="fa fa-floppy-o fa-right"></span></button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                    @*</div>*@
+                    @*</div>*@
+
+                    @*</div>*@
+                </div>
+                @*<div class="modal-footer">
+
+                    </div>*@
+            </div>
+        </div>
+    </div>
+
+
+
+    <input type="hidden" id="IdNivel" value="0" />
+    <input type="hidden" id="IdNivelHoras" value="0" />
+
+    <input type="hidden" id="urlCargaInicial" value="@Url.Action("ListaNiveles","Niveles")" />
+    <input type="hidden" id="urlGuardarNivel" value="@Url.Action("GuardarNivel","Niveles")" />
+
+    <input type="hidden" id="urlConsultaNivelHoras" value="@Url.Action("ConsultaHorasMes","Niveles")" />
+    <input type="hidden" id="urlGuardarNivelHoras" value="@Url.Action("GuardarNivelHoras","Niveles")" />
+
+
+    <script type="text/javascript" src="~/Scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>
+    <script src="~/Scripts/Project/Nivel.js"></script>
+

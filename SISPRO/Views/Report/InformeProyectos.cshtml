@@ -1,0 +1,135 @@
+﻿
+@{
+    ViewBag.Title = "Informe de proyectos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-content-wrap">
+
+    <div class="panel panel-default">
+
+        <div class="panel-heading">
+
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="pull-right">
+
+
+                        <button class="btn btn-info" id="BtnExportarIP"><i class="fa fa-bars"></i> Exportar</button>
+
+
+
+
+                    </div>
+
+                    <h3> Fecha corte: <span id="lblFechaCortefiltro"></span></h3>
+
+
+
+
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="panel-body">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table datatable text" id="TblReporte">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">
+                                    Proyecto
+                                </th>
+                                <th rowspan="2">
+                                    Líder
+                                </th>
+
+                                <th colspan="2" class="text-center" style="background-color:gainsboro;">
+                                    Avance (%)
+                                </th>
+                                <th colspan="4" class="text-center">
+                                    Costo  ($)
+                                </th>
+                                <th colspan="3" class="text-center" style="background-color: gainsboro;">
+                                    Flujo ($)
+                                </th>
+                                <th colspan="3" class="text-center">
+                                    Rentabilidad (%)
+                                </th>
+
+
+                            </tr>
+
+                            <tr>
+
+
+                                <th style="background-color: gainsboro;">Comprometido</th>
+                                <th style="background-color: gainsboro;">Actual</th>
+                              
+                                <th>Hora</th>
+                                <th>Planeado</th>
+                                <th>Actual</th>
+                                <th>Proyectado</th>
+
+                                <th style="background-color: gainsboro;">Planeado</th>
+                                <th style="background-color: gainsboro;">Facturado</th>
+                                <th style="background-color: gainsboro;">Cobrado</th>
+                                <th>Planeada</th>
+                                <th>Actual</th>
+                                <th>Proyectada</th>
+
+
+
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="filter-settings">
+    <div class="filter-settings-icon"><span class="glyphicon glyphicon-filter"></span></div>
+    <h5>Filtrar</h5>
+
+
+    <div class="filter-settings-row">
+        <input type="text" id="TxtFechaCorte" class="form-control ReqFiltroRep col-xs-10"" item="Fecha corte" style="width: 83.33333333% !important;" />
+        <span class="input-group-addon col-xs-1"><span class="glyphicon glyphicon-calendar"></span></span>
+
+    </div>
+
+
+    <div class="filter-settings-row">
+        <label for="ChkArchivado">Proyectos abiertos</label>
+        <label class="switch switch-small">
+            <input type="checkbox" id="ChkAbiertos" checked />
+            <span></span>
+        </label>
+    </div>
+
+
+    <div class="filter-settings-row">
+        <button class="btn btn-default" id="BtnFiltrarIP">Aplicar</button>
+    </div>
+</div>
+
+
+
+<input type="hidden" id="urlConsultaInformeProyectos" value="@Url.Action("ConsultaInformeProyectos","Report")" />
+
+
+
+@{
+    Random rnd = new Random();
+    <script src="~/Scripts/Project/InformeProyectos.js"></script>
+
+}

@@ -1,0 +1,517 @@
+﻿
+@{
+    Layout = null;
+}
+
+@using System:
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8" />
+    <title>Dashboard </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/Content/yitpro.css" />
+    <script type="text/javascript" src="~/Scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/echarts.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/codemirror.js"></script>
+
+    <style>
+table.dataTable tbody td {
+  vertical-align: middle;
+}
+
+table.dataTable thead th {
+  vertical-align: middle;
+}
+
+    </style>
+ 
+</head>
+<body>
+
+    <div class="page-content AutoScroll" >
+
+        <ul class="x-navigation x-navigation-horizontal x-navigation-panel">
+            <li class="xn-logo xn-principal">
+                <a href=@Url.Action("Index", "Dashboard")></a>
+            </li>
+        </ul>
+        <div class="background-colorful franja">
+        </div>
+
+        <div class="page-content-wrap AutoScroll"  id="divprincipal" >
+
+            <div class="portada text-center">
+                <div id="BannerPrincipal" class="carousel slide col-md-12 bannerprincipal" data-ride="carousel" data-interval="38000">
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <div class="panel-body">
+                                <br />
+                                <h1><i class="fa fa-bar-chart-o"> </i> INDICADORES MES ACTUAL</h1>
+
+                             
+
+                             
+                                <div class="row">
+                                    <div class="col-md-6">
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+
+                                                <div class="widget " id="wprod">
+                                                    <div class="widget-title">Productividad actual</div>
+                                                    <div class="widget-int"><span data-toggle="counter" id="LblProductividad"> </span>%</div>
+                                                </div>
+                                            </div>
+
+
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="tile tile-default">
+                                                    <div class="title tile-default" id="LblObjetivo"></div>
+                                                    <p>Objetivo</p>
+
+                                                </div>
+                                        </div>
+                                         </div>
+
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div class="widget widget-primary">
+                                                    <div class="widget-title">Productividad mensual</div>
+                                                    <div class="widget-int"><span data-toggle="counter" id="LblProductividadMens">  </span>%</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="widget" id="wret">
+                                                    <div class="widget-title">Retrabajo</div>
+                                                    <div class="widget-int"><span data-toggle="counter" id="LblIRetrabajo">  </span>%</div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="tile tile-default">
+                                                    <div class="title tile-default" id="LblEsperadas"></div>
+                                                    <p>Esperadas</p>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="tile tile-default">
+                                                    <div class="title tile-default" id="LblActual"></div>
+                                                    <p>Actual</p>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+
+                                <div class="row" id="Graficascarr1">
+
+                                </div>
+                           
+                            </div>
+                        </div>
+                        
+                        <div class="item active" id="ItemMesAnterior">
+                            <div class="panel-body">
+                                <br />
+                                <h1><i class="fa fa-bar-chart-o"> </i> <label id="lblMesAnterior"></label> RESULTADOS MES ANTERIOR </h1>
+                                <div class="row">
+
+                                    <div class="col-md-8">
+                                        <div class="widget " id="wprodA">
+                                            <div class="widget-title">Productividad</div>
+                                            <div class="widget-int"><span data-toggle="counter" id="LblProductividadA"> </span>%</div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="widget" id="wretA">
+                                            <div class="widget-title">Retrabajo</div>
+                                            <div class="widget-int"><span data-toggle="counter" id="LblIRetrabajoA">  </span>%</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <div class="tile tile-default">
+                                                <div class="title tile-default" id="LblObjetivoA"></div>
+                                                <p>Objetivo</p>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="tile tile-default">
+                                                <div class="title tile-default" id="LblActualA"></div>
+                                                <p>Real</p>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="row" id="Graficascarr2">
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="item">
+                            <div class="panel-body">
+                                <br />
+                                <h1><i class="fa fa-pencil-square-o"></i> CAPTURA DE ACTIVIDADES</h1>
+                                <br />
+                                <div class="row" id="tarjetas1">
+
+                                        @foreach (var c in ViewBag.Cumplimiento)
+                                        {
+                                            var imagen = c.NumEmpleado + ".jpg";
+
+                                            <div class="col-md-3">
+                                                <div class="card">
+
+
+                                                    <img src="~/Archivos/Fotos/@imagen"  alt="@c.NumEmpleado" style="width:50%; height:200px;">
+                                                    <br />
+                                                    <h2 style="margin-top:5px;">@c.NombreCompleto</h2>
+                                                    <h3 > Fecha última captura: @c.FechaUltCaptura </h3>
+
+                                                     @if (c.Cumplimiento == 0)
+                                                     {
+                                                        <button class="btn btn-danger btn-block"><h2 style="margin-bottom:0px; color:#FFFFFF">ATRASADO</h2></button>
+                                                     }
+                                                     else
+                                                     {
+                                                        <button class="btn btn-success btn-block"><h2 style="margin-bottom:0px; color:#FFFFFF">ACTUALIZADO</h2> </button>
+                                                     }
+                                                  
+
+                                                </div>
+                                            </div>
+
+                                        }
+
+                                    
+                                    
+                                  
+
+                         
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="panel-body">
+                                <br />
+                                <h1><i class="fa fa-bug"> </i> <label></label> HOY CUMPLIMOS  </h1>
+
+                                <div class="tile tile-info">
+                                    <div class="title tile-default" style="font-size:80px" id="lblDiasSinBugs"> </div>
+                                    <h1 style="color:#FFFFFF" id="lblDiaSBEt">Días sin defectos</h1>
+
+                                </div>
+                                <br />
+                                <br />
+                                <span style="font-size:42px"> Nuestra mejor marca son : <b id="lblRecord"></b> días</span>
+                            </div>
+
+                        </div>
+
+                        <div class="item">
+                            <div class="panel-body">
+                                <br />
+                                <h1><i class="fa fa-star"> </i > ROCKSTAR TEAM <i class="fa fa-star"> </i></h1>
+                                <br />
+                                <br />
+
+                                <h2>Mes actual</h2>
+                                <div class="row" style="float: none; margin: 0 auto;" >
+
+                                  @{int i = 1;
+                                      foreach (var c in ViewBag.MesActual)
+                                      {
+                                          var imagen = c.NumEmpleado + ".jpg";
+
+                                        <div class="col-md-3 col-centered">
+                                            <div class="card">
+                                                <br />
+                                                <h1>  # @i.ToString()   </h1>
+                                        
+                                                <img src="~/Archivos/Fotos/@imagen" alt="@c.NumEmpleado" style="width:50%; height:200px;">
+                                                <br />
+                                                <h2 style="margin-top:5px;">@c.NombreCompleto</h2>
+                                                <h3> Productividad: @System.Math.Round(@c.Productividad, 2)  %</h3>
+                                                <br />
+
+                                            </div>
+                                        </div>
+                                          i++;
+
+                                      }
+                                    }
+
+                                </div>
+
+                                <br />
+                                <br />
+
+                                <h2>Mes anterior</h2>
+                                <div class="row justify-content-center">
+                                     @{int j = 1;
+                                         foreach (var c in ViewBag.MesAnt)
+                                         {
+                                             var imagen = c.NumEmpleado + ".jpg";
+
+                                        <div class="col-md-3 col-centered">
+                                            <div class="card">
+                                                <br />
+                                                <h1>  # @j.ToString()   </h1>
+
+                                                <img src="~/Archivos/Fotos/@imagen" alt="@c.NumEmpleado" style="width:50%; height:200px;">
+                                                <br />
+                                                <h2 style="margin-top:5px;">@c.NombreCompleto</h2>
+                                                <h3> Productividad: @System.Math.Round(@c.Productividad, 2) % </h3>
+
+
+                                            </div>
+                                        </div>
+                                             j++;
+
+                                         }
+                                       }
+
+                                </div>
+
+                                <br />
+                                <br />
+
+                                <h2>Acumulado  - Año actual</h2>
+                                <div class="row">
+                                    @{ int k = 1;
+                                        foreach (var c in ViewBag.Hist)
+                                        {
+                                            var imagen = c.NumEmpleado + ".jpg";
+
+                                        <div class="col-md-3 col-centered">
+                                            <div class="card">
+                                                <br />
+                                                <h1>  # @k.ToString()   </h1>
+
+                                                <img src="~/Archivos/Fotos/@imagen" alt="@c.NumEmpleado" style="width:50%; height:200px;">
+                                                <br />
+                                                <h2 style="margin-top:5px;">@c.NombreCompleto</h2>
+                                                <h3> Productividad: @System.Math.Round(@c.Productividad, 2) %  </h3>
+
+
+                                            </div>
+                                        </div>
+                                            k++;
+                                        }
+                                        }
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="panel-body">
+                                <br />
+                                <h1><i class="fa fa-question-circle"> </i> Estatus de proyectos </h1>
+                                <br />
+                                <br />
+                                <div class="table-responsive">
+                                    <table class="table datatable text dataTable no-footer">
+                                        <thead>
+                                            <tr>
+                                         
+                                                <th ><h3 style="color:#FFFFFF;">Proyecto</h3></th>
+                                                <th><h3 style="color:#FFFFFF;">Descripción</h3></th>
+                                                <th><h3 style="color:#FFFFFF;">Líder</h3></th>
+                                                <th><h3 style="color:#FFFFFF;">Avance planeado</h3></th>
+                                                <th><h3 style="color:#FFFFFF;">Avance real</h3></th>
+                                                <th><h3 style="color:#FFFFFF;">Estatus</h3></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            @{
+
+                                                foreach (var p in ViewBag.Proyectos)
+                                                {
+                                                    <tr>
+                                                        <td >
+                                                            <h4>@p.Nombre</h4>
+                                                        </td>
+
+                                                        <td>
+                                                            <h4><p>@p.Descripcion</p></h4>
+                                                        </td>
+                                                        <td>
+                                                            <h4><p>@p.Lider</p></h4>
+                                                        </td>
+                                                        <td>
+                                                            <h4>  @System.Math.Round( @p.Avance,2)</h4>
+                                                        </td>
+                                                        <td>
+                                                            <h4>  @System.Math.Round( @p.AvanceReal,2)</h4>
+                                                        </td>
+                                                        <td>
+                                                            <h4><span class="dot" style="background-color:@p.Semaforo;"></span></h4>
+                                                        </td>
+                                                    </tr>
+
+                                                }
+
+                                            }
+                                   
+
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+
+
+                            </div>
+                          </div>
+
+
+
+                        <div class="item" >
+                            <div class="panel-body">
+                               
+
+                                <blockquote style="margin-top:300px;">
+                                    @*<h1>Frase del día:</h1>*@
+                                    <h1 id="LblFrase"> <i class="fa fa-quote-left"></i>  @ViewBag.Frase <i class="fa fa-quote-right"></i></h1>
+                                    <h2 id="LblFraseA">- @ViewBag.FraseA</h2>
+                                </blockquote>
+                            </div>
+
+                        </div>
+
+                        @{
+
+                            foreach (var a in ViewBag.Archivos)
+                            {
+
+                                <div class="item">
+
+                                        <div class="col-centered text-center" align="center">
+                                            <img class="img-responsive "  src="~/Archivos/Banner/@a" alt="slider">
+                                        </div>
+
+
+                                 
+                                   
+
+                                </div>
+
+                            }
+                        }
+
+
+                        <a class="left carousel-control" href="#BannerPrincipal" data-slide="prev"><span><i class="fa fa-angle-left"></i></span></a>
+                    </div>
+          
+                    <a class="right carousel-control" href="#BannerPrincipal" data-slide="next"><span><i class="fa fa-angle-right"></i></span></a>
+                </div>
+
+            </div>
+
+            <div id="scriptscarr1">
+
+            </div>
+
+
+        </div>
+
+
+
+
+     </div>
+
+
+    <input type="hidden" id="urlCargaInicialDashboard" value="@Url.Action("CargaInicial","Dashboard")" />
+    @Html.Hidden("urlKeepAlive", @Url.Action("Keepalive", "Home"))
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/Layout")
+
+        <script type="text/javascript" src="~/Scripts/Project/Dashboard.js"></script>
+        <script type="text/javascript" src="~/Scripts/jquery.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
+        <script src="~/Scripts/verticalScroller.js"></script>
+        <script type="text/javascript" src="~/Scripts/moment-with-locales.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/icheck.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/bootstrap-select.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/DataTables/dataTables.bootstrap.js"></script>
+
+
+    <script language="javascript" type="text/javascript">
+
+
+
+
+         $(document).ready(function () {
+
+
+
+             setInterval(Keepalive, 90000);
+
+
+         });
+
+         function Keepalive() {
+
+             var url = $('#urlKeepAlive').val();
+
+             $.ajax({
+
+                 url: url,
+                 type: "POST",
+                 contentType: "application/json; charset=utf-8",
+                 dataType: "json",
+                 async: false
+             });
+             return false;
+         }
+
+
+
+    </script>
+
+
+
+</body>
+</html>

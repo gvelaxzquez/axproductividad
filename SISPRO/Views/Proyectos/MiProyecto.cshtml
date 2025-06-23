@@ -1,0 +1,323 @@
+﻿
+@{
+    ViewBag.Title = ViewBag.Clave;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<script src="~/Scripts/easypiechart.min.js"></script>
+<script src="~/Scripts/jquery.easypiechart.min.js"></script>
+
+<div class="page-title">
+    <div class="row">
+        <ul class="breadcrumb">
+            <li><a href="@Url.Action("Cliente", "Portafolio")">Inicio</a></li>
+            <li class="active"><span id="lblNombreP"></span></li>
+        </ul>
+
+
+    </div>
+    @*<div class="row">
+            <div class="col-md-8">
+                <h4> Proyecto: <span id="lblNombreP"></span></h4>
+
+            </div>
+            <div class="col-md-4">
+                <div>
+                    <a class="btn btn-info pull-right" href="@Url.Action("Cliente", "Portafolio")"><i class="fa fa-arrow-left"></i> Regresar</a>
+
+                </div>
+            </div>
+        </div>*@
+
+
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="page-content-wrap">
+
+                    <div class="row">
+
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="panel panel-default  projectcard" style="min-height:408px;">
+                                        <div class="panel-body profile">
+                                            <div class="row headerproyecto">
+                                                <div class="col-md-12">
+                                                    <h4>Fechas</h4>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div style="margin-top:5%;">
+                                                <table class="table " id="">
+                                                    <thead>
+                                                    <tbody>
+                                                        <tr>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td> <h3 class="no-margins font-extra-bold" id="LblFechaIniPlan"></h3>  <h5>Fecha inicio</h5></td>
+
+
+                                                        </tr>
+                                                        <br />
+                                                        <tr>
+                                                            <td> <h3 class="no-margins font-extra-bold" id="LblFechaFinPlan"></h3>  <h5>Fecha Fin</h5></td>
+
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td> <h3 class="no-margins font-extra-bold" id="LblFechaFinProyectada"></h3>  <h5>Fecha proyectada</h5></td>
+
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td> <h2 class="no-margins font-extra-bold text-info" id="LblFechaFinCompromiso"></h2>  <h5>Fecha Compromiso</h5></td>
+
+
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="panel panel-default projectcard" style="min-height:408px;">
+                                        <div class="panel-body profile">
+                                            <div class="row headerproyecto">
+                                                <div class="col-md-12">
+                                                    <h4>Avance</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+
+                                            <div class="col-md-6">
+
+
+
+                                                <span class="chart cavanceactual " data-percent="86">
+                                                    <span class="percent"></span><br>
+                                                    <p>Avance actual</p>
+                                                </span>
+
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <span class="chart cavanceesperado" data-percent="86">
+                                                    <span class="percent"></span><br>
+                                                    <p>Avance esperado</p>
+                                                </span>
+
+                                            </div>
+                                            <div class="col-md-4 hide">
+
+
+
+                                                <span class="chart cdesfase" data-percent="86">
+                                                    <span class="percent"></span><br>
+                                                    <p>Desfase</p>
+                                                </span>
+
+                                            </div>
+
+
+
+                                            <div class="mx-0 row">
+                                                <div class="border-end border-bottom py-3 col-md-6">
+                                                    <h4 class="fw-normal text-600" id="LblTotalHoras"></h4>
+                                                    <h5 class="text-500 mb-0">
+                                                        Total
+
+                                                    </h5>
+                                                </div>
+                                                <div class="border-bottom py-3 col-md-6">
+                                                    <h4 class="fw-normal text-600" id="LblComprometidas"></h4>
+                                                    <h5 class="text-500 mb-0">Comprometidas</h5>
+                                                </div>
+                                                <div class="border-end py-3 col-md-6">
+                                                    <h4 class="fw-normal text-600" id="LblRelizadas"></h4>
+                                                    <h5 class="text-500 mb-0">Actual</h5>
+                                                </div>
+                                                <div class="py-3 col-md-6">
+                                                    <h4 class="fw-normal text-600" id="LblDesfase"></h4>
+                                                    <h5 class="text-500 mb-0">Desfase</h5>
+                                                </div>
+                                            </div>
+
+
+
+
+
+
+                                        </div>
+
+                                        <div class="col-md-8">
+                                            <div id="GraficaAvance">
+
+                                            </div>
+                                            <div id="scriptsAvance">
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="panel panel-default projectcard" style="min-height:408px;">
+                                        <div class="panel-body profile">
+                                            <div class="row headerproyecto">
+                                                <div class="col-md-12">
+                                                    <h4>Issues</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="table-responsive">
+                                                <table class="table datatable text" id="dtIssue">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="text-center">#</th>
+                                                            <th class="text-center">Descripción</th>
+                                                            <th class="text-center">Estatus</th>
+                                                            <th class="text-center">Comentarios</th>
+                                                            <th class="text-center"><span class="fa fa-calendar-times-o"></span></th>
+                                                        </tr>
+
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="panel panel-default projectcard" style="min-height:408px;">
+                                        <div class="panel-body profile">
+                                            <div class="row headerproyecto">
+                                                <div class="col-md-12">
+                                                    <h4>Equipo</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="table-responsive">
+                                                <table class="table datatable text" id="TblEquipo">
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-3">
+
+                            <div class="panel panel-default  projectcard" style="min-height:408px;">
+                                <div class="panel-body profile">
+                                    <div class="row headerproyecto">
+                                        <div class="col-md-12">
+                                            <h4>Sprints</h4>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div style="margin-top:5%;">
+                                        <table class="table " id="">
+                                            <thead>
+                                            <tbody id="tblSprintDetalle">
+                                                <tr>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
+
+
+
+                        </div>
+
+
+
+
+
+
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<input type="hidden" id="IdProyecto" value="@ViewBag.IdProyecto" />
+<input type="hidden" id="IdIteracion" value="0" />
+<input type="hidden" id="hdClave" value="@ViewBag.Clave" />
+
+
+@Html.Hidden("LeerIssue", Url.Action("LeerIssue", "Issue"))
+@Html.Hidden("DescargarExcelIssue", Url.Action("DescargarExcelIssue", "Issue"))
+@*@Html.Partial("~/Views/Issue/Issue.cshtml")*@
+
+
+<input type="hidden" id="urlConsultaIndicadores" value="@Url.Action("ConsultaIndicadoresCliente","Proyectos")" />
+<input type="hidden" id="urlSprintReport" value="@Url.Action("SprintReport","Proyectos")" />
+
+
+@section scripts{
+    <script type="text/javascript" src="~/Scripts/jquery.powertip.js"></script>
+
+    <script src="~/Scripts/Project/ActualizarImagenes.js"></script>
+    <script src="~/Scripts/Project/IssueProyecto2.js"></script>
+    @*<script src="~/Scripts/Project/MiProyecto.js"></script>*@
+
+}
+
+
+@{
+    Random rnd = new Random();
+    <script src="~/Scripts/Project/MiProyecto.js"></script>
+
+
+
+}
+
+
+

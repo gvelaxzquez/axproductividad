@@ -1,0 +1,125 @@
+﻿@{
+    ViewBag.Title = "Issues";
+}
+
+<link rel="stylesheet" href="~/Content/jquery.powertip.css" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<div class="page-title">
+    <h2><span class="fa fa-clipboard"></span> Issues</h2>
+</div>
+
+<div class="col-md-12">
+    <div class="form-horizontal col-md-12" style=" display: flex; justify-content: space-between;">
+        <div class="form-group col-md-6">
+            <label for="dateFiltroInicio" class="col-md-2 control-label">Proyecto</label>
+            <div class="col-md-10">
+                <select class="form-control btn-group selectpicker show-tick" data-actions-box="true" data-live-search="true" id="cmbFiltroProyecto" multiple>
+                </select>
+            </div>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="dateFiltroFin" class="col-md-3 control-label">Estatus</label>
+            <div class="col-md-9">
+                <select class="form-control btn-group selectpicker show-tick" data-actions-box="true" data-live-search="true" id="cmbFiltroEstatus" multiple>
+                </select>
+            </div>
+        </div>
+        <div class="form-group col-md-1">
+            <div class="col-md-12" style="text-align:start">
+                <button class="btn btn-info" id="btnFiltrar"><span class="fa fa-search"></span></button>
+            </div>
+        </div>
+        <div class="col-md-2" style="text-align:end">
+            <button class="btn btn-primary" id="btnExportar" style="">Exportar <span class="fa fa-file-excel-o"></span></button>
+            <button class="btn btn-success" id="btnNuevo">Nuevo</button>
+        </div>
+    </div>
+    <div class="form-horizontal col-md-12" style=" display: flex; justify-content: space-between;">
+        <div class="form-group col-md-6">
+            <label for="" class="col-md-2 control-label">Responsable</label>
+            <div class="btn-group col-md-10 btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-default active grouping">
+                    <input type="radio" name="options" id="rdoTodos" value="0" autocomplete="off" checked> Todos
+                </label>
+                <label class="btn btn-default grouping">
+                    <input type="radio" name="options" id="rdoInternoFiltro" value="1" autocomplete="off"> Interno
+                </label>
+                <label class="btn btn-default grouping">
+                    <input type="radio" name="options" id="rdoExternoFiltro" value="2" autocomplete="off"> Externo
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default" style="border-top: none; padding-top: 0px">
+            <div class="panel-heading" style="border: none; padding-top: 0px;">
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table datatable text" id="dtIssue">
+                        <thead>
+                            <tr>
+                                <th class="text-center" width="8%">NoIssue</th>
+                                <th class="text-center" width="10%">Proyecto</th>
+                                <th class="text-center" width="8%">Responsable</th>
+                                <th class="text-center" width="8%">Compromiso</th>
+                                <th class="text-center" width="15%">Descripción</th>
+                                <th class="text-center" width="8%">Prioridad</th>
+                                <th class="text-center" width="8%">Estatus</th>
+                                <th class="text-center" width="5%">Bloq.</th>
+                                <th class="text-center" width="18%">Comentarios</th>
+                                <th class="text-center" width="8%">Cierre</th>
+                                <th class="text-center" width="0%" style="display: none">EsExterno</th>
+                                <th class="text-center">D.</th>
+                            </tr>
+                            <tr>
+                                <th class="text-center"><input style="width: 100%;" placeholder="No. Issue..." type="text" class="form-control search-input" /></th>
+                                <th class="text-center"><input style="width: 100%;" placeholder="Proyecto..." type="text" class="form-control search-input" /></th>
+                                <th class="text-center"><input style="width: 100%;" placeholder="Responsable..." type="text" class="form-control search-input" /></th>
+                                <th class="text-center"><input style="width: 100%;" placeholder="Compromiso..." type="text" class="form-control search-input" /></th>
+                                <th class="text-center"><input style="width: 100%;" placeholder="Descripción..." type="text" class="form-control search-input" /></th>
+                                <th class="text-center"><input style="width: 100%;" placeholder="Prioridad..." type="text" class="form-control search-input" /></th>
+                                <th class="text-center"><input style="width: 100%;" placeholder="Estatus..." type="text" class="form-control search-input" /></th>
+                                <th class="text-center"><input style="width: 100%;" placeholder="Bloq..." type="text" class="form-control search-input" /></th>
+                                <th class="text-center"><input style="width: 100%;" placeholder="Comentarios..." type="text" class="form-control search-input" /></th>
+                                <th class="text-center"><input style="width: 100%;" placeholder="Cierre..." type="text" class="form-control search-input" /></th>
+                                <th class="text-center" style="display: none"></th>
+                                <th class="text-center"><input style="width: 100%;" placeholder="D..." type="text" class="form-control search-input" /></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/Scripts/jquery.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.powertip.js"></script>
+<script type="text/javascript"></script>
+
+@Html.Hidden("LeerIssue", Url.Action("LeerIssue", "Issue"))
+@Html.Hidden("DescargarExcelIssue", Url.Action("DescargarExcelIssue", "Issue"))
+@Html.Partial("~/Views/Issue/Issue.cshtml")
+
+
+
+@section scripts{
+    <script src="~/Scripts/Project/ActualizarImagenes.js"></script>
+    <script src="~/Scripts/Project/Issue.js"></script>
+    <script src="~/Scripts/Project/IssueGeneral.js"></script>
+
+
+
+}
+
+
+
+

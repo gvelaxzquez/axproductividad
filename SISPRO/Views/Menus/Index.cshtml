@@ -1,0 +1,76 @@
+﻿@model IEnumerable<CapaDatos.DataBaseModel.Menu>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IdMenuPadre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Controlador)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Accion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Activo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Orden)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nivel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Icono)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdMenuPadre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Controlador)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Accion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Activo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Orden)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nivel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Icono)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdMenu }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdMenu }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdMenu })
+        </td>
+    </tr>
+}
+
+</table>

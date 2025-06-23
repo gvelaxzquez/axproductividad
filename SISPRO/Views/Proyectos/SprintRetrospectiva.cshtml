@@ -1,0 +1,109 @@
+﻿<div class="modal" id="ModalSprintRetrospectiva" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg" style="width:70%; height:95%">
+        <div class="modal-content">
+            <div class="modal-header">
+                @*<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="">Retrospectiva</h4>*@
+
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <h4 class="modal-title" id="">Cierre sprint </h4>
+
+                    </div>
+                    <div class="col-md-6">
+
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+
+                        @*<button type="button" class="btn btn-success pull-right" id="BtnGuardarSprintRetrospectiva">Guardar<span class="fa fa-floppy-o fa-right"></span></button> &nbsp;*@
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="col-md-12">
+
+                        <h3 class="col-md-1 col-xs-12 control-label">Sprint:</h3>
+                        <h4 class="col-md-11 col-xs-12 control-label" style="text-align:left" id="LblSprint"></h4>
+
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" style="margin-top:15px;">
+                            <h4 class="col-md-4 col-xs-12 control-label">Fecha cierre:</h4>
+                            <div class="col-md-4 col-xs-12">
+                                <div class="input-group">
+                                    <input type="text" id="TxtFechaCierreI" class="form-control ReqRetrospectiva" item="Fecha cierre" />
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12" style="margin: 10px 0px">
+                        <h3 class="control-label">Retrospectiva</h3>
+
+                        <textarea class=" summernote form-control ReqRetrospectiva" style="min-width:100%" rows="25" id="TxtSprintRetrospectiva" item="Descripción"></textarea>
+                        <p class="form-control" style="min-width:100%; height:auto;" id="LblSprintRetrospectiva"></p>
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12" style="margin: 10px 0px">
+                        <h3 class="control-label">Historias concluidas</h3>
+                        <div class="table-responsive">
+                            <table class="table datatable text" id="TblSprintTComplete">
+                                <thead>
+
+                                    <tr>
+
+                                        <th>#</th>
+                                        <th>Título</th>
+                                        <th>Puntos</th>
+                                        <th>Completado</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+
+           
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="BtnGuardarSprintRetrospectiva">Terminar Sprint<span class="fa fa-check  fa-right"></span></button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<input type="hidden" id="IdSpRetrospectiva" value="0" />
+<input type="hidden" id="urlGuardarSprintRetrospectiva" value="@Url.Action("GuardarRetrospectiva", "Proyectos")" />
+<input type="hidden" id="urlConsultaSprintRetrospectiva" value="@Url.Action("ConsultaSprintRetrospectiva", "Proyectos")" />
+@{
+    Random rnd = new Random();
+ 
+    <script src="~/Scripts/Project/SprintRetrospectiva.js?@rnd.Next()"></script>
+
+
+}

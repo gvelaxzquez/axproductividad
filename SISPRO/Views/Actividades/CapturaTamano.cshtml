@@ -1,0 +1,166 @@
+﻿
+<div class="modal" id="ModalCapturarTamano" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Capturar tamaño</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="margin-bottom:5px;">
+                    <form class="form-horizontal">
+
+                        <div class="form-group">
+                            <label class="col-md-1 col-xs-12 control-label" for="LblActividadTamDesc">Actividad:</label>
+                            <label class="col-md-11 col-xs-12 control-label" style="text-align:left" id="LblActividadTamDesc">XActividad</label>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom:0px">
+
+                            <div class="col-md-1">
+                                &nbsp;
+                            </div>
+                            <div class="col-md-4">
+                                <label class="control-label" for="SelTipoActTamano">Tipo</label>
+                                <select class="form-control select ReqCapturaTamano" id="SelTipoActTamano" item="Tipo">
+                                    <option selected="selected" value="-1">--Seleccione--</option>
+
+                                </select>
+                            </div>
+                            <div class="col-md-1">
+                                &nbsp;
+                            </div>
+                            <div class="col-md-4">
+                                <label class="control-label" for="TxtDescripcionParte">Descripción</label>
+                                <input type="text" id="TxtDescripcionParte" class="form-control ReqCapturaTamano" item="Descripción" />
+
+                            </div>
+
+
+                        </div>
+                        <div class="form-group" style="margin-bottom:0px; margin-top:15px;">
+                            <div class="col-md-1">
+                                &nbsp;
+                            </div>
+                            <div class="col-md-4">
+                                <h4>Estimado </h4>
+                            </div>
+                            <div class="col-md-1">
+                                &nbsp;
+                            </div>
+                            <div class="col-md-4">
+                                <h4>Actual </h4>
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <div class="col-md-1">
+                                &nbsp;
+                            </div>
+                            <div class="col-md-1">
+                                <label class="control-label" for="TxtEstimadoBase">Base</label>
+                                <input type="number" step="1" id="TxtEstimadoBase" class="form-control ReqCapturaTamano" item="Estimado base" />
+
+                            </div>
+                            <div class="col-md-1">
+                                <label class="control-label" for="TxtEstimadoEliminado">Quitar</label>
+                                <input type="number" step="1" id="TxtEstimadoEliminado" class="form-control ReqCapturaTamano" item="Estimado eliminado" />
+
+                            </div>
+                            <div class="col-md-1">
+                                <label class="control-label" for="TxtEstimadoModificado">Cambiar</label>
+                                <input type="number" step="1" id="TxtEstimadoModificado" class="form-control ReqCapturaTamano" item="Estimado modificado" />
+
+                            </div>
+                            <div class="col-md-1">
+                                <label class="control-label" for="TxtEstimadoAgregado">Añadir</label>
+                                <input type="number" step="1" id="TxtEstimadoAgregado" class="form-control ReqCapturaTamano" item="Estimado agregado" />
+
+                            </div>
+
+                            <div class="col-md-1">
+                                &nbsp;
+                            </div>
+
+                            <div class="col-md-1">
+                                <label class="control-label" for="TxActualBase">Base</label>
+                                <input type="number" step="1" id="TxtActualBase" class="form-control ReqCapturaTamano" item="Actual base" />
+
+                            </div>
+                            <div class="col-md-1">
+                                <label class="control-label" for="TxtActualEliminado">Quitar</label>
+                                <input type="number" step="1" id="TxtActualEliminado" class="form-control ReqCapturaTamano" item="Actual eliminado" />
+
+                            </div>
+                            <div class="col-md-1">
+                                <label class="control-label" for="TxtActualModificado">Cambiar</label>
+                                <input type="number" step="1" id="TxtActualModificado" class="form-control ReqCapturaTamano" item="Actual modificado" />
+
+                            </div>
+                            <div class="col-md-1">
+                                <label class="control-label" for="TxtActualAgregado">Añadir</label>
+                                <input type="number" id="TxtActualAgregado" class="form-control ReqCapturaTamano" item="Actual agregado" />
+
+                            </div>
+                            <div class="col-md-1 col-xs-12">
+                                <label class="control-label" for="btnAgregarTamano">  &nbsp; &nbsp; &nbsp; &nbsp;</label>
+                                <button class="btn btn-success pull-right" id="btnAgregarTamano"><span class="fa fa fa-plus-square"></span></button>
+                            </div>
+
+                        </div>
+
+
+                    </form>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="table-responsive">
+                        <table class="table datatable text" id="TblTamanos">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2"></th>
+                                    <th rowspan="2"></th>
+                                    <th rowspan="2">Tipo</th>
+                                    <th rowspan="2">Descripción</th>
+                                    <th colspan="4">Estimado</th>
+                                    <th colspan="4">Actual</th>
+                                    <th rowspan="2"></th>
+                                    <th rowspan="2"></th>
+                                </tr>
+                                <tr>
+                                    <th>Base</th>
+                                    <th>Quitar</th>
+                                    <th>Cambiar</th>
+                                    <th>Añadir</th>
+                                    <th>Base</th>
+                                    <th>Quitar</th>
+                                    <th>Cambiar</th>
+                                    <th>Añadir</th>
+
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="IdActividadCTamano" value="6666" />
+<input type="hidden" id="IdActividadTamano" value="0" />
+
+<input type="hidden" id="urlCargaInicialTamanos" value="@Url.Action("CargaInicialTamanos","Actividades")" />
+<input type="hidden" id="urlConsultaListaTamanos" value="@Url.Action("ConsultaListaTamanos","Actividades")" />
+<input type="hidden" id="urlGuardaTamanos" value="@Url.Action("GuardarTamano","Actividades")" />
+<input type="hidden" id="urlEliminarTamano" value="@Url.Action("EliminarTamano","Actividades")" />
+
+
+@{
+    Random rnd = new Random();
+    <script src="~/Scripts/Project/CapturaTamano.js?@rnd.Next()"></script>
+
+}
+

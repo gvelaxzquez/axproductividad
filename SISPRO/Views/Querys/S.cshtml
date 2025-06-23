@@ -1,0 +1,272 @@
+﻿
+@{
+
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=YES">
+
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="white">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="black">
+
+    <title>YITPRO | @ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/yitpro.css" />
+    @*<link rel="stylesheet" href="~/Content/timeout-dialog.css" />*@
+    <link rel="stylesheet" href="~/Content/fullcalendar.css" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+    @*<link rel="stylesheet" href="https://cdn.datatables.net/1.13.3/css/dataTables.uikit.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.2/css/uikit.min.css" />*@
+
+    <script type="text/javascript" src="~/Scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.4.1.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="https://use.fontawesome.com/234ae4dc96.js"></script>
+    <script src="~/Scripts/moment.js"></script>
+    <script src="~/Scripts/moment-with-locales.js"></script>
+    <script src="~/Scripts/fullcalendar.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.5/dist/locale-all.min.js"></script>
+    @*<script src="https://cdn.datatables.net/1.13.3/js/dataTables.uikit.min.js"></script>*@
+
+    @*<script src="~/Scripts/dropzone.min.js"></script>*@
+
+
+    <link href="~/Content/Emoji/emoji.css" rel="stylesheet">
+
+    <script src="~/Scripts/Emoji/config.min.js"></script>
+    <script src="~/Scripts/Emoji/util.min.js"></script>
+    <script src="~/Scripts/Emoji/jquery.emojiarea.min.js"></script>
+    <script src="~/Scripts/Emoji/emoji-picker.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/jquery-treegrid@0.3.0/css/jquery.treegrid.css" rel="stylesheet">
+    <link href="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/jquery-treegrid@0.3.0/js/jquery.treegrid.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/treegrid/bootstrap-table-treegrid.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/cookie/bootstrap-table-cookie.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/mobile/bootstrap-table-mobile.min.js"></script>
+
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/Layout")
+
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/Layout")
+
+    <script language="javascript" type="text/javascript">
+
+
+      function CargaLoading() {
+          if (window.loading_screen === undefined) {
+              window.loading_screen = window.pleaseWait({
+              logo: "@Url.Content("~/Content/Project/Imagenes/LogoPrincipal.png")",
+              backgroundColor: 'rgba(255,255,255,0.8)',
+              immediately: true,
+             // loadingHtml: "<i class='fa fa-rotate-right fa-spin text-default'></i><p class='loading-message'>Cargando...</p>"
+              loadingHtml: " <i class='fa fa-circle-o-notch fa-spin' style='font-size:48px;color:#cf257d'></i>"
+
+          });
+          }
+      }
+      function FinalizaLoading() {
+          if (window.loading_screen !== undefined) {
+              window.loading_screen.finish();
+              window.loading_screen = undefined;
+           }
+       }
+
+
+        $(document).ready(function () {
+
+
+            var loadingTimeout;
+            /*  javascript: window.history.forward(1);*/
+
+            $.ajaxSetup({
+                beforeSend: function () {
+                    CargaLoading();
+                },
+                complete: function () {
+                    FinalizaLoading();
+                    page_content_onresize();
+                    setTimeout(() => {
+                        resizeTaskList();
+                        page_content_onresize();
+                    }, 2500);
+                },
+                error: function () {
+                    FinalizaLoading();
+                    page_content_onresize();
+
+                }
+            });
+
+
+            /*      ActualizaAlerta();*/
+
+        });
+
+
+    </script>
+
+
+</head>
+
+<body>
+
+
+    <div class="page-content-wrap " style="min-height:800px">
+
+        <div class="row" style="padding:20px">
+            <div class="page-title">
+                <h4> @ViewBag.Title</h4>
+            </div>
+
+
+            <div class="col-md-12" id="mdCont">
+                <div class="panel panel-default">
+
+                    <div class="panel-body tabs">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="active"><a href="#tab-lista" role="tab" data-toggle="tab" onclick="page_content_onresize();"> <i class="fa fa-tasks"></i> Lista</a></li>
+                            <li class="hidden-xs"><a href="#tab-kanban" role="tab" data-toggle="tab" onclick="page_content_onresize();"><i class="fa fa-columns"></i> Kanban</a></li>
+                            <li><a href="#tab-calendario" role="tab" data-toggle="tab" onclick="page_content_onresize();"> <i class="fa fa-calendar"></i> Calendario</a></li>
+                        </ul>
+                    </div>
+                    <div class="panel-body tab-content">
+
+                        <div class="tab-pane active" id="tab-lista">
+                            <div class="">
+                                <div class="">
+
+
+                                    <table id="TblActividades" data-cookie="true" data-cookie-id-table="table" data-pagination="true" data-page-list="[10, 25, 50, 100, all]" data-mobile-responsive="true">
+                                    </table>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="tab-pane " id="tab-kanban">
+                            <div class="row push-up-10" id="tableroTickets">
+                                <div class="col-md-1 x_panel" id="taskToDo" style="border: 2px; width: 19%;">
+
+
+                                    <div class="row headTasks">
+                                        <h4 id="LblAbierto">Abierto</h4>
+                                    </div>
+
+                                    <div class="tasks" id="tasks_assigned">
+
+                                    </div>
+                                </div>
+                                <div class="col-md-1 x_panel" id="taskProgress" style="width: 19%;">
+                                    <div class="row headTasks">
+                                        <h4 id="LblProgreso">En progreso</h4>
+                                    </div>
+                                    <div class="tasks" id="tasks_progreess">
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-1 x_panel" id="taskValidacion" style="width: 19%;">
+                                    <div class="row headTasks">
+                                        <h4 id="LblValidacion">Validación</h4>
+                                    </div>
+                                    <div class="tasks" id="task_validate">
+
+
+
+                                    </div>
+                                </div>
+                                <div class="col-md-1 x_panel" id="taskre" style="width: 19%;">
+
+                                    <div class="row headTasks">
+                                        <h4 id="LblRechazadas">Rechazadas</h4>
+                                    </div>
+                                    <div class="tasks" id="tasks_re">
+
+
+
+                                    </div>
+                                </div>
+                                <div class="col-md-1 x_panel" id="taskok" style="width: 19%;">
+
+
+                                    <div class="row headTasks">
+                                        <h4 id="LblTerminadas">Terminadas</h4>
+                                    </div>
+                                    <div class="tasks" id="tasks_ok">
+
+
+
+                                    </div>
+                                </div>
+
+
+
+
+
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="tab-pane" id="tab-calendario">
+                            <div id="Calendar">
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <input type="hidden" id="IdQuery" value="@ViewBag.IdQuery" />
+    <input type="hidden" id="Org" value="@ViewBag.Org" />
+
+
+    @{
+        Random rnd = new Random();
+        @*<script src="~/Scripts/Project/Querys.js"></script>*@
+        <script src="~/Scripts/Project/Querys.js?@rnd.Next()"></script>
+
+    }
+
+
+</body>
+</html>
+
+
+
+
+
+

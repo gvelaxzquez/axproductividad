@@ -1,0 +1,182 @@
+﻿<div class="modal" id="mdlListaRevision" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="largeModalHead">Lista de Revisión</h4>
+            </div>
+            <div class="modal-body">
+                <!--inicia-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <form class="form-horizontal">
+                            <div style="position: absolute; right: 35px; z-index: 100;">
+                                <button type="button" class="btn btn-success btnGuardar" id="">Guardar<span class="fa fa-floppy-o fa-right"></span></button>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="txtNombre" class="col-md-2 control-label">Nombre</label>
+                                <div class="col-md-8 col-xs-12">
+                                    <input type="text" class="form-control RequeridoLR txtNombre" id="" item="Nombre" />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="selProceso" class="col-md-2 control-label">Proceso</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <select class="form-control RequeridoLR cmbProceso" id="" item="Proceso">
+                                        <option value="-1">--Seleccionar--</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="selSubproceso" class="col-md-2 control-label">Subproceso</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <select class="form-control RequeridoLR cmbSubproceso" id="" item="Subproceso">
+                                        <option value="-1">--Seleccionar--</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="col-md-2 col-xs-12 control-label">Activar</label>
+                                <div class="col-md-2 col-xs-12">
+                                    <label class="switch switch-small">
+                                        <input type="checkbox" checked="" class="chkActivo" id="">
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <hr class="col-md-12" style="border: none; height: 2px; background-color: #ccc;" />
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="selSubproceso" class="col-md-2 control-label">Control</label>
+                                <div class="col-md-9">
+                                    <textarea type="text" style="max-width: none !important; resize: vertical; min-height: 30px; max-height: 100px;" rows="3" class="form-control RequeridoLRControl txtControl" id="" item="Control"></textarea>
+                                </div>
+                                <input type="button" class="btn btn-primary col-md-1 btnAgregarControl" id="" style="display: inline-block; padding: 5px" value="Agregar" />
+                            </div>
+                            <div class="table-responsive col-md-12">
+                                <table class="table datatable text dtListaRevisionDetalle" id="">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">Control</th>
+                                            <th class="text-center" style="width:10%">Editar</th>
+                                            <th class="text-center" style="width:10%">Eliminar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!--termina-->
+            </div>
+        </div>
+    </div>
+    @Html.Hidden("LeerComboProceso", Url.Action("LeerComboProceso", "ListaControl"))
+    @Html.Hidden("LeerComboSubproceso", Url.Action("LeerComboSubproceso", "ListaControl"))
+    @Html.Hidden("LeerListaRevisionPorId", Url.Action("LeerListaRevisionPorId", "ListaRevision"))
+    @Html.Hidden("LeerListaRevisionDetalle", Url.Action("LeerListaRevisionDetalle", "ListaRevision"))
+    @Html.Hidden("CrearListaRevision", Url.Action("CrearListaRevision", "ListaRevision"))
+    @Html.Hidden("EditarListaRevision", Url.Action("EditarListaRevision", "ListaRevision"))
+    @Html.Hidden("GuardarListaRevisionDetalle", Url.Action("GuardarListaRevisionDetalle", "ListaRevision"))
+    @Html.Hidden("EliminarListaControlDetalle", Url.Action("EliminarListaControlDetalle", "ListaRevision"))
+</div>
+
+<div class="modal" id="mdlCopiarListaRevision" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="largeModalHead">Copiar Lista de Revisión</h4>
+            </div>
+            <div class="modal-body">
+                <!--inicia-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <form class="form-horizontal">
+                            <div style="position: absolute; right: 35px; z-index: 100;">
+                                <button type="button" class="btn btn-success btnGuardar" id="">Guardar<span class="fa fa-floppy-o fa-right"></span></button>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="selProceso" class="col-md-2 control-label">Proyecto</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <select class="form-control Requerido cmbProyecto" id="" item="Proceso">
+                                        <option value="-1">--Seleccionar--</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <hr class="col-md-12" style="border: none; height: 2px; background-color: #ccc;" />
+                            </div>
+                            <div class="table-responsive col-md-12">
+                                <table class="table datatable text dtListaRevision" id="">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" style="width:5%"><input class="chkTodos" type="checkbox" /></th>
+                                            <th class="text-left">Lista de control</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!--termina-->
+            </div>
+        </div>
+    </div>
+    @Html.Hidden("LeerComboProyecto", Url.Action("LeerComboProyecto", "Auditoria"))
+    @Html.Hidden("CopiarListaRevisionDetalle", Url.Action("CopiarListaRevisionDetalle", "ListaRevision"))
+</div>
+
+<div class="modal" id="mdlImportarListaRevision" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close btn-PassClose" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="defModalHead">Importar Listas de Revisión</h4>
+            </div>
+            <br />
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="col-md-3 col-xs-12 control-label">Archivo (.XSLX)</label>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <input accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" type="file" class="fileinput btn-primary fa fa-upload fileImportar" name="files[]" id="" title=" Cargar" />
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div>
+                                <div class="col-md-2 col-xs-12">
+                                    <label class="control-label" for="rdo1"><input type="radio" id="rdoCarga" name="TipoCarga" value="1" checked /> Carga</label>
+                                </div>
+                                <div class="col-md-3 col-xs-12">
+                                    <label class="control-label" for="rdo2"><input type="radio" id="rdoActualizacion" name="TipoCarga" value="2" /> Actualización</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="col-md-12"><hr /></div>
+                    <div class="col-md-12">
+                        <div class="col-md-12 col-xs-12 text-left"><label class="control-label">Descargar <a href="~/Archivos/Formatos/Layout_Checklist.xlsx"> ejemplo formato XSLX </a> para ver el formato requerido.</label></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="" class="btn btn-success btnImportar"><span class="fa fa-arrow-circle-up"></span> Importar</button>
+            </div>
+        </div>
+    </div>ImportarListaRevision
+    @Html.Hidden("ImportarListaRevision", Url.Action("ImportarListaRevision", "ListaRevision"))
+</div>

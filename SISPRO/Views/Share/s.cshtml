@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = ViewBag.IdSharedAct;
+    Layout = "~/Views/Shared/_LayoutLite2.cshtml";
+}
+
+<input type="hidden" id="IdSharedAct" value=" @ViewBag.IdSharedAct " />
+<input type="hidden" id="URLHome" value=" @ViewBag.UrlHome " />
+<script src="~/Scripts/tinymce/tinymce.min.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        if ($("#IdSharedAct").val() != 0) {
+
+
+            $('#ModalActividades').on('hidden.bs.modal', function () {
+
+                window.close();
+                $(this).off('hidden.bs.modal');
+
+
+            });
+
+            $('#ModalActividades').modal({ backdrop: 'static', keyboard: false });
+            /* $('#TituloActividades').text("Actividad #" + Actividad);*/
+            $('#IdActividad').val($("#IdSharedAct").val());
+            $('#divsel').hide("slide", { direction: "right" }, 500);
+            $('#IdActividadRel').val(0);
+            $('#IdTipoActividad').val(0)
+            InicializaEdicionActividad();
+
+
+
+
+
+
+        }
+
+
+    });
+
+</script>

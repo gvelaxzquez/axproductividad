@@ -1,0 +1,72 @@
+﻿
+
+
+<div class="modal" id="MdlSend" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close btn-PassClose" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="TitleSendAct">Enviar </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="form-group">
+                        <div class="row">
+
+                            <div>
+                                <div class="col-md-12 col-xs-12"><label class="check" for="RdoCarga1" id="LblCarga1"><input type="radio" class="iradio" name="TipoEnvio" id="RdoCarga1" value="1" checked /> Enviar contenido  </label></div>
+                                <div class="col-md-12 col-xs-12">
+                                    <label class="check" for="RdoCarga2" id="LblCarga2"><input type="radio" class="iradio" name="TipoEnvio" id="RdoCarga2" value="2" /> Enviar enlace</label>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    @*<div class="form-group ">
+
+
+
+
+                        <label class="switch switch-small ">
+                            <input type="checkbox" id="chkAdjuntos" />
+                            <span></span>
+                        </label>
+                        <label class="col-md-4 col-xs-12 control-label" for="chkAdjuntos">Incluir adjuntos</label>
+                
+
+
+                    </div>*@
+                    <div class="form-group">
+
+
+                        <label class="col-md-12 col-xs-12 control-label " for="Correos">Destinatarios:</label>
+                        <div class="col-md-12 col-xs-12">
+
+                            <input type="text" class="form-control tagsinput ReqSendAct" id="TxtSendMails" maxlength="1000" item="Destinatarios" />
+                        </div>
+                    </div>
+                    <br />
+
+                </div>
+
+
+
+                <div class="row">
+                    <br />
+                    <div class="form-group">
+
+                        <label class="col-md-12 col-xs-12 control-label " for="">Comentarios:</label>
+                        <div class="col-md-12 col-xs-12">
+                            <textarea class="form-control summernote" rows="5" id="TxtComentarioSendMails" item="Comentario"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="BtnEnviarAct" class="btn btn-default" data-dismiss="modal" ><span class="fa fa-paper-plane"></span>Envíar </button>
+            </div>
+        </div>
+    </div>
+</div>

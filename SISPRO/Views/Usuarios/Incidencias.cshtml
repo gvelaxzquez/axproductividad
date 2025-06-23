@@ -1,0 +1,40 @@
+﻿
+<div class="modal" id="ModalUsuarioIncidencias" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Detalle incidencias</h4>
+            </div>
+            <div class="modal-body">
+                <!--inicia-->
+                <div class="row">
+                    <div class="table-responsive">
+                        <table class="table datatable text" id="TblLstIncidencias">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Recurso</th>
+                                    <th>Tipo incidencia</th>
+                                    <th>Fecha inicio</th>
+                                    <th>Fecha fin</th>
+                                    <th>Días</th>
+                                    <th>Comentario</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+
+                    </div>
+                </div>
+                <!--termina-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="urlConsultaListaIncidencias" value="@Url.Action("ConsultaListaIncidencias","Usuarios")" />
+<input type="hidden" id="urlConsultaListaIncidenciasRango" value="@Url.Action("ConsultaListaIncidenciasRango","Usuarios")" />
+<input type="hidden" id="urlConsultaListaIncidenciasMes" value="@Url.Action("ConsultaListaIncidenciasMes","Usuarios")" />

@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewBag.Title = "Clientes";
+}
+
+@*<div class="page-title">
+    <h2><span class="fa fa-users"></span> Clientes</h2>
+</div>*@
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div>
+                    <button class="btn btn-success pull-right" id="BtnNuevo">Nuevo</button><br /><br />
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table datatable text" id="TblClientes">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Nombre</th>
+                                <th>Activo</th>
+                                <th>Editar</th>
+
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+@* Modal para editar o guardar los clientes *@
+<div class="modal" id="ModalEditarCliente" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="defModalHead">Cliente</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <div>
+                                    <label class="col-md-3 col-xs-12 control-label " for="TxtNombre">Cliente</label>
+                                    <div class="col-md-8 col-xs-12">
+
+                                        <input type="text" class="form-control ReqCliente" id="TxtNombre" maxlength="200" item="Nombre" />
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Activo</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <label class="switch switch-small" for="ChkActivo">
+                                        <input type="checkbox" checked id="ChkActivo" />
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="BtnGuardar">Guardar<span class="fa fa-floppy-o fa-right"></span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<input type="hidden" id="IdCliente" value="0" />
+
+<input type="hidden" id="urlCargaInicial" value="@Url.Action("ConsultaClientes","Clientes")" />
+<input type="hidden" id="urlGuardarCliente" value="@Url.Action("GuardarCliente","Clientes")" />
+
+
+<script type="text/javascript" src="~/Scripts/jquery.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>
+<script src="~/Scripts/Project/Clientes.js"></script>

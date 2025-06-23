@@ -1,0 +1,48 @@
+﻿
+<div class="modal" id="MdlRunHistory" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="TituloEj"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="table-responsive">
+                        <table class="table datatable text" id="TblEjecuciones">
+                            <thead>
+                                <tr>
+                              
+                                    <th>Ciclo </th>
+                                    <th>Fecha ejecución</th>
+                                    <th>Estatus</th>
+                                    <th>Asignado</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<input type="hidden" id="IdActividadCTra" value="0" />
+
+<input type="hidden" id="urlRegistraTrabajo" value="@Url.Action("GuardaTrabajo","Actividades")" />
+<input type="hidden" id="urlConsultaTrabajos" value="@Url.Action("ConsultaTrabajos","Actividades")" />
+<input type="hidden" id="urlEliminaTrabajo" value="@Url.Action("EliminaTrabajo","Actividades")" />*@
+
+
+@{
+    Random rnd = new Random();
+    @*<script src="~/Scripts/Project/CapturaTrabajo.js?@rnd.Next()"></script>*@
+
+}
+
+
+
+
+

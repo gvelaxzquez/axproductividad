@@ -1,0 +1,230 @@
+﻿
+@{
+    ViewBag.Title = "Costos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-content-wrap">
+
+    <div class="panel panel-default">
+
+        <div class="panel-heading">
+
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="pull-right">
+                        @*<ul class="nav nav-tabs" role="tablist">
+                                <li class="active"><a class="btn btn-info" href="#tab-first" role="tab" data-toggle="tab" id="Todo">Fecha Desarrollo</a></li>
+                                <li><a class="btn btn-info" href="#tab-second" role="tab" data-toggle="tab" id="Autorizar">Fecha programada</a></li>
+                                <li><a class="btn btn-info" href="#tab-third" role="tab" data-toggle="tab" id="Liberar">Fecha pagado</a></li>
+
+                            </ul>*@
+
+                        @*<button class="btn btn-success" id="BtnNuevoFP"><i class="fa fa-plus"></i>  Nuevo </button>*@
+
+                        <button class="btn btn-info" id="BtnExportarPC"><i class="fa fa-bars"></i> Exportar</button>
+
+
+
+
+                    </div>
+
+                    <h3> Costos: <span id="lblAniofiltro"></span></h3>
+
+
+                    @*<ul class="nav nav-tabs" role="tablist" style="margin-top:0px;">
+                            <li class="active"><a class="btn btn-info" href="#tab-first" role="tab" data-toggle="tab" id="" onclick="CambiaTipoFecha(1)">Fecha compromiso</a></li>
+                            <li><a class="btn btn-info" href="#tab-second" role="tab" data-toggle="tab" id="" onclick="CambiaTipoFecha(2)">Fecha programada </a></li>
+                            <li><a class="btn btn-info" href="#tab-third" role="tab" data-toggle="tab" id="" onclick="CambiaTipoFecha(3)">Fecha pagada</a></li>
+                            <li><a class="btn btn-info" href="#tab-third" role="tab" data-toggle="tab" id="" onclick="MostrarSaldos()">Saldos</a></li>
+                        </ul>*@
+
+
+
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="panel-body">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table datatable text" id="TblCostos">
+                        <thead>
+                            <tr>
+
+                                @*<th>Clave</th>*@
+                                <th>Proyecto</th>
+                                @*<th>Líder</th>*@
+
+                                <th>Costo Hra/Plan</th>
+                                <th>Costo Hra/Real</th>
+                                <th>Ene</th>
+                                <th>Feb</th>
+                                <th>Mar</th>
+                                <th>Abr</th>
+                                <th>May</th>
+                                <th>Jun</th>
+                                <th>Jul</th>
+                                <th>Ago</th>
+                                <th>Sep</th>
+                                <th>Oct</th>
+                                <th>Nov</th>
+                                <th>Dic</th>
+                                <th>Planeado</th>
+                                <th>Acumulado</th>
+                                <th>Proyectado</th>
+                                <th>% Utilizado</th>
+
+
+
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="filter-settings">
+    <div class="filter-settings-icon"><span class="glyphicon glyphicon-filter"></span></div>
+    <h5>Filtrar</h5>
+
+    <div class="filter-settings-row">
+        <label for="SelAnioFP">Año</label>
+
+        @{
+
+            var LstAnios = ViewBag.LstAnios;
+            <select class="selectpicker form-control" id="SelAnioPC" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--">
+                @foreach (var i in LstAnios)
+                {
+                    <option value="@i.DescCorta">@i.DescCorta</option>
+
+                }
+
+            </select>
+
+        }
+
+
+    </div>
+
+    <div class="filter-settings-row">
+        <label for="ChkArchivado">Proyectos abiertos</label>
+        <label class="switch switch-small">
+            <input type="checkbox" id="ChkAbiertos" checked />
+            <span></span>
+        </label>
+    </div>
+
+
+    <div class="filter-settings-row">
+        <button class="btn btn-default" id="BtnFiltrarPC">Aplicar</button>
+    </div>
+</div>
+
+
+
+<div class="modal" id="ModalDetalleCostosMes" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="width:60%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="TituloDCM"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        @*<div class="pull-right">
+                                <button class="btn btn-info" id="BtnExportarDCM"><i class="fa fa-bars"></i> Exportar</button>
+                            </div>*@
+                        <div>
+                            <h3> Total: <span id="LblTotalCostoMesDet"> 0</span></h3>
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table datatable text" id="TblCostoMes">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Recurso</th>
+                                        <th>Mes/Año</th>
+                                        <th>% Dedicado</th>
+                                        <th>Costo aplicado</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal grafica -->
+<div class="modal" id="ModalGraficaCostoHora" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="width:75%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="NombreGrafica">Costos por hora mensual</h4>
+                <button type="button" id="BtnCerrarGraf" class="close fa fa-compress" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                @*<label class="check" onclick="MostrarGraficasM()"><input type="radio" class="iradio" id="RdoGraficaM" name="RdoGraficaM" checked="checked" value="1" /> Grafica </label>
+                <label class="check" onclick="MostrarTablasM()"><input type="radio" class="iradio" name="RdoGraficaM" id="RdoTablaM" value="2" /> Tabla</label>*@
+
+            </div>
+            <div class="modal-body">
+                <div id="GraficaCostoHoraModal">
+
+                </div>
+
+                <div id="TablaCostoHoraModal">
+                </div>
+
+            </div>
+           
+
+        </div>
+    </div>
+</div>
+
+<div id="scriptsCostoHoramodal">
+
+</div>
+
+
+
+
+<input type="hidden" id="AnioActual" value="@ViewBag.Anio" />
+<input type="hidden" id="urlObtieneCostos" value="@Url.Action("ObtieneCostosMensuales", "Proyectos")" />
+<input type="hidden" id="urlObtieneCostosDetalle" value="@Url.Action("ObtieneCostosMensualesDetalle", "Proyectos")" />
+<input type="hidden" id="urlConsultaGraficaCostoHoraProyecto" value="@Url.Action("ConsultaGraficaCostoHoraProyecto", "Proyectos")" />
+
+
+
+@{
+    Random rnd = new Random();
+    <script src="~/Scripts/Project/ProyectoCosto.js?@rnd.Next()"></script>
+
+}
+
+

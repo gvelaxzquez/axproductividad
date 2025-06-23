@@ -1,0 +1,129 @@
+﻿
+@{
+    ViewBag.Title = "Catálogos";
+}
+
+@*<div class="page-title">
+    <h2><span class="fa fa-book"></span> Generales</h2>
+</div>*@
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <label class="col-md-1 col-xs-12">Catálogo</label>
+                    <div class="col-md-4">
+                        <select class="form-control select" id="SelCabecera">
+                            <option selected="selected" value="-1">--Seleccione--</option>
+                        </select>
+                    </div>
+                    <div class="col-md-12">
+                        <button class="btn btn-success pull-right" id="BtnNuevo">Nuevo</button><br /><br />
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table datatable text" id="TblCatalogo">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Descripción corta</th>
+                                <th class="col-md-3 col-xs-12">Descripción larga  </th>
+                                <th>Dato especial</th>
+                                <th>Activo</th>
+                                <th>Protegido</th>
+                                <th>Editar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                             
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+@* Modal editar catalogos *@
+<div class="modal" id="ModalEditarCatalogo" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="defModalHead">Catalogos generales</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <form class="form-horizontal">
+
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Descripción corta</label>
+                                <div class="col-md-8 col-xs-12">
+                                    <input type="text" class="form-control ReqCat" item="Descripción corta" id="TxtDecCorta" maxlength="100" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Descripción larga</label>
+                                <div class="col-md-8 col-xs-12">
+                                    <input type="text" class="form-control  ReqCat" item="Descripción larga"   id="TxtDecLarga" maxlength="400"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Dato especial</label>
+                                <div class="col-md-4 col-xs-12">
+                                    <input type="text" class="form-control"  id="TxtDatoEspecial"  maxlength="100" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Activo</label>
+                                <div class="col-md-8 col-xs-12">
+                                    <label class="switch switch-small">
+                                        <input type="checkbox" checked id="ChkActivo" />
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-12 control-label">Protegido</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <label class="switch switch-small">
+                                        <input type="checkbox" checked id="ChkProtegido" />
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+
+
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"  id="BtnGuardar">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="~/Scripts/jquery.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>
+<script src="~/Scripts/Project/CatalogoGeneral.js"></script>
+
+<input type="hidden" id="IdCatalogo" value="0" />
+ 
+<input type="hidden" id="urlCargaInicial" value="@Url.Action("CargaInicial","CatalogoGeneral")" />
+<input type="hidden" id="urlConsultaCatalogos" value="@Url.Action("ConsultarCatalogos","CatalogoGeneral")" />
+<input type="hidden" id="urlGuardarDatosC" value="@Url.Action("GuardarDatosCatalogo", "CatalogoGeneral")" />
+<input type="hidden" id="urlConsultarDatosC" value="@Url.Action("ConsultarDatosCatalogo", "CatalogoGeneral")" />
+
+

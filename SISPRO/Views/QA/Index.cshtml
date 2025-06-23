@@ -1,0 +1,264 @@
+﻿
+@{
+    ViewBag.Title = "Casos & Sprints";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<script src="~/Scripts/easypiechart.min.js"></script>
+<script src="~/Scripts/jquery.easypiechart.min.js"></script>
+
+
+<link href="https://cdn.jsdelivr.net/npm/jquery-treegrid@0.3.0/css/jquery.treegrid.css" rel="stylesheet">
+<link href="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/jquery-treegrid@0.3.0/js/jquery.treegrid.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/treegrid/bootstrap-table-treegrid.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/cookie/bootstrap-table-cookie.min.js"></script>
+
+
+
+<div class="page-content-wrap">
+
+    <div class="panel panel-default" id="headersprint">
+
+        <div class="">
+            <div class="row">
+                <div class="col-md-6">
+                    @{
+                        var LstProyectos = ViewBag.LstProyectos;
+                        <label for="SelProyectoCP">Proyecto</label>
+                        <select class="form-control ReqFP selectpicker" data-live-search="true" data-live-search-placeholder="Buscar..." data-actions-box="true" id="SelProyectoCP" item="Proyecto" style="width:50%">
+                            <option value="-1" selected>  -- Seleccionar -- </option>
+                            @foreach (var i in LstProyectos)
+                            {
+                                <option value="@i.IdCatalogo">@i.DescLarga</option>
+
+                            }
+                        </select>
+                    }
+
+                </div>
+                <div class="col-md-2">
+
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="row headersprint" style="margin-top:10px;">
+
+            <div class="row">
+
+
+                <div class="col-md-8">
+                    <div class="panel-body tabs">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="active"><a href="#tab-ciclos" role="tab" data-toggle="tab" id="tCC"> @*<i class="fa fa-circle-o-notch"></i>*@ Sprints</a></li>
+                            <li><a href="#tab-workitems" role="tab" data-toggle="tab" id="tCP">@*<i class="fa fa-list-ul"></i>*@ Casos de prueba </a></li>
+
+                            <li><a href="#tab-bugs" role="tab" data-toggle="tab" id="tBug"> @*<i class="fa fa-bug"></i>*@ Bugs</a></li>
+
+                        </ul>
+                    </div>
+
+                    <div class="panel-body tab-content">
+                        <div class="tab-pane " id="tab-workitems">
+                            <div class="row headerCP">
+                                <div class="col-md-6">
+
+                                    @*<div class="btn-group pull-left">
+                                        <button class="btn btn-default " onclick="ConsultaTC(0); return false;">Casos de prueba</button>
+                                        <button class="btn btn-default " onclick="ConsultaTC(1); return false;">Agrupar por HU</button>
+                                    </div>*@
+
+                                </div>
+                                <div class="col-md-6">
+
+                                    <div class="btn-group pull-right">
+
+                                        <button type="button" class="btn btn-default " onclick="newTestCaseCC();">Nuevo  <span class="fa fa-plus-circle  fa-right"></span></button>
+                                        <button class="btn btn-default " id="BtnModalImportarCP"><span class="fa fa-file-excel-o"></span> Importar</button>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                            <div class="row headerCP">
+                                <div class="col-md-12 ">
+                                    <div id="toolbar">
+
+                                        <div class="btn-group">
+                                            <button class="btn btn-default btn-condensed" onclick="ExpandCollappse('collapseAll');"><i class="fa fa-minus"></i></button>
+                                            <button class="btn btn-default btn-condensed" onclick="ExpandCollappse('expandAll');"><i class="fa fa-plus"></i></button>
+                                        </div>
+
+
+
+                                    </div>
+                                    <table id="table"></table>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="tab-pane active" id="tab-ciclos">
+                            <div class="row" style="padding-bottom:5px;">
+
+                                <div class="col-md-4">
+
+                                    <select class="selectpicker form-control headerCP" multiple data-live-search="true" id="SelEstatusCP" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--">
+
+                                        <option value="A" selected>Abierto</option>
+                                        <option value="P" selected>Progreso</option>
+                                        <option value="L">Terminado</option>
+                                        <option value="C">Cancelado</option>
+
+
+                                    </select>
+                                </div>
+
+                                <div class="col-md-8">
+                                    <button class="btn btn-default pull-right headerCP" id="BtnAddCP"> Crear Ciclo <span class="fa fa-plus-circle  fa-right"></span> </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-xs-12" id="colSprints" style="overflow-y:auto;">
+                                    <table class="table " id="">
+                                        <thead>
+                                        <tbody id="tblCasosPrueba">
+                                            <tr>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="tab-pane" id="tab-bugs">
+
+                            <div class="row headerCP">
+                                <div class="col-md-12 ">
+
+                                    <div class="table-responsive" style="overflow: inherit">
+                                        <table class="table datatable text" id="TblBugs">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Titulo</th>
+
+                                                    <th>Estatus</th>
+                                                    <th>Tipo</th>
+                                                    <th>Asignado</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-md-4">
+
+                    <h5 class="headerCP">Estatus casos de prueba</h5>
+                    <div id="GraficaBL" style="max-height: 200px; margin-bottom: 30px;">
+
+                    </div>
+
+                    <h5 class="headerCP" style="padding-top:30px; ">Estatus bugs</h5>
+                    <div id="GraficaBugs" style="max-height:200px;">
+
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div id="scriptsBL">
+            </div>
+            <div id="scriptsBugs">
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+
+    <div id="scripts">
+    </div>
+
+
+</div>
+
+
+
+
+<div class="modal" id="mdlImportarCP" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close btn-PassClose" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="defModalHead">Importar casos prueba</h4>
+            </div>
+            <br />
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="col-md-3 col-xs-12 control-label">Archivo (.XSLX)</label>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <input accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" type="file" class="fileinput btn-primary fa fa-upload" name="files[]" id="fileImportarCP" title=" Cargar" />
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+
+                    <br />
+                    <div class="col-md-12"><hr /></div>
+                    <div class="col-md-12">
+                        <div id="layoutCrearBug" class="col-md-12 col-xs-12 text-left"><label class="control-label">Descargar <a href="~/Archivos/Formatos/LayOut_CasosPrueba.xlsx"> ejemplo formato XSLX </a> para ver el formato requerido.</label></div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnImportarCP" class="btn btn-success"><span class="fa fa-arrow-circle-up"></span> Importar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("~/Views/QA/Create.cshtml")
+@Html.Partial("~/Views/QA/RunHistory.cshtml")
+@Html.Partial("~/Views/QA/RunTC.cshtml")
+
+<input type="hidden" id="urlCargaCPS" value="@Url.Action("ConsultarCiclosPrueba","QA")" />
+<input type="hidden" id="urlRun" value="@Url.Action("Run","QA")" />
+@Html.Hidden("urlImportarCasosPrueba", Url.Action("ImportarCasosPrueba", "Actividades"))
+
+
+
+@{
+    Random rnd = new Random();
+     <script src="~/Scripts/Project/Runs.js?@rnd.Next()"></script>
+  
+
+}
+
+
+

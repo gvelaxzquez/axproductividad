@@ -1,0 +1,508 @@
+﻿
+@{
+    ViewBag.Title = "Proyectos";
+}
+
+
+<script src="~/Scripts/easypiechart.min.js"></script>
+<script src="~/Scripts/jquery.easypiechart.min.js"></script>
+<script src="~/Scripts/smartwizard/smartwizard3.js"></script>
+@*<script src="~/Scripts/jquery.tagsinput.min.js"></script>*@
+@*<link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.css" rel="stylesheet"/>*@
+
+@*<script src="~/Scripts/PluginWizard.js"></script>*@
+
+<link href="https://cdn.jsdelivr.net/npm/jquery-treegrid@0.3.0/css/jquery.treegrid.css" rel="stylesheet">
+<link href="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/jquery-treegrid@0.3.0/js/jquery.treegrid.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/treegrid/bootstrap-table-treegrid.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.21.4/dist/extensions/cookie/bootstrap-table-cookie.min.js"></script>
+
+<link rel="stylesheet" href="~/Content/DHTMLXGantt/dhtmlxgantt.css" />
+<link rel="stylesheet" href="~/Content/DHTMLXGantt/skins/dhtmlxgantt_material.css" />
+<script type="text/javascript" src="~/Scripts/dhtmlxgantt.js"></script>
+
+
+@*<script src="http://aqvatarius.com/themes/atlant/html/js/plugins/smartwizard/jquery.smartWizard-2.0.min.js" type="text/javascript"></script>*@
+
+<style>
+
+
+    .stepContainer {
+        height: auto !important;
+    }
+</style>
+
+
+<div class="page-title">
+    <h2><span class="fa fa-bookmark"></span> Proyectos <small><span id="TotalProyectos"></span> Proyectos</small></h2>
+</div>
+<div class="col-md-12">
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <p>Ingrese los datos para buscar un proyecto puede buscar por: Clave, Nombre, Cliente ó Líder de proyecto.</p>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            @*<div class="input-group-addon">
+
+                                </div>*@
+                            <input type="text" id="TxtBusqueda" class="form-control" placeholder="Ingrese un criterio de búsqueda" style="min-width:100%;">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" id="BtnBuscarProys"> <span class="fa fa-search"></span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        @*<label for="SelEstatusPro">Estatus</label>*@
+                        <select class="selectpicker form-control" multiple data-live-search="true" id="SelEstatusPro" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--">
+
+                            <option value="P" selected>Planeación</option>
+                            <option value="E" selected>Ejecución</option>
+                            <option value="C" selected>Cierre</option>
+                            <option value="L">Liberado</option>
+                            <option value="D">Detenido</option>
+                            <option value="X">Cancelado</option>
+
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        @*<button class="btn btn-success pull-right" id="BtnNuevo">Nuevo</button>*@
+                        <button class="btn btn-success btn-block" id="BtnNuevo"><span class="fa fa-plus"></span> Nuevo proyecto</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+<div class="row">
+    <div class="row">
+
+        <div class="col-md-12">
+
+
+            <div class="btn-group pull-right">
+                <button class="btn btn-default btn-condensed" onclick="VerProyListado();"><i class="fa fa-list"></i></button>
+                <button class="btn btn-default btn-condensed" onclick="VerProyMosaico();"><i class="fa fa-th"></i></button>
+                <button class="btn btn-default btn-condensed" onclick="VerProyGantt();"><i class="fa fa-tasks"></i></button>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <div class="col-md-12" id="DivProyectos"  style="display: none;">
+
+
+    </div>
+
+    <div class="col-md-12" id="DivProyectostabla">
+        <table id="tblProyectos"></table>
+
+    </div>
+
+    <div class="col-md-12" id="DivProyectosGantt" style="display: none;">
+        <div class="row">
+            <div class="col-md-6 col-xs-6">
+                <div class="btn-group">
+                    <button class="btn btn-default btn-condensed" onclick="zoomOut()"><i class="fa fa-minus"></i></button>
+                    <button class="btn btn-default btn-condensed" onclick="zoomIn()"><i class="fa fa-plus"></i></button>
+                </div>
+
+            </div>
+            <div class="col-md-6 col-xs-6">
+                <div class="btn-group pull-right">
+                    <button class="btn btn-default " onclick="CambiarZoom('year')">Año</button>
+                    <button class="btn btn-default " onclick="CambiarZoom('month')">Mes</button>
+                    <button class="btn btn-default " onclick="CambiarZoom('week')">Semana</button>
+                    <button class="btn btn-default " onclick="CambiarZoom('day')">Día</button>
+
+
+                </div>
+
+
+
+
+            </div>
+
+
+        </div>
+
+        <div id="roadmap" style="height:500px; width: 100%; padding-top:10PX;"></div>
+
+    </div>
+
+</div>
+
+
+<div id="scripts">
+
+</div>
+
+
+
+@* Modal para editar o guardar los clientes *@
+<div class="modal" id="ModalEditarProyecto" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="defModalHead">Nuevo proyecto</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="block">
+
+                        <div class="wizard" id="wzProy">
+
+                            <ul class="steps_3 anchor">
+                                <li>
+                                    <a href="#step-1" class="selected" isdone="1" rel="1">
+                                        <span class="stepNumber">1</span>
+                                        <span class="stepDesc"> 1<br><small>Datos generales</small></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#step-2" class="done" isdone="1" rel="2">
+                                        <span class="stepNumber">2</span>
+                                        <span class="stepDesc"> 2<br><small>Configuración</small></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#step-3" class="done" isdone="1" rel="3">
+                                        <span class="stepNumber">3</span>
+                                        <span class="stepDesc"> 3<br><small>Plantilla</small></span>
+                                    </a>
+                                </li>
+                                @*<li>
+                                        <a href="#step-4" class="done" isdone="1" rel="4">
+                                            <span class="stepNumber">4</span>
+                                            <span class="stepDesc"> 4<br><small>Equipo de trabajo</small></span>
+                                        </a>
+                                    </li>*@
+                            </ul>
+
+
+
+
+
+                            @*<div class="stepContainer" >*@
+                            <div id="step-1" class="content" style="display: block;">
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <div>
+                                                    <label class="col-md-3 col-xs-12 control-label " for="TxtClaveP">Clave*</label>
+                                                    <div class="col-md-8 col-xs-12">
+
+                                                        <input type="text" class="form-control ReqProyecto" id="TxtClaveP" maxlength="200" item="Clave" />
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div>
+                                                    <label class="col-md-3 col-xs-12 control-label " for="TxtNombreP">Nombre*</label>
+                                                    <div class="col-md-8 col-xs-12">
+
+                                                        <input type="text" class="form-control ReqProyecto" id="TxtNombreP" maxlength="200" item="Nombre" />
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div>
+                                                    <label class="col-md-3 col-xs-12 control-label " for="TxtNombreP">Descripcion*</label>
+                                                    <div class="col-md-8 col-xs-12">
+                                                        <textarea cols="6" class="form-control ReqProyecto" id="TxtDescripcionP" maxlength="1000" item="Descripción"> </textarea>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">Cliente*</label>
+                                                <div class="col-md-6 col-xs-12">
+                                                    <select class="form-control ReqProyecto" id="SelClientePr" item="Cliente"></select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">Tipo proyecto*</label>
+                                                <div class="col-md-6 col-xs-12">
+                                                    <select class="form-control ReqProyecto" id="SelTipoProyectoP" item="Tipo proyecto"></select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 col-xs-12 control-label">Líder responsable*</label>
+                                                <div class="col-md-6 col-xs-12">
+                                                    <select class="form-control ReqProyecto" id="SelLiderP" item="Líder"></select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group hide">
+                                                <label class="col-md-3 col-xs-12 control-label">Estatus*</label>
+                                                <div class="col-md-6 col-xs-12">
+                                                    <select class="form-control" id="SelEstatusP" item="Estatus"></select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div>
+                                                    <label class="col-md-3 col-xs-12 control-label " for="TxtTecnologias">Tecnologías*</label>
+                                                    <div class="col-md-8 col-xs-12">
+
+                                                        <input type="text" class="form-control tagsinput" id="TxtTecnologias" maxlength="1000" item="Tecnologías" />
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group hide">
+                                                <label class="col-md-3 col-xs-12 control-label">Visible</label>
+                                                <div class="col-md-6 col-xs-12">
+                                                    <label class="switch switch-small" for="ChkActivo">
+                                                        <input type="checkbox" checked id="ChkActivo" />
+                                                        <span></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div><div id="step-2" class="content" style="display: none;">
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+
+                                                <h5 class="col-md-4 col-xs-12 control-label font-extra-bold"> Estrategia</h5>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 col-xs-12 control-label">Metodología*</label>
+                                                <div class="col-md-6 col-xs-12">
+                                                    <select class="form-control ReqProyecto" id="SelMetodologiaP" item="Metodología"></select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 col-xs-12 control-label">WorkFlow*</label>
+                                                <div class="col-md-6 col-xs-12">
+                                                    <select class="form-control ReqProyecto" id="SelWorkFlowP" item="WorkFlow"></select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+
+                                                <label class="col-md-4 col-xs-12 control-label">PSP <span class="fa fa-info-circle" title="Al utilizar PSP las actividades requieren el uso del cronometro para capturar los tiempos."></span></label>
+                                                <div class="col-md-2 col-xs-12">
+                                                    <label class="switch switch-small">
+                                                        <input type="checkbox" id="ChkPSP" />
+                                                        <span></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group">
+
+                                                <h5 class="col-md-4 col-xs-12 control-label font-extra-bold"> Tamaño</h5>
+
+                                            </div>
+                                            <div class="form-group">
+
+                                                <label class="col-md-4 col-xs-12 control-label">Calcular horas <span class="fa fa-info-circle" title="Calcula las totales del proyecto de acuerdo a la cantidad de horas estimadas del proyecto"></span></label>
+                                                <div class="col-md-2 col-xs-12">
+                                                    <label class="switch switch-small">
+                                                        <input type="checkbox" @*checked*@ id="ChkCalculaHoras" onclick="CambiaModoHoras(this);" />
+                                                        <span></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div id="divHorasManual" @*class="hidden"*@>
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Horas estimadas</label>
+                                                    <div class="col-md-4 col-xs-7"><input type="number" step="0.01" class="form-control ReqProyecto " id="TxtConfHorasProy" item="Horas estimadas" /></div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Horas promedio mensual</label>
+                                                    <div class="col-md-4 col-xs-7"><input type="number" step="0.01" class="form-control ReqProyecto " id="TxtConfHorasProm" item="Horas promedio mensuaal" /></div>
+                                                </div>
+
+                                            </div>
+
+
+
+
+                                            <div class="form-group">
+
+                                                <h5 class="col-md-4 col-xs-12 control-label font-extra-bold"> Fechas</h5>
+
+                                            </div>
+
+                                            <div class="form-group">
+
+                                                <label class="col-md-4 col-xs-12 control-label">Calcular fechas <span class="fa fa-info-circle" title="Calcula la fecha inicio, fecha fin y fecha compromiso de manera automática de acuerdo a las fechas de las actividades"></span></label>
+                                                <div class="col-md-2 col-xs-12">
+                                                    <label class="switch switch-small">
+                                                        <input type="checkbox" @*checked*@ id="ChkCalculaFechas" onclick="CambiaModoFechas(this);" />
+                                                        <span></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div id="divFechasManual" @*class="hidden"*@>
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Fecha inicio</label>
+                                                    <div class="col-md-4 col-xs-12">
+                                                        <div class="input-group">
+                                                            <input type="text" id="TxtFechaIniProy" class="form-control ReqProyecto" item="Fecha inicio" />
+                                                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Fecha fin</label>
+                                                    <div class="col-md-4 col-xs-12">
+                                                        <div class="input-group">
+                                                            <input type="text" id="TxtFechaFinProy" class="form-control ReqProyecto" item="Fecha fin" />
+                                                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Fecha compromiso</label>
+                                                    <div class="col-md-4 col-xs-12">
+                                                        <div class="input-group">
+                                                            <input type="text" id="TxtFechaCompProy" class="form-control ReqProyecto" item="Fecha compromiso" />
+                                                            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+
+                                                <h5 class="col-md-4 col-xs-12 control-label font-extra-bold"> Ingresos</h5>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">Precio por hora</label>
+                                                <div class="col-md-4 col-xs-7"><input type="number" step="0.01" class="form-control ReqProyecto" id="TxtConfPrecioHora" item="Precio por hora" /></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">Ingreso (SIN IVA)</label>
+                                                <div class="col-md-4 col-xs-7"><input type="number" step="0.01" class="form-control ReqProyecto" id="TxtConfIngreso" item="Ingreso" /></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">IVA(%)</label>
+                                                <div class="col-md-4 col-xs-7"><input type="number" step="0.01" class="form-control ReqProyecto" id="TxtConfIVA" item="IVA" /></div>
+                                            </div>
+                                            <div class="form-group">
+
+                                                <h5 class="col-md-4 col-xs-12 control-label font-extra-bold"> Costos</h5>
+
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">Costo planeado</label>
+                                                <div class="col-md-4 col-xs-7"><input type="number" step="0.01" class="form-control ReqProyecto" id="TxtConfCosto" item="Costo" /></div>
+                                            </div>
+
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div id="step-3" class="content" style="display: none;">
+                                <div class="row invoice">
+
+                                    <div class="paymant-table">
+                                        <a href="#" class="plantilla" onclick="SeleccionarPlantilla(0,this)">
+                                            <span class=" fa fa-file-o"></span> Proyecto en blanco
+                                            <p>Crea un proyecto sin una plantilla</p>
+                                        </a>
+
+
+                                        @{
+                                            var LstProyectos = ViewBag.LstProyectos;
+
+
+                                            foreach (var i in LstProyectos)
+                                            {
+                                                <a href="#" class="plantilla" onclick="SeleccionarPlantilla(@i.IdProyecto,this)">
+                                                    <span class=" fa fa-folder-open-o"></span> @i.Nombre
+                                                    <p>@i.Descripcion</p>
+                                                </a>
+
+                                            }
+
+                                        }
+
+
+                                        @*<a href="#">
+                                            <span class=" fa fa-folder-open-o"></span> Plantilla Ágil
+                                            <p>Descripción de plantilla</p>
+                                        </a>
+                                        <a href="#">
+                                            <span class=" fa fa-folder-open-o"></span>  Platilla tradicional
+                                            <p>Descripción de plantilla</p>
+                                        </a>*@
+                                    </div>
+
+                                </div>
+                            </div>
+                            @*<div id="step-4" class="content" style="display: none;">
+                                    <h4>Step 4 Content</h4>
+                                    <p>Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula.</p>
+                                </div>*@
+                            @*</div*@
+                            @*<div class="actionBar">
+                                <div class="loader">Loading</div>
+                                <a href="#" class="btn btn-primary pull-right">Finish</a>
+                                <a href="#" class="btn btn-default pull-right buttonNext" >Next</a>
+                                <a href="#" class="btn btn-default pull-left buttonPrevious disabled">Previous</a>
+                                </div>*@
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                @*<button type="button" class="btn btn-info" id="BtnChecktag">Check tag<span class="fa fa-rocket fa-right"></span></button>*@
+                <button type="button" class="btn btn-info" id="BtnGuardar">Crear proyecto<span class="fa fa-rocket fa-right"></span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="IdProyecto" value="0" />
+<input type="hidden" id="IdPlantilla" value="0" />
+<input type="hidden" id="urlCargaInicial" value="@Url.Action("ConsultaInicialProyectos","Proyectos")" />
+<input type="hidden" id="urlGuardarProyecto" value="@Url.Action("GuardarProyecto","Proyectos")" />
+<input type="hidden" id="urlVerProyecto" value="@Url.Action("Proyecto","Proyectos")" />
+<input type="hidden" id="urlBuscarProyectos" value="@Url.Action("ConsultaProyectosV2","Proyectos")" />
+
+@{
+    Random rnd = new Random();
+
+    <script src="~/Scripts/Project/Proyectos.js?@rnd.Next()"></script>
+
+}
+
+
+

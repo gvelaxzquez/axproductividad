@@ -1,0 +1,195 @@
+﻿
+@{
+    ViewBag.Title = "Flujo de pagos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-content-wrap">
+
+    <div class="panel panel-default">
+
+        <div class="panel-heading">
+
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="pull-right">
+                 
+
+                        <button class="btn btn-success" id="BtnNuevoFP"><i class="fa fa-plus"></i>  Nuevo </button>
+
+                        <button class="btn btn-info" id="BtnExportarFP"><i class="fa fa-bars"></i> Exportar</button>
+                   
+
+
+
+                    </div>
+
+                    <ul class="nav nav-tabs" role="tablist" style="margin-top:0px;">
+                        <li class="active"><a class="btn btn-info" href="#tab-first" role="tab" data-toggle="tab" id="" onclick="CambiaTipoFecha(1)">Fecha compromiso</a></li>
+                        <li><a class="btn btn-info" href="#tab-second" role="tab" data-toggle="tab" id="" onclick="CambiaTipoFecha(2)">Fecha programada </a></li>
+                        <li><a class="btn btn-info" href="#tab-third" role="tab" data-toggle="tab" id="" onclick="CambiaTipoFecha(3)">Fecha pagada</a></li>
+                        <li><a class="btn btn-info" href="#tab-third" role="tab" data-toggle="tab" id="" onclick="MostrarSaldos()">Saldos</a></li>
+                    </ul>
+
+
+
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="panel-body">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table datatable text" id="TblFlujo">
+                        <thead>
+                            <tr>
+
+                                <th>Clave</th>
+                                <th>Proyecto</th>
+                                <th>Cliente</th>
+                                <th>Líder</th>
+                                <th>Total</th>
+                                <th>Facturado</th>
+                                <th>Pagado</th>
+                                <th>Por Facturar</th>
+                                <th>Ene</th>
+                                <th>Feb</th>
+                                <th>Mar</th>
+                                <th>Abr</th>
+                                <th>May</th>
+                                <th>Jun</th>
+                                <th>Jul</th>
+                                <th>Ago</th>
+                                <th>Sep</th>
+                                <th>Oct</th>
+                                <th>Nov</th>
+                                <th>Dic</th>
+
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="filter-settings">
+    <div class="filter-settings-icon"><span class="glyphicon glyphicon-filter"></span></div>
+    <h5>Filtrar</h5>
+
+    <div class="filter-settings-row">
+        <label for="SelAnioFP">Año</label>
+
+        @{
+
+            var LstAnios = ViewBag.LstAnios;
+            <select class="selectpicker form-control" id="SelAnioFP" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--">
+                @foreach (var i in LstAnios)
+                {
+                    <option value="@i.DescCorta">@i.DescCorta</option>
+
+                }
+
+            </select>
+
+        }
+
+
+    </div>
+    <div class="filter-settings-row">
+        <label for="ChkArchivado">Archivado</label>
+        <label class="switch switch-small">
+            <input type="checkbox" id="ChkArchivado" />
+            <span></span>
+        </label>
+    </div>
+
+    <div class="filter-settings-row">
+        <button class="btn btn-default" id="BtnFiltrarFP">Aplicar</button>
+    </div>
+</div>
+
+
+
+<div class="modal" id="ModalDetallePagosMes" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="width:70%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="TituloRec"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="pull-right">
+                            <button class="btn btn-info" id="BtnExportarFPDM"><i class="fa fa-bars"></i> Exportar</button>
+                        </div>
+                        <div>
+                            <h3> Total: <span id="LblTotalFlujoMes"> 0</span></h3>
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table datatable text" id="TblFlujoMes">
+                                <thead>
+                                    <tr>
+                                        <th>Proyecto</th>
+                                        <th>#</th>
+                                        <th>Concepto</th>
+                                        <th>%Avance</th>
+                                        <th>Fecha planeada</th>
+                                        <th>Fecha compromiso</th>
+                                        <th>Fecha factura</th>
+                                        <th>Factura</th>
+                                        <th>Fecha programada</th>
+                                        <th>Fecha pagada</th>
+                                        <th>Horas</th>
+                                        <th>Subtotal</th>
+                                        <th>IVA</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*<div class="modal-footer">
+                <button type="button" class="btn btn-success" id="BtnGuardarFPD">Guardar</button>
+            </div>*@
+        </div>
+    </div>
+</div>
+
+
+
+<input type="hidden" id="TipoFecha" value="1" />
+<input type="hidden" id="MesD" value="1" />
+<input type="hidden" id="IdProyectoD" value="1" />
+<input type="hidden" id="AnioActual" value="@ViewBag.Anio" />
+<input type="hidden" id="urlObtieneFlujoPagos" value="@Url.Action("ObtieneFlujoPagos", "Proyectos")" />
+<input type="hidden" id="urlFlujoDetalle" value="@Url.Action("DetallePagos", "Proyectos")" />
+<input type="hidden" id="urlObtieneFlujoMes" value="@Url.Action("ObtieneFlujoPagosMes", "Proyectos")" />
+
+
+@{
+    Random rnd = new Random();
+    <script src="~/Scripts/Project/FlujoPagos.js?@rnd.Next()"></script>
+
+}

@@ -1,0 +1,995 @@
+﻿
+@using AxProductividad.Models;
+
+<div class="modal" id="ModalActividades" tabindex="-100" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg modal-dialog-fullscreen" style="width:100%; height:100%;">
+        <div class="modal-content" style="width:100%;">
+            <div class="modal-header">
+
+
+
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <h5 class="" style="margin-bottom:0px;">
+                            <img src="~/Content/Project/Imagenes/task.png" style="" class="pull-left ImgActividad" alt="" id="ImgActividad">  <span id="">  </span>   <span id="TituloActividadWI"></span> | <span id="TituloActividades" style="font-weight:bold"></span>  <span class='fa fa-copy btn rwdetails' title="Copiar Id" id="BtnCopyId" style="color:#CCCCCC"></span>
+
+
+                        </h5>
+
+
+
+                    </div>
+                    <div class="col-md-6">
+
+                    
+                        <div class="btn-group pull-right">
+
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    <span id="BtnEstatus"> Abierto</span>
+                                    <span id="spEstatusC" class="fa fa-fw fa-circle text-progress pull-right"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu" id="ulchangest">
+                                    <li class="rwclient"><a href="#" id="BtnActualizaAbierto" onclick="ActualizaEstatusAct('A')"> <i class="fa fa-fw fa-circle text-info pull-right"></i>Abierto</a></li>
+                                    <li class="rwclient"><a href="#" id="BtnActualizaProgreso" onclick="ActualizaEstatusAct('P')"> <i class="fa fa-fw fa-circle text-progress pull-right"></i>Progreso</a></li>
+                                    <li class="rwclient"><a href="#" id="BtnActualizaProgreso" onclick=" SolicitaRevisionDet();"> <i class="fa fa-fw fa-circle text-warning pull-right"></i>Revisión</a></li>
+                                    <li><a href="#" onclick="ConfirmaLiberaActividad()"> <i class="fa fa-fw fa-circle text-success pull-right"></i><span id="liLiberar">Liberada</span></a></li>
+
+                                    <li><a href="#" id="BtnActualizaProgreso" onclick="RechazoActividadDet();"> <i class="fa fa-fw fa-circle text-danger pull-right"></i>Rechazar</a></li>
+                                    <li class="rwclient"><a href="#" id="" onclick="CancelarDet()"> <i class="fa fa-fw fa-circle text-muted pull-right"></i>Cancelar</a></li>
+
+                                </ul>
+                            </div>
+
+
+                            <button type="button" class="btn btn-default  rwclient" id="BtnGuardarActividad" title="Guardar"><span class="fa fa-floppy-o fa-right"></span></button>
+
+                            <button type="button" class="btn btn-default rwdetails rwclient" id="BtnNuevaActCompartida" title="Subtareas">
+                                <span class="fa fa-user-plus"></span>
+                            </button>
+
+                            <button type="button" class="btn btn-default  rwdetails rwclient" id="BtnShareAct" title="Compartir">
+                                <span class="fa  fa-share-alt"></span>
+                            </button>
+
+
+
+
+                            <button type="button" class="btn btn-default  rwdetails rwclient" id="BtnSendAct" title="Envíar">
+                                <span class="fa fa-paper-plane"></span>
+                            </button>
+
+
+
+                            <button type="button" class="btn btn-default rwdetails rwclient" id="BtnCopiarAct" title="Copiar">
+                                <span class="fa fa-copy"></span>
+                            </button>
+                            <button type="button" class="btn btn-default rwdetails " id="BtnSendPDFWI" title="Imprimir">
+                                <span class="fa fa-print"></span>
+                            </button>
+                            <button type="button" class="btn btn-default rwclient rwdetails " id="BtnEjecutarTCActivity" title="Ejecutar caso de prueba">Ejecutar <span class="fa fa-play-circle fa-right text-success"></span></button>
+                            <button type="button" class="btn btn-default " id="btnCerrarAct" title="Cerrar">   <i class="fa fa-times"></i></button>
+
+
+
+                        </div>
+
+
+
+
+
+                    </div>
+                </div>
+
+
+
+
+            </div>
+            <div class="modal-body">
+                <!--inicia-->
+                <div class="row">
+                    <span class="pull-right rwdetails" style="margin-bottom:0px;"> Actualizado por <b><span id="lblIdUMod"></span></b>  el  <b><span id="lblFechaMod"></span></b></span>
+                    <div class="panel panel-default tabs">
+
+                        <ul class="nav nav-tabs " role="tablist">
+
+
+
+                            <li class="pull-left" style="width:93em;">
+
+                                <!--<div class="col-md-12">
+                                    <div class="panel-group accordion">
+                                        <div class="panel ">-->
+                                @*<div class="panel-heading">
+                                        <h5 class="panel-title">
+                                            <a href="#accordion-titulo">
+                                                Título
+                                            </a>
+                                        </h5>
+                                    </div>*@
+                                <!--<div class="panel-body " style="padding: 0px;" id="accordion-titulo">
+                                                <div class="col-md-12" style="margin: 10px 0px">
+
+                                                    <label class="control-label separator">Título</label>
+                                                    <p class="lead emoji-picker-container">
+                                                        <input type="text" style="max-width:100%" class="form-control ReqActividad" id="TxtBR" item="Título" placeholder="Título" maxlength="500" data-emojiable="true" />
+                                                    </p>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>-->
+                                <div class="row">
+                                    <div class="col-md-11" style="padding-left:2%">
+
+                                        <label class="control-label separator">Título</label>
+
+                                        <p class="lead emoji-picker-container">
+                                            <input type="text" style="max-width:100%" class="form-control ReqActividad" id="TxtBR" item="Título" placeholder="Título" maxlength="500" data-emojiable="true" />
+                                        </p>
+
+
+
+                                    </div>
+                                   
+                                </div>
+                            </li>
+
+                            <li class="rwdetails rwclient pull-right"><a href="#tab-activity" role="tab" data-toggle="tab"> <span class="fa fa-eye"></span>  (<label id="lblLog"> 0</label>) </a></li>
+                            <li class="rwdetails  rwclient pull-right"><a href="#tab-timesactivity" role="tab" data-toggle="tab"> <span class="fa fa-clock-o"></span>  (<label id="lblActLog"> 0</label>) </a></li>
+                            @*<li class="rwdetails  rwclient pull-right"><a href="#tab-filesactivity" role="tab" data-toggle="tab"> <span class="fa fa-folder-o"></span> (<label id="lblActArchivos"> 0</label>) </a></li>*@
+                            @*<li class="rwdetails pull-right"><a href="#tab-commentsactivity" role="tab" data-toggle="tab"> <span class="fa fa-comment-o"></span> (<label id="lblActComentarios"> 0</label>) </a></li>*@
+                            @*<li class="hidden rwclient  rwdetails tab-actividad-peer pull-right"><a href="#tab-actividad-peer" role="tab" data-toggle="tab">Peer Review</a></li>*@
+                            <li class="active rwdetails  rwclient pull-right" id="rwPrincipal"><a href="#tab-details" role="tab" data-toggle="tab"> Detalles </a></li>
+
+                        </ul>
+                        <div class="panel-body tab-content">
+                            <div class="tab-pane active tabpaneactivity" id="tab-details">
+                           
+                               
+                                <div class="row">
+
+                                    <div class="col-md-7 col-sm-12 col-xs-12" id="mdCont">
+                                        <div class="col-md-12">
+                                            <button type="button" class="btn btn-default btn-grid pull-right rwclient" id="BtnHideD"><span id="spHideD" class="fa fa-indent"></span></button>
+                                        </div>
+
+
+                                        <div class="" style="border-bottom: none !important;" id="divTxtDescripcion">
+                                            <div class="panel-group accordion accordion-dc">
+                                                <div class="panel ">
+                                                    <div class="panel-heading">
+                                                        <h5 class="panel-title">
+                                                            <a href="#accordion-Descripcion">
+                                                                Descripción
+                                                            </a>
+
+                                                        </h5>
+
+                                                        <button type="button" class="btn btn-default pull-right rwclient" id="BtnPlantilla" title="Seleccionar plantilla">
+                                                            <span class="fa fa-file-text-o"></span>
+                                                        </button>
+                                                        <button class="btn btn-default pull-right rwclient" id="btnEditarActDesc"><span class="fa fa-pencil-square-o"></span></button>
+                                                    </div>
+                                                    <div class="panel-body panel-body-open" style="padding: 0px;" id="accordion-Descripcion">
+                                                        <div class="col-md-12" style="margin: 10px 0px" id="divTxtDescripcion">
+
+
+                                                            @*<textarea class=" summernote form-control " style="min-width:100%" rows="25" id="TxtDescripcion" item="Descripción"></textarea>*@
+                                                            <p class="form-control hide" style="min-width:100%; height:auto;" id="LblDescripcion2"></p>
+
+
+                                                            <textarea id="TxtDescripcion" class="" item="Descripción">
+
+                                                            </textarea>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="tab-actividad-peer" style="border-bottom: none !important;" id="tab-actividad-peer">
+                                            <div class="panel-group accordion">
+                                                <div class="panel ">
+                                                    <div class="panel-heading">
+                                                        <h5 class="panel-title">
+                                                            <a href="#accordion-PRA">
+                                                                Lista de revisión
+                                                            </a>
+
+
+                                                        </h5>
+                                                        <button type="button" class="btn btn-default pull-right rwclient rwdetails" id="BtnNuevaActRel" title="Relacionar nuevo item">
+                                                            Registrar hallazgo <span class="fa fa-plus fa-right"></span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="panel-body " style="padding: 15px;" id="accordion-PRA">
+
+                                                        <div class="table-responsive col-md-12">
+                                                            <table class="table datatable text dtControles" id="TblPeerReview">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="text-center">Control</th>
+                                                                        <th class="text-center" style="width:15%">Cumple</th>
+                                                                        @*<th class="text-center" style="width:15%">Hallazgos</th>*@
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <div class="" style="border-bottom: none !important;" id="divTxtCriterioA">
+                                            <div class="panel-group accordion">
+                                                <div class="panel ">
+                                                    <div class="panel-heading">
+                                                        <h5 class="panel-title">
+                                                            <a href="#accordion-CriterioA">
+                                                                Criterios de aceptación
+                                                            </a>
+                                                        </h5>
+                                                    </div>
+                                                    <div class="panel-body " style="padding: 0px;" id="accordion-CriterioA">
+                                                        <div class="col-md-12" style="margin: 10px 0px">
+
+
+                                                            <textarea class="  form-control summernote" style="min-width:100%" rows="25" id="TxtCriterioA" item="Criterio aceptación"></textarea>
+                                                            <p class="form-control" style="min-width:100%; height:auto;" id="LblCriterioA"></p>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                
+
+
+
+
+
+
+
+                                        <div class="" style="border-bottom: none !important;">
+                                            <div class="panel-group accordion accordion-dc">
+                                                <div class="panel ">
+                                                    <div class="panel-heading">
+                                                        <h5 class="panel-title">
+                                                            <a href="#accordion-Conversacion">
+                                                                Conversación
+                                                            </a>
+                                                        </h5>
+                                                    </div>
+                                                    <div class="panel-body panel-body-open" style="padding: 0px;" id="accordion-Conversacion">
+                                                        <div class="row">
+
+                                                            <div class="col-md-12">
+
+                                                                <button type="button" class="btn btn-default pull-right" id="BtnAgregarComentario"><span class="fa fa-comment"></span> &nbsp;Agregar</button> &nbsp;
+                                                                <div class="panel-body-search" id="divcomentario">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <textarea rows="4" maxlength="4000" id="TxtComentarioAct" item="Comentario" style="min-width:100%" class="form-control reqcomentario " placeholder="Ingresa tu comentario..."></textarea>
+                                                                        </div>
+                                                                        <div class="col-md-12">
+                                                                            <button class="btn btn-default pull-right" id="BtnGuardarComentario" style="height:100%">Enviar</button>
+                                                                        </div>
+
+                                                                    </div>
+
+
+                                                                </div>
+                                                                <br />
+                                                            </div>
+                                                            <br />
+                                                        </div>
+
+                                                        <ul class="media-list" id="UlComentarios"></ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+
+
+
+
+                                    </div>
+                                    <div class="col-md-3 col-sm-12 col-xs-12 " id="mdClas">
+
+
+                                        <div class="panel-group accordion accordion-dc" style="padding-bottom:10px;">
+                                            <div class="panel ">
+                                                <div class="panel-heading">
+                                                    <h5 class="panel-title">
+                                                        <a href="#accordion-Clasificacion">
+                                                            Clasificación
+                                                        </a>
+                                                    </h5>
+                                                </div>
+                                                <div class="panel-body panel-body-open" style="padding: 0px;" id="accordion-Clasificacion">
+                                                    <form class="form-horizontal">
+                                                        <div class="panel-body">
+
+                                                            <div class="form-group" id="divSelProyecto">
+                                                                <label class="col-md-3 col-xs-5 control-label separator">Proyecto</label>
+                                                                <div class="col-md-8 col-xs-7 line-height-base"> <select class="form-control  selectpicker rwclients" data-live-search="true" id="SelProyecto" item="Proyecto"></select></div>
+                                                            </div>
+                                                            <div class="form-group hide">
+                                                                <label class="col-md-4 col-xs-5 control-label">Tipo</label>
+                                                                <div class="col-md-8 col-xs-7 line-height-base">
+                                                                    <select class="form-control selectpicker rwclients" data-live-search="true" id="SelTipoTask" item="Tipo de actividad">
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="form-group" id="divSelSprintA">
+                                                                <label class="col-md-3 col-xs-5 control-label separator">Sprint</label>
+                                                                <div class="col-md-8 col-xs-7 line-height-base"> <select class="form-control selectpicker rwclients" data-live-search="true" id="SelSprintA" item="Sprint"><option value="-1" selected>-- NA -- </option></select></div>
+
+                                                            </div>
+                                                            <div class="form-group" id="divSelPrioridad">
+                                                                <label class="col-md-3 col-xs-5 control-label separator">Prioridad</label>
+                                                                <div class="col-md-8 col-xs-7 line-height-base"> <select class="form-control selectpicker rwclients" data-live-search="true" id="SelPrioridad" item="Prioridad"></select></div>
+
+                                                            </div>
+                                                            <div class="form-group" id="divSelActividad">
+                                                                <label class="col-md-3 col-xs-5 control-label separator">Fase</label>
+                                                                <div class="col-md-8 col-xs-7 line-height-base"><select class="form-control  selectpicker rwclients" data-live-search="true" id="SelActividad" item="Fase"></select></div>
+                                                            </div>
+                                                            <div class="form-group" id="divSelClasificacion">
+                                                                <label class="col-md-3 col-xs-5 control-label separator" id="lblClasificacion">Clasificación</label>
+                                                                <div class="col-md-8 col-xs-7 line-height-base">
+                                                                    <select class="form-control  selectpicker rwclients" data-live-search="true" id="SelClasificacion" item="Clasificación">
+                                                                        <option value="-1" selected>--Seleccionar--</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group rwclient" id="divTxtTiempoEjecucion">
+                                                                <label class="col-md-3 col-xs-5 control-label separator">T. Ejecución</label>
+                                                                <div class="col-md-8 col-xs-7"><input type="number" step="0.01" class="form-control " id="TxtTiempoEjecucion" item="Tiempo ejecución" /></div>
+                                                            </div>
+
+                                                            <div class="form-group rwclient" id="divTxtPuntosHistoria">
+                                                                <label class="col-md-3 col-xs-5 control-label separator">Puntos historia</label>
+                                                                <div class="col-md-8 col-xs-7"><input type="number" step="0.01" class="form-control " id="TxtPuntosHistoria" item="Püntos historia" /></div>
+                                                            </div>
+
+
+                                                            <div class="form-group rwclient" style="display: flex; flex-direction: row">
+                                                                <div style="display: flex; flex-direction: column; width: 33%" id="divchkPeerReview">
+                                                                    <label class="control-label separator " style="padding-bottom: 0;padding-left: 20px;text-align: left;">Peer review</label>
+                                                                    <label class="switch switch-small" style="padding-top: 0; margin-left: 20px">
+                                                                        <input type="checkbox" id="chkPeerReview" />
+                                                                        <span></span>
+                                                                    </label>
+                                                                </div>
+
+                                                                <div style="display: flex; flex-direction: column; width: 33%" id="divChkCritico">
+                                                                    <label class="control-label separator" style="padding-bottom: 0;padding-left: 20px;text-align: left;">Crítico</label>
+                                                                    <label class="switch switch-small" style="padding-top: 0; margin-left: 20px">
+                                                                        <input type="checkbox" checked id="ChkCritico" />
+                                                                        <span></span>
+                                                                    </label>
+                                                                </div>
+
+                                                                <div style="display: flex; flex-direction: column; width: 33%" id="divChkRetrabajo">
+                                                                    <label class="control-label separator" style="padding-bottom: 0;padding-left: 20px;text-align: left;">Retrabajo</label>
+                                                                    <label class="switch switch-small" style="padding-top: 0; margin-left: 20px">
+                                                                        <input type="checkbox" checked id="ChkRetrabajo" />
+                                                                        <span></span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div id="" class="divPeerReview form-group hidden">
+                                                                <label class="col-md-3 col-xs-5 control-label separator"> Revisión</label>
+                                                                <div class="col-md-8 col-xs-7 line-height-base">
+                                                                    <select class="form-control selectpicker" data-live-search="true" id="selPeerReview" item="Lista de Revisión">
+                                                                        <option value="-1" selected>--Seleccionar--</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group hidden">
+
+                                                                <div class="col-md-12 col-xs-7">
+                                                                    <div class="col-md-6 col-xs-12">
+                                                                        <label class="check" for="RdoPlaneada2" id="LblRdoSiPlaneada"><input type="radio" class="iradio" name="RdoPlaneada" id="RdoPlaneada2" value="1" /> Planeada  </label><br />
+                                                                        <label class="check" for="RdoNoPlaneada2" id="LblRdoNoPlaneada"><input type="radio" class="iradio" name="RdoPlaneada" id="RdoNoPlaneada2" value="0" /> No planeada</label>
+                                                                    </div>
+                                                                    <div class="col-md-6 col-xs-12">
+                                                                        <label class="check" for="RdoAlta" id="LblRdoAlta"><input type="radio" class="iradio" name="RdoPrioridad" id="RdoAlta2" value="1" /> Urgente  </label><br />
+                                                                        <label class="check" for="RdoBaja" id="LblRdoBaja"><input type="radio" class="iradio" name="RdoPrioridad" id="RdoBaja2" value="0" /> No urgente</label>
+                                                                    </div>
+
+
+
+                                                                </div>
+                                                            </div>
+
+
+
+
+
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="panel-group accordion accordion-dc rwclient">
+                                            <div class="panel ">
+                                                <div class="panel-heading">
+                                                    <h5 class="panel-title">
+                                                        <a href="#accordion-Plan">
+                                                            Planeación
+                                                        </a>
+                                                    </h5>
+                                                </div>
+                                                <div class="panel-body panel-body-open" style="padding: 0px;" id="accordion-Plan">
+                                                    <form class="form-horizontal">
+                                                        <div class="panel-body">
+
+
+                                                            <div class="form-group" id="divSelUsuarioAsignado">
+                                                                <label class="col-md-3 col-xs-5 control-label separator">Asignado</label>
+                                                                <div class="col-md-8 col-xs-7"><select class="form-control  selectpicker" data-live-search="true" id="SelUsuarioAsignado" item="Usuario asignado"></select></div>
+                                                            </div>
+                                                            <div class="form-group" id="divSelResponsable">
+                                                                <label class="col-md-3 col-xs-5 control-label separator">Responsable</label>
+                                                                <div class="col-md-8 col-xs-7"><select class="form-control  selectpicker" data-live-search="true" id="SelResponsable" item="Responsable válidar"></select></div>
+                                                            </div>
+                                                            <div class="form-group rwclient" id="divTxtHorasFacturables">
+                                                                <label class="col-md-3 col-xs-5 control-label separator">Estimado</label>
+                                                                <div class="col-md-8 col-xs-7"><input type="number" step="0.01" class="form-control " id="TxtHorasFacturables" item="Estimado" /></div>
+                                                            </div>
+                                                            <div class="form-group rwclient" id="divTxtHorasAsignadas">
+                                                                <label class="col-md-3 col-xs-5 control-label separator">Asignado</label>
+                                                                <div class="col-md-8 col-xs-7"><input type="number" step="0.01" class="form-control " id="TxtHorasAsignadas" item="Asignado" /></div>
+                                                            </div>
+                                                            <div class="form-group rwclient" id="divTxtHorasFinal">
+                                                                <label class="col-md-3 col-xs-5 control-label separator">Real</label>
+                                                                <div class="col-md-8 col-xs-7">
+                                                                    <div class="input-group">
+                                                                        <label class="" id="TxtHorasFinal" style="text-align:right"></label>
+                                                                        <span class="input-group-addon" style="cursor:pointer" onclick="CapturarTrabajoAct()"><span class="glyphicon glyphicon-plus-sign"></span></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group" id="divTxtFechaInicio">
+                                                                <label class="col-md-3 col-xs-5 control-label separator">Inicio</label>
+                                                                <div class="col-md-8 col-xs-7 line-height-base">
+                                                                    <div class="input-group date">
+                                                                        <input type="text" id="TxtFechaInicio" class="form-control " item="Fecha Inicio" />
+                                                                        <span class="input-group-addon datepickerbutton"><span class="glyphicon glyphicon-calendar"></span></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group rwclient" id="divTxtFechaPlan">
+                                                                <label class="col-md-3 col-xs-5 control-label separator">Fin</label>
+                                                                <div class="col-md-8 col-xs-7 line-height-base">
+                                                                    <div class="input-group date">
+                                                                        <input type="text" id="TxtFechaPlan" class="form-control " item="Fecha fin" />
+                                                                        <span class="input-group-addon datepickerbutton"><span class="glyphicon glyphicon-calendar"></span></span>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group" id="divTxtFechaFin">
+                                                                <label class="col-md-3 col-xs-5 control-label separator">Real</label>
+                                                                <div class="col-md-8 col-xs-7">
+                                                                    <div class="input-group ">
+                                                                        <input type="text" id="TxtFechaFin" class="form-control " item="Fecha real" disabled />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+
+
+
+
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+                                    </div>
+                                    <div class="col-md-2 col-sm-12 col-xs-12 " id="mdRels">
+
+
+
+                                        <div class="panel-group accordion accordion-dc">
+                                            <div class="panel ">
+                                                <div class="panel-heading">
+                                                    <h5 class="panel-title">
+                                                        <a href="#accordion-WiRel">
+                                                            Relacionados
+                                                        </a>
+                                                    </h5>
+                                                </div>
+                                                <div class="panel-body panel-body-open" style="padding: 0px;" id="accordion-WiRel">
+                                                    <form class="form-horizontal">
+                                                        <div class="panel-body">
+                                                            <div id="divTrabajoRelacionado">
+                                                                @*<div class="separator">Workitems </div>*@
+
+                                                                <div style="position:relative; text-align: right" class="rwclient">
+                                                                    <i id="show-parents-div" class="fa fa-plus-circle" title="Relacionar item" style="margin-right: -3px; font-size: 14px; color: #3fbae4; cursor: pointer;"></i>
+                                                                    <div id="parents-div" class="repo-div hidden" style="height: 100px; background-color: white; position: absolute; top: 30px; left: 0px; z-index: 100; width: 100%; border: 1px solid gray; border-radius: 5px">
+                                                                        <div style="height: 7%; margin-top: 5px; padding-right: 12px; font-size: 14px">
+                                                                            <i id="hide-parents-div" style="cursor: pointer" class="fa fa-times-circle"></i>
+                                                                        </div>
+                                                                        <div style="margin-top: 10px;height: 15%" class="">
+
+                                                                            <div class="col-md-12 col-xs-12">
+                                                                                <select style="width:100%;" multiple="multiple" class="hidden" id="SelActividadSA"></select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div id="" class="divMensajes div-parents-repo" style="min-height:150px;">
+
+                                                                </div>
+
+                                                            </div>
+
+
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <div class="panel-group accordion accordion-dc">
+                                            <div class="panel ">
+                                                <div class="panel-heading">
+                                                    <h5 class="panel-title">
+                                                        <a href="#accordion-WiAttachments">
+                                                            Adjuntos
+                                                        </a>
+                                                    </h5>
+                                                </div>
+                                                <div class="panel-body panel-body-open" style="padding: 0px;" id="accordion-WiAttachments">
+                                                    <form class="form-horizontal">
+                                                        <div class="panel-body">
+                                                            <div id="divAttachments">
+                                                                @*<div class="separator">Workitems </div>*@
+
+                                                                <div style="position:relative; text-align: right" class="rwclient">
+                                                                    <input type="file"  id="ActividadAttachment" class="hide">
+                                                                    <i id="add-attachments" class="fa fa-plus-circle" title="Adjuntar archivo" style="margin-right: -3px; font-size: 14px; color: #3fbae4; cursor: pointer;"></i>
+
+                                                                </div>
+
+                                                                <div id="" class="divMensajes div-attachments-repo" style="min-height:150px;">
+
+                                                                </div>
+
+                                                            </div>
+
+
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                        <div class="panel-group accordion accordion-dc">
+                                            <div class="panel ">
+                                                <div class="panel-heading">
+                                                    <h5 class="panel-title">
+                                                        <a href="#accordion-dev">
+                                                            Desarrollo
+                                                        </a>
+                                                    </h5>
+                                                </div>
+                                                <div class="panel-body panel-body-open" style="padding: 0px;" id="accordion-dev">
+                                                    <form class="form-horizontal">
+                                                        <div class="panel-body">
+                                                            <div id="div-repositorio" class="hidden">
+
+                                                                <div style="position:relative; text-align: right" class="rwclient">
+                                                                    <i id="show-repo-div" class="fa fa-plus-circle" style="margin-right: -3px; font-size: 14px; color: #3fbae4; cursor: pointer;"></i>
+                                                                    <div id="repo-div" class="repo-div hidden" style="height: 250px; background-color: white; position: absolute; top: 30px; left: 0px; z-index: 100; width: 100%; border: 1px solid gray; border-radius: 5px">
+                                                                        <div style="height: 7%; margin-top: 5px; padding-right: 12px; font-size: 14px">
+                                                                            <i id="hide-repo-div" style="cursor: pointer" class="fa fa-times-circle"></i>
+                                                                        </div>
+                                                                        <div style="margin-top: 5px;height: 15%" class="">
+                                                                            <label class="col-md-2 col-xs-3 control-label">Repo.</label>
+                                                                            <div class="col-md-10 col-xs-9">
+                                                                                <select class="form-control ReqRepo" id="SelRepositorio" item="Repositorio">
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div style="margin-top: 5px;height: 15%" class="">
+                                                                            <label class="col-md-2 col-xs-3 control-label">Tipo</label>
+                                                                            <div class="col-md-10 col-xs-9">
+                                                                                <select class="form-control ReqRepo" id="SelCommit" item="Tipo">
+                                                                                    <option value="-1">-- Seleccionar --</option>
+                                                                                    <option value="1">Commit</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div style="margin-top: 5px;height: 15%;" class="">
+                                                                            <label class="col-md-2 col-xs-3 control-label">Id</label>
+                                                                            <div class="col-md-10 col-xs-9">
+                                                                                <input id="TxtIdLink" type="text" class="form-control ReqRepo" item="Id" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div style="margin-top: 5px;height: 20%;" class="">
+                                                                            <label class="col-md-2 col-xs-3 control-label">Desc.</label>
+                                                                            <div class="col-md-10 col-xs-9">
+                                                                                <textarea rows="2" id="TxtCommitDescripcion" type="text" class="form-control"></textarea>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div style="text-align:end; padding-right: 12px; margin-top: 8px;">
+                                                                            <button style="" id="btnAgregarActividadRepositorio" class="btn btn-default">Agregar</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+
+                                                                <div id="" class="divMensajes div-comentarios-repo" style="min-height:150px;">
+
+                                                                </div>
+
+
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="panel-group accordion accordion-dc">
+                                            <div class="panel ">
+                                                <div class="panel-heading">
+                                                    <h5 class="panel-title">
+                                                        <a href="#accordion-Issues">
+                                                            Issues
+                                                        </a>
+                                                    </h5>
+                                                </div>
+                                                <div class="panel-body panel-body-open" style="padding: 0px;" id="accordion-Issues">
+                                                    <form class="form-horizontal">
+                                                        <div class="panel-body">
+
+
+
+                                                            <div id="divIssues">
+
+                                                                <div style="position:relative; text-align: right" class="rwclient">
+                                                                    <i id="show-issues-div" class="fa fa-plus-circle" style="margin-right: -3px; font-size: 14px; color: #3fbae4; cursor: pointer;"></i>
+                                                                    <div id="issues-div" class="repo-div hidden" style="height: 100px; background-color: white; position: absolute; top: 30px; left: 0px; z-index: 100; width: 100%; border: 1px solid gray; border-radius: 5px">
+                                                                        <div style="height: 7%; margin-top: 5px; padding-right: 12px; font-size: 14px">
+                                                                            <i id="hide-issues-div" style="cursor: pointer" class="fa fa-times-circle"></i>
+                                                                        </div>
+                                                                        <div style="margin-top: 10px;height: 15%" class="">
+
+                                                                            <div class="col-md-12 col-xs-12">
+                                                                                <select class="form-control  selectpicker ReqIssuesAct" data-live-search="true" id="SelIssues" item="Issue">
+                                                                                    <option value="-1" selected>--Seleccionar -- </option>
+
+                                                                                </select>
+                                                                            </div>
+                                                                            <div style="text-align:end; padding-right: 12px; margin-top: 18px;">
+                                                                                <button style="" id="BtnAgregarIssueActividad" class="btn btn-default">Agregar</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div id="" class="divMensajes div-issues-repo" style="min-height:150px;">
+
+                                                                </div>
+
+                                                            </div>
+
+
+
+
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="tab-pane tabpaneactivity" id="tab-filesactivity" style="min-height:290px;" hide>
+                                <div class="row">
+                                    <div class="col-md-11">
+                                        <h5 style="padding-left:10px;">Archivos</h5>
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <div class="col-md-12">
+
+                                                    <div id="IFArchivosActividad" class="text-center">
+
+                                                    </div>
+                                                    <div id="SubirArchivosActividad">
+
+                                                        <div id="dZUpload" class="dropzone">
+                                                            <div class="dz-default dz-message"><h3> Arrastra aquí tus archivos o da clic para cargar</h3></div>
+                                                            <table class="table datatable text" id="">
+                                                                @*<thead>
+                                                                    <tr>
+                                                                        <th width="25%">Fecha</th>
+                                                                        <th width="25%">Tiempo</th>
+                                                                        <th width="50%">Comentario</th>
+
+                                                                    </tr>
+                                                                </thead>*@
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>Docto.xlsx</td>
+                                                                        <td> <a class="btn btn-default"> <span class="fa fa-download"></span>   </a></td>
+                                                                      
+                                                                    </tr>
+
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="tab-pane tabpaneactivity" id="tab-timesactivity" style="min-height:290px;">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h5 style="padding-left:10px;">Tiempos</h5>
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <div class="table-responsive">
+                                                    <table class="table datatable text" id="TblLogTrabajo">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="25%">Fecha</th>
+                                                                <th width="25%">Tiempo</th>
+                                                                <th width="50%">Comentario</th>
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody></tbody>
+                                                    </table>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="tab-pane tabpaneactivity" id="tab-activity" style="min-height:290px;">
+
+                                <div class="col-md-6">
+                                    <h5 style="padding-left:10px;">Log</h5>
+                                    <ul class="media-list" id="UlLog"></ul>
+                                </div>
+
+
+                            </div>
+
+
+                            @*<div class="tab-pane tabpaneactivity" id="tab-actividad-peer" style="min-height:290px;">
+
+                                </div>*@
+                        </div>
+
+
+
+
+                        <!--termina-->
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modulo-revision modal mdlHallazgos" id="" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="largeModalHead">Hallazgos</h4>
+            </div>
+            <div class="modal-body">
+                <!--inicia-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <form class="form-horizontal">
+                            <div style="position: absolute; right: 35px; z-index: 100;">
+                                <button type="button" class="btn btn-success btnGuardarHallazgo" id="e0522d73-d487-4165-a406-f8d4965e68eb">Guardar<span class="fa fa-floppy-o fa-right"></span></button>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="timeFin" class="col-md-2 control-label">Gravedad</label>
+                                <div class="col-md-6 col-xs-12">
+                                    <select class="form-control RequeridoHallazgo modulo-revision cmbGravedad" id="e0522d73-d487-4165-a406-f8d4965e68et" item="Proceso">
+                                        <option value="-1">--Seleccionar--</option>
+                                        <option value="1">Bajo</option>
+                                        <option value="2">Medio</option>
+                                        <option value="3">Grave</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="txtDescripcionHallazgo" class="col-md-2 control-label">Descripción</label>
+                                <div class="col-md-9 col-xs-12">
+                                    <textarea rows="4" class="form-control RequeridoHallazgo modulo-revision txtDescripcionHallazgo" id="e0522d73-d487-4165-a406-f8d4965e68es" item="Comentarios" style="min-height: 45px; max-height: 200px; max-width: none !important; resize: vertical"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label style="padding-top: 0px !important" for="chkCorregidoHallazgo" class="col-md-2 control-label">Corregido</label>
+                                <div class="col-md-9 col-xs-12">
+                                    <input type="checkbox" class="chkCorregidoHallazgo" id="e0522d73-d487-4165-a406-f8d4965e68ewr" />
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <hr class="col-md-12" style="border: none; height: 2px; background-color: #ccc;" />
+                            </div>
+                            <div class="table-responsive col-md-12">
+                                <table class="table datatable text dtHallazgos" id="e0522d73-d487-4165-a406-f8d4965e68ee">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" style="width:5%"></th>
+                                            <th class="text-center">Descripción</th>
+                                            <th class="text-center">Gravedad</th>
+                                            <th class="text-center" style="width:10%">Editar</th>
+                                            <th class="text-center" style="width:10%">Eliminar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!--termina-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal " id="mdlRepo" tabindex="-1" role="dialog" aria-labelledby="largeModalHead" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="largeModalHead">Repositorio</h4>
+            </div>
+            <div class="modal-body">
+                <iframe id="ifrRepo" src=""></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<input type="hidden" id="IdActividad" value="0" />
+<input type="hidden" id="IdOAct" value="0" />
+<input type="hidden" id="ActPSP" value="0" />
+<input type="hidden" id="IdActividadRef" value="0" />
+<input type="hidden" id="UrlArchivo" value="" />
+<input type="hidden" id="ActCancela" value="0" />
+
+<input type="hidden" id="IdProyectoAct" value="0" />
+
+<input type="hidden" id="IdActividadDependencia" value="0" />
+<input type="hidden" id="IdActividadAttachment" value="0" />
+<input type="hidden" id="IdActividadIssue" value="0" />
+<input type="hidden" id="IdTipoActividad" value="0" />
+
+<input type="hidden" id="IdCicloCasoActivity" value="0" />
+
+<input type="hidden" id="IdActividadRel" value="0" />
+<input type="hidden" id="urlExportWI" value="@Url.Action("WorkItem","Actividades")" />
+<input type="hidden" id="urlCargaInicialAct" value="@Url.Action("CargaCombosAct","Actividades")" />
+<input type="hidden" id="urlActualizaEstatus" value="@Url.Action("CambiaEstatus","Actividades")" />
+<input type="hidden" id="urlGuardarActividad" value="@Url.Action("GuardarActividad","Actividades")" />
+<input type="hidden" id="urlGuardarActividadAR" value="@Url.Action("GuardarActividadAR","Actividades")" />
+<input type="hidden" id="urlGuardarArchivo" value="@Url.Action("GuardaArchivo","Actividades")" />
+<input type="hidden" id="urlConsultaActividad" value="@Url.Action("ConsultaActividad","Actividades")" />
+<input type="hidden" id="urlCancelaActividad" value="@Url.Action("CancelaActividad","Actividades")" />
+<input type="hidden" id="urlObtieneValidaciones" value="@Url.Action("ObtieneValidaciones","Actividades")" />
+<input type="hidden" id="urlValidaRechaza" value="@Url.Action("ValidaRechazaActividad","Actividades")" />
+<input type="hidden" id="urlIniciaRechazo" value="@Url.Action("InicializaRechazo","Actividades")" />
+<input type="hidden" id="urlCargarClasificacion" value="@Url.Action("CargarClasificacionActividadCombo","Actividades")" />
+<input type="hidden" id="urlCargarRecursosProyecto" value="@Url.Action("CargarRecursosProyecto","Actividades")" />
+<input type="hidden" id="urlGuardaComentario" value="@Url.Action("GuardarComentario","Actividades")" />
+<input type="hidden" id="urlGuardaArchivo" value="@Url.Action("GuardarArchivo","Actividades")" />
+<input type="hidden" id="urlGuardaArchivoV2" value="@Url.Action("GuardarArchivoV2","Actividades")" />
+<input type="hidden" id="urlEliminarArchivo" value="@Url.Action("EliminarArchivo","Actividades")" />
+
+<input type="hidden" id="urlInsertaRelacion" value="@Url.Action("GuardaActividadIssue","Actividades")" />
+<input type="hidden" id="urlEliminaRelacion" value="@Url.Action("EliminaActividadRelacionada","Actividades")" />
+
+<input type="hidden" id="urlInsertaActividadIssue" value="@Url.Action("GuardaActividadIssue","Actividades")" />
+<input type="hidden" id="urlEliminaActividadIssue" value="@Url.Action("EliminaActividadIssue","Actividades")" />
+<input type="hidden" id="urlSharedAct" value="@Url.Action("s","share")" />
+<input type="hidden" id="urlSharedActP" value="@Url.Action("a","share")" />
+
+<input type="hidden" id="urlBuscarActividadesOpcion2" value="@Url.Action("BuscarActividadesOpcion2","Actividades")" />
+<input type="hidden" id="urlGuardarRelacion" value="@Url.Action("GuardarRelacionActividad","Actividades")" />
+
+
+@Html.Hidden("LeerActividadesQA", Url.Action("LeerActividadesQA", "Actividades"))
+@Html.Hidden("LeerRequerimientoActividad", Url.Action("LeerRequerimientoActividad", "Actividades"))
+@Html.Hidden("LeerProyectoMejora", Url.Action("LeerProyectoMejora", "Actividades"))
+
+@Html.Hidden("LeerListaRevisionPorCategoria", Url.Action("LeerListaRevisionPorCategoria", "ListaRevision"))
+@Html.Hidden("LeerListaRevisionPorProyecto", Url.Action("LeerListaRevisionPorProyecto", "ListaRevision"))
+@Html.Hidden("LeerListaRevisionActividad", Url.Action("LeerListaRevisionActividad", "ListaRevision"))
+@Html.Hidden("EditarActividadRevision", Url.Action("EditarActividadRevision", "ListaRevision"))
+@Html.Hidden("LeerActividadRevisionHallazgo", Url.Action("LeerActividadRevisionHallazgo", "ListaRevision"))
+@Html.Hidden("GuardarActividadRevisionHallazgo", Url.Action("GuardarActividadRevisionHallazgo", "ListaRevision"))
+@Html.Hidden("EliminarActividadRevisionHallazgo", Url.Action("EliminarActividadRevisionHallazgo", "ListaRevision"))
+@Html.Hidden("LeerActividadesPorCategoria", Url.Action("LeerActividadesPorCategoria", "ListaRevision"))
+
+@*@Html.Partial("~/Views/Issue/Issue.cshtml")*@
+@Html.Partial("~/Views/Actividades/Plantilla.cshtml")
+@Html.Partial("~/Views/Actividades/ActividadR.cshtml")
+@Html.Partial("~/Views/Actividades/Send.cshtml")
+@Html.Partial("~/Views/Actividades/Share.cshtml")
+
+<script src="https://cdn.rawgit.com/zenorocha/clipboard.js/v1.5.3/dist/clipboard.min.js"></script>
+
+@{
+    Random rnd = new Random();
+
+    @*<script src="~/Scripts/Project/AltaEdicionActividades.js"></script>*@
+    <script src="~/Scripts/Project/AltaEdicionActividades.js?@rnd.Next()"></script>
+    @*<script src="~/Scripts/Project/Issue.js?@rnd.Next()"></script>*@
+}
+

@@ -1,0 +1,135 @@
+﻿
+@{
+    ViewBag.Title = "Informe de avance diario";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-content-wrap">
+
+    <div class="panel panel-default">
+
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-right">
+                        <button class="btn btn-info" id="BtnExportarID"><i class="fa fa-bars"></i> Exportar</button>
+                    </div>
+                    <h3> <span id="lblCortefiltro"></span></h3>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="panel-body">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table datatable text" id="TblReporte">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">
+                                    Proyecto
+                                </th>
+                                <th colspan="3" class="text-center" style="background-color:gainsboro;">
+                                    Plan mensual
+                                </th>
+                                <th colspan="3" class="text-center">
+                                    Capacidad
+                                </th>
+                                <th colspan="4" class="text-center" style="background-color: gainsboro;">
+                                    Valor ganado
+                                </th>
+                            </tr>
+                            <tr>
+
+                                <th style="background-color: gainsboro;">Planeado</th>
+                                <th style="background-color: gainsboro;">Asignado</th>
+                                <th style="background-color: gainsboro;">Diferencia</th>
+
+                                <th>Horas disponibles</th>
+                                <th>% Planeado</th>
+                                <th>% Asignado</th>
+
+                                <th style="background-color: gainsboro;">Plan</th>
+                                <th style="background-color: gainsboro;">Asignado</th>
+                                <th style="background-color: gainsboro;"> Real</th>
+                                <th style="background-color: gainsboro;"> Capitalizado</th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="filter-settings">
+    <div class="filter-settings-icon"><span class="glyphicon glyphicon-filter"></span></div>
+    <h5>Filtrar</h5>
+
+    <div class="filter-settings-row">
+        <label for="SelAnio">Año</label>
+        @{
+
+            var LstAnios = ViewBag.LstAnios;
+                <select class="selectpicker form-control ReqFiltroCons" id="SelAnio" data-live-search-placeholder="Seleccionar" data-actions-box="true" title="--Seleccione--">
+                    @foreach (var i in LstAnios)
+                    {
+                        if (DateTime.Now.Year.ToString() == i.DescCorta)
+                        {
+                            <option selected  value="@i.DescCorta">@i.DescCorta</option>
+
+                        }
+                        else
+                        {
+                            <option value="@i.DescCorta">@i.DescCorta</option>
+
+                        }
+
+
+                    }
+
+                </select>
+
+        }
+    </div>
+    <div class="filter-settings-row">
+        <label for="SelMes">Mes</label>
+        <select class="form-control select ReqFiltroCons" id="SelMes" item="Mes">
+            <option selected="selected" value="-1">--Seleccione--</option>
+            <option value="1">Enero</option>
+            <option value="2">Febrero</option>
+            <option value="3">Marzo</option>
+            <option value="4">Abril</option>
+            <option value="5">Mayo</option>
+            <option value="6">Junio</option>
+            <option value="7">Julio</option>
+            <option value="8">Agosto</option>
+            <option value="9">Septiembre</option>
+            <option value="10">Octubre</option>
+            <option value="11">Noviembre</option>
+            <option value="12">Diciembre</option>
+
+        </select>
+    </div>
+
+
+    <div class="filter-settings-row">
+        <button class="btn btn-default" id="BtnFiltrarID">Aplicar</button>
+    </div>
+</div>
+
+
+<input type="hidden" id="Mes" value="@DateTime.Now.Month" />
+<input type="hidden" id="urlConsultaInformeDiario" value="@Url.Action("ConsultaInformeDiario","Report")" />
+
+
+
+@{
+    Random rnd = new Random();
+    <script src="~/Scripts/Project/InformeDiario.js"></script>
+
+}

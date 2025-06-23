@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Share";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<input type="hidden" id="IdSharedAct" value=" @ViewBag.IdSharedAct " />
+
+<script>
+
+    $(document).ready(function () {
+
+        if ($("#IdSharedAct").val() != 0) {
+
+            clickalerta($("#IdSharedAct").val());
+        
+        }
+
+
+    });
+
+</script>

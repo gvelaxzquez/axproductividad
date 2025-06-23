@@ -1,0 +1,592 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{14FFD168-CB2C-40EC-ADED-8007FA8DD635}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CapaDatos</RootNamespace>
+    <AssemblyName>CapaDatos</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.11.3.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.11.3\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.BulkInsert, Version=6.0.2.8, Culture=neutral, PublicKeyToken=630a17433349cb76, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Desktop\EntityFramework.BulkInsert.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.Extended, Version=6.0.0.0, Culture=neutral, PublicKeyToken=05b7e29bdd433584, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.Extended.6.1.0.168\lib\net45\EntityFramework.Extended.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.MappingAPI, Version=6.1.0.10, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Desktop\EntityFramework.MappingAPI.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.Primitives.4.3.0\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Packaging, Version=4.0.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Packaging.4.7.0\lib\net46\System.IO.Packaging.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CD_Actividad.cs" />
+    <Compile Include="CD_Auditoria.cs" />
+    <Compile Include="CD_Calidad.cs" />
+    <Compile Include="CD_CatalogoGeneral.cs" />
+    <Compile Include="CD_Clientes.cs" />
+    <Compile Include="CD_Configuracion.cs" />
+    <Compile Include="CD_CalendarioTrabajo.cs" />
+    <Compile Include="CD_Dashboard.cs" />
+    <Compile Include="CD_Base.cs" />
+    <Compile Include="CD_Graficas.cs" />
+    <Compile Include="CD_Home.cs" />
+    <Compile Include="CD_Issue.cs" />
+    <Compile Include="CD_ListaControl.cs" />
+    <Compile Include="CD_ListaRevision.cs" />
+    <Compile Include="CD_Login.cs" />
+    <Compile Include="CD_Niveles.cs" />
+    <Compile Include="CD_Plantilla.cs" />
+    <Compile Include="CD_Proyecto.cs" />
+    <Compile Include="CD_Reportes.cs" />
+    <Compile Include="CD_Riesgo.cs" />
+    <Compile Include="CD_TipoUsuario.cs" />
+    <Compile Include="CD_Usuario.cs" />
+    <Compile Include="CD_Workflow.cs" />
+    <Compile Include="CD_Workspace.cs" />
+    <Compile Include="Constants\Configuracion.cs" />
+    <Compile Include="Constants\FasePSP.cs" />
+    <Compile Include="ConvertirDatos.cs" />
+    <Compile Include="CustomLINQtoDataSetMethods.cs" />
+    <Compile Include="DataBaseModel\AccesosModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AccesosModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\AccesosModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AccesosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\AccesosModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AccesosModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\Actividad.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ActividadArchivo.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ActividadComentario.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ActividadDefecto.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ActividadDependencia.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ActividadIssue.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ActividadListaRevision.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ActividadListaRevisionHallazgo.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ActividadLog.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ActividadRelacion.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ActividadRepositorio.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ActividadTamano.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ActividadTipo.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ActividadTipoCampos.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ActividadTrabajo.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ActividadTracking.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ActividadValidaciones.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\Auditoria.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\AuditoriaActividadMejora.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\AuditoriaControl.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\AuditoriaControlHallazgo.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\Autorizacion.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\BdProductividad.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BdProductividad.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\BdProductividad.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\BdProductividad.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BdProductividad.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\CalendarioTrabajo.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\CatalogoGeneral.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\CicloPrueba.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\CicloPrueba_CasosPrueba.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\Cliente.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\Configuracion.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\Cuenta.cs">
+      <DependentUpon>AccesosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\CuentaOrganizacion.cs">
+      <DependentUpon>AccesosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\DiasFestivos.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\FlujoPago.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\FlujoPagoDetalle.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\FlujoPagoDet_Actividad.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\Graficas.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\HistoricoCompensacion.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ListaControl.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ListaControlCorreo.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ListaControlDetalle.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ListaRevision.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ListaRevisionDetalle.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\LogEventos.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\Menu.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\Niveles.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\NivelesHoras.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\NivelesSemanas.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\Organizacion.cs">
+      <DependentUpon>AccesosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\Plantilla.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\Pregunta.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\PreguntaRespuesta.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\Proyecto.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ProyectoCD.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ProyectoCI.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ProyectoDocumentos.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ProyectoIssue.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ProyectoIssueComentario.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ProyectoIteracion.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ProyectoIteracionComplete.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ProyectoIteracionShare.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ProyectoListaControl.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ProyectoListaControlDetalle.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ProyectoRepositorio.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ProyectoRiesgo.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ProyectoRiesgoComentario.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ProyectoRiesgoEstrategia.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\ProyectoUsuario.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\Query.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\QueryShare.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\Riesgo.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\RiesgoEvaluacion.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\RiesgoImpacto.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\RiesgoProbabilidad.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\TipoActividadFase.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\TipoRepositorio.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\TipoUsuario.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\TipoUsuarioPermisos.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\Usuario.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\UsuarioAsistencia.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\UsuarioAutorizacion.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\UsuarioComentario.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\UsuarioCosto.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\UsuarioCostoDistribucion.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\UsuarioCostoMensual.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\UsuarioFeels.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\UsuarioIncidencias.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\UsuarioPermisos.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\Views.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\Widget.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\WorkFlow.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\WorkFlowConfig.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\WorkFlowConfigDetail.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\WorkSpace.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\WorkSpaceShare.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\WorkSpaceTabs.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseModel\WorkSpaceTabsFile.cs">
+      <DependentUpon>BdProductividad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Encripta.cs" />
+    <Compile Include="FuncionConvertirDT.cs" />
+    <Compile Include="LdapAuthentication.cs" />
+    <Compile Include="Models\ActividadArchivoModel.cs" />
+    <Compile Include="Models\ActividadComentarioModel.cs" />
+    <Compile Include="Models\ActividadDefectoModel.cs" />
+    <Compile Include="Models\ActividadDependenciaModel.cs" />
+    <Compile Include="Models\ActividadesLogModel.cs" />
+    <Compile Include="Models\ActividadesModel.cs" />
+    <Compile Include="Models\ActividadesValidacionModel.cs" />
+    <Compile Include="Models\ActividadIssueModel.cs" />
+    <Compile Include="Models\ActividadListaRevisionHallazgoModel.cs" />
+    <Compile Include="Models\ActividadListaRevisionModel.cs" />
+    <Compile Include="Models\ActividadRepositorioModel.cs" />
+    <Compile Include="Models\ActividadTamanoModel.cs" />
+    <Compile Include="Models\ActividadTipoCamposModel.cs" />
+    <Compile Include="Models\ActividadTipoModel.cs" />
+    <Compile Include="Models\ActividadTrabajoModel.cs" />
+    <Compile Include="Models\ActividadTrackingModel.cs" />
+    <Compile Include="Models\AuditoriaControlHallazgoModel.cs" />
+    <Compile Include="Models\AuditoriaControlModel.cs" />
+    <Compile Include="Models\AuditoriaFiltroModel.cs" />
+    <Compile Include="Models\AuditoriaModel.cs" />
+    <Compile Include="Models\BitacoraTrabajoModel.cs" />
+    <Compile Include="Models\CalendarHeatMapModel.cs" />
+    <Compile Include="Models\CalendarioTrabajo.cs" />
+    <Compile Include="Models\CasoPruebaModel.cs" />
+    <Compile Include="Models\CatalogoGeneralModel.cs" />
+    <Compile Include="Models\CicloPruebaModel.cs" />
+    <Compile Include="Models\ControlAsistenciaModel.cs" />
+    <Compile Include="Models\EventsModel.cs" />
+    <Compile Include="Models\FlujoPagoModel.cs" />
+    <Compile Include="Models\FlujoPagoDetModel.cs" />
+    <Compile Include="Models\GraficaLabelModel.cs" />
+    <Compile Include="Models\IndicadoresFinancierosModel.cs" />
+    <Compile Include="Models\InformeDiarioModel.cs" />
+    <Compile Include="Models\MatrizModel.cs" />
+    <Compile Include="Models\NivelesHorasModel.cs" />
+    <Compile Include="Models\PieChartModel.cs" />
+    <Compile Include="Models\PlantillaModel.cs" />
+    <Compile Include="Models\PreguntaModel.cs" />
+    <Compile Include="Models\ProyectoCostosModel.cs" />
+    <Compile Include="Models\ProyectoDocumentosModel.cs" />
+    <Compile Include="Models\ProyectoInformeCostoModel.cs" />
+    <Compile Include="Models\QueryModel.cs" />
+    <Compile Include="Models\QueryShareModel.cs" />
+    <Compile Include="Models\ReporteIFTModel.cs" />
+    <Compile Include="Models\UsuarioAsistenciaModel.cs" />
+    <Compile Include="Models\UsuarioCostoDistribucionModel.cs" />
+    <Compile Include="Models\UsuarioCostoMensualModel.cs" />
+    <Compile Include="Models\UsuarioCostoModel.cs" />
+    <Compile Include="Models\ClienteModel.cs" />
+    <Compile Include="Models\CompensacionModel.cs" />
+    <Compile Include="Models\ConfiguracionModel.cs" />
+    <Compile Include="Constants\Catalogo.cs" />
+    <Compile Include="Constants\Mensaje.cs" />
+    <Compile Include="Constants\MimeType.cs" />
+    <Compile Include="Models\DatosEmpresaModel.cs" />
+    <Compile Include="Models\DatosEstaticos.cs" />
+    <Compile Include="Models\DiasFestivosModel.cs" />
+    <Compile Include="Models\FiltrosModel.cs" />
+    <Compile Include="Models\GanttModel.cs" />
+    <Compile Include="Models\GraficaBarraModel.cs" />
+    <Compile Include="Models\GraficaConsultaModel.cs" />
+    <Compile Include="Models\GraficaModel.cs" />
+    <Compile Include="Models\IndicadoresModel.cs" />
+    <Compile Include="Models\ListaRevisionDetalleModel.cs" />
+    <Compile Include="Models\ListaRevisionModel.cs" />
+    <Compile Include="Models\PeerReviewModel.cs" />
+    <Compile Include="Models\ProyectoCDCalculoModel.cs" />
+    <Compile Include="Models\ProyectoIssueComentarioModel.cs" />
+    <Compile Include="Models\ProyectoIssueFiltroModel.cs" />
+    <Compile Include="Models\ProyectoIssueModel.cs" />
+    <Compile Include="Models\ListaControlDetalleModel.cs" />
+    <Compile Include="Models\ListaControlModel.cs" />
+    <Compile Include="Models\MenuModel.cs" />
+    <Compile Include="Models\NivelesModel.cs" />
+    <Compile Include="Constants\Permiso.cs" />
+    <Compile Include="Models\ProyectoCDModel.cs" />
+    <Compile Include="Models\ProyectoCIModel.cs" />
+    <Compile Include="Models\ProyectoIteracionModel.cs" />
+    <Compile Include="Models\ProyectoListaControlModel.cs" />
+    <Compile Include="Models\ProyectoListaControlDetalleModel.cs" />
+    <Compile Include="Models\ProyectoRepositorioModel.cs" />
+    <Compile Include="Models\ProyectoRiesgoComentarioModel.cs" />
+    <Compile Include="Models\ProyectoRiesgoEstrategiaModel.cs" />
+    <Compile Include="Models\ProyectoRiesgoModel.cs" />
+    <Compile Include="Models\ProyectosModel.cs" />
+    <Compile Include="Models\ProyectoUsuarioModel.cs" />
+    <Compile Include="Models\ReporteFiltroModel.cs" />
+    <Compile Include="Models\RequisicionesModel.cs" />
+    <Compile Include="Models\RiesgoModel.cs" />
+    <Compile Include="Models\TipoUsuarioModel.cs" />
+    <Compile Include="Models\TipoUsuarioPermisosModel.cs" />
+    <Compile Include="Models\UsuarioAutorizacionModel.cs" />
+    <Compile Include="Models\UsuarioFeelsModel.cs" />
+    <Compile Include="Models\UsuarioIncidenciasModel.cs" />
+    <Compile Include="Models\UsuarioModel.cs" />
+    <Compile Include="Models\UsuarioPermisosModel.cs" />
+    <Compile Include="Models\ViewsModel.cs" />
+    <Compile Include="Models\WidgetModel.cs" />
+    <Compile Include="Models\WorkFlowModel.cs" />
+    <Compile Include="Models\WorkSpaceModel.cs" />
+    <Compile Include="Models\WorkSpaceShareModel.cs" />
+    <Compile Include="Models\WorkSpaceTabsFileModel.cs" />
+    <Compile Include="Models\WorkSpaceTabsModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="DataBaseModel\BdProductividad.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BdProductividad.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <EntityDeploy Include="DataBaseModel\AccesosModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>AccesosModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DataBaseModel\AccesosModel.edmx.diagram">
+      <DependentUpon>AccesosModel.edmx</DependentUpon>
+    </None>
+    <None Include="DataBaseModel\BdProductividad.edmx.diagram">
+      <DependentUpon>BdProductividad.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DataBaseModel\AccesosModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AccesosModel.edmx</DependentUpon>
+      <LastGenOutput>AccesosModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataBaseModel\AccesosModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AccesosModel.edmx</DependentUpon>
+      <LastGenOutput>AccesosModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataBaseModel\BdProductividad.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BdProductividad.edmx</DependentUpon>
+      <LastGenOutput>BdProductividad.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataBaseModel\BdProductividad.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BdProductividad.edmx</DependentUpon>
+      <LastGenOutput>BdProductividad.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

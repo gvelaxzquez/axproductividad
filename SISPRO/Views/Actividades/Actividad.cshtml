@@ -1,0 +1,784 @@
+﻿
+@{
+    ViewBag.Title = "Actividad";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-content-wrap">
+
+
+    <div class="page-title">
+        <div class="col-md-11">
+            <div class="col-md-6">
+                <h5 class=""> <span id="TituloActividadesF">Actividad</span>  <span id="spEstatus" class="btn btn-small" style="text-align:left;"></span></h5>
+
+            </div>
+            <div class="col-md-5">
+
+                @*<button type="button" class="btn btn-default pull-right" data-dismiss="modal">   <i class="fa fa-times"></i></button>*@
+                <div class="btn-group pull-right" id="BtnList">
+                    <button type="button" class="btn btn-default">
+                        <i class="fa fa-cog"></i>
+                    </button>
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#" onclick="SolicitaRevisionDetF()"><i class="fa fa-share pull-right"></i> Solicitar revisión</a></li>
+                        <li><a href="#" onclick="VerValidacionDetF()"><i class="fa fa-check-circle-o pull-right"></i> Validaciones</a></li>
+                        <li><a href="#" onclick="CapturarTamanoF()"><i class="fa fa-puzzle-piece pull-right"></i> Capturar tamaño</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#" onclick="CancelarDetF()"><i class="fa fa-minus-circle pull-right"></i>Cancelar</a></li>
+                    </ul>
+                </div>
+
+
+                <button type="button" class="btn btn-success pull-right" id="BtnGuardarActividadF">Guardar<span class="fa fa-floppy-o fa-right"></span></button> &nbsp;
+                <button type="button" class="btn btn-success pull-right" id="BtnSendPDFWI">
+                    <span class="fa fa-print"></span>
+                </button><button type="button" class="btn btn-default pull-right" id="BtnRegresaEstatus"><span class="fa fa-floppy-o fa-right"></span></button>
+                <a id="BtnActualizaAbiertoF" class="btn Open pull-right" onclick="ActualizaEstatusActF('A')" href="#"><i class="fa fa-arrow-left"></i> Regresar a abierto</a>
+                <a id="BtnActualizaProgresoF" class="btn Progress pull-right" onclick="ActualizaEstatusActF('P')" href="#"><i class="fa fa-arrow-left"></i> Regresar a progreso</a>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                @*<div class="col-md-3 col-sm-12 col-xs-12">
+
+            <form class="form-horizontal">
+                <div class="panel panel-default">
+
+                    <div class="panel-body form-group-separated">
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+            </form>*@
+
+            </div>
+            <div class="col-md-8 col-sm-12 col-xs-12">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label">Requerimiento*</label>
+                        <input type="text" style="min-width:100%" class="form-control ReqActividadF" id="TxtBRF" item="Requerimiento" maxlength="500" />
+                    </div>
+                </div>
+                <div class="col-md-12" style="margin: 10px 0px">
+                    <label class="control-label">Descripción</label>
+                    @*<h4 style="color:dimgray;"> Descripción</h4>*@
+                    @*<div class="divider col-md-11">*@
+                    @*<div class="col-md-12" style="height:300px;">*@
+                    <!--<div class="form-group">-->
+                    @*<label class="col-md-1 col-xs-12 control-label"></label>*@
+                    <!--<div class="col-md-12">-->
+                    <textarea class=" summernote form-control ReqActividadF" style="min-width:100%" rows="1" id="TxtDescripcionF" item="Descripción"></textarea>
+                    @*</div>
+                </div>*@
+                    @*</div>*@
+                </div>
+
+                <div class="row" id="rwdetails">
+
+                    <div class="panel panel-default tabs">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="active"><a href="#tab-firstactivityF" role="tab" data-toggle="tab">Comentarios (<label id="lblActComentariosF"> 0</label>)</a></li>
+                            <li><a href="#tab-secondactivityF" role="tab" data-toggle="tab">Archivos (<label id="lblActArchivosF"> 0</label>)</a></li>
+                            <li class="hide"><a href="#tab-thirdactivityF" role="tab" data-toggle="tab">Dependencias (<label id="lblActDependenciasF"> 0</label>)</a></li>
+                            <li><a href="#tab-fouractivityF" role="tab" data-toggle="tab">Tiempos (<label id="lblActLogF"> 0</label>)</a></li>
+                            <li><a href="#tab-fiveactivityF" role="tab" data-toggle="tab">Actividad (<label id="lblLogF"> 0</label>)</a></li>
+                            <li><a href="#tab-sixactivityF" role="tab" data-toggle="tab">Autorizaciones(<label id="lblValF"> 0</label>)</a></li>
+                            <li><a class="hidden tab-actividad-peerF" href="#tab-actividad-peerF" role="tab" data-toggle="tab">Peer review</a></li>
+                            <li class="hide"><a href="#tab-issuesF" role="tab" data-toggle="tab">Issues(<label id="lblIssuesF"> 0</label>)</a></li>
+                        </ul>
+                        <div class="panel-body tab-content">
+                            <div class="tab-pane active" id="tab-firstactivityF" style="min-height:290px;">
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-default pull-right" id="BtnAgregarComentarioF"><span class="fa fa-comment"></span> &nbsp;Agregar</button> &nbsp;
+                                        <div class="panel-body-search" id="divcomentarioF">
+                                            <div class="input-group">
+                                                <textarea rows="1" type="text" id="TxtComentarioActF" item="Comentario" style="min-width:100%" class="form-control reqcomentarioF" placeholder="Ingresa tu comentario..."></textarea>
+                                                <div class="input-group-btn">
+                                                    <button class="btn btn-default" id="BtnGuardarComentarioF" style="height:100%">Enviar</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <br />
+                                    </div>
+                                    <br />
+                                </div>
+
+                                <ul class="media-list" id="UlComentariosF"></ul>
+
+                            </div>
+
+                            <div class="tab-pane" id="tab-secondactivityF" style="min-height:290px;">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+
+                                                <div id="IFArchivosActividadF" class="text-center">
+
+                                                </div>
+                                                <div id="SubirArchivosActividadF">
+                                                    @*<p>Arrastre los archivos</p>*@
+                                                    <div id="dZUploadF" class="dropzone">
+                                                        <div class="dz-default dz-message"><h3> Arrastra aquí tus archivos o da clic para cargar</h3></div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="tab-pane" id="tab-thirdactivityF" style="min-height:290px;">
+                                <div class="row">
+
+                                    <div class="col-md-10">
+                                        <select class="form-control  selectpicker ReqDependenciaF" data-live-search="true" id="SelActividadesF" item="Actividad">
+                                            <option value="-1" selected>--Seleccionar -- </option>
+
+                                        </select>
+
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="button" class="btn btn-info pull-right" id="BtnAgregarDependenciaF"><span class="fa fa-plus"></span> &nbsp;Agregar</button> &nbsp;
+
+                                        <br />
+                                    </div>
+                                    <br />
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <div class="table-responsive">
+                                                    <table class="table datatable text" id="TblActDependenciasF">
+                                                        <thead>
+                                                            <tr>
+
+                                                                <th width="15%">#Actividad</th>
+                                                                <th>Descripción</th>
+                                                                <th>Responsable</th>
+                                                                <th>Estatus</th>
+                                                                <th>Fecha</th>
+                                                                <th></th>
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody></tbody>
+                                                    </table>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="tab-pane" id="tab-issues" style="min-height:290px;">
+                                <div class="row">
+
+                                    <div class="col-md-10">
+                                        <select class="form-control  selectpicker ReqIssuesActF" data-live-search="true" id="SelIssuesF" item="Issue">
+                                            <option value="-1" selected>--Seleccionar -- </option>
+
+                                        </select>
+
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="button" class="btn btn-info pull-right" id="BtnAgregarIssueActividadF"><span class="fa fa-plus"></span> &nbsp;Agregar</button> &nbsp;
+
+                                        <br />
+                                    </div>
+                                    <br />
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <div class="table-responsive">
+                                                    <table class="table datatable text" id="TblActIssuesF">
+                                                        <thead>
+                                                            <tr>
+
+                                                                <th width="20%">#Issue</th>
+                                                                <th>Fecha</th>
+                                                                <th width="40%">Descripción</th>
+                                                                <th>Estatus</th>
+
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody></tbody>
+                                                    </table>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="tab-pane" id="tab-fouractivityF" style="min-height:290px;">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <div class="table-responsive">
+                                                    <table class="table datatable text" id="TblLogTrabajoF">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="25%">Fecha</th>
+                                                                <th width="25%">Tiempo</th>
+                                                                <th width="50%">Comentario</th>
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody></tbody>
+                                                    </table>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="tab-pane" id="tab-fiveactivityF" style="min-height:290px;">
+                                <ul class="media-list" id="UlLogF"></ul>
+
+                            </div>
+                            <div class="tab-pane" id="tab-sixactivityF" style="min-height:290px;">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <div class="table-responsive">
+                                                    <table class="table datatable text" id="TblValidacionesActF">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Estatus</th>
+                                                                <th>Autorización</th>
+                                                                <th>Usuario</th>
+                                                                <th>Fecha válido</th>
+                                                                <th>Aprobar/Rechazar</th>
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody></tbody>
+                                                    </table>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="tab-pane" id="tab-actividad-peerF" style="min-height:290px;">
+                                <div class="table-responsive col-md-12">
+                                    <table class="table datatable text dtControles" id="">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">Control</th>
+                                                <th class="text-center" style="width:15%">Cumple</th>
+                                                <th class="text-center" style="width:15%">Hallazgos</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-12 col-xs-12">
+                <form class="form-horizontal">
+                    <div class="panel-body form-group-separated">
+                        @*<div class="form-group">
+                        <label class="col-md-12 col-xs-5">Equipo</label>
+
+                    </div>*@
+                        <div class="form-group">
+                            <label class="col-md-4 col-xs-5 control-label">Proyecto*</label>
+                            <div class="col-md-8 col-xs-7 line-height-base"> <select class="form-control ReqActividadF selectpicker" data-live-search="true" id="SelProyectoF" item="Proyecto"></select></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 col-xs-5 control-label">Tipo</label>
+                            <div class="col-md-8 col-xs-7 line-height-base">
+                                <select class="form-control selectpicker" data-live-search="true" id="SelTipoTaskF" item="Tipo de actividad">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 col-xs-5 control-label">Sprint</label>
+                            <div class="col-md-8 col-xs-7 line-height-base"> <select class="form-control selectpicker" data-live-search="true" id="SelSprintAF" item="Sprint"><option value="-1" selected>-- NA -- </option></select></div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 col-xs-5 control-label">Fase*</label>
+                            <div class="col-md-8 col-xs-7 line-height-base"><select class="form-control ReqActividadF selectpicker" data-live-search="true" id="SelActividadF" item="Fase"></select></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 col-xs-5 control-label">Clasificación*</label>
+                            <div class="col-md-8 col-xs-7 line-height-base">
+                                <select class="form-control ReqActividadF selectpicker" data-live-search="true" id="SelClasificacionF" item="Clasificación">
+                                    <option value="-1" selected>--Seleccionar--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="divActividadRefF" class="form-group hidden">
+                            <label class="col-md-4 col-xs-5 control-label">Actividad Referencia*</label>
+                            <div class="col-md-8 col-xs-7 line-height-base">
+                                <select class="form-control selectpicker" data-live-search="true" id="SelActividadRefF" item="Actividad Referencia">
+                                    <option value="-1" selected>--Seleccionar--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 col-xs-5 control-label">Horas estimadas*</label>
+                            <div class="col-md-8 col-xs-7"><input type="number" step="0.01" class="form-control ReqActividadF" id="TxtHorasFacturablesF" item="Horas estimadas" /></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 col-xs-5 control-label">Horas asignadas*</label>
+                            <div class="col-md-8 col-xs-7"><input type="number" step="0.01" class="form-control ReqActividadF" id="TxtHorasAsignadasF" item="Horas asignadas" /></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 col-xs-5 control-label">Fecha inicio</label>
+                            <div class="col-md-8 col-xs-7 line-height-base">
+                                <div class="input-group date">
+                                    <input type="text" id="TxtFechaInicioF" class="form-control ReqActividadF" item="Fecha inicio" />
+                                    <span class="input-group-addon datepickerbutton"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 col-xs-5 control-label">Fecha fin</label>
+                            <div class="col-md-8 col-xs-7 line-height-base">
+                                <div class="input-group date">
+                                    <input type="text" id="TxtFechaPlanF" class="form-control ReqActividadF" item="Fecha objetivo" />
+                                    <span class="input-group-addon datepickerbutton"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+
+                            </div>
+                        </div>
+                        @*AGREGADO*@
+                        <div class="form-group" style="display: flex; flex-direction: row">
+                            <div style="display: flex; flex-direction: column; width: 33%">
+                                <label class="control-label" style="padding-bottom: 0;padding-left: 20px;text-align: left;">Peer review</label>
+                                <label class="switch switch-small" style="padding-top: 0; margin-left: 20px">
+                                    <input type="checkbox" id="chkPeerReviewF" />
+                                    <span></span>
+                                </label>
+                            </div>
+
+                            <div style="display: flex; flex-direction: column; width: 33%">
+                                <label class="control-label" style="padding-bottom: 0;padding-left: 20px;text-align: left;">Crítico</label>
+                                <label class="switch switch-small" style="padding-top: 0; margin-left: 20px">
+                                    <input type="checkbox" checked id="ChkCriticoF" />
+                                    <span></span>
+                                </label>
+                            </div>
+
+                            <div style="display: flex; flex-direction: column; width: 33%">
+                                <label class="control-label" style="padding-bottom: 0;padding-left: 20px;text-align: left;">Retrabajo</label>
+                                <label class="switch switch-small" style="padding-top: 0; margin-left: 20px">
+                                    <input type="checkbox" checked id="ChkRetrabajoF" />
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div id="" class="divPeerReview form-group hidden">
+                            <label class="col-md-4 col-xs-5 control-label"> Revisión</label>
+                            <div class="col-md-8 col-xs-7 line-height-base">
+                                <select class="form-control selectpicker" data-live-search="true" id="selPeerReviewF" item="Lista de Revisión">
+                                    <option value="-1" selected>--Seleccionar--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="" class="divPeerReviewF form-group hidden">
+                            <label class="col-md-4 col-xs-5 control-label">Actividad Referencia</label>
+                            <div class="col-md-8 col-xs-7 line-height-base">
+                                <select class="form-control selectpicker" data-live-search="true" id="SelActividadRefPeerF" item="Actividad de Referencia">
+                                    <option value="-1" selected>--Seleccionar--</option>
+                                </select>
+                            </div>
+                        </div>
+                        @*AGREGADO*@
+                        @*<div class="form-group" style="display: flex; flex-direction: column">
+                    </div>
+                    <div class="form-group" style="display: flex; flex-direction: column">
+                    </div>*@
+                        <div class="form-group">
+
+                            <div class="col-md-12 col-xs-7">
+                                <div class="col-md-6 col-xs-12">
+                                    <label class="check" for="RdoPlaneada2F" id="LblRdoSiPlaneadaF"><input type="radio" class="iradio" name="RdoPlaneadaF" id="RdoPlaneada2F" value="1" /> Planeada  </label><br />
+                                    <label class="check" for="RdoNoPlaneada2F" id="LblRdoNoPlaneadaF"><input type="radio" class="iradio" name="RdoPlaneadaF" id="RdoNoPlaneada2F" value="0" /> No planeada</label>
+                                </div>
+                                <div class="col-md-6 col-xs-12">
+                                    <label class="check" for="RdoAltaF" id="LblRdoAltaF"><input type="radio" class="iradio" name="RdoPrioridadF" id="RdoAlta2F" value="1" /> Urgente  </label><br />
+                                    <label class="check" for="RdoBajaF" id="LblRdoBajaF"><input type="radio" class="iradio" name="RdoPrioridadF" id="RdoBaja2F" value="0" /> No urgente</label>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 col-xs-5 control-label">Asignado</label>
+                            <div class="col-md-8 col-xs-7"><select class="form-control ReqActividadF selectpicker" data-live-search="true" id="SelUsuarioAsignadoF" item="Usuario asignado"></select></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 col-xs-5 control-label">Responsable</label>
+                            <div class="col-md-8 col-xs-7"><select class="form-control ReqActividadF selectpicker" data-live-search="true" id="SelResponsableF" item="Responsable válidar"></select></div>
+                        </div>
+                        @*<div class="form-group">
+                        <label class="col-md-12 col-xs-5">Esfuerzo</label>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12 col-xs-7">
+                            <div class="progress" id="divProgreso">
+
+                            </div>
+
+                        </div>
+                    </div>*@
+                        <div class="form-group">
+                            <label class="col-md-4 col-xs-5 control-label">Horas utilizadas</label>
+                            <div class="col-md-8 col-xs-7">
+                                <div class="input-group">
+                                    <label class="" id="TxtHorasFinalF" style="text-align:right"></label>
+                                    <span class="input-group-addon" style="cursor:pointer" onclick="CapturarTrabajoAct()"><span class="glyphicon glyphicon-plus-sign"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 col-xs-5 control-label">Fecha fin</label>
+                            <div class="col-md-8 col-xs-7">
+                                <div class="input-group ">
+                                    <input type="text" id="TxtFechaFinF" class="form-control ReqCierreF" item="Fecha fin" />
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="div-repositorioF" class="hidden">
+                            <div class="separator">Desarrollo</div>
+                            <div style="position:relative; text-align: right">
+                                <i id="show-repo-divF" class="fa fa-plus-circle" style="margin-right: -3px; font-size: 24px; color: green; cursor: pointer;"></i>
+                                <div id="repo-divF" class="repo-div hidden" style="height: 250px; background-color: white; position: absolute; top: 30px; left: 0px; z-index: 100; width: 100%; border: 1px solid gray; border-radius: 5px">
+                                    <div style="height: 7%; margin-top: 5px; padding-right: 12px; font-size: 14px">
+                                        <i id="hide-repo-divF" style="cursor: pointer" class="fa fa-times-circle"></i>
+                                    </div>
+                                    <div style="margin-top: 5px;height: 15%" class="">
+                                        <label class="col-md-2 col-xs-3 control-label">Repo.</label>
+                                        <div class="col-md-10 col-xs-9">
+                                            <select class="form-control ReqRepoF" id="SelRepositorioF" item="Repositorio">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top: 5px;height: 15%" class="">
+                                        <label class="col-md-2 col-xs-3 control-label">Tipo</label>
+                                        <div class="col-md-10 col-xs-9">
+                                            <select class="form-control ReqRepoF" id="SelCommitF" item="Tipo">
+                                                <option value="-1">-- Seleccionar --</option>
+                                                <option value="1">Commit</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top: 5px;height: 15%;" class="">
+                                        <label class="col-md-2 col-xs-3 control-label">Id</label>
+                                        <div class="col-md-10 col-xs-9">
+                                            <input id="TxtIdLinkF" type="text" class="form-control ReqRepoF" item="Id" />
+                                        </div>
+                                    </div>
+                                    <div style="margin-top: 5px;height: 20%;" class="">
+                                        <label class="col-md-2 col-xs-3 control-label">Desc.</label>
+                                        <div class="col-md-10 col-xs-9">
+                                            <textarea rows="2" id="TxtCommitDescripcionF" type="text" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <div style="text-align:end; padding-right: 12px; margin-top: 8px;">
+                                        <button style="" id="btnAgregarActividadRepositorioF" class="btn btn-primary">Agregar</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @* Repositorio *@
+
+                            <div id="" class="divMensajesF div-comentarios-repoF">
+
+                            </div>
+
+                            @* Repositorio *@
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-2 col-sm-12 col-xs-12">
+                <form class="form-horizontal">
+                    <div class="panel-body form-group-separated">
+                        @*<div class="form-group">
+                        <label class="col-md-12 col-xs-5">Equipo</label>
+
+                    </div>*@
+                        <div class="form-group">
+                            <label class="col-md-4 col-xs-5 control-label">Proyecto*</label>
+                            <div class="col-md-8 col-xs-7 line-height-base"> <select class="form-control ReqActividadF selectpicker" data-live-search="true" id="SelProyectoF" item="Proyecto"></select></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 col-xs-5 control-label">Tipo</label>
+                            <div class="col-md-8 col-xs-7 line-height-base">
+                                <select class="form-control selectpicker" data-live-search="true" id="SelTipoTaskF" item="Tipo de actividad">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 col-xs-5 control-label">Sprint</label>
+                            <div class="col-md-8 col-xs-7 line-height-base"> <select class="form-control selectpicker" data-live-search="true" id="SelSprintAF" item="Sprint"><option value="-1" selected>-- NA -- </option></select></div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 col-xs-5 control-label">Fase*</label>
+                            <div class="col-md-8 col-xs-7 line-height-base"><select class="form-control ReqActividadF selectpicker" data-live-search="true" id="SelActividadF" item="Fase"></select></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 col-xs-5 control-label">Clasificación*</label>
+                            <div class="col-md-8 col-xs-7 line-height-base">
+                                <select class="form-control ReqActividadF selectpicker" data-live-search="true" id="SelClasificacionF" item="Clasificación">
+                                    <option value="-1" selected>--Seleccionar--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="divActividadRefF" class="form-group hidden">
+                            <label class="col-md-4 col-xs-5 control-label">Actividad Referencia*</label>
+                            <div class="col-md-8 col-xs-7 line-height-base">
+                                <select class="form-control selectpicker" data-live-search="true" id="SelActividadRefF" item="Actividad Referencia">
+                                    <option value="-1" selected>--Seleccionar--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 col-xs-5 control-label">Horas estimadas*</label>
+                            <div class="col-md-8 col-xs-7"><input type="number" step="0.01" class="form-control ReqActividadF" id="TxtHorasFacturablesF" item="Horas estimadas" /></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 col-xs-5 control-label">Horas asignadas*</label>
+                            <div class="col-md-8 col-xs-7"><input type="number" step="0.01" class="form-control ReqActividadF" id="TxtHorasAsignadasF" item="Horas asignadas" /></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 col-xs-5 control-label">Fecha inicio</label>
+                            <div class="col-md-8 col-xs-7 line-height-base">
+                                <div class="input-group date">
+                                    <input type="text" id="TxtFechaInicioF" class="form-control ReqActividadF" item="Fecha inicio" />
+                                    <span class="input-group-addon datepickerbutton"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 col-xs-5 control-label">Fecha fin</label>
+                            <div class="col-md-8 col-xs-7 line-height-base">
+                                <div class="input-group date">
+                                    <input type="text" id="TxtFechaPlanF" class="form-control ReqActividadF" item="Fecha objetivo" />
+                                    <span class="input-group-addon datepickerbutton"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+
+                            </div>
+                        </div>
+                        @*AGREGADO*@
+                        <div class="form-group" style="display: flex; flex-direction: row">
+                            <div style="display: flex; flex-direction: column; width: 33%">
+                                <label class="control-label" style="padding-bottom: 0;padding-left: 20px;text-align: left;">Peer review</label>
+                                <label class="switch switch-small" style="padding-top: 0; margin-left: 20px">
+                                    <input type="checkbox" id="chkPeerReviewF" />
+                                    <span></span>
+                                </label>
+                            </div>
+
+                            <div style="display: flex; flex-direction: column; width: 33%">
+                                <label class="control-label" style="padding-bottom: 0;padding-left: 20px;text-align: left;">Crítico</label>
+                                <label class="switch switch-small" style="padding-top: 0; margin-left: 20px">
+                                    <input type="checkbox" checked id="ChkCriticoF" />
+                                    <span></span>
+                                </label>
+                            </div>
+
+                            <div style="display: flex; flex-direction: column; width: 33%">
+                                <label class="control-label" style="padding-bottom: 0;padding-left: 20px;text-align: left;">Retrabajo</label>
+                                <label class="switch switch-small" style="padding-top: 0; margin-left: 20px">
+                                    <input type="checkbox" checked id="ChkRetrabajoF" />
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div id="" class="divPeerReview form-group hidden">
+                            <label class="col-md-4 col-xs-5 control-label"> Revisión</label>
+                            <div class="col-md-8 col-xs-7 line-height-base">
+                                <select class="form-control selectpicker" data-live-search="true" id="selPeerReviewF" item="Lista de Revisión">
+                                    <option value="-1" selected>--Seleccionar--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="" class="divPeerReviewF form-group hidden">
+                            <label class="col-md-4 col-xs-5 control-label">Actividad Referencia</label>
+                            <div class="col-md-8 col-xs-7 line-height-base">
+                                <select class="form-control selectpicker" data-live-search="true" id="SelActividadRefPeerF" item="Actividad de Referencia">
+                                    <option value="-1" selected>--Seleccionar--</option>
+                                </select>
+                            </div>
+                        </div>
+                        @*AGREGADO*@
+                        @*<div class="form-group" style="display: flex; flex-direction: column">
+                    </div>
+                    <div class="form-group" style="display: flex; flex-direction: column">
+                    </div>*@
+                        <div class="form-group">
+
+                            <div class="col-md-12 col-xs-7">
+                                <div class="col-md-6 col-xs-12">
+                                    <label class="check" for="RdoPlaneada2F" id="LblRdoSiPlaneadaF"><input type="radio" class="iradio" name="RdoPlaneadaF" id="RdoPlaneada2F" value="1" /> Planeada  </label><br />
+                                    <label class="check" for="RdoNoPlaneada2F" id="LblRdoNoPlaneadaF"><input type="radio" class="iradio" name="RdoPlaneadaF" id="RdoNoPlaneada2F" value="0" /> No planeada</label>
+                                </div>
+                                <div class="col-md-6 col-xs-12">
+                                    <label class="check" for="RdoAltaF" id="LblRdoAltaF"><input type="radio" class="iradio" name="RdoPrioridadF" id="RdoAlta2F" value="1" /> Urgente  </label><br />
+                                    <label class="check" for="RdoBajaF" id="LblRdoBajaF"><input type="radio" class="iradio" name="RdoPrioridadF" id="RdoBaja2F" value="0" /> No urgente</label>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 col-xs-5 control-label">Asignado</label>
+                            <div class="col-md-8 col-xs-7"><select class="form-control ReqActividadF selectpicker" data-live-search="true" id="SelUsuarioAsignadoF" item="Usuario asignado"></select></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 col-xs-5 control-label">Responsable</label>
+                            <div class="col-md-8 col-xs-7"><select class="form-control ReqActividadF selectpicker" data-live-search="true" id="SelResponsableF" item="Responsable válidar"></select></div>
+                        </div>
+                        @*<div class="form-group">
+                        <label class="col-md-12 col-xs-5">Esfuerzo</label>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12 col-xs-7">
+                            <div class="progress" id="divProgreso">
+
+                            </div>
+
+                        </div>
+                    </div>*@
+                        <div class="form-group">
+                            <label class="col-md-4 col-xs-5 control-label">Horas utilizadas</label>
+                            <div class="col-md-8 col-xs-7">
+                                <div class="input-group">
+                                    <label class="" id="TxtHorasFinalF" style="text-align:right"></label>
+                                    <span class="input-group-addon" style="cursor:pointer" onclick="CapturarTrabajoAct()"><span class="glyphicon glyphicon-plus-sign"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 col-xs-5 control-label">Fecha fin</label>
+                            <div class="col-md-8 col-xs-7">
+                                <div class="input-group ">
+                                    <input type="text" id="TxtFechaFinF" class="form-control ReqCierreF" item="Fecha fin" />
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="div-repositorioF" class="hidden">
+                            <div class="separator">Desarrollo</div>
+                            <div style="position:relative; text-align: right">
+                                <i id="show-repo-divF" class="fa fa-plus-circle" style="margin-right: -3px; font-size: 24px; color: green; cursor: pointer;"></i>
+                                <div id="repo-divF" class="repo-div hidden" style="height: 250px; background-color: white; position: absolute; top: 30px; left: 0px; z-index: 100; width: 100%; border: 1px solid gray; border-radius: 5px">
+                                    <div style="height: 7%; margin-top: 5px; padding-right: 12px; font-size: 14px">
+                                        <i id="hide-repo-divF" style="cursor: pointer" class="fa fa-times-circle"></i>
+                                    </div>
+                                    <div style="margin-top: 5px;height: 15%" class="">
+                                        <label class="col-md-2 col-xs-3 control-label">Repo.</label>
+                                        <div class="col-md-10 col-xs-9">
+                                            <select class="form-control ReqRepoF" id="SelRepositorioF" item="Repositorio">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top: 5px;height: 15%" class="">
+                                        <label class="col-md-2 col-xs-3 control-label">Tipo</label>
+                                        <div class="col-md-10 col-xs-9">
+                                            <select class="form-control ReqRepoF" id="SelCommitF" item="Tipo">
+                                                <option value="-1">-- Seleccionar --</option>
+                                                <option value="1">Commit</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top: 5px;height: 15%;" class="">
+                                        <label class="col-md-2 col-xs-3 control-label">Id</label>
+                                        <div class="col-md-10 col-xs-9">
+                                            <input id="TxtIdLinkF" type="text" class="form-control ReqRepoF" item="Id" />
+                                        </div>
+                                    </div>
+                                    <div style="margin-top: 5px;height: 20%;" class="">
+                                        <label class="col-md-2 col-xs-3 control-label">Desc.</label>
+                                        <div class="col-md-10 col-xs-9">
+                                            <textarea rows="2" id="TxtCommitDescripcionF" type="text" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <div style="text-align:end; padding-right: 12px; margin-top: 8px;">
+                                        <button style="" id="btnAgregarActividadRepositorioF" class="btn btn-primary">Agregar</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @* Repositorio *@
+
+                            <div id="" class="divMensajesF div-comentarios-repoF">
+
+                            </div>
+
+                            @* Repositorio *@
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<input type="hidden" id="IdActividadF" value="@ViewBag.IdActividad" />
+<input type="hidden" id="urlGuardarArchivoF" value="@Url.Action("GuardaArchivo","Actividades")" />
+
+@{
+    Random rnd = new Random();
+    <script src="~/Scripts/Project/ActividadF.js?@rnd.Next()" +></script>
+    @*<script src="~/Scripts/Project/Issue.js?@rnd.Next()"></script>*@
+}
+
+
+
