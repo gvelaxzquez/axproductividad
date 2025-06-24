@@ -3,6 +3,7 @@
     Layout = null;
     var nombresistema = ViewBag.NombreSistema;
     ViewBag.Title = "Login";
+    var environment = System.Configuration.ConfigurationManager.AppSettings["Environment"];
 }
 
 
@@ -17,18 +18,39 @@
     <div id="login">
 
     </div>
-
 </div>
 
-<!-- Incluye React, ReactDOM y el archivo bundle.js -->
-<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-
-
-
 @{
-    Random rnd = new Random();
-    <script src="~/wwwroot/js/bundle-login.js?@rnd.Next()"></script>
+    if (environment == "Development")
+    {
 
+        @Html.Raw(@"
+<script type=""module"">
+import RefreshRuntime from 'http://localhost:5173/@react-refresh';
+RefreshRuntime.injectIntoGlobalHook(window);
+window.$RefreshReg$ = () => { };
+window.$RefreshSig$ = () => (type) => type;
+window.__vite_plugin_react_preamble_installed__ = true;
+</script>
+<script type=""module"" src=""http://localhost:5173/@vite/client""></script>
+<script type=""module"" src=""http://localhost:5173/src/features/index-login.tsx""></script>
+")
+    }
+    else
+    {
+        <script type="module" src="~/react/dist/assets/login.js"></script>
+    }
 }
+
+<!-- Incluye React, ReactDOM y el archivo bundle.js -->
+@*<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>*@
+
+
+
+@*@{
+        Random rnd = new Random();
+        <script src="~/wwwroot/js/bundle-login.js?@rnd.Next()"></script>
+
+    }*@
 

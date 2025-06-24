@@ -1,4 +1,7 @@
 ﻿
+@{
+    var environment = System.Configuration.ConfigurationManager.AppSettings["Environment"];
+}
 @using AxProductividad.Models;
 <!DOCTYPE html>
 <html>
@@ -58,6 +61,22 @@
 
 </head>
 <body>
+    @{
+        if (environment == "Development")
+        {
+            @Html.Raw(@"
+     <script type=""module"">
+     import RefreshRuntime from 'http://localhost:5173/@react-refresh';
+     RefreshRuntime.injectIntoGlobalHook(window);
+     window.$RefreshReg$ = () => { };
+     window.$RefreshSig$ = () => (type) => type;
+     window.__vite_plugin_react_preamble_installed__ = true;
+     </script>
+     <script type=""module"" src=""http://localhost:5173/@vite/client""></script>
+     ")
+        }
+    }
+
     @{
         var asistencia = ((bool)Session["Asistencia" + Session.SessionID]);
 
@@ -590,7 +609,7 @@
     <script language="javascript" type="text/javascript">
 
 
-        function CargaLoading() {
+        window.CargaLoading = function () {
             if (window.loading_screen === undefined) {
                 window.loading_screen = window.pleaseWait({
                 logo: "@Url.Content("~/Content/Project/Imagenes/LogoPrincipal.png")",
@@ -602,7 +621,7 @@
             });
             }
         }
-        function FinalizaLoading() {
+        window.FinalizaLoading = function () {
             if (window.loading_screen !== undefined) {
                 window.loading_screen.finish();
                 window.loading_screen = undefined;
@@ -617,10 +636,10 @@
 
              $.ajaxSetup({
                  beforeSend: function () {
-                    CargaLoading();
+                     window.CargaLoading();
                  },
                  complete: function () {
-                     FinalizaLoading();
+                     window.FinalizaLoading();
                      page_content_onresize();
                      setTimeout(() => {
                          resizeTaskList();

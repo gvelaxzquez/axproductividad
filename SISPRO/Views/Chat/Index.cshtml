@@ -2,6 +2,18 @@
 @{
     ViewBag.Title = "";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var environment = System.Configuration.ConfigurationManager.AppSettings["Environment"];
+
+}
+@{
+    if (environment == "Development")
+    {
+        <script type="module" src="http://localhost:5173/src/features/index-chatBotOpenAI.tsx"></script>
+    }
+    else
+    {
+        <script type="module" src="~/react/dist/assets/chatBotOpenAI.js"></script>
+    }
 }
 
 
@@ -9,7 +21,7 @@
 <div id="chatbot"></div>
 
 <!-- Incluye React, ReactDOM y el archivo bundle.js -->
-<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+@*<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-<script src="~/wwwroot/js/bundle-chatBotOpenAI.js"></script>
+<script src="~/wwwroot/js/bundle-chatBotOpenAI.js"></script>*@
 

@@ -2,11 +2,31 @@
 @{
     ViewBag.Title = "Flujo de pagos ";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var environment = System.Configuration.ConfigurationManager.AppSettings["Environment"];
+
 }
+@{
+    if (environment == "Development")
+    {
+        <script type="module" src="http://localhost:5173/src/features/index-flujopagos.tsx"></script>
+    }
+    else
+    {
+        <script type="module" src="~/react/dist/assets/flujopagos.js"></script>
+    }
+}
+<div id="flujopagos"></div>
+
+@Html.Hidden("idFlujo", (long)ViewBag.IdFlujo)
 
 
 
-<script src="~/Scripts/easypiechart.min.js"></script>
+@*<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="~/wwwroot/js/bundle-flujopagos.js"></script>*@
+
+
+<!--<script src="~/Scripts/easypiechart.min.js"></script>
 <script src="~/Scripts/jquery.easypiechart.min.js"></script>
 
 <div class="page-content-wrap">
@@ -138,9 +158,9 @@
                 <div class="table-responsive">
                     <table class="table datatable text" id="TblFlujo">
                         <thead>
-                            <tr>
-                                @*<th></th>*@
-                                <th>#</th>
+                            <tr>-->
+@*<th></th>*@
+<!--<th>#</th>
                                 <th>Concepto</th>
                                 <th>%Avance</th>
                                 <th>Fecha planeada</th>
@@ -276,7 +296,7 @@
                         </form>
                     </div>
                     <div class="col-md-4 col-sm-12 col-xs-12">
-                    
+
 
                             <div class="panel-group accordion accordion-dc">
                                 <div class="panel ">
@@ -291,7 +311,7 @@
                                         <form class="form-horizontal">
                                             <div class="panel-body">
                                                 <div id="divTrabajoRelacionadoFDP">
-                                                  
+
 
                                                     <div style="position:relative; text-align: right">
                                                         <i id="show-parentsFPD-div" class="fa fa-plus-circle" style="margin-right: -3px; font-size: 14px; color: #3fbae4; cursor: pointer;"></i>
@@ -321,7 +341,7 @@
                                 </div>
                             </div>
 
-                      
+
                     </div>
 
 
@@ -399,11 +419,7 @@
             </div>
         </div>
     </div>
-</div>
-
-
-
-
+</div>-->
 @*<div class="filter-settings">
         <div class="filter-settings-icon"><span class="glyphicon glyphicon-filter"></span></div>
         <h5>Filtrar</h5>
@@ -433,7 +449,7 @@
         </div>
     </div>*@
 
-<input type="hidden" id="IdFlujo" value="@ViewBag.IdFlujo" />
+<!--<input type="hidden" id="IdFlujo" value="@ViewBag.IdFlujo" />
 <input type="hidden" id="IdFlujoDet" value="0" />
 <input type="hidden" id="IdProyectoFPD" value="0" />
 <input type="hidden" id="IdFlujoDetFecha" value="0" />
@@ -455,4 +471,4 @@
     Random rnd = new Random();
     <script src="~/Scripts/Project/FlujoPagosDetalle.js?@rnd.Next()"></script>
 
-}
+}-->
