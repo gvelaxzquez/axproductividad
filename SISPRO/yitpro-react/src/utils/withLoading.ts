@@ -5,6 +5,7 @@ declare global {
     interface Window {
         CargaLoading: () => void;
         FinalizaLoading: () => void;
+        ClickActivity: (idActividad: number) => void;
     }
 }
 

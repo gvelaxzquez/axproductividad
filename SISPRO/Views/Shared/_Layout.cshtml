@@ -609,6 +609,10 @@
     <script language="javascript" type="text/javascript">
 
 
+        window.ClickActivity = function (Actividad) {
+            clickalerta(Actividad);
+        }
+
         window.CargaLoading = function () {
             if (window.loading_screen === undefined) {
                 window.loading_screen = window.pleaseWait({
