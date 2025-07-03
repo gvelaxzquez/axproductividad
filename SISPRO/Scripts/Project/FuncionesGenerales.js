@@ -3,14 +3,14 @@
 $(document).ready(() => {
 
     Menu();
-/*    ActualizaAlerta();*/
+    /*    ActualizaAlerta();*/
     $('.modal').css('overflow-y', 'auto');
     $('.dropdown-toggle').dropdown();
     getUser();
-  
+
     var i = $("#CapturaF").val();
 
-    if ($("#CapturaF").val()== 1) {
+    if ($("#CapturaF").val() == 1) {
         $('#ModalFeels').modal({ backdrop: 'static', keyboard: false });
 
     }
@@ -23,7 +23,7 @@ $(document).ready(() => {
 
     }
 
- 
+
 
     $("#divsel").hide();
 
@@ -81,9 +81,9 @@ async function ActualizaAlerta() {
             $("#BtnVerInternas").hide();
             $("#BtnVerExternas").hide();
         }
-    
 
-   
+
+
         $("#BtnVerInternas").text("Internas (" + data.NoAlertasI + ")");
         $("#BtnVerExternas").text("Cliente (" + data.NoAlertasE + ")");
         $('#NotInternas').append(data.ComentariosI);
@@ -102,7 +102,7 @@ async function ActualizaAlerta() {
 async function DeleteNot(Id) {
 
 
-    const data = await POST('/Home/DeleteNot', {Id :Id });
+    const data = await POST('/Home/DeleteNot', { Id: Id });
 
 
 
@@ -316,7 +316,7 @@ var columnasActividadesTerminadasDia = [
                 return '<button  class="btn btn-small btn-grid" style="text-align:left; width:100%;"><span>' + row.EstatusStr + '<span><span  class="fa fa-fw fa-circle text-muted "></span> </button>';
 
             }
-            
+
 
         }
     }
@@ -379,7 +379,7 @@ function formatRepo(repo) {
 
     $container = $("<div class='task-item task-progreess' style='cursor:pointer;'  id='" + repo.IdActividad + "'>    " +
         "<div class='task-text'  onclick='clickalertasearch(" + repo.IdActividad + ")'>" +
-        "<span><img class='img-dt' src='" + repo.AsignadoPath + "' alt='" + repo.TipoActividadStr + "' title='" + repo.TipoActividadStr +"' style='width:24px; height:24px;'></span>" +
+        "<span><img class='img-dt' src='" + repo.AsignadoPath + "' alt='" + repo.TipoActividadStr + "' title='" + repo.TipoActividadStr + "' style='width:24px; height:24px;'></span>" +
         " <b> " + repo.IdActividadStr + "</b>" +
         "<p>" + repo.Descripcion + "</p>" +
         "</div> </div>");
@@ -421,7 +421,7 @@ function Menu() {
         }
 
     }
-   
+
     funcionAjustartamano();
 }
 
@@ -438,12 +438,12 @@ var colsOrganizacion = [
         "class": "text-center",
         "render": function (data, type, row) {
 
-            return '<a class="btn btn-default "  title="Cambiar" onclick="CambiaOrganizacion(' + data +')"><i class="fa fa-exchange" ></i></a>'
+            return '<a class="btn btn-default "  title="Cambiar" onclick="CambiaOrganizacion(' + data + ')"><i class="fa fa-exchange" ></i></a>'
 
 
         }
     }
-    
+
 
 
 ];
@@ -461,7 +461,7 @@ $("#BtnOrganizacion").click(function () {
 async function ConsultaOrganizaciones() {
 
 
-    const data = await POST('/Home/ConsultaOrganizaciones', {  });
+    const data = await POST('/Home/ConsultaOrganizaciones', {});
 
 
 
@@ -486,10 +486,10 @@ async function ConsultaOrganizaciones() {
 
 async function CambiaOrganizacion(Id) {
 
-    const data = await POST('/Login/CambiarOrganizacion', { Id:Id });
+    const data = await POST('/Login/CambiarOrganizacion', { Id: Id });
 
 
-   /* var ds = jQuery.parseJSON(data);*/
+    /* var ds = jQuery.parseJSON(data);*/
     if (data.Exito) {
 
         window.location.href = data.URL;
@@ -1380,7 +1380,7 @@ var temagraficaestatustask = {
 
 var temagraficas2 = {
     color: [
-        '#D12106',  '#08C127', '#5470C6'
+        '#D12106', '#08C127', '#5470C6'
     ],
 
     title: {
@@ -2586,7 +2586,7 @@ $(".btn-CambiarPass").click(function () {
 $(document).on('click', '#BtnGuardarFeels', function (e) {
 
 
-    if ($("#ResultadoUF").val() == 0){
+    if ($("#ResultadoUF").val() == 0) {
 
         MensajeAdvertencia("Selecciona una opción");
         $('#ModalFeels').modal('toggle');
@@ -2604,10 +2604,10 @@ $(document).on('click', '#BtnGuardarFeels', function (e) {
 
     var Usuario = {
         Resultado: $('#ResultadoUF').val(),
-        IdPregunta:  $('#IdPregunta').val(),
+        IdPregunta: $('#IdPregunta').val(),
         Comentarios: $('#TxtFComentariosUF').val().trim()
 
-        }
+    }
 
     var url = $('#urlGuardarUF').val();
 
@@ -2624,7 +2624,7 @@ $(document).on('click', '#BtnGuardarFeels', function (e) {
 
 
                 $("#ModalFeels").modal('hide');
-        
+
             }
             else {
 
@@ -2654,7 +2654,7 @@ $(".btn-trabajo").click(function () {
 
 });
 
-function SeleccionarUF( opcion, control) {
+function SeleccionarUF(opcion, control) {
 
     $('.btnUF').css({ "background-color": '#FFF' });
 
@@ -2714,7 +2714,7 @@ function ConsultarAsistencia() {
 
 
                     $("#LblHoraEntrada").text(moment(dsDatos.HoraEntrada).format("DD/MM/YYYY hh:mm:ss"));
-                     
+
                     $("#BtnRegistrarEntrada").hide();
                     $("#BtnOkRegistrarEntrada").show();
 
@@ -2745,9 +2745,9 @@ function ConsultarAsistencia() {
                         $("#LblHoraSalida").text(moment(dsDatos.HoraSalida).format("DD/MM/YYYY hh:mm:ss"));
                         $("#BtnRegistrarSalida").hide();
                         $("#BtnOkRegistrarSalida").show();
-                    
+
                     }
- 
+
                 }
                 else {
 
@@ -2802,7 +2802,7 @@ function RegistrarAsistencia(Tipo) {
 
                 MensajeExito(data.Mensaje);
                 ConsultarAsistencia();
-              
+
 
 
                 //$('#ModalListaActividades').modal();
@@ -2850,7 +2850,7 @@ function clickalerta(Actividad) {
     });
 
     $('#ModalActividades').modal({ backdrop: 'static', keyboard: false });
-   /* $('#TituloActividades').text("Actividad #" + Actividad);*/
+    /* $('#TituloActividades').text("Actividad #" + Actividad);*/
     $('#IdActividad').val(Actividad);
     $('#divsel').hide("slide", { direction: "right" }, 500);
     $('#IdActividadRel').val(0);
@@ -2962,7 +2962,7 @@ function CopyItemfrombl(Actividad) {
     $('#IdActividadRel').val(0);
     $('#IdTipoActividad').val(0);
     InicializaEdicionActividad(true);
-  
+
 
     return false;
 };
@@ -3039,7 +3039,7 @@ function newItemBL(Tipo, IdActividadRel) {
 
     $('#ModalActividades').on('hidden.bs.modal', function () { ConsultaBacklog(); ConsultaBacklogasync(1); $(this).off('hidden.bs.modal'); });
     /*    $('#TituloActividades').text("Captura actividad");*/
-    if(Tipo == 7){
+    if (Tipo == 7) {
 
         EsBug = true;
     } else {
@@ -3061,7 +3061,7 @@ function newItemCalendarProfile(start, end, allDay) {
     $('#ModalActividades').modal({ keyboard: false });
 
     $('#ModalActividades').on('hidden.bs.modal', function () { CargarActividadesDP(); $(this).off('hidden.bs.modal'); });
- 
+
     if (1 == 7) {
 
         EsBug = true;
@@ -3075,7 +3075,7 @@ function newItemCalendarProfile(start, end, allDay) {
 
     setTimeout(function () {
         $('#TxtFechaInicio').val(moment(start).format("DD/MM/YYYY"));
-        $('#TxtFechaPlan').val(moment(end).add('days',-1).format("DD/MM/YYYY"));
+        $('#TxtFechaPlan').val(moment(end).add('days', -1).format("DD/MM/YYYY"));
     }, 1000);
 
     return false;
@@ -3338,10 +3338,10 @@ function inicializaTabla5(tabla, datos, columnas, columnaOrdena = 0, tipoOrdenac
     var tablaConstruida;
 
     tablaConstruida = tabla.dataTable({
-       
+
         lengthMenu: [
             [5, 10, 25, 50, -1],
-            ['5','10', '25 ', '50', 'Todo']
+            ['5', '10', '25 ', '50', 'Todo']
         ],
         pageLength: 5,
         language: lenguajeEs,

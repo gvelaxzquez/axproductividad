@@ -78,6 +78,7 @@ export const useCompensacionesStore = create<CompensacionesState>((set, get) => 
                             acc.totalBonoHoras += +curr.bonoHoras;
                             acc.totalGeneral += +curr.total;
                             acc.productividadPromedio += productividadValue; // Sumar para luego promediar
+                            acc.totalRecursos += 1; // Contar recursos
                             return acc;
                         },
                         {
@@ -88,6 +89,7 @@ export const useCompensacionesStore = create<CompensacionesState>((set, get) => 
                             totalBonoHoras: 0,
                             totalGeneral: 0,
                             productividadPromedio: 0,
+                            totalRecursos: 0
                         }
                     );
 

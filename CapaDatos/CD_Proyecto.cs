@@ -341,7 +341,8 @@ namespace CapaDatos
 
                 List<ProyectosModel> LstProy = new List<ProyectosModel>();
 
-                using (var contexto = new BDProductividad_DEVEntities(Conexion)) {
+                using (var contexto = new BDProductividad_DEVEntities(Conexion))
+                {
 
                     LstProy = (from p in contexto.Proyecto
                                join up in contexto.ProyectoUsuario on p.IdProyecto equals up.IdProyecto
@@ -528,7 +529,8 @@ namespace CapaDatos
                 {
 
                     LstProy = Contexto.Proyecto.Where(w => w.CatalogoGeneral.DescCorta == "P")
-                             .Select(s => new ProyectosModel {
+                             .Select(s => new ProyectosModel
+                             {
                                  IdProyecto = s.IdProyecto,
                                  Nombre = s.Nombre,
                                  Descripcion = s.Descripcion
@@ -894,7 +896,8 @@ namespace CapaDatos
                         if (Proyecto.IdPlantilla != 0)
                         {
                             var LstAct = contexto.Actividad.Where(w => w.IdProyecto == Proyecto.IdPlantilla)
-                                           .Select(s => new ActividadesModel {
+                                           .Select(s => new ActividadesModel
+                                           {
                                                Critico = s.Critico,
                                                BR = s.BR,
                                                Backlog = s.Backlog,
@@ -972,22 +975,22 @@ namespace CapaDatos
 
 
                         var lst = (from wfd in contexto.WorkFlowConfigDetail
-                                      from at in contexto.ActividadTipo
-                                      where wfd.IdWorkFlowC == 1 && at.Activo == true && wfd.IdWorkFlowC == Proyecto.IdWorkFlow
-                                      select new 
-                                      {
-                                          IdProyecto = proy.IdProyecto,
-                                          IdActividadTipo = at.ActividadTipoId,
-                                          Nombre = wfd.Nombre,
-                                          Orden = wfd.Orden,
-                                          Color = wfd.Color,
-                                          ColorTexto = wfd.ColorTexto,
-                                          EstatusR = wfd.EstatusR,
-                                          WIP = wfd.WIP,
-                                          Notifica = wfd.Notifica,
-                                          TipoNotificacion = wfd.TipoNotificacion,
-                                          Editable = wfd.Editable
-                                      }).ToList();
+                                   from at in contexto.ActividadTipo
+                                   where wfd.IdWorkFlowC == 1 && at.Activo == true && wfd.IdWorkFlowC == Proyecto.IdWorkFlow
+                                   select new
+                                   {
+                                       IdProyecto = proy.IdProyecto,
+                                       IdActividadTipo = at.ActividadTipoId,
+                                       Nombre = wfd.Nombre,
+                                       Orden = wfd.Orden,
+                                       Color = wfd.Color,
+                                       ColorTexto = wfd.ColorTexto,
+                                       EstatusR = wfd.EstatusR,
+                                       WIP = wfd.WIP,
+                                       Notifica = wfd.Notifica,
+                                       TipoNotificacion = wfd.TipoNotificacion,
+                                       Editable = wfd.Editable
+                                   }).ToList();
 
                         List<WorkFlow> LstWorkFlow = lst.
                                                     Select(s => new WorkFlow
@@ -1234,7 +1237,7 @@ namespace CapaDatos
                        {
                            IdCatalogo = s.Usuario.IdUsuario,
                            DescCorta = s.Usuario.NumEmpleado,
-                           DescLarga = s.Usuario.Nombre + " " + s.Usuario.ApPaterno 
+                           DescLarga = s.Usuario.Nombre + " " + s.Usuario.ApPaterno
 
 
                        }
@@ -1394,10 +1397,12 @@ namespace CapaDatos
                 throw ex;
             }
         }
-        public bool GuardarUsuarioAdministra(long IdProyectoUsuario, bool AdministraProy, string Conexion) {
+        public bool GuardarUsuarioAdministra(long IdProyectoUsuario, bool AdministraProy, string Conexion)
+        {
             try
             {
-                using (var contexto = new BDProductividad_DEVEntities(Conexion)) {
+                using (var contexto = new BDProductividad_DEVEntities(Conexion))
+                {
 
                     var pu = contexto.ProyectoUsuario.Where(w => w.IdProyectoUsuario == IdProyectoUsuario).FirstOrDefault();
 
@@ -2475,12 +2480,14 @@ namespace CapaDatos
         }
 
 
-        public ProyectosModel ConsultaConfigFechas(long IdProyecto, string Conexion) {
+        public ProyectosModel ConsultaConfigFechas(long IdProyecto, string Conexion)
+        {
             try
             {
 
                 ProyectosModel p = new ProyectosModel();
-                using (var contexto = new BDProductividad_DEVEntities(Conexion)) {
+                using (var contexto = new BDProductividad_DEVEntities(Conexion))
+                {
 
                     var pr = contexto.Proyecto.Where(w => w.IdProyecto == IdProyecto).FirstOrDefault();
 
@@ -2511,7 +2518,8 @@ namespace CapaDatos
                     var p = contexto.Proyecto.Where(w => w.IdProyecto == pr.IdProyecto).FirstOrDefault();
                     p.FijarFechas = pr.FijarFechas;
 
-                    if (pr.FijarFechas == false) {
+                    if (pr.FijarFechas == false)
+                    {
                         p.FechaFinComprometidaAnt = pr.FechaFinComprometida != p.FechaFinComprometida ? p.FechaFinComprometida : p.FechaFinComprometidaAnt;
                         p.FechaInicioPlan = pr.FechaInicioPlan;
                         p.FechaFinPlan = pr.FechaFinPlan;
@@ -3264,7 +3272,8 @@ namespace CapaDatos
 
         //Portafolio
 
-        public IndicadoresModel ObtienePortafolio(long IdUsuario, string conexion) {
+        public IndicadoresModel ObtienePortafolio(long IdUsuario, string conexion)
+        {
             try
             {
                 IndicadoresModel indicadores = new IndicadoresModel();
@@ -3388,7 +3397,8 @@ namespace CapaDatos
             }
         }
 
-        public List<CatalogoGeneralModel> ConsultaIssuesCombo(long IdProyecto, long IdActividad, string Conexion) {
+        public List<CatalogoGeneralModel> ConsultaIssuesCombo(long IdProyecto, long IdActividad, string Conexion)
+        {
 
             List<CatalogoGeneralModel> Lst = new List<CatalogoGeneralModel>();
             using (var contexto = new BDProductividad_DEVEntities(Conexion))
@@ -3569,7 +3579,8 @@ namespace CapaDatos
             {
 
                 FlujoPagoModel flujo = new FlujoPagoModel();
-                using (var contexto = new BDProductividad_DEVEntities(Conexion)) {
+                using (var contexto = new BDProductividad_DEVEntities(Conexion))
+                {
 
 
                     Nullable<System.DateTime> fecha = DateTime.Now;
@@ -3585,7 +3596,8 @@ namespace CapaDatos
                             HorasAmortizar = s.HorasAmortizar,
                             PorcIVA = s.PorcIVA,
                             Activo = s.Activo == true ? false : true,
-                            FlujoDetalle = s.FlujoPagoDetalle.Select(d => new FlujoPagoDetModel() {
+                            FlujoDetalle = s.FlujoPagoDetalle.Select(d => new FlujoPagoDetModel()
+                            {
                                 IdFlujoPago = d.IdFlujoPago,
                                 IdFlujoPagoDet = d.IdFlujoPagoDet,
                                 Secuencia = d.Secuencia,
@@ -3640,11 +3652,13 @@ namespace CapaDatos
 
         }
 
-        public long GuardarFlujoPago(FlujoPagoModel flujo, long IdUsuario, string Conexion) {
+        public long GuardarFlujoPago(FlujoPagoModel flujo, long IdUsuario, string Conexion)
+        {
             try
             {
                 long Respuesta = 0;
-                using (var contexto = new BDProductividad_DEVEntities(Conexion)) {
+                using (var contexto = new BDProductividad_DEVEntities(Conexion))
+                {
                     if (flujo.IdFlujoPago == 0) // NUEVO
 
                     {
@@ -3700,7 +3714,8 @@ namespace CapaDatos
 
         }
 
-        public int GuardarDetalleFlujo(FlujoPagoDetModel flujo, long IdUsuario, string Conexion) {
+        public int GuardarDetalleFlujo(FlujoPagoDetModel flujo, long IdUsuario, string Conexion)
+        {
             try
             {
 
@@ -3773,13 +3788,62 @@ namespace CapaDatos
 
         }
 
+        public int GuardarDetallesFlujo(IEnumerable<FlujoPagoDetModel> flujos, long IdUsuario, string Conexion)
+        {
+            if (flujos == null || !flujos.Any())
+                return 0;
+
+            var idFlujoPago = flujos.First().IdFlujoPago;
+
+            using (var contexto = new BDProductividad_DEVEntities(Conexion))
+            using (var transaction = contexto.Database.BeginTransaction())
+            {
+                try
+                {
+                    // Eliminar existentes
+                    var existentes = contexto.FlujoPagoDetalle
+                        .Where(x => x.IdFlujoPago == idFlujoPago)
+                        .ToList();
+
+                    if (existentes.Any())
+                        contexto.FlujoPagoDetalle.RemoveRange(existentes);
+
+                    // Insertar nuevos
+                    var nuevos = flujos.Select(f => new FlujoPagoDetalle
+                    {
+                        IdFlujoPago = f.IdFlujoPago,
+                        Secuencia = f.Secuencia,
+                        Concepto = f.Concepto,
+                        Horas = f.Horas,
+                        Procentaje = f.Procentaje,
+                        Monto = f.Monto,
+                        Amortizadas = f.Amortizadas
+                    });
+
+                    contexto.FlujoPagoDetalle.AddRange(nuevos);
+
+                    contexto.SaveChanges();
+                    transaction.Commit();
+
+                    return 1;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    // log(ex); // opcional: loggear excepción
+                    throw;
+                }
+            }
+        }
+
 
         public int GuardarFlujoPagoFechas(FlujoPagoDetModel flujo, long IdUsuario, string Conexion)
         {
             try
             {
 
-                using (var contexto = new BDProductividad_DEVEntities(Conexion)) {
+                using (var contexto = new BDProductividad_DEVEntities(Conexion))
+                {
 
                     var fp = contexto.FlujoPagoDetalle.Where(w => w.IdFlujoPagoDet == flujo.IdFlujoPagoDet).FirstOrDefault();
 
@@ -3787,7 +3851,8 @@ namespace CapaDatos
                     if (flujo.TipoFecha == 1)// FechaDev
                     {
 
-                        if (fp.FechaDevOriginal == null) {
+                        if (fp.FechaDevOriginal == null)
+                        {
 
                             fp.FechaDevOriginal = flujo.Fecha;
                         }
@@ -3832,12 +3897,14 @@ namespace CapaDatos
         }
 
 
-        public bool EliminarDetalleFlujo(long IdFlujoPagoDet, string Conexion) {
+        public bool EliminarDetalleFlujo(long IdFlujoPagoDet, string Conexion)
+        {
 
             try
             {
 
-                using (var contexto = new BDProductividad_DEVEntities(Conexion)) {
+                using (var contexto = new BDProductividad_DEVEntities(Conexion))
+                {
 
 
                     var fd = contexto.FlujoPagoDetalle.Where(w => w.IdFlujoPagoDet == IdFlujoPagoDet).FirstOrDefault();
@@ -3846,7 +3913,8 @@ namespace CapaDatos
                     var lst = contexto.FlujoPagoDetalle.Where(w => w.IdFlujoPago == fd.IdFlujoPago && w.Secuencia > fd.Secuencia);
 
 
-                    foreach (var i in lst) {
+                    foreach (var i in lst)
+                    {
 
 
                         i.Secuencia = i.Secuencia - 1;
@@ -4030,7 +4098,8 @@ namespace CapaDatos
         #region Sprint
 
 
-        public ProyectoIteracionModel SprintReport(long IdIteracion, string Estatus, string Conexion) {
+        public ProyectoIteracionModel SprintReport(long IdIteracion, string Estatus, string Conexion)
+        {
             try
             {
 
@@ -4567,10 +4636,10 @@ namespace CapaDatos
 
         }
 
- 
 
 
-        public ProyectoIteracionModel SprintReport_Actividades_Filtrar(long IdIteracion, string Estatus, DateTime? FechaIni , DateTime? FechaFin,int TipoId ,long IdUsuarioAsignado , long IdHu, string Conexion)
+
+        public ProyectoIteracionModel SprintReport_Actividades_Filtrar(long IdIteracion, string Estatus, DateTime? FechaIni, DateTime? FechaFin, int TipoId, long IdUsuarioAsignado, long IdHu, string Conexion)
         {
             try
             {
@@ -4588,7 +4657,7 @@ namespace CapaDatos
                 sqlcmd.Parameters.AddWithValue("@Estatus", Estatus);
                 sqlcmd.Parameters.AddWithValue("@FechaIni", FechaIni);
                 sqlcmd.Parameters.AddWithValue("@FechaFin", FechaFin);
-                sqlcmd.Parameters.AddWithValue("@TipoId",  TipoId) ;
+                sqlcmd.Parameters.AddWithValue("@TipoId", TipoId);
                 sqlcmd.Parameters.AddWithValue("@IdUsuarioAsignado", IdUsuarioAsignado);
                 sqlcmd.Parameters.AddWithValue("@IdHu", IdHu);
 
@@ -4773,10 +4842,12 @@ namespace CapaDatos
         }
 
 
-        public bool CambiaEstatusSprint(long IdIteracion, string Estatus, string Conexion) {
+        public bool CambiaEstatusSprint(long IdIteracion, string Estatus, string Conexion)
+        {
             try
             {
-                using (var contexto = new BDProductividad_DEVEntities(Conexion)) {
+                using (var contexto = new BDProductividad_DEVEntities(Conexion))
+                {
 
                     var i = contexto.ProyectoIteracion.Where(w => w.IdIteracion == IdIteracion).FirstOrDefault();
 
@@ -4784,8 +4855,8 @@ namespace CapaDatos
 
 
                     contexto.SaveChanges();
-                
-                
+
+
                 }
 
                 return true;
@@ -4796,11 +4867,11 @@ namespace CapaDatos
 
                 throw ex;
             }
-        
+
         }
 
 
-        public bool GuardarSprintRetrospectiva(ProyectoIteracionModel pi,string Actividades, string Conexion)
+        public bool GuardarSprintRetrospectiva(ProyectoIteracionModel pi, string Actividades, string Conexion)
         {
             try
             {
@@ -4822,7 +4893,7 @@ namespace CapaDatos
 
                     contexto.ProyectoIteracionComplete.RemoveRange(pic);
 
-                    List<ProyectoIteracionComplete> picn = Lst.Where(w=> w != "").Select(s =>
+                    List<ProyectoIteracionComplete> picn = Lst.Where(w => w != "").Select(s =>
 
                         new ProyectoIteracionComplete
                         {
@@ -4862,12 +4933,13 @@ namespace CapaDatos
                 using (var contexto = new BDProductividad_DEVEntities(Conexion))
                 {
 
-                    pi = contexto.ProyectoIteracion.Where(w => w.IdIteracion == IdIteracion).Select(s=> new ProyectoIteracionModel { 
-                        
+                    pi = contexto.ProyectoIteracion.Where(w => w.IdIteracion == IdIteracion).Select(s => new ProyectoIteracionModel
+                    {
+
                         Nombre = s.Nombre,
                         FechaCierre = s.FechaCierre,
                         Retrospectiva = s.Retrospectiva
-                    
+
                     }).FirstOrDefault();
 
                 }
@@ -4884,7 +4956,8 @@ namespace CapaDatos
         }
 
 
-        public List<ProyectoIteracionModel> ConsultaResumenSprints(long IdProyecto, string Conexion) {
+        public List<ProyectoIteracionModel> ConsultaResumenSprints(long IdProyecto, string Conexion)
+        {
             try
             {
 
@@ -4911,22 +4984,22 @@ namespace CapaDatos
                 var dt = new DataTable();
                 var dt2 = new DataTable();
                 dt = ds.Tables[0];
-          
+
 
                 LstSprints = (from row in dt.AsEnumerable()
-                                select (new ProyectoIteracionModel
-                                {
-                                    IdIteracion = long.Parse(row["IdIteracion"].ToString()),
-                                    IdProyecto = long.Parse(row["IdProyecto"].ToString()),
-                                    Nombre = row["Nombre"].ToString(),
-                                    Objetivo = row["Objetivo"].ToString(),
-                                    Estatus = row["Estatus"].ToString(),
-                                    Estatus2 = row["Estatus2"].ToString(),
-                                    EstatusStr = row["EstatusStr"].ToString(),
-                                    FechaInicio = DateTime.Parse(row["FechaInicio"].ToString()),
-                                    FechaFin = DateTime.Parse(row["FechaFin"].ToString()),
-                                    Avance = decimal.Parse(row["Avance"].ToString())
-                                })).ToList();
+                              select (new ProyectoIteracionModel
+                              {
+                                  IdIteracion = long.Parse(row["IdIteracion"].ToString()),
+                                  IdProyecto = long.Parse(row["IdProyecto"].ToString()),
+                                  Nombre = row["Nombre"].ToString(),
+                                  Objetivo = row["Objetivo"].ToString(),
+                                  Estatus = row["Estatus"].ToString(),
+                                  Estatus2 = row["Estatus2"].ToString(),
+                                  EstatusStr = row["EstatusStr"].ToString(),
+                                  FechaInicio = DateTime.Parse(row["FechaInicio"].ToString()),
+                                  FechaFin = DateTime.Parse(row["FechaFin"].ToString()),
+                                  Avance = decimal.Parse(row["Avance"].ToString())
+                              })).ToList();
 
 
 
@@ -4946,7 +5019,7 @@ namespace CapaDatos
 
                 throw ex;
             }
-        
+
         }
 
 
@@ -4971,7 +5044,7 @@ namespace CapaDatos
                                     FechaInicio = s.FechaInicio,
                                     FechaFin = s.FechaFin,
                                     Estatus = s.Estatus,
-                                    
+
                                     Actividades = s.Actividad.Select(
                                                   sa => new ActividadesModel
                                                   {
@@ -5270,7 +5343,8 @@ namespace CapaDatos
 
 
                 }
-                else {
+                else
+                {
 
                     using (var contexto = new BDProductividad_DEVEntities(Conexion))
                     {
@@ -5286,7 +5360,7 @@ namespace CapaDatos
                         p.IdUCreo = archivo.IdUCreo;
 
                         contexto.SaveChanges();
-                        
+
                     }
 
 
@@ -5309,11 +5383,11 @@ namespace CapaDatos
                 using (var contexto = new BDProductividad_DEVEntities(Conexion))
                 {
                     var existe = contexto.ProyectoDocumentos.Where(w => w.IdProDoc == archivo.IdProDoc).FirstOrDefault();
-                        existe.Activo = false;
-                        existe.IdUElimino = archivo.IdUElimino;
-                        existe.FechaElimino = DateTime.Now;
-                        contexto.SaveChanges();
-                    
+                    existe.Activo = false;
+                    existe.IdUElimino = archivo.IdUElimino;
+                    existe.FechaElimino = DateTime.Now;
+                    contexto.SaveChanges();
+
                 }
                 return true;
             }
@@ -5336,18 +5410,19 @@ namespace CapaDatos
                 {
 
                     Lst = contexto.ProyectoDocumentos.Where(w => w.IdProyecto == IdProyecto && w.Activo == true).
-                                                       Select(s => new ProyectoDocumentosModel() { 
-                                                       
-                                                        IdProDoc  = s.IdProDoc,
-                                                        IdProyecto = s.IdProyecto,
-                                                        TipoDocumentoId = s.TipoDocumentoId,
-                                                        TipoDocumentoStr = contexto.CatalogoGeneral.Where(w=> w.IdCatalogo == s.TipoDocumentoId).FirstOrDefault().DescLarga,
-                                                        Name = s.Name,
-                                                        Extension = s.Extension,
-                                                        Ubicacion = s.Ubicacion,
-                                                        FechaCreo = s.FechaCreo,
-                                                        NombreCreo  = s.Usuario.Nombre +  " " + s.Usuario.ApPaterno
-                                                       
+                                                       Select(s => new ProyectoDocumentosModel()
+                                                       {
+
+                                                           IdProDoc = s.IdProDoc,
+                                                           IdProyecto = s.IdProyecto,
+                                                           TipoDocumentoId = s.TipoDocumentoId,
+                                                           TipoDocumentoStr = contexto.CatalogoGeneral.Where(w => w.IdCatalogo == s.TipoDocumentoId).FirstOrDefault().DescLarga,
+                                                           Name = s.Name,
+                                                           Extension = s.Extension,
+                                                           Ubicacion = s.Ubicacion,
+                                                           FechaCreo = s.FechaCreo,
+                                                           NombreCreo = s.Usuario.Nombre + " " + s.Usuario.ApPaterno
+
                                                        }).ToList();
                 }
 
@@ -5368,12 +5443,12 @@ namespace CapaDatos
 
             try
             {
-                ProyectoDocumentosModel pd  = new ProyectoDocumentosModel();
+                ProyectoDocumentosModel pd = new ProyectoDocumentosModel();
 
-                using(var cxt = new BDProductividad_DEVEntities(Conexion))
+                using (var cxt = new BDProductividad_DEVEntities(Conexion))
                 {
 
-                    pd = cxt.ProyectoDocumentos.Where(w => w.IdProDoc == IdProDoc).Select(s => new ProyectoDocumentosModel {  Ubicacion = s.Ubicacion  }).FirstOrDefault();
+                    pd = cxt.ProyectoDocumentos.Where(w => w.IdProDoc == IdProDoc).Select(s => new ProyectoDocumentosModel { Ubicacion = s.Ubicacion }).FirstOrDefault();
                 }
 
 

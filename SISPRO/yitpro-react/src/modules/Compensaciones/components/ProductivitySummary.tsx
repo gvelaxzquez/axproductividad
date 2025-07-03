@@ -8,14 +8,17 @@ interface Props {
 
 const ProductivitySummary: React.FC<Props> = ({ summary }) => {
     if (!summary) {
-        return null; // No renderizar si no hay datos de resumen
-    }
+        return null; 
+        }
     const items: CollapseProps['items'] = [
         {
             key: '1',
             label: 'Resumen de Productividad',
             children: <Card title="" style={{ marginBottom: '24px' }}>
                 <Row gutter={[16, 16]}>
+                    <Col xs={24} sm={12} md={8} lg={6}>
+                        <Statistic title="Recursos" value={summary.totalRecursos} />
+                    </Col>
                     <Col xs={24} sm={12} md={8} lg={6}>
                         <Statistic title="Horas Solicitadas" value={summary.totalHorasSolicitadas} precision={2} />
                     </Col>

@@ -26,10 +26,11 @@ interface FlujoPagosState {
     indicadores: ProyectosModel | null,
     cargarFlujoDetalle: () => Promise<void>;
     guardarDatosFPD: (detalle: FlujoPagoDetModel) => Promise<void>;
+    importarFPD: (detalles: FlujoPagoDetModel[]) => Promise<void>;
     eliminarFPD: (idDetalle: number) => Promise<void>;
 
 
-    guardarDatosFP: (datos: { fechaInicio?: string }) => Promise<void>;
+    guardarDatosProyecto: (datos: { fechaInicio?: string }) => Promise<void>;
     actualizarFecha: (idDetalle: number, nuevaFecha: Date) => Promise<void>;
     actualizarRelacion: (idDetalle: number, idRelacion: number) => Promise<void>;
 }
@@ -49,10 +50,11 @@ const initialPolizaId = initialPolizaIdValue ? Number(initialPolizaIdValue) : nu
 // Rutas de API (asumimos que existen elementos ocultos con estos IDs en la página Razor original)
 const urlObtieneFlujoDetalle = '/Proyectos/ObtieneFlujoDetalle';
 const urlGuardaFlujoPagoDetalle = '/Proyectos/GuardaFlujoPagoDetalle';
+const urlGuardaFlujoPagoDetalles = '/Proyectos/GuardaFlujoPagoDetalles';
 const urlEliminarFlujoPagoDetalle = '/Proyectos/EliminarFlujoPagoDetalle';
+const urlGuardarFlujoProyecto = '/Proyectos/GuardaFlujoPago';
 
 
-const urlGuardarFlujo = '/Proyectos/GuardaFlujoPago';
 const urlGuardarFlujoPagoFechas = '/Proyectos/GuardaFlujoPagoFecha';
 
 
@@ -119,6 +121,23 @@ const useFlujoPagosStore = create<FlujoPagosState>((set, get) => ({
             throw error;
         }
     },
+    importarFPD: async (detalles: FlujoPagoDetModel[]): Promise<void> => {
+        try {
+            set({ loading: true });
+            const idFlujo = get().idFlujo;
+            if (!idFlujo) throw new Error('No hay un flujo de pagos seleccionado');
+            await withLoading(
+                () => axios.post(urlGuardaFlujoPagoDetalles, detalles),
+                'Datos guardados correctamente',
+                'Ocurrió un error al guardar el registro'
+            );
+            await get().cargarFlujoDetalle();
+            set({ loading: false });
+        } catch (error: any) {
+            set({ loading: false, error: error.message });
+            throw error;
+        }
+    },
     eliminarFPD: async (idDetalle: number): Promise<void> => {
         try {
             set({ loading: true });
@@ -137,18 +156,20 @@ const useFlujoPagosStore = create<FlujoPagosState>((set, get) => ({
         }
     },
 
-    // Guardar (crear) un nuevo flujo de pagos
-    guardarDatosFP: async (datos: { fechaInicio?: string }): Promise<void> => {
+
+    guardarDatosProyecto: async (payload: any): Promise<void> => {
         try {
+
+
             set({ loading: true });
-            const idPoliza = get().idPoliza;
-            const payload = { idPoliza, ...datos };
-            const response = await axios.post(urlGuardarFlujo, payload);
-            const nuevoFlujo = response.data;
-            // Asumimos que la respuesta incluye el ID del nuevo flujo creado
-            if (nuevoFlujo && nuevoFlujo.id) {
-                set({ idFlujo: nuevoFlujo.id, flujo: nuevoFlujo });
-            }
+            const idFlujo = get().idFlujo;
+            if (!idFlujo) throw new Error('No hay un flujo de pagos seleccionado');
+            await withLoading(
+                () => axios.post(urlGuardarFlujoProyecto, payload),
+                'Flujo de pagos editado correctamente',
+                'Ocurrió un error al editar el registro'
+            );
+            await get().cargarFlujoDetalle();
             set({ loading: false });
         } catch (error: any) {
             set({ loading: false, error: error.message });

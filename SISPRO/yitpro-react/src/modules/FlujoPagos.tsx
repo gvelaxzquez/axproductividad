@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { EditOutlined, ExclamationCircleTwoTone } from '@ant-design/icons';
 import { Button, Card, Col, DatePicker, Empty, Form, Modal, Progress, Row, Select, Table, Typography, message } from 'antd';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
+import * as XLSX from 'xlsx';
 import CustomFormModal from '../components/Common/CustomFormModal';
 import type { FlujoPagoDetModel } from '../model/FlujoPago.model';
 import { convertToPascalCase } from '../utils/convertPascal';
@@ -10,6 +12,7 @@ import { formatMoney, formatNumber } from '../utils/format.util';
 import type { FlujoDetalle } from './Proyectos/FlujoDePagos/flujoPagoDetalle.store';
 import useFlujoPagosStore from './Proyectos/FlujoDePagos/flujoPagoDetalle.store';
 import { buildColumnsFlujoPago } from './Proyectos/FlujoDePagos/flujoPagoDetalles.columns';
+import EditarProyectoModal from './Proyectos/FlujoDePagos/forms/editarProyecto.form';
 import FormFlujoDetalle from './Proyectos/FlujoDePagos/forms/flujoPagoDetalle.form';
 
 const { Title, Text } = Typography;
@@ -22,24 +25,27 @@ const FlujoPagos: React.FC = () => {
         indicadores,
         cargarFlujoDetalle,
         guardarDatosFPD: guardarDetalle,
+        importarFPD,
         eliminarFPD,
+        guardarDatosProyecto,
 
-        guardarDatosFP,
         actualizarFecha,
         actualizarRelacion
     } = useFlujoPagosStore();
 
     // Estados locales para control de formularios y modales
-    const [formNuevoFlujo] = Form.useForm();
     const [formRelacion] = Form.useForm();
     const [formEditarFecha] = Form.useForm();
-    const [modalNuevoFlujoVisible, setModalNuevoFlujoVisible] = useState(false);
+    const [modalEditarVisible, setModalEditarVisible] = useState(false);
     const [modalRelacionVisible, setModalRelacionVisible] = useState(false);
     const [modalFechaVisible, setModalFechaVisible] = useState(false);
     const [detalleParaRelacion, setDetalleParaRelacion] = useState<FlujoDetalle | null>(null);
     const [opcionesPago, setOpcionesPago] = useState<{ value: number; label: string }[]>([]);
 
     const [detalleSeleccionado, setDetalleSeleccionado] = useState<FlujoPagoDetModel | null>(null);
+    const [pagosExcel, setPagosExcel] = useState<any[]>([]);
+    const [modalPagosVisible, setModalPagosVisible] = useState(false);
+
 
     // Efecto: cargar datos al montar (si existe un flujo de pagos para la póliza actual)
     useEffect(() => {
@@ -67,15 +73,16 @@ const FlujoPagos: React.FC = () => {
     };
 
     // Maneja la confirmación de creación de nuevo flujo
-    const handleCrearFlujo = async () => {
+    const handleEditarProyecto = async (data: any) => {
         try {
-            const valores = await formNuevoFlujo.validateFields();
-            const fecha = valores.fechaInicio ? dayjs(valores.fechaInicio).format('YYYY-MM-DD') : undefined;
-            await guardarDatosFP({ fechaInicio: fecha });
-            message.success('Flujo de pagos creado correctamente');
-            setModalNuevoFlujoVisible(false);
-            formNuevoFlujo.resetFields();
-            // El efecto useEffect cargará automáticamente los datos del nuevo flujo (idFlujo cambió)
+            const _res = {
+                ...data,
+                IdFlujoPago: idFlujo,
+                IdProyecto: flujo.idProyecto ?? 0,
+                activo: data.activo === undefined ? false : data.activo
+            };
+            await guardarDatosProyecto(convertToPascalCase(_res));
+            setModalEditarVisible(false);
         } catch (error) {
             if ((error as any).errorFields) {
                 // Error de validación del formulario (antd se encarga de mostrarlo)
@@ -128,20 +135,57 @@ const FlujoPagos: React.FC = () => {
 
 
 
+    const handleCargarExcel = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
 
+        try {
+            const reader = new FileReader();
+            reader.onload = (evt: any) => {
+                const data = new Uint8Array(evt.target.result);
+                const workbook = XLSX.read(data, { type: 'array' });
+                const sheet = workbook.Sheets['Anexo 2 - Flujo de pago'];
+                if (!sheet) return message.error('Hoja "Flujo Pagos" no encontrada');
 
+                const rows = XLSX.utils.sheet_to_json(sheet, { header: 1 }) as any[][];
 
+                // Buscar fila de encabezados (col 4 === 'No de Pago')
+                const headerRowIndex = rows.findIndex(row => row[4]?.toString().toLowerCase().includes('no de pago'));
+                if (headerRowIndex === -1) return message.error('Encabezado "No de Pago" no encontrado');
+                console.log('Encabezados encontrados:', rows[headerRowIndex]);
+                // Procesar filas desde ahí hacia abajo
+                const dataRows = rows.slice(headerRowIndex + 1).filter(row => !isNaN(Number(row[4])));
 
+                const pagos = dataRows.map(row => {
+                    const monto = parseFloat((row[17] + '').replace(/[^0-9.-]+/g, '')) || 0;
+                    const iva = monto * ((flujo?.porcIVA ?? 0) / 100);
+                    const total = monto + iva;
+                    return ({
+                        secuencia: Number(row[4]),                         // No de Pago
+                        porcentaje: Math.round(row[9] * 100),                      // % Avance
+                        horas: Number(row[12]),                             // Horas
+                        monto,
+                        concepto: row[21] || '',                            // Concepto
+                        amortizadas: 0,
+                        id: 0,
+                        iva,
+                        total,
+                        IdFlujoPago: idFlujo,
+                        IdFlujoPagoDet: 0
 
+                    })
+                });
+                setPagosExcel(pagos);
+                setModalPagosVisible(true);
+                (document.getElementById('excelInput') as HTMLInputElement).value = '';
+            };
 
-
-
-
-
-
-
-
-
+            reader.readAsArrayBuffer(file);
+        } catch (error) {
+            console.error(error);
+            message.error('Error al procesar el archivo');
+        }
+    };
     const [modalConfig, setModalConfig] = useState<{
         visible: boolean;
         title: string;
@@ -210,11 +254,16 @@ const FlujoPagos: React.FC = () => {
                         <>
                             <Card
                                 style={{ marginBottom: '1rem' }}
-                                title={<Title level={4} style={{ margin: 0 }}>{flujo.nombreProy}</Title>}
+                                title={
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                        <Title level={4} style={{ margin: 0 }}>{flujo.nombreProy}</Title>
+                                        <Button size="small" type="default" icon={<EditOutlined />} onClick={() => setModalEditarVisible(true)} />
+                                    </div>
+                                }
                             >
                                 <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
                                     <Text><strong>Horas totales:</strong> {flujo.horasTotales}</Text>
-                                    <Text><strong>Precio hora:</strong> ${flujo.precioHora}</Text>
+                                    <Text><strong>Precio hora:</strong> {formatMoney(flujo.precioHora)}</Text>
                                     <Text><strong>IVA:</strong> {flujo.porcIVA}%</Text>
                                 </div>
                             </Card>
@@ -259,6 +308,7 @@ const FlujoPagos: React.FC = () => {
                                     {/* Desfase */}
                                     <div style={{ textAlign: 'center', flex: 1 }}>
                                         <Progress
+                                            format={(value) => value < 100 ? `${value}%` : <ExclamationCircleTwoTone style={{fontSize:42}} twoToneColor={colorDesfase(indicadores?.desfaseProc ?? 0)} />}
                                             type="circle"
                                             percent={indicadores?.desfaseProc ?? 0}
                                             strokeColor={colorDesfase(indicadores?.desfaseProc ?? 0)}
@@ -340,9 +390,27 @@ const FlujoPagos: React.FC = () => {
                             title={
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                     <span>Pagos del flujo</span>
-                                    <Button type="primary" onClick={() => handleNuevoDetalle()}>
-                                        Agregar pago
-                                    </Button>
+                                    <div style={{ display: 'flex', gap: 8 }}>
+                                        <Button
+                                            type="default"
+                                            onClick={() => {
+                                                const input = document.getElementById('excelInput') as HTMLInputElement;
+                                                if (input) input.click();
+                                            }}
+                                        >
+                                            Cargar archivo Excel
+                                        </Button>
+                                        <input
+                                            id="excelInput"
+                                            type="file"
+                                            accept=".xlsx"
+                                            onChange={handleCargarExcel}
+                                            style={{ display: 'none' }}
+                                        />
+                                        <Button type="primary" onClick={() => handleNuevoDetalle()}>
+                                            Agregar pago
+                                        </Button>
+                                    </div>
                                 </div>
                             }
                         >
@@ -373,28 +441,15 @@ const FlujoPagos: React.FC = () => {
                     {modalConfig.content}
                 </CustomFormModal>
             )}
-
-            <Modal
-                title="Nuevo Flujo de Pagos"
-                visible={modalNuevoFlujoVisible}
-                onOk={handleCrearFlujo}
-                onCancel={() => {
-                    setModalNuevoFlujoVisible(false);
-                    formNuevoFlujo.resetFields();
-                }}
-                okText="Guardar"
-                cancelText="Cancelar"
+            <CustomFormModal
+                open={modalEditarVisible}
+                title={"Editar Flujo de pagos | " + flujo?.nombreProy}
+                formId={"formFlujoProyecto"}
+                onCancel={() => setModalEditarVisible(false)}
             >
-                <Form form={formNuevoFlujo} layout="vertical">
-                    <Form.Item
-                        name="fechaInicio"
-                        label="Fecha inicial"
-                        rules={[{ required: true, message: 'Ingrese la fecha inicial' }]}
-                    >
-                        <DatePicker format="DD/MM/YYYY" style={{ width: '100%' }} />
-                    </Form.Item>
-                </Form>
-            </Modal>
+                <EditarProyectoModal onSubmit={handleEditarProyecto} />
+            </CustomFormModal>
+
 
 
 
@@ -460,6 +515,54 @@ const FlujoPagos: React.FC = () => {
                     </Form.Item>
                 </Form>
             </Modal>
+            <Modal
+                open={modalPagosVisible}
+                onCancel={() => setModalPagosVisible(false)}
+                onOk={() => {
+                    importarFPD(pagosExcel.map(convertToPascalCase)).then(() => {
+                        setModalPagosVisible(false);
+                        setPagosExcel([]);
+                    });
+                }}
+                okText="Guardar"
+                cancelText="Cancelar"
+                width={1000}
+            >
+                <Title level={5}>Pagos cargados desde Excel</Title>
+                <Table
+                    dataSource={pagosExcel}
+                    rowKey="secuencia"
+                    pagination={false}
+                    columns={[
+                        { title: 'Secuencia', dataIndex: 'secuencia' },
+                        { title: 'Concepto', dataIndex: 'concepto' },
+                        { title: '% Avance', dataIndex: 'porcentaje' },
+                        { title: 'Horas', dataIndex: 'horas' },
+                        { title: 'Subtotal', dataIndex: 'monto', render: formatMoney },
+                        { title: 'IVA', dataIndex: 'iva', render: formatMoney },
+                        { title: 'Total', dataIndex: 'total', render: formatMoney },
+                    ]}
+                    summary={pageData => {
+                        const totalHoras = pageData.reduce((sum, row) => sum + (Number(row.horas) || 0), 0);
+                        const totalSubtotal = pageData.reduce((sum, row) => sum + (Number(row.monto) || 0), 0);
+                        const totalIva = pageData.reduce((sum, row) => sum + (Number(row.iva) || 0), 0);
+                        const totalTotal = pageData.reduce((sum, row) => sum + (Number(row.total) || 0), 0);
+                        return (
+                            <Table.Summary.Row>
+                                <Table.Summary.Cell index={0} colSpan={3}><b>Totales</b></Table.Summary.Cell>
+                                <Table.Summary.Cell index={3}><b>{formatNumber(totalHoras)}</b></Table.Summary.Cell>
+                                <Table.Summary.Cell index={4}><b>{formatMoney(totalSubtotal)}</b></Table.Summary.Cell>
+                                <Table.Summary.Cell index={4}><b>{formatMoney(totalIva)}</b></Table.Summary.Cell>
+                                <Table.Summary.Cell index={4}><b>{formatMoney(totalTotal)}</b></Table.Summary.Cell>
+                            </Table.Summary.Row>
+                        );
+                    }}
+                />
+                <Text type="secondary" style={{ marginTop: "25px" }}>
+                    Asegúrese de que los datos sean correctos antes de guardar. Los pagos reemplazarán el flujo de pagos actual.
+                </Text>
+            </Modal>
+
         </div>
     );
 };

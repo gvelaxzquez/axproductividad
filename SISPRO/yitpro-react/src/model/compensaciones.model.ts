@@ -33,6 +33,7 @@ export interface FiltrosCompensaciones {
     guardar: boolean;
 }
 export interface ProductivitySummaryModel {
+    totalRecursos: number;
     totalHorasSolicitadas: number;
     totalHorasLiberadas: number;
     totalBonoCumplimiento: number;

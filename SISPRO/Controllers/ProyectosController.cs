@@ -2388,6 +2388,56 @@ namespace AxProductividad.Controllers
 
 
         }
+        public ActionResult GuardaFlujoPagoDetalles(IEnumerable<FlujoPagoDetModel> Flujos)
+        {
+
+            var Resultado = new JObject();
+            try
+            {
+             
+                if (!FuncionesGenerales.SesionActiva())
+                {
+                    return RedirectToAction("Index", "Login");
+                }
+
+                Session["Accion" + Session.SessionID] = "FlujoPagos";
+                if (!FuncionesGenerales.ValidaPermisosAccion(1))
+                {
+                    Resultado["Exito"] = false;
+                    Resultado["Mensaje"] = "Los tiene permisos para guardar.";
+                    return Content(Resultado.ToString());
+
+                }
+
+
+                CD_Proyecto cd_pro = new CD_Proyecto();
+                var Usuario = ((Models.Sesion)(Session["Usuario" + Session.SessionID])).Usuario;
+
+
+                int Respuesta = 0;
+
+                Respuesta = cd_pro.GuardarDetallesFlujo(Flujos, Usuario.IdUsuario, Encripta.DesencriptaDatos(Usuario.ConexionEF));
+
+
+
+                Resultado["Exito"] = true;
+                Resultado["Mensaje"] = "Los datos se guardaron correctamente";
+                Resultado["Respuesta"] = Respuesta;
+
+
+                return Content(Resultado.ToString());
+
+            }
+            catch (Exception ex)
+            {
+                Resultado["Exito"] = false;
+                Resultado["Mensaje"] = ex.Message;
+
+                return Content(Resultado.ToString());
+            }
+
+
+        }
 
 
         public ActionResult EliminarFlujoPagoDetalle(long IdFlujoPagoDet)

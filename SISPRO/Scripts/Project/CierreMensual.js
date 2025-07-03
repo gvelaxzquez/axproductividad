@@ -188,7 +188,7 @@ function inicializaTablaComp(nombreTabla, datos) {
                                 return '<a style="cursor:pointer" href="#" onclick="clickalerta('+  row.IdActividad +' )" >' + data + '</a>'
                             }
                         },
-                        {
+                        {   
                             "data": "TipoActividadStr",
                             "class": "text-left"
                         },
