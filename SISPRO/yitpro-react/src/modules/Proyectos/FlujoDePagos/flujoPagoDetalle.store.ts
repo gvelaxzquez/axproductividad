@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { create } from 'zustand';
 import axios from 'axios';
-import dayjs from 'dayjs';
+import { create } from 'zustand';
+import type { FlujoPagoDetModel, FlujoPagoModel } from '../../../model/FlujoPago.model';
 import type { ProyectosModel } from '../../../model/Project.model';
 import { convertFromPascalCase } from '../../../utils/convertPascal';
-import type { FlujoPagoDetModel, FlujoPagoModel } from '../../../model/FlujoPago.model';
 import { withLoading } from '../../../utils/withLoading';
 // Definición de las interfaces de datos
 export interface FlujoDetalle {
@@ -31,8 +30,7 @@ interface FlujoPagosState {
 
 
     guardarDatosProyecto: (datos: { fechaInicio?: string }) => Promise<void>;
-    actualizarFecha: (idDetalle: number, nuevaFecha: Date) => Promise<void>;
-    actualizarRelacion: (idDetalle: number, idRelacion: number) => Promise<void>;
+    actualizarFecha: (payload: any) => Promise<void>;
 }
 
 // Función auxiliar para obtener el valor de inputs ocultos en el HTML
@@ -53,9 +51,9 @@ const urlGuardaFlujoPagoDetalle = '/Proyectos/GuardaFlujoPagoDetalle';
 const urlGuardaFlujoPagoDetalles = '/Proyectos/GuardaFlujoPagoDetalles';
 const urlEliminarFlujoPagoDetalle = '/Proyectos/EliminarFlujoPagoDetalle';
 const urlGuardarFlujoProyecto = '/Proyectos/GuardaFlujoPago';
-
-
 const urlGuardarFlujoPagoFechas = '/Proyectos/GuardaFlujoPagoFecha';
+
+
 
 
 // Definición del store Zustand
@@ -178,39 +176,16 @@ const useFlujoPagosStore = create<FlujoPagosState>((set, get) => ({
     },
 
     // Actualizar la fecha programada de un pago (detalle) existente
-    actualizarFecha: async (idDetalle: number, nuevaFecha: Date): Promise<void> => {
+    actualizarFecha: async (payload: any): Promise<void> => {
         try {
             set({ loading: true });
-            const fechaStr = dayjs(nuevaFecha).format('YYYY-MM-DD');
-            await axios.post(urlGuardarFlujoPagoFechas, { idDetalle, nuevaFecha: fechaStr });
-            // Actualizar la fecha en el estado local
-            set(state => ({
-                loading: false,
-                detalles: state.detalles.map(d =>
-                    d.id === idDetalle ? { ...d, fecha: fechaStr } : d
-                )
-            }));
-        } catch (error: any) {
-            set({ loading: false, error: error.message });
-            throw error;
-        }
-    },
-
-    // Actualizar la relación de un pago (vincular un detalle con un pago real efectuado)
-    actualizarRelacion: async (idDetalle: number, idRelacion: number): Promise<void> => {
-        try {
-            set({ loading: true });
-            await axios.post(urlEliminarFlujoPagoDetalle, { idDetalle, idRelacion });
-            // Marcar el detalle como pagado en el estado local y recalcular el porcentaje
-            set(state => {
-                const detallesActualizados = state.detalles.map(d =>
-                    d.id === idDetalle ? { ...d, relacionId: idRelacion, pagado: true } : d
-                );
-                const total = detallesActualizados.reduce((sum, d) => sum + d.monto, 0);
-                const totalPagado = detallesActualizados.filter(d => d.pagado).reduce((sum, d) => sum + d.monto, 0);
-                const porcentaje = total > 0 ? Math.round((totalPagado / total) * 100) : 0;
-                return { detalles: detallesActualizados, porcentajePagado: porcentaje, loading: false };
-            });
+            await withLoading(
+                () => axios.post(urlGuardarFlujoPagoFechas, payload),
+                'Fecha actualizada correctamente',
+                'Ocurrió un error al editar el registro'
+            );
+            await get().cargarFlujoDetalle();
+            set({ loading: false });
         } catch (error: any) {
             set({ loading: false, error: error.message });
             throw error;

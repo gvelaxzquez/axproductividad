@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { EditOutlined, ExclamationCircleTwoTone } from '@ant-design/icons';
-import { Button, Card, Col, DatePicker, Empty, Form, Modal, Progress, Row, Select, Table, Typography, message } from 'antd';
-import axios from 'axios';
+import { Button, Card, Col, Empty, Modal, Progress, Row, Table, Typography, message } from 'antd';
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import * as XLSX from 'xlsx';
@@ -9,9 +8,9 @@ import CustomFormModal from '../components/Common/CustomFormModal';
 import type { FlujoPagoDetModel } from '../model/FlujoPago.model';
 import { convertToPascalCase } from '../utils/convertPascal';
 import { formatMoney, formatNumber } from '../utils/format.util';
-import type { FlujoDetalle } from './Proyectos/FlujoDePagos/flujoPagoDetalle.store';
 import useFlujoPagosStore from './Proyectos/FlujoDePagos/flujoPagoDetalle.store';
 import { buildColumnsFlujoPago } from './Proyectos/FlujoDePagos/flujoPagoDetalles.columns';
+import EditarFechaModal from './Proyectos/FlujoDePagos/forms/editarFecha.form';
 import EditarProyectoModal from './Proyectos/FlujoDePagos/forms/editarProyecto.form';
 import FormFlujoDetalle from './Proyectos/FlujoDePagos/forms/flujoPagoDetalle.form';
 
@@ -28,23 +27,18 @@ const FlujoPagos: React.FC = () => {
         importarFPD,
         eliminarFPD,
         guardarDatosProyecto,
-
-        actualizarFecha,
-        actualizarRelacion
+        actualizarFecha
     } = useFlujoPagosStore();
 
     // Estados locales para control de formularios y modales
-    const [formRelacion] = Form.useForm();
-    const [formEditarFecha] = Form.useForm();
     const [modalEditarVisible, setModalEditarVisible] = useState(false);
-    const [modalRelacionVisible, setModalRelacionVisible] = useState(false);
     const [modalFechaVisible, setModalFechaVisible] = useState(false);
-    const [detalleParaRelacion, setDetalleParaRelacion] = useState<FlujoDetalle | null>(null);
-    const [opcionesPago, setOpcionesPago] = useState<{ value: number; label: string }[]>([]);
 
     const [detalleSeleccionado, setDetalleSeleccionado] = useState<FlujoPagoDetModel | null>(null);
     const [pagosExcel, setPagosExcel] = useState<any[]>([]);
     const [modalPagosVisible, setModalPagosVisible] = useState(false);
+    const [tipoFecha, setTipoFecha] = useState<number | null>(null);
+    const [tituloFecha, setTituloFecha] = useState<string>('Editar Fecha');
 
 
     // Efecto: cargar datos al montar (si existe un flujo de pagos para la póliza actual)
@@ -53,24 +47,6 @@ const FlujoPagos: React.FC = () => {
             cargarFlujoDetalle()
         }
     }, [cargarFlujoDetalle, idFlujo]);
-
-    // Función para buscar pagos realizados (reemplaza la funcionalidad AJAX de select2)
-    const buscarPagos = async (term: string) => {
-        if (!term) return;
-        try {
-            const url = (document.getElementById('urlBuscarPago') as HTMLInputElement)?.value;
-            if (!url) return;
-            const resp = await axios.get(url, { params: { term } });
-            // Suponemos que resp.data es una lista de pagos con {id, nombre/descripcion}
-            const opciones = resp.data.map((p: any) => ({
-                value: p.id,
-                label: p.nombre ?? p.descripcion ?? `Pago ${p.id}`
-            }));
-            setOpcionesPago(opciones);
-        } catch (error) {
-            console.error('Error buscando pagos:', error);
-        }
-    };
 
     // Maneja la confirmación de creación de nuevo flujo
     const handleEditarProyecto = async (data: any) => {
@@ -91,49 +67,6 @@ const FlujoPagos: React.FC = () => {
             }
         }
     };
-    // Maneja la confirmación para relacionar (vincular) un pago realizado con el detalle seleccionado
-    const handleRelacionarPago = async () => {
-        try {
-            const valores = await formRelacion.validateFields();
-            const idPago = valores.idPago;
-            if (detalleParaRelacion) {
-                await actualizarRelacion(detalleParaRelacion.id, idPago);
-                message.success('Pago relacionado correctamente');
-            }
-            setModalRelacionVisible(false);
-            formRelacion.resetFields();
-            setDetalleParaRelacion(null);
-        } catch (error) {
-            if ((error as any).errorFields) {
-                // Error de validación en formulario
-            } else {
-                message.error('Error al relacionar el pago');
-            }
-        }
-    };
-
-    // Maneja la confirmación para actualizar la fecha de un pago programado
-    const handleActualizarFecha = async () => {
-        try {
-            const valores = await formEditarFecha.validateFields();
-            const nuevaFecha = valores.nuevaFecha; // objeto Dayjs de DatePicker
-            if (detalleSeleccionado && nuevaFecha) {
-                await actualizarFecha(detalleSeleccionado.idFlujoPago, nuevaFecha.toDate());
-                message.success('Fecha de pago actualizada');
-            }
-            setModalFechaVisible(false);
-            formEditarFecha.resetFields();
-            setDetalleSeleccionado(null);
-        } catch (error) {
-            if ((error as any).errorFields) {
-                // Error de validación en formulario
-            } else {
-                message.error('Error al actualizar la fecha');
-            }
-        }
-    };
-
-
 
     const handleCargarExcel = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -243,7 +176,73 @@ const FlujoPagos: React.FC = () => {
         }
     };
 
-    const useColumns = buildColumnsFlujoPago(indicadores?.avanceRealPorc ?? 0, handleEditarFlujoDetalle, handleDeleteFlujoDetalle);
+
+    const abrirModalFecha = (row: FlujoPagoDetModel, tipo: number) => {
+        setDetalleSeleccionado(row);
+        setTipoFecha(tipo);
+
+        let titulo = 'Editar Fecha';
+        switch (tipo) {
+            case 1:
+                titulo = 'Editar Fecha Compromiso';
+                break;
+            case 2:
+                titulo = 'Editar Fecha de Factura';
+                break;
+            case 3:
+                titulo = 'Editar Fecha Programada de Pago';
+                break;
+            case 4:
+                titulo = 'Editar Fecha de Pago';
+                break;
+            default:
+                titulo = 'Editar Fecha';
+        }
+        setTituloFecha(titulo);
+        setModalFechaVisible(true);
+    };
+
+    const handleActualizarFecha = async (data: any) => {
+        try {
+            if (!detalleSeleccionado || !tipoFecha) return;
+
+            const payload: any = {
+                IdFlujoPagoDet: detalleSeleccionado.idFlujoPagoDet,
+                TipoFecha: tipoFecha,
+                Fecha: dayjs(data.nuevaFecha).format('DD/MM/YYYY')
+            };
+
+            if (tipoFecha === 2) {
+                payload.Factura = data.factura;
+            }
+
+            await actualizarFecha(payload);
+            setModalFechaVisible(false);
+            setDetalleSeleccionado(null);
+            setTipoFecha(null);
+        } catch (error) {
+            if ((error as any).errorFields) {
+                // error de validación
+            } else {
+                message.error('Error al actualizar la fecha');
+            }
+        }
+    };
+
+    const handleFechaDev = (row: FlujoPagoDetModel) => abrirModalFecha(row, 1);
+    const handleFechaFactura = (row: FlujoPagoDetModel) => abrirModalFecha(row, 2);
+    const handleFechaProgramada = (row: FlujoPagoDetModel) => abrirModalFecha(row, 3);
+    const handleFechaPago = (row: FlujoPagoDetModel) => abrirModalFecha(row, 4);
+
+    const useColumns = buildColumnsFlujoPago(
+        indicadores?.avanceRealPorc ?? 0,
+        handleEditarFlujoDetalle,
+        handleDeleteFlujoDetalle,
+        handleFechaDev,
+        handleFechaFactura,
+        handleFechaProgramada,
+        handleFechaPago
+    );
     return (
 
         <div style={{ padding: '1rem' }}>
@@ -308,7 +307,7 @@ const FlujoPagos: React.FC = () => {
                                     {/* Desfase */}
                                     <div style={{ textAlign: 'center', flex: 1 }}>
                                         <Progress
-                                            format={(value) => value < 100 ? `${value}%` : <ExclamationCircleTwoTone style={{fontSize:42}} twoToneColor={colorDesfase(indicadores?.desfaseProc ?? 0)} />}
+                                            format={(value) => value < 100 ? `${value}%` : <ExclamationCircleTwoTone style={{ fontSize: 42 }} twoToneColor={colorDesfase(indicadores?.desfaseProc ?? 0)} />}
                                             type="circle"
                                             percent={indicadores?.desfaseProc ?? 0}
                                             strokeColor={colorDesfase(indicadores?.desfaseProc ?? 0)}
@@ -420,6 +419,7 @@ const FlujoPagos: React.FC = () => {
                                 dataSource={flujo?.flujoDetalle ?? []}
                                 rowKey="id"
                                 pagination={false}
+                                scroll={{ x: 1000 }} // o 'max-content' si todas las columnas tienen ancho definido
                             />
                         </Card>
                     ) : (
@@ -450,71 +450,17 @@ const FlujoPagos: React.FC = () => {
                 <EditarProyectoModal onSubmit={handleEditarProyecto} />
             </CustomFormModal>
 
-
-
-
-            <Modal
-                title="Relacionar Pago Realizado"
-                visible={modalRelacionVisible}
-                onOk={handleRelacionarPago}
-                onCancel={() => {
-                    setModalRelacionVisible(false);
-                    setDetalleParaRelacion(null);
-                    formRelacion.resetFields();
-                }}
-                okText="Relacionar"
-                cancelText="Cancelar"
+            <CustomFormModal
+                open={modalFechaVisible}
+                title={tituloFecha}
+                formId={"formFlujoFecha"}
+                onCancel={() => setModalFechaVisible(false)}
             >
-                <Form form={formRelacion} layout="vertical">
-                    <Form.Item
-                        name="idPago"
-                        label="Pago realizado"
-                        rules={[{ required: true, message: 'Seleccione un pago' }]}
-                    >
-                        <Select
-                            showSearch
-                            placeholder="Buscar y seleccionar pago"
-                            filterOption={false}
-                            onSearch={buscarPagos}
-                            options={opcionesPago}
-                            notFoundContent="Sin resultados"
-                        />
-                    </Form.Item>
-                    {detalleParaRelacion && (
-                        <Text>
-                            Vinculando al pago programado el {dayjs(detalleParaRelacion.fecha).format('DD/MM/YYYY')}{' '}
-                            por{' '}
-                            {new Intl.NumberFormat('es-MX', {
-                                style: 'currency',
-                                currency: 'MXN'
-                            }).format(detalleParaRelacion.monto)}
-                        </Text>
-                    )}
-                </Form>
-            </Modal>
+                <EditarFechaModal onSubmit={handleActualizarFecha} tipoFecha={tipoFecha} />
+            </CustomFormModal>
 
-            <Modal
-                title="Actualizar Fecha de Pago"
-                visible={modalFechaVisible}
-                onOk={handleActualizarFecha}
-                onCancel={() => {
-                    setModalFechaVisible(false);
-                    setDetalleSeleccionado(null);
-                    formEditarFecha.resetFields();
-                }}
-                okText="Actualizar"
-                cancelText="Cancelar"
-            >
-                <Form form={formEditarFecha} layout="vertical">
-                    <Form.Item
-                        name="nuevaFecha"
-                        label="Nueva fecha"
-                        rules={[{ required: true, message: 'Seleccione la nueva fecha' }]}
-                    >
-                        <DatePicker format="DD/MM/YYYY" style={{ width: '100%' }} />
-                    </Form.Item>
-                </Form>
-            </Modal>
+
+
             <Modal
                 open={modalPagosVisible}
                 onCancel={() => setModalPagosVisible(false)}

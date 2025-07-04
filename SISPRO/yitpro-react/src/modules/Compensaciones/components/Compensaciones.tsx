@@ -13,15 +13,24 @@ import { FileExcelTwoTone, LineChartOutlined, SortAscendingOutlined } from '@ant
 const { Content } = Layout;
 
 const Compensaciones: React.FC = () => {
-    const { encabezado, detalle,productivitySummary, filtros } = useCompensacionesStore();
+    const { encabezado, detalle, productivitySummary, filtros } = useCompensacionesStore();
     const [_encabezado, setEncabezado] = useState<CompensacionEncabezado[]>([]);
     const [selectedRecurso, setRecurso] = useState<CompensacionEncabezado | null>(null);
     const [open, setOpen] = useState<boolean>(false);
     const [ordenPorProductividad, setOrdenPorProductividad] = useState(false);
 
     useEffect(() => {
-        setEncabezado(encabezado);
-    }, [encabezado]);
+        const nuevaLista = [...encabezado].sort((a, b) => {
+            if (ordenPorProductividad) {
+                const prodA = parseFloat(a.productividad?.replace('%', '') || '0');
+                const prodB = parseFloat(b.productividad?.replace('%', '') || '0');
+                return prodB - prodA;
+            } else {
+                return a.recurso.localeCompare(b.recurso);
+            }
+        });
+        setEncabezado(nuevaLista);
+    }, [encabezado, ordenPorProductividad]);
     const handleCardClick = (recursoClave: string) => {
         const recurso = encabezado.find(r => r.clave === recursoClave);
         if (recurso) {
