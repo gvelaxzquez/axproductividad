@@ -2,7 +2,7 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 import { create } from 'zustand';
 import type { ActividadesModel } from '../../../model/Actividad.model';
-import type { CompensacionEncabezado, FiltrosCompensaciones, ProductivitySummaryModel } from '../../../model/compensaciones.model';
+import type { CompensacionEncabezado, FiltrosCompensaciones, ProductivitySummaryModel, UsuarioIncidencia } from '../../../model/compensaciones.model';
 import { convertFromPascalCase } from '../../../utils/convertPascal';
 import { withLoading } from '../../../utils/withLoading';
 
@@ -16,14 +16,19 @@ interface CompensacionesState {
     isModalVisible: boolean;
     selectedRecurso: CompensacionEncabezado | null;
     productivitySummary: ProductivitySummaryModel | null; // Nueva propiedad
+    incidencias: UsuarioIncidencia[]; // Nueva propiedad
     setFiltros: (nuevosFiltros: Partial<FiltrosCompensaciones>) => void;
     generarCompensaciones: () => Promise<void>;
     showModal: (recurso: CompensacionEncabezado) => void;
     hideModal: () => void;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    analisisSemanal: (period?: number) => Promise<any>;
 }
 
 // --- Rutas de la API ---
 const urlGeneraCompensaciones = '/Compensaciones/GeneraCompensaciones';
+const urlAnalisisSemanal = '/Compensaciones/AnalisisSemanal';
+
 
 // --- Implementación del Store ---
 export const useCompensacionesStore = create<CompensacionesState>((set, get) => {
@@ -39,9 +44,11 @@ export const useCompensacionesStore = create<CompensacionesState>((set, get) => 
             mes: initialMes,
             fechaCorte: initialFechaCorte,
             guardar: true,
+            period: 1,
         },
         encabezado: [],
         detalle: [],
+        incidencias: [],
         loading: false,
         error: null,
         isModalVisible: false,
@@ -106,9 +113,51 @@ export const useCompensacionesStore = create<CompensacionesState>((set, get) => 
                 } else {
                     set({ error: data.Mensaje, encabezado: [], detalle: [], productivitySummary: null });
                 }
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } catch (error: any) {
                 set({ error: error.message, encabezado: [], detalle: [], productivitySummary: null });
+                throw error;
+            }
+        },
+        analisisSemanal: async (period?: number) => {
+            const { filtros } = get();
+            if (!filtros.anio || !filtros.mes) {
+                set({ error: 'El año y el mes son requeridos.' });
+                return;
+            }
+            filtros.period = period ?? 1;
+            try {
+                const { data } = await withLoading(() =>
+                    axios.post(urlAnalisisSemanal, filtros)
+                );
+
+                if (data.Exito) {
+                    const encabezadoDictRaw = JSON.parse(data.LstEncabezado);
+                    const detalleDictRaw = JSON.parse(data.LstDetalle);
+                    const incidenciasDictRaw = JSON.parse(data.LstIncidencias);
+
+                    // Convertir propiedades PascalCase → camelCase por cada entrada del diccionario
+                    const encabezadoDict: Record<string, CompensacionEncabezado[]> = {};
+                    for (const [semana, lista] of Object.entries(encabezadoDictRaw)) {
+                        encabezadoDict[semana] = convertFromPascalCase<CompensacionEncabezado[]>(lista);
+                    }
+
+                    const detalleDict: Record<string, ActividadesModel[]> = {};
+                    for (const [semana, lista] of Object.entries(detalleDictRaw)) {
+                        detalleDict[semana] = convertFromPascalCase<ActividadesModel[]>(lista);
+                    }
+                    const incidencias: Record<string, UsuarioIncidencia[]> = {};
+                    for (const [semana, lista] of Object.entries(incidenciasDictRaw)) {
+                        incidencias[semana] = convertFromPascalCase<UsuarioIncidencia[]>(lista);
+                    }
+
+                    return [encabezadoDict, detalleDict, incidencias];
+                } else {
+                    set({ error: data.Mensaje, encabezado: [], detalle: [], incidencias: [], productivitySummary: null });
+                }
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            } catch (error: any) {
+                set({ error: error.message, encabezado: [], detalle: [], incidencias: [], productivitySummary: null });
                 throw error;
             }
         },

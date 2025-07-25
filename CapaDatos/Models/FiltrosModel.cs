@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -82,6 +83,83 @@ namespace CapaDatos.Models
         public bool SinSprint { get;  set; }
         public long IdActividad { get;  set; }
         public long IdTipoUsuario { get;  set; }
+        /// <summary>
+        /// 1: Semanal, 2: Quincenal, 3: Mensual
+        /// </summary>
+        public byte Period { get; set; }
+
+
+        public List<PeriodoRango> GetPeriodos()
+        {
+            var periodos = new List<PeriodoRango>();
+            var diasEnMes = DateTime.DaysInMonth(Anio, Mes);
+            var calendario = CultureInfo.CurrentCulture.Calendar;
+            var reglaSemana = CalendarWeekRule.FirstDay;
+            var diaInicioSemana = DayOfWeek.Monday;
+
+            switch (Period)
+            {
+                case 1: // Semanal
+                    var fechasPorSemana = new Dictionary<int, List<DateTime>>();
+
+                    for (int dia = 1; dia <= diasEnMes; dia++)
+                    {
+                        var fecha = new DateTime(Anio, Mes, dia);
+                        int semana = calendario.GetWeekOfYear(fecha, reglaSemana, diaInicioSemana);
+
+                        if (!fechasPorSemana.ContainsKey(semana))
+                            fechasPorSemana[semana] = new List<DateTime>();
+
+                        fechasPorSemana[semana].Add(fecha);
+                    }
+
+                    foreach (var grupo in fechasPorSemana.OrderBy(k => k.Key))
+                    {
+                        var fechas = grupo.Value;
+                        periodos.Add(new PeriodoRango(grupo.Key, fechas.First(), fechas.Last()));
+                    }
+                    break;
+
+                case 2: // Quincenal
+                    var inicioMes = new DateTime(Anio, Mes, 1);
+                    var quincena1Fin = new DateTime(Anio, Mes, 15);
+                    var quincena2Inicio = new DateTime(Anio, Mes, 16);
+                    var finMes = new DateTime(Anio, Mes, diasEnMes);
+
+                    int quincena1 = (Mes - 1) * 2 + 1;
+                    int quincena2 = (Mes - 1) * 2 + 2;
+
+                    periodos.Add(new PeriodoRango(quincena1, inicioMes, quincena1Fin));
+                    periodos.Add(new PeriodoRango(quincena2, quincena2Inicio, finMes));
+                    break;
+
+                case 3: // Mensual
+                    periodos.Add(new PeriodoRango(Mes, new DateTime(Anio, Mes, 1), new DateTime(Anio, Mes, diasEnMes)));
+                    break;
+
+                default:
+                    throw new InvalidOperationException("Periodo inválido");
+            }
+
+            return periodos;
+        }
+
+
 
     }
+    public class PeriodoRango
+    {
+        public int Numero { get; set; } // Semana, Quincena o Mes
+        public DateTime Inicio { get; set; }
+        public DateTime Fin { get; set; }
+
+        public PeriodoRango(int numero, DateTime inicio, DateTime fin)
+        {
+            Numero = numero;
+            Inicio = inicio;
+            Fin = fin;
+        }
+    }
+
+
 }

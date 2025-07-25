@@ -1,14 +1,16 @@
-import React from 'react';
-import { DatePicker, Button, Space, Card, Row, Col, Typography } from 'antd';
-import { useCompensacionesStore } from '../store/compensaciones.store';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { ReloadOutlined } from '@ant-design/icons';
+import { Button, Card, Col, DatePicker, Row, Space, Typography } from 'antd';
 import type { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
-import { ReloadOutlined } from '@ant-design/icons';
-
+import React, { useState } from 'react';
+import { useCompensacionesStore } from '../store/compensaciones.store';
+import { getPeriodoRange, tranformLista } from '../utils';
+import GraficaProductividadSemanal, { type SemanaData } from './GraficaProductividadSemanal.v1';
 const { Text } = Typography;
 
 const FiltrosCompensaciones: React.FC = () => {
-    const { filtros, setFiltros, generarCompensaciones, loading } = useCompensacionesStore();
+    const { filtros, setFiltros, generarCompensaciones, loading, analisisSemanal } = useCompensacionesStore();
 
     const handleDateChange = (date: Dayjs | null, dateString: string) => {
         setFiltros({
@@ -31,6 +33,30 @@ const FiltrosCompensaciones: React.FC = () => {
         setFiltros({ guardar: true }); // Explícitamente establecer guardar en true
         generarCompensaciones();
     };
+    const [open, setOpen] = useState<boolean>(false);
+    const [semanas, setSemanas] = useState<any[]>([]);
+    const hideModal = () => {
+        setOpen(false);
+    };
+    const handleAnalisisSemanal = () => {
+        analisisSemanal().then(response => {
+            const semanasData: SemanaData[] = Object.entries(response[0]).map(
+                ([semanaStr, lista]: [string, any[]]) => {
+                    const semana = parseInt(semanaStr);
+                    return {
+                        semana: `Semana ${semana}`,
+                        rangoFechas: getPeriodoRange(semana, 'semana', filtros.anio, filtros.mes),
+                        datos: tranformLista(lista, response[1][semana] || [], response[2][semana] || [])
+
+                    };
+                }
+            );
+            setSemanas(semanasData);
+            setTimeout(() => {
+                setOpen(true);
+            }, 100);
+        });
+    }
 
     return (
         <Card title="Filtros" style={{ marginBottom: '24px' }}>
@@ -65,8 +91,20 @@ const FiltrosCompensaciones: React.FC = () => {
                     >
                         Guardar
                     </Button>
+                    <Button
+                        type="primary"
+                        onClick={handleAnalisisSemanal}
+                        loading={loading}
+                    >
+                        Analisis Semanal
+                    </Button>
                 </Col>
             </Row>
+            <GraficaProductividadSemanal
+                visible={open}
+                onClose={hideModal}
+                semanas={semanas}
+            />
         </Card>
     );
 };

@@ -157,32 +157,32 @@ namespace CapaDatos
                               })).ToList();
 
 
-                 LstEncabezadoLider = (from row in ds.Tables[2].AsEnumerable()
-                                 select (new CompensacionModel
-                                 {
-                                     IdUsuario = long.Parse(row["IdUsuario"].ToString()),
-                                     Recurso = row["Colaborador"].ToString(),
-                                     Proyectos= int.Parse(row["Proyectos"].ToString()),
-                                     BonoPotencial = Math.Round(decimal.Parse(row["BonoPotencial"].ToString()), 2).ToString(),
-                                     Total = Math.Round(decimal.Parse(row["TotalBono"].ToString()), 2).ToString(),
-
-                                 })).ToList();
-
-                LstDetalleLider = (from row in ds.Tables[3].AsEnumerable()
+                LstEncabezadoLider = (from row in ds.Tables[2].AsEnumerable()
                                       select (new CompensacionModel
                                       {
                                           IdUsuario = long.Parse(row["IdUsuario"].ToString()),
-                                          Proyecto  = row["Clave"].ToString() +  " - " + row["NombreProy"].ToString(),
-                                          CumpleCriterioAvance = int.Parse(row["CumpleCriterioAvance"].ToString()),
-                                          CumpleCriterioCosto = int.Parse(row["CumpleCriterioCosto"].ToString()),
-                                          CumpleCriterioRentabilidad = int.Parse(row["CumpleCriterioRentabilidad"].ToString()),
-                                          CumpleCriterioCaptura = int.Parse(row["CumpleCriterioCaptura"].ToString()),
-                                          ProductividadMes = Math.Round(decimal.Parse(row["PorcBono"].ToString()) *100, 2).ToString() ,
-                                          Facturado = Math.Round(decimal.Parse(row["Facturado"].ToString()), 2).ToString(),
-                                          BonoPotencial = Math.Round(decimal.Parse(row["BonoCompleto"].ToString()), 2).ToString(),
-                                          Total = Math.Round(decimal.Parse(row["BonoAPagar"].ToString()), 2).ToString(),
+                                          Recurso = row["Colaborador"].ToString(),
+                                          Proyectos = int.Parse(row["Proyectos"].ToString()),
+                                          BonoPotencial = Math.Round(decimal.Parse(row["BonoPotencial"].ToString()), 2).ToString(),
+                                          Total = Math.Round(decimal.Parse(row["TotalBono"].ToString()), 2).ToString(),
 
                                       })).ToList();
+
+                LstDetalleLider = (from row in ds.Tables[3].AsEnumerable()
+                                   select (new CompensacionModel
+                                   {
+                                       IdUsuario = long.Parse(row["IdUsuario"].ToString()),
+                                       Proyecto = row["Clave"].ToString() + " - " + row["NombreProy"].ToString(),
+                                       CumpleCriterioAvance = int.Parse(row["CumpleCriterioAvance"].ToString()),
+                                       CumpleCriterioCosto = int.Parse(row["CumpleCriterioCosto"].ToString()),
+                                       CumpleCriterioRentabilidad = int.Parse(row["CumpleCriterioRentabilidad"].ToString()),
+                                       CumpleCriterioCaptura = int.Parse(row["CumpleCriterioCaptura"].ToString()),
+                                       ProductividadMes = Math.Round(decimal.Parse(row["PorcBono"].ToString()) * 100, 2).ToString(),
+                                       Facturado = Math.Round(decimal.Parse(row["Facturado"].ToString()), 2).ToString(),
+                                       BonoPotencial = Math.Round(decimal.Parse(row["BonoCompleto"].ToString()), 2).ToString(),
+                                       Total = Math.Round(decimal.Parse(row["BonoAPagar"].ToString()), 2).ToString(),
+
+                                   })).ToList();
 
 
 
@@ -498,7 +498,7 @@ namespace CapaDatos
             }
         }
 
- 
+
         public IndicadoresModel ConsultaInformeHoras(FiltrosModel Filtros, string Conexion)
         {
             try
@@ -664,7 +664,7 @@ namespace CapaDatos
         }
 
 
-        public List<UsuarioModel> ConsultaProuctividadEqupo(long IdUsuario, long IdTipoUsuario,long? IdUsuarioReporte , string Conexion)
+        public List<UsuarioModel> ConsultaProuctividadEqupo(long IdUsuario, long IdTipoUsuario, long? IdUsuarioReporte, string Conexion)
         {
             try
             {
@@ -694,24 +694,24 @@ namespace CapaDatos
 
                 List<UsuarioModel> LstProductividad = new List<UsuarioModel>();
                 LstProductividad = (from row in dt.AsEnumerable()
-                             select (new UsuarioModel
-                             {
-                                 IdUsuario = long.Parse(row["IdUsuario"].ToString()),
-                                 NumEmpleado = row["NumEmpleado"].ToString(),
-                                 NombreCompleto = row["Nombre"].ToString(),
-                                 Lider= row["Lider"].ToString(),
-                                 EstandarMes = decimal.Parse(row["EstandarMes"].ToString()),
-                                 EstandarDiario = decimal.Parse(row["EstandarAlDia"].ToString()),
-                                 ProductivdadAnterior = decimal.Parse(row["ProductividadMesAnterior"].ToString()),
-                                 ProductividadActual = decimal.Parse(row["ProductividadActual"].ToString()),
-                                 ProductividadMes = decimal.Parse(row["ProductividadMes"].ToString()),
-                                 PorcOcupacion = decimal.Parse(row["PorcOcupacion"].ToString()),
-                                 FechaUltCaptura = DateTime.Parse(row["UltimaActualizacion"].ToString()),
-                                 Dias = int.Parse(row["Dias"].ToString()),
-                                 RespuestaF = row["RespuestaF"].ToString(),
-                                 RespuestaF2 = row["RespuestaF2"].ToString()
+                                    select (new UsuarioModel
+                                    {
+                                        IdUsuario = long.Parse(row["IdUsuario"].ToString()),
+                                        NumEmpleado = row["NumEmpleado"].ToString(),
+                                        NombreCompleto = row["Nombre"].ToString(),
+                                        Lider = row["Lider"].ToString(),
+                                        EstandarMes = decimal.Parse(row["EstandarMes"].ToString()),
+                                        EstandarDiario = decimal.Parse(row["EstandarAlDia"].ToString()),
+                                        ProductivdadAnterior = decimal.Parse(row["ProductividadMesAnterior"].ToString()),
+                                        ProductividadActual = decimal.Parse(row["ProductividadActual"].ToString()),
+                                        ProductividadMes = decimal.Parse(row["ProductividadMes"].ToString()),
+                                        PorcOcupacion = decimal.Parse(row["PorcOcupacion"].ToString()),
+                                        FechaUltCaptura = DateTime.Parse(row["UltimaActualizacion"].ToString()),
+                                        Dias = int.Parse(row["Dias"].ToString()),
+                                        RespuestaF = row["RespuestaF"].ToString(),
+                                        RespuestaF2 = row["RespuestaF2"].ToString()
 
-                             })).ToList();
+                                    })).ToList();
 
 
 
@@ -844,7 +844,7 @@ namespace CapaDatos
 
         #region ReporteAsistencia
 
-        public ControlAsistenciaModel ObtenerReporteAsistenciaDiario (ControlAsistenciaModel Filtros, String Conexion)
+        public ControlAsistenciaModel ObtenerReporteAsistenciaDiario(ControlAsistenciaModel Filtros, String Conexion)
         {
             try
             {
@@ -882,8 +882,8 @@ namespace CapaDatos
                 indicadores.LstAsistencia = (from row in dt2.AsEnumerable()
                                              select (new UsuarioAsistenciaModel
                                              {
-                                            
-                                                  Clave = row["NumEmpleado"].ToString(),
+
+                                                 Clave = row["NumEmpleado"].ToString(),
                                                  Recurso = row["Recurso"].ToString(),
                                                  Estatus = row["Estatus"].ToString(),
                                                  Retraso = int.Parse(row["Retraso"].ToString()),
@@ -903,7 +903,7 @@ namespace CapaDatos
 
                                              })).ToList();
 
-    
+
 
                 sqlcmd.Connection.Close();
                 sqlcmd.Connection.Dispose();
@@ -934,7 +934,7 @@ namespace CapaDatos
                 sqlcmd.CommandType = CommandType.StoredProcedure;
                 sqlcmd.Parameters.AddWithValue("@IdMes", Filtros.IdMes);
                 sqlcmd.Parameters.AddWithValue("@IdAnio", Filtros.IdAnio);
-                sqlcmd.Parameters.AddWithValue("@IdUsuario", Filtros.IdUsuario == -1 ? null :  Filtros.IdUsuario);
+                sqlcmd.Parameters.AddWithValue("@IdUsuario", Filtros.IdUsuario == -1 ? null : Filtros.IdUsuario);
 
 
                 sqlcmd.CommandType = CommandType.StoredProcedure;
@@ -1018,7 +1018,8 @@ namespace CapaDatos
         #region ReporteActividadesIFT
 
 
-        public ReporteIFTModel ObtenerInformeActividades(ReporteFiltroModel Filtros , string Conexion) {
+        public ReporteIFTModel ObtenerInformeActividades(ReporteFiltroModel Filtros, string Conexion)
+        {
             try
             {
 
@@ -1042,46 +1043,46 @@ namespace CapaDatos
 
                 var dt = new DataTable();
                 var dt2 = new DataTable();
-           
+
                 dt = ds.Tables[0];
                 dt2 = ds.Tables[1];
 
 
 
                 Reporte.LstActividades = (from row in dt.AsEnumerable()
-                                             select (new ActividadesModel
-                                             {
-                                                 IdActividad = long.Parse(row["IdActividad"].ToString()),
-                                                 IdActividadStr = row["IdActividadStr"].ToString(),
-                                                 ResponsableStr = row["Responsable"].ToString(),
-                                                 ClaveUsuario = row["Clave"].ToString(),
-                                                 ProyectoStr = row["Proyecto"].ToString(),
-                                                 TipoActividadStr = row["Fase"].ToString(),
-                                                 ClasificacionStr = row["Actividad"].ToString(),
-                                                 BR = row["BR"].ToString(),
-                                                 Descripcion = row["Descripcion"].ToString(),
-                                                 FechaInicio = DateTime.Parse(row["Inicio"].ToString()),
-                                                 FechaTermino  = DateTime.Parse(row["Fin"].ToString()),
-                                                 FInicio = DateTime.Parse(row["Inicio"].ToString()),
-                                                 FFin = DateTime.Parse(row["Fin"].ToString()),
-                                                 HorasAsignadas = decimal.Parse(row["HorasAsignadas"].ToString())
-                                             })).ToList();
+                                          select (new ActividadesModel
+                                          {
+                                              IdActividad = long.Parse(row["IdActividad"].ToString()),
+                                              IdActividadStr = row["IdActividadStr"].ToString(),
+                                              ResponsableStr = row["Responsable"].ToString(),
+                                              ClaveUsuario = row["Clave"].ToString(),
+                                              ProyectoStr = row["Proyecto"].ToString(),
+                                              TipoActividadStr = row["Fase"].ToString(),
+                                              ClasificacionStr = row["Actividad"].ToString(),
+                                              BR = row["BR"].ToString(),
+                                              Descripcion = row["Descripcion"].ToString(),
+                                              FechaInicio = DateTime.Parse(row["Inicio"].ToString()),
+                                              FechaTermino = DateTime.Parse(row["Fin"].ToString()),
+                                              FInicio = DateTime.Parse(row["Inicio"].ToString()),
+                                              FFin = DateTime.Parse(row["Fin"].ToString()),
+                                              HorasAsignadas = decimal.Parse(row["HorasAsignadas"].ToString())
+                                          })).ToList();
 
 
                 Reporte.LstUsuarios = (from row in dt2.AsEnumerable()
-                                              select (new UsuarioModel
-                                              {
+                                       select (new UsuarioModel
+                                       {
 
-                                                  Nombre = row["Firma"].ToString(),
-                                                  NumEmpleado = row["Clave"].ToString(),
-                                                  IdTipoUsuario = int.Parse(row["Tipo"].ToString())
+                                           Nombre = row["Firma"].ToString(),
+                                           NumEmpleado = row["Clave"].ToString(),
+                                           IdTipoUsuario = int.Parse(row["Tipo"].ToString())
 
-                                              })).ToList();
-
-
+                                       })).ToList();
 
 
-    
+
+
+
 
                 sqlcmd.Connection.Close();
                 sqlcmd.Connection.Dispose();
@@ -1097,7 +1098,7 @@ namespace CapaDatos
 
                 throw ex;
             }
-        
+
         }
 
 
@@ -1107,7 +1108,7 @@ namespace CapaDatos
         #region InformeProyectos
 
 
-        public  List<ProyectosModel>  ObtenerInformeProyectos(ReporteFiltroModel Filtros, string Conexion)
+        public List<ProyectosModel> ObtenerInformeProyectos(ReporteFiltroModel Filtros, string Conexion)
         {
             try
             {
@@ -1123,7 +1124,7 @@ namespace CapaDatos
                 sqlcmd.Parameters.AddWithValue("@IdTipoUsuario", Filtros.IdTipoUsuario);
                 sqlcmd.Parameters.AddWithValue("@IdProyecto", Filtros.IdProyecto);
 
-                 
+
                 sqlcmd.CommandType = CommandType.StoredProcedure;
                 SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
 
@@ -1140,14 +1141,14 @@ namespace CapaDatos
                                 {
                                     IdProyecto = long.Parse(row["IdProyecto"].ToString()),
                                     Clave = row["Clave"].ToString(),
-                                    Nombre = row["Clave"].ToString() + " - " +row["Nombre"].ToString(),
+                                    Nombre = row["Clave"].ToString() + " - " + row["Nombre"].ToString(),
                                     Lider = row["Lider"].ToString(),
 
 
-                                    FechaInicioPlan = row["FechaInicio"].ToString() == "" ? (DateTime?) null : DateTime.Parse(row["FechaInicio"].ToString()),
+                                    FechaInicioPlan = row["FechaInicio"].ToString() == "" ? (DateTime?)null : DateTime.Parse(row["FechaInicio"].ToString()),
                                     FechaFinPlan = row["FechaFin"].ToString() == "" ? (DateTime?)null : DateTime.Parse(row["FechaFin"].ToString()),
-                                    FechaFinComprometida = row["FechaFinComprometida"].ToString() == "" ? (DateTime?)null :  DateTime.Parse(row["FechaFinComprometida"].ToString()),
-                                    FechaProyectada = row["FechaProyectada"].ToString() == "" ? (DateTime?)null :  DateTime.Parse(row["FechaProyectada"].ToString()),
+                                    FechaFinComprometida = row["FechaFinComprometida"].ToString() == "" ? (DateTime?)null : DateTime.Parse(row["FechaFinComprometida"].ToString()),
+                                    FechaProyectada = row["FechaProyectada"].ToString() == "" ? (DateTime?)null : DateTime.Parse(row["FechaProyectada"].ToString()),
 
                                     HorasAsignadas = decimal.Parse(row["HorasFacturablesProy"].ToString()),
                                     HorasCompromiso = decimal.Parse(row["Comprometido"].ToString()),
@@ -1157,7 +1158,7 @@ namespace CapaDatos
                                     AvanceRealPorc = decimal.Parse(row["AvanceRealPorc"].ToString()),
                                     DesfaseProc = (decimal.Parse(row["AvanceComprometido"].ToString()) - decimal.Parse(row["AvanceRealPorc"].ToString())) < 0 ? 0 : decimal.Parse(row["AvanceComprometido"].ToString()) - decimal.Parse(row["AvanceRealporc"].ToString()),
 
-                                    CostoPlaneado= decimal.Parse(row["CostoPlaneado"].ToString()),
+                                    CostoPlaneado = decimal.Parse(row["CostoPlaneado"].ToString()),
                                     CostoProyectado = decimal.Parse(row["CostoProyectado"].ToString()),
                                     CostoActual = decimal.Parse(row["CostoActual"].ToString()),
                                     CostoHora = decimal.Parse(row["CostoHora"].ToString()),
@@ -1176,7 +1177,7 @@ namespace CapaDatos
                                     RentabilidadPlanImporte = decimal.Parse(row["RentabilidadPlanImporte"].ToString()),
                                     RentabilidadActual = decimal.Parse(row["RentabilidadActual"].ToString()),
                                     RentabilidadActualImporte = decimal.Parse(row["RentabilidadImporte"].ToString()),
-                    
+
                                     RentabilidadFacturado = decimal.Parse(row["RentabilidadFacturado"].ToString()),
                                     RentabilidadProyectada = decimal.Parse(row["RentabilidadProyectada"].ToString()),
                                     RentabilidadProyectadaImporte = decimal.Parse(row["RentabilidadProyectadaImporte"].ToString()),
@@ -1309,7 +1310,7 @@ namespace CapaDatos
                 da.Fill(ds);
                 da.Dispose();
 
-                List <InformeDiarioModel> LstProyectos = new List<InformeDiarioModel>();
+                List<InformeDiarioModel> LstProyectos = new List<InformeDiarioModel>();
 
 
                 var dt = new DataTable();
@@ -1323,7 +1324,7 @@ namespace CapaDatos
                                     Nombre = row["Clave"].ToString() + " - " + row["Nombre"].ToString(),
                                     //Lider = row["Lider"].ToString(),
 
-                                    Planeado= decimal.Parse(row["Planeado"].ToString()),
+                                    Planeado = decimal.Parse(row["Planeado"].ToString()),
                                     Asignado = decimal.Parse(row["Asignado"].ToString()),
                                     DiferenciaPlanAsignado = decimal.Parse(row["DiferenciaPlanAsignado"].ToString()),
 
@@ -1363,7 +1364,7 @@ namespace CapaDatos
 
         #region ReporteEspecial
 
-        public List<FlujoPagoModel> ReporteEspecialProyectos(long IdCliente , string Conexion)
+        public List<FlujoPagoModel> ReporteEspecialProyectos(long IdCliente, string Conexion)
         {
             try
             {
@@ -1432,12 +1433,12 @@ namespace CapaDatos
         #region BitacoraTrabajo
 
 
-        public List<BitacoraTrabajoModel> ConsultaBitacoraTrabajo(FiltrosModel Filtros,string Conexion)
+        public List<BitacoraTrabajoModel> ConsultaBitacoraTrabajo(FiltrosModel Filtros, string Conexion)
         {
             try
             {
 
-        
+
                 var asignado = string.Join<string>(",", Filtros.LstAsignado.ConvertAll(s => s.ToString()));
                 var proyecto = string.Join<string>(",", Filtros.LstProyecto.ConvertAll(s => s.ToString()));
                 var sprint = string.Join<string>(",", Filtros.LstSprints.ConvertAll(s => s.ToString()));
@@ -1446,7 +1447,7 @@ namespace CapaDatos
                 DataSet ds = new DataSet();
 
 
-                List<BitacoraTrabajoModel> LstBitacora = new List<BitacoraTrabajoModel>(); 
+                List<BitacoraTrabajoModel> LstBitacora = new List<BitacoraTrabajoModel>();
 
 
                 SqlConnection sqlcon = new SqlConnection(Conexion);
@@ -1473,31 +1474,31 @@ namespace CapaDatos
 
 
                 var LstActividades = (from row in ds.Tables[1].AsEnumerable()
-                                     select (new ActividadTrabajoModel
-                                     {
-                                         IdKey = long.Parse(row["IdKey"].ToString()),
-                                         Fecha = DateTime.Parse(row["Fecha"].ToString()),
-                                         IdActividad = long.Parse(row["IdActividad"].ToString()),
-                                         IdActividadStr = row["IdActividadStr"].ToString(),
-                                         Titulo  = row["BR"].ToString(),
-                                         Tiempo = decimal.Parse(row["Tiempo"].ToString()),
-                                         Comentario = row["Comentario"].ToString(),
+                                      select (new ActividadTrabajoModel
+                                      {
+                                          IdKey = long.Parse(row["IdKey"].ToString()),
+                                          Fecha = DateTime.Parse(row["Fecha"].ToString()),
+                                          IdActividad = long.Parse(row["IdActividad"].ToString()),
+                                          IdActividadStr = row["IdActividadStr"].ToString(),
+                                          Titulo = row["BR"].ToString(),
+                                          Tiempo = decimal.Parse(row["Tiempo"].ToString()),
+                                          Comentario = row["Comentario"].ToString(),
 
-                                     })).ToList();
+                                      })).ToList();
 
 
                 LstBitacora = (from row in dt.AsEnumerable()
-                                select (new BitacoraTrabajoModel
-                                {
-                                    IdKey = long.Parse(row["IdKey"].ToString()),
-                                    IdUsuario = long.Parse(row["IdUsuarioAsignado"].ToString()),
-                                    Nombre = row["Recurso"].ToString(),
-                                    Fecha = DateTime.Parse(row["Fecha"].ToString()),
-                                    Horas = decimal.Parse(row["Tiempo"].ToString()),
-                                    Total = int.Parse(row["Tareas"].ToString()),
-                                    LstActividades = LstActividades.Where(w=> w.IdKey == long.Parse(row["IdKey"].ToString())).ToList()
+                               select (new BitacoraTrabajoModel
+                               {
+                                   IdKey = long.Parse(row["IdKey"].ToString()),
+                                   IdUsuario = long.Parse(row["IdUsuarioAsignado"].ToString()),
+                                   Nombre = row["Recurso"].ToString(),
+                                   Fecha = DateTime.Parse(row["Fecha"].ToString()),
+                                   Horas = decimal.Parse(row["Tiempo"].ToString()),
+                                   Total = int.Parse(row["Tareas"].ToString()),
+                                   LstActividades = LstActividades.Where(w => w.IdKey == long.Parse(row["IdKey"].ToString())).ToList()
 
-                                })).ToList();
+                               })).ToList();
 
 
 
@@ -1523,5 +1524,123 @@ namespace CapaDatos
 
 
         #endregion
+
+
+
+
+        public void CalculoProductividadPeriodo_SP(
+                FiltrosModel filtros,
+                ref Dictionary<int, List<CompensacionModel>> dictEncabezadoPorSemana,
+                ref Dictionary<int, List<ActividadesModel>> dictDetallePorSemana,
+                ref Dictionary<int, List<UsuarioIncidencia>> incidenciasPorSemana,
+                string conexion)
+        {
+            try
+            {
+
+
+                dictEncabezadoPorSemana = new Dictionary<int, List<CompensacionModel>>();
+                dictDetallePorSemana = new Dictionary<int, List<ActividadesModel>>();
+                incidenciasPorSemana = new Dictionary<int, List<UsuarioIncidencia>>();
+
+
+                foreach (var periodo in filtros.GetPeriodos())
+                {
+                    DataSet ds = new DataSet();
+
+                    SqlConnection sqlcon = new SqlConnection(conexion);
+                    SqlCommand sqlcmd = new SqlCommand("CalculoProductividadPeriodo_SP", sqlcon);
+                    sqlcmd.CommandType = CommandType.StoredProcedure;
+                    sqlcmd.Parameters.AddWithValue("@Mes", filtros.Mes);
+                    sqlcmd.Parameters.AddWithValue("@Anio", filtros.Anio);
+                    sqlcmd.Parameters.AddWithValue("@IdUsuarioGenero", filtros.IdUsuario);
+                    sqlcmd.Parameters.AddWithValue("@IdUsuario", filtros.IdUsuarioConsulta);
+
+                    sqlcmd.Parameters.AddWithValue("@FechaInicio", periodo.Inicio);
+                    sqlcmd.Parameters.AddWithValue("@FechaFin", periodo.Fin);
+
+
+
+
+                    SqlDataAdapter da = new SqlDataAdapter(sqlcmd);
+
+                    da.Fill(ds);
+                    da.Dispose();
+
+                    var Encabezado = ds.Tables[0];
+                    var Detalle = ds.Tables[1];
+                    var Incidencia = ds.Tables[2];
+
+                    if (Encabezado.Rows.Count == 0 || Detalle.Rows.Count == 0)
+                        continue;
+                    var encabezados = (from row in Encabezado.AsEnumerable()
+                                       select (new CompensacionModel
+                                       {
+                                           IdUsuario = long.Parse(row["IdUsuario"].ToString()),
+                                           Clave = row["Clave"].ToString(),
+                                           Recurso = row["Recurso"].ToString(),
+                                           Nivel = row["Nivel"].ToString(),
+                                           DiasLaborales = row["DiasLaborales"].ToString(),
+                                           Incidencias = row["Incidencias"].ToString(),
+                                           EstandarPeriodo = row["EstandarPeriodo"].ToString(),
+                                           EstandarDiario = row["EstandarDiario"].ToString(),
+                                           HorasSolicitadas = row["HorasSolicitadas"].ToString(),
+                                           HorasLiberadas = row["HorasLiberadas"].ToString(),
+                                           Productividad = Math.Round(decimal.Parse(row["Productividad"].ToString()), 2).ToString() + "%",
+                                           Lider = row["Lider"].ToString(),
+                                       })).ToList();
+
+                    var detalles = (from row in Detalle.AsEnumerable()
+                                    select (new ActividadesModel
+                                    {
+                                        IdActividad = long.Parse(row["IdActividad"].ToString()),
+                                        IdActividadStr = row["IdActividadStr"].ToString(),
+                                        IdUsuarioAsignado = long.Parse(row["IdUsuarioAsignado"].ToString()),
+                                        ProyectoStr = row["Proyecto"].ToString(),
+                                        Descripcion = row["Descripcion"].ToString(),
+                                        HorasAsignadas = decimal.Parse(row["HorasAsignadas"].ToString()),
+                                        HorasFinales = decimal.Parse(row["HorasFinales"].ToString()),
+                                        FechaTermino = DateTime.Parse(row["FechaTermino"].ToString()),
+                                        TipoActividadStr = row["Fase"].ToString(),
+                                        ClasificacionStr = row["Clasificacion"].ToString()
+                                    })).ToList();
+
+                    var incidencias = (from row in Incidencia.AsEnumerable()
+                                       select (new UsuarioIncidencia
+                                       {
+                                           IdUsuario = int.Parse(row["IdUsuario"].ToString()),
+                                           DiasInc = int.Parse(row["DiasInc"].ToString()),
+                                           Incidencia = row["Incidencia"].ToString(),
+                                           FechaInicio = DateTime.Parse(row["FechaInicio"].ToString()),
+                                           FechaFin = DateTime.Parse(row["FechaFin"].ToString())
+                                       })).ToList();
+
+                    dictEncabezadoPorSemana[periodo.Numero] = encabezados;
+                    dictDetallePorSemana[periodo.Numero] = detalles;
+                    incidenciasPorSemana[periodo.Numero] = incidencias;
+
+
+                    sqlcmd.Connection.Close();
+                    sqlcmd.Connection.Dispose();
+                    sqlcmd.Dispose();
+
+                }
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
+
+
+
+
     }
 }

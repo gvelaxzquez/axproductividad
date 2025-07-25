@@ -5,6 +5,8 @@ export interface CompensacionEncabezado {
     lider: string;
     nivel: string;
     estandarMes: string;
+    estandarPeriodo: string;
+    estandarDiario: string;
     horasSolicitadas: string;
     horasLiberadas: string;
     bonoCumplimiento: string;
@@ -29,6 +31,7 @@ export interface CompensacionEncabezado {
 export interface FiltrosCompensaciones {
     anio: number | null;
     mes: number | null;
+    period: number | null;
     fechaCorte: string | null;
     guardar: boolean;
 }
@@ -41,4 +44,12 @@ export interface ProductivitySummaryModel {
     totalBonoHoras: number;
     totalGeneral: number;
     productividadPromedio: number;
+}
+
+export interface UsuarioIncidencia {
+    idUsuario: number;
+    diasInc: number;
+    incidencia: string;
+    fechaInicio: string;
+    fechaFin: string;
 }

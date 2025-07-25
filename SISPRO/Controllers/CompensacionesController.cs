@@ -30,7 +30,8 @@ namespace AxProductividad.Controllers
             return View();
         }
 
-        public ActionResult GeneraCompensaciones(FiltrosModel Filtros) {
+        public ActionResult GeneraCompensaciones(FiltrosModel Filtros)
+        {
 
             var resultado = new JObject();
             try
@@ -64,7 +65,44 @@ namespace AxProductividad.Controllers
             }
 
         }
+        public ActionResult AnalisisSemanal(FiltrosModel Filtros)
+        {
 
-        
+            var resultado = new JObject();
+            try
+            {
+                Filtros.IdUsuario = ((Models.Sesion)(Session["Usuario" + Session.SessionID])).Usuario.IdUsuario;
+
+
+                Dictionary<int, List<CompensacionModel>> LstEncabezado = new Dictionary<int, List<CompensacionModel>>();
+                Dictionary<int, List<ActividadesModel>> LstDetalle = new Dictionary<int, List<ActividadesModel>>();
+                Dictionary<int, List<UsuarioIncidencia>> LstIncidencias = new Dictionary<int, List<UsuarioIncidencia>>();
+                string Conexion = Encripta.DesencriptaDatos(((Models.Sesion)(Session["Usuario" + Session.SessionID])).Usuario.ConexionSP);
+                //string Conexion = ConfigurationManager.ConnectionStrings["BDProductividad"].ToString();
+                CD_Reportes cd_rep = new CD_Reportes();
+
+
+                cd_rep.CalculoProductividadPeriodo_SP(Filtros, ref LstEncabezado, ref LstDetalle, ref LstIncidencias, Conexion);
+
+                resultado["Exito"] = true;
+                resultado["LstEncabezado"] = JsonConvert.SerializeObject(LstEncabezado);
+                resultado["LstDetalle"] = JsonConvert.SerializeObject(LstDetalle);
+                resultado["LstIncidencias"] = JsonConvert.SerializeObject(LstIncidencias);
+
+                return Content(resultado.ToString());
+            }
+            catch (Exception)
+            {
+
+                resultado["Exito"] = false;
+                resultado["Mensaje"] = "El período seleccionado no cuenta con el calendario de trabajo configurado.";
+
+
+                return Content(resultado.ToString());
+            }
+
+        }
+
+
     }
 }

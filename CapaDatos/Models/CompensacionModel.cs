@@ -34,5 +34,18 @@ namespace CapaDatos.Models
         public string ProductividadMes { get; set; }
 
         public decimal ProductividadTotal { get; set; }
+        public string Incidencias { get; set; }
+        public string EstandarPeriodo { get; set; }
+        public string EstandarDiario{ get; set; }
+        public string DiasLaborales { get; set; }
     }
+    public class UsuarioIncidencia
+    {
+        public int IdUsuario { get; set; }
+        public int DiasInc { get; set; }
+        public string Incidencia { get; set; }
+        public DateTime FechaInicio { get; set; }
+        public DateTime FechaFin { get; set; }
+    }
+
 }
