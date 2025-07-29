@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Divider, Modal, Select, Tabs } from 'antd';
+import { Avatar, Divider, Modal, Select, Tabs } from 'antd';
 import Title from 'antd/es/typography/Title';
 import React, { useEffect, useState } from 'react';
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis, type TooltipProps } from 'recharts';
@@ -31,67 +31,66 @@ type Props = {
     onClose: () => void;
     semanas: SemanaData[];
 };
-const CustomAvatarBar = (props: any) => {
-    const { x, y, width, height, payload, semana, viewBox } = props;
-    const _semana = semana.split(' ')[1];
-    const imageUrl = `http://app.yitpro.com/Archivos/Fotos/${payload.clave}.jpg`;
+const CustomXAxisTick: React.FC<{ x: number; y: number; payload: any; clave?: string }> = ({ x, y, payload, clave }) => {
+    const imageUrl = clave
+        ? `http://app.yitpro.com/Archivos/Fotos/${clave}.jpg`
+        : undefined;
 
-    const pinOffset = 38;
-    const radius = 21;
-    if (x == null || y == null || isNaN(x) || isNaN(y)) return null;
-    const centerX = width > 0 ? x + width / 2 : viewBox?.x || x;
-    if (!payload || !payload.clave || !Number.isFinite(x) || !Number.isFinite(y)) return null;
+    // Función para obtener iniciales
+    const getInitials = (nombre: string) => {
+        if (!nombre) return '';
+        const parts = nombre.trim().split(' ');
+        if (parts.length === 1) return parts[0][0].toUpperCase();
+        return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+    };
 
-
+    // Usar Avatar de AntD siempre, con src para intentar cargar la imagen, y fallback a iniciales
     return (
-        <>
-            <rect x={x} y={y} width={width} height={height} fill="#82ca9d" />
-            <g style={{ cursor: 'pointer' }}>
-                <circle
-                    cx={centerX}
-                    cy={y - pinOffset}
-                    r={radius}
-                    fill="#fff"
-                    stroke="#82ca9d"
-                    strokeWidth={3}
-                />
-                <clipPath id={`avatarClip-${payload.clave}-${_semana}`}>
-                    <circle cx={centerX} cy={y - pinOffset} r={radius} />
-                </clipPath>
-                <image
-                    href={imageUrl}
-                    x={centerX - radius}
-                    y={y - pinOffset - radius}
-                    width={radius * 2}
-                    height={radius * 2}
-                    clipPath={`url(#avatarClip-${payload.clave}-${_semana})`}
-                    preserveAspectRatio="xMidYMid slice"
-                />
-            </g>
-            <polygon
-                points={`
-                    ${centerX - 8},${y - pinOffset + radius}
-                    ${centerX + 8},${y - pinOffset + radius}
-                    ${centerX},${y - pinOffset + radius + 16}
-                `}
-                fill="#82ca9d"
-            />
-        </>
+        <g transform={`translate(${x},${y})`}>
+            <foreignObject x={-16} y={0} width={32} height={32}>
+                <Avatar
+                    src={imageUrl}
+                    style={{
+                        width: 32,
+                        height: 32,
+                        fontSize: 16,
+                        background: '#d9d9d9',
+                        color: '#444',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        userSelect: 'none'
+                    }}
+                >
+                    {getInitials(payload.value)}
+                </Avatar>
+            </foreignObject>
+            <text
+                x={0}
+                y={40}
+                textAnchor="middle"
+                dominantBaseline="hanging"
+                fontSize={12}
+                fill="#333"
+                style={{ pointerEvents: 'none' }}
+            >
+                {payload.value}
+            </text>
+        </g>
     );
-};
+}
 const CustomTooltip: React.FC<TooltipProps<number, string>> = ({ active, payload, label }) => {
     if (!active || !payload || !payload.length) return null;
 
     const item = payload[0].payload;
     const productividad = item.productividad?.toFixed(2) || '0.00';
 
-    console.log(item.estandarDiario)
-
     const labelMap: Record<string, string> = {
         diasLaborados: 'Días Laborados',
         diasIncidencias: 'Días Incidencia',
         estandarPeriodo: 'Estándar',
-        horasSolicitadas: 'Solicitadas',
+        horasSolicitadas: 'Asignadas',
+        horasBugs: 'Bugs',
         horasLiberadas: 'Liberadas'
     };
 
@@ -126,6 +125,7 @@ const GraficaProductividadSemanal: React.FC<Props> = ({ semanas, visible, onClos
     const [selectedRecurso, setRecurso] = useState<CompensacionEncabezado | null>(null);
     const [open, setOpen] = useState<boolean>(false);
     const [actividades, setActividades] = useState<ActividadesModel[]>([]);
+    const [bugs, setBugs] = useState<ActividadesModel[]>([]);
     const [incidencias, setIncidencias] = useState<UsuarioIncidencia[]>([]);
     const [_semanas, setSemanas] = useState<SemanaData[]>(semanas);
     const [modo, setModo] = useState(1);
@@ -138,14 +138,18 @@ const GraficaProductividadSemanal: React.FC<Props> = ({ semanas, visible, onClos
     }, [semanas]);
     const handleClick = (payload: any) => {
         if (payload) {
+            console.log(payload);
             setRecurso({ recurso: payload.nombre, estandarPeriodo: payload.estandarPeriodo, productividad: payload.productividad } as CompensacionEncabezado);
             setActividades(payload.actividades || []);
             setIncidencias(payload.incidencias || []);
+            setBugs(payload.bugs || []);
             setOpen(true);
         }
     };
     const hideModal = () => {
         setActividades([]);
+        setBugs([]);
+        setIncidencias([]);
         setOpen(false);
         setRecurso(null);
     };
@@ -170,42 +174,60 @@ const GraficaProductividadSemanal: React.FC<Props> = ({ semanas, visible, onClos
                                 {datos.length > 0 && (
                                     <ResponsiveContainer width="100%" height={400}>
                                         <BarChart
+                                            style={{ cursor: "pointer" }}
+                                            onClick={(e) => handleClick(e.activePayload[0]?.payload)}
                                             key={`${modo}-${semana}`}
                                             data={datos}
                                             margin={{ top: 60, bottom: 80 }}>
                                             <CartesianGrid strokeDasharray="3 3" />
-                                            <XAxis dataKey="nombre" angle={-30} textAnchor="end" height={60} />
+                                            {/* <XAxis dataKey="nombre" angle={-30} textAnchor="end" height={60} /> */}
+                                            <XAxis
+                                                dataKey="nombre"
+                                                angle={-30}
+                                                textAnchor="end"
+                                                height={90}
+                                                tick={props => (
+                                                    <CustomXAxisTick
+                                                        {...props}
+                                                        clave={datos.find(d => d.nombre === props.payload.value)?.clave}
+                                                    />
+                                                )}
+                                            />
                                             <YAxis
                                                 domain={[0, Math.ceil(maxValue * 1.5)]}
                                                 tickFormatter={(v) => `${v} hrs`}
                                             />
                                             <Tooltip content={<CustomTooltip />} />
 
-                                            <Bar dataKey="diasIncidencias"
-                                                barSize={16}
-                                                stackId="a" fill="#6990a7ff" />
                                             <Bar dataKey="diasLaborados"
                                                 barSize={16}
                                                 stackId="a"
                                                 fill="#008cdd"
                                             />
+                                            <Bar dataKey="diasIncidencias"
+                                                barSize={16}
+                                                stackId="a" fill="#6990a7ff" />
                                             <Bar
                                                 dataKey="estandarPeriodo"
                                                 fill="#7c2424ff"
-                                                barSize={16}
-                                                onClick={(e) => handleClick(e)} />
+                                                barSize={16} />
                                             <Bar
                                                 dataKey="horasSolicitadas"
-                                                fill="#82ca9d"
+                                                fill="#69c0ff"
                                                 barSize={16}
-                                                onClick={(e) => handleClick(e)}
-                                                shape={<CustomAvatarBar semana={semana} />}
+                                            // shape={<CustomAvatarBar semana={semana} />}
                                             />
                                             <Bar
                                                 dataKey="horasLiberadas"
-                                                fill="#69c0ff"
+                                                fill="#82ca9d"
+                                                stackId="b"
                                                 barSize={16}
-                                                onClick={(e) => handleClick(e)}
+                                            />
+                                            <Bar
+                                                dataKey="horasBugs"
+                                                fill="#ff4d4f"
+                                                stackId="b"
+                                                barSize={16}
                                             />
                                         </BarChart>
                                     </ResponsiveContainer>
@@ -240,7 +262,7 @@ const GraficaProductividadSemanal: React.FC<Props> = ({ semanas, visible, onClos
                                         return {
                                             semana: `${periodo} ${semana}`,
                                             rangoFechas: getPeriodoRange(semana, periodo.toLocaleLowerCase() as 'semana' | 'quincena' | 'mes', filtros.anio, filtros.mes),
-                                            datos: tranformLista(lista, response[1][semana] || [], response[2][semana] || [])
+                                            datos: tranformLista(lista, response[1][semana] || [], response[3][semana] || [], response[2][semana] || []),
                                         };
                                     }
                                 );
@@ -268,6 +290,7 @@ const GraficaProductividadSemanal: React.FC<Props> = ({ semanas, visible, onClos
                 recurso={selectedRecurso}
                 actividades={actividades}
                 incidencias={incidencias}
+                bugs={bugs}
             />
         </Modal>
     );

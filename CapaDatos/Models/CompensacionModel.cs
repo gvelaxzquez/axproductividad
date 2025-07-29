@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CapaDatos.Models
 {
@@ -33,6 +29,7 @@ namespace CapaDatos.Models
         public decimal Bono { get;  set; }
         public string ProductividadMes { get; set; }
 
+        public decimal HorasBugs { get; set; }
         public decimal ProductividadTotal { get; set; }
         public string Incidencias { get; set; }
         public string EstandarPeriodo { get; set; }

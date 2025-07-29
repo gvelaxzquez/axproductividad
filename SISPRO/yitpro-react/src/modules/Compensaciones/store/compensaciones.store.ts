@@ -134,6 +134,7 @@ export const useCompensacionesStore = create<CompensacionesState>((set, get) => 
                 if (data.Exito) {
                     const encabezadoDictRaw = JSON.parse(data.LstEncabezado);
                     const detalleDictRaw = JSON.parse(data.LstDetalle);
+                    const bugsDictRaw = JSON.parse(data.LstBugs);
                     const incidenciasDictRaw = JSON.parse(data.LstIncidencias);
 
                     // Convertir propiedades PascalCase → camelCase por cada entrada del diccionario
@@ -146,12 +147,16 @@ export const useCompensacionesStore = create<CompensacionesState>((set, get) => 
                     for (const [semana, lista] of Object.entries(detalleDictRaw)) {
                         detalleDict[semana] = convertFromPascalCase<ActividadesModel[]>(lista);
                     }
+                    const detalleBugs: Record<string, ActividadesModel[]> = {};
+                    for (const [semana, lista] of Object.entries(bugsDictRaw)) {
+                        detalleBugs[semana] = convertFromPascalCase<ActividadesModel[]>(lista);
+                    }
                     const incidencias: Record<string, UsuarioIncidencia[]> = {};
                     for (const [semana, lista] of Object.entries(incidenciasDictRaw)) {
                         incidencias[semana] = convertFromPascalCase<UsuarioIncidencia[]>(lista);
                     }
 
-                    return [encabezadoDict, detalleDict, incidencias];
+                    return [encabezadoDict, detalleDict, detalleBugs, incidencias];
                 } else {
                     set({ error: data.Mensaje, encabezado: [], detalle: [], incidencias: [], productivitySummary: null });
                 }

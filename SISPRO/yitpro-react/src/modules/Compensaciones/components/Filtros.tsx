@@ -46,7 +46,7 @@ const FiltrosCompensaciones: React.FC = () => {
                     return {
                         semana: `Semana ${semana}`,
                         rangoFechas: getPeriodoRange(semana, 'semana', filtros.anio, filtros.mes),
-                        datos: tranformLista(lista, response[1][semana] || [], response[2][semana] || [])
+                        datos: tranformLista(lista, response[1][semana] || [], response[3][semana] || [], response[2][semana] || [])
 
                     };
                 }

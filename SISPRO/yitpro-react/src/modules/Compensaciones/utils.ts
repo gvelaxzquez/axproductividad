@@ -137,15 +137,15 @@ export function getPeriodoRange(
     return '';
 }
 
-export function tranformLista(lista: any[], actividades: any[], incidencias: any[]): any[] {
+export function tranformLista(lista: any[], actividades: any[], incidencias: any[], bugs: any[]): any[] {
     return lista.map(item => { 
-        console.log(item.estandarDiario);
         return ({
         nombre: item.recurso,
         estandarPeriodo: item.estandarPeriodo,
         estandarDiario: item.estandarDiario,
         horasLiberadas: item.horasLiberadas,
         horasSolicitadas: item.horasSolicitadas,
+        horasBugs: item.horasBugs ?? 0,
         productividad: parseFloat(item.productividad?.replace('%', '') || '0'),
         diasLaborados: +item.estandarDiario * (item.diasLaborales - item.incidencias || 0),
         diasIncidencias: (item.incidencias || 0) * +item.estandarDiario,
@@ -153,5 +153,6 @@ export function tranformLista(lista: any[], actividades: any[], incidencias: any
         id: item.idUsuario,
         actividades: actividades.filter((actividad: any) => actividad.idUsuarioAsignado === item.idUsuario),
         incidencias: incidencias.filter((incidencia: any) => incidencia.idUsuario === item.idUsuario),
+        bugs: bugs.filter((bug: any) => bug.idUsuarioAsignado === item.idUsuario),
     })})
 }

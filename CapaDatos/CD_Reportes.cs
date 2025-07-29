@@ -1532,6 +1532,7 @@ namespace CapaDatos
                 FiltrosModel filtros,
                 ref Dictionary<int, List<CompensacionModel>> dictEncabezadoPorSemana,
                 ref Dictionary<int, List<ActividadesModel>> dictDetallePorSemana,
+                ref Dictionary<int, List<ActividadesModel>> bugs,
                 ref Dictionary<int, List<UsuarioIncidencia>> incidenciasPorSemana,
                 string conexion)
         {
@@ -1541,6 +1542,7 @@ namespace CapaDatos
 
                 dictEncabezadoPorSemana = new Dictionary<int, List<CompensacionModel>>();
                 dictDetallePorSemana = new Dictionary<int, List<ActividadesModel>>();
+                bugs = new Dictionary<int, List<ActividadesModel>>();
                 incidenciasPorSemana = new Dictionary<int, List<UsuarioIncidencia>>();
 
 
@@ -1569,7 +1571,8 @@ namespace CapaDatos
 
                     var Encabezado = ds.Tables[0];
                     var Detalle = ds.Tables[1];
-                    var Incidencia = ds.Tables[2];
+                    var Bugs = ds.Tables[2];
+                    var Incidencia = ds.Tables[3];
 
                     if (Encabezado.Rows.Count == 0 || Detalle.Rows.Count == 0)
                         continue;
@@ -1587,10 +1590,26 @@ namespace CapaDatos
                                            HorasSolicitadas = row["HorasSolicitadas"].ToString(),
                                            HorasLiberadas = row["HorasLiberadas"].ToString(),
                                            Productividad = Math.Round(decimal.Parse(row["Productividad"].ToString()), 2).ToString() + "%",
+                                           HorasBugs = Math.Round(decimal.Parse(row["HorasBugs"].ToString()), 2),
                                            Lider = row["Lider"].ToString(),
                                        })).ToList();
 
                     var detalles = (from row in Detalle.AsEnumerable()
+                                    select (new ActividadesModel
+                                    {
+                                        IdActividad = long.Parse(row["IdActividad"].ToString()),
+                                        IdActividadStr = row["IdActividadStr"].ToString(),
+                                        IdUsuarioAsignado = long.Parse(row["IdUsuarioAsignado"].ToString()),
+                                        ProyectoStr = row["Proyecto"].ToString(),
+                                        Descripcion = row["Descripcion"].ToString(),
+                                        HorasAsignadas = decimal.Parse(row["HorasAsignadas"].ToString()),
+                                        HorasFinales = decimal.Parse(row["HorasFinales"].ToString()),
+                                        FechaTermino = DateTime.Parse(row["FechaTermino"].ToString()),
+                                        TipoActividadStr = row["Fase"].ToString(),
+                                        ClasificacionStr = row["Clasificacion"].ToString()
+                                    })).ToList();
+
+                    var _bugs = (from row in Bugs.AsEnumerable()
                                     select (new ActividadesModel
                                     {
                                         IdActividad = long.Parse(row["IdActividad"].ToString()),
@@ -1617,6 +1636,7 @@ namespace CapaDatos
 
                     dictEncabezadoPorSemana[periodo.Numero] = encabezados;
                     dictDetallePorSemana[periodo.Numero] = detalles;
+                    bugs[periodo.Numero] = _bugs;
                     incidenciasPorSemana[periodo.Numero] = incidencias;
 
 

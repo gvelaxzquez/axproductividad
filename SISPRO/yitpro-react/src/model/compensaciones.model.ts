@@ -26,6 +26,7 @@ export interface CompensacionEncabezado {
     bono: number;
     productividadMes: string;
     productividadTotal: number;
+    horasBugs: number;
 }
 
 export interface FiltrosCompensaciones {
