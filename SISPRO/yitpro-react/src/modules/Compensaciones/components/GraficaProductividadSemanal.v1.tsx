@@ -9,6 +9,7 @@ import { useCompensacionesStore } from '../store/compensaciones.store';
 import { getPeriodoName, getPeriodoRange, getPeriodoRangeName, tranformLista } from '../utils';
 import DetalleModal from './DetalleModal';
 import ProductivityHeatmapTab from './ProductivityHeatmapTab';
+import { getInitials, imageUrl } from '../../../utils/format.util';
 
 export type SemanaData = {
     semana: string; // Ej: "Semana 27"
@@ -32,24 +33,14 @@ type Props = {
     semanas: SemanaData[];
 };
 const CustomXAxisTick: React.FC<{ x: number; y: number; payload: any; clave?: string }> = ({ x, y, payload, clave }) => {
-    const imageUrl = clave
-        ? `http://app.yitpro.com/Archivos/Fotos/${clave}.jpg`
-        : undefined;
 
-    // Función para obtener iniciales
-    const getInitials = (nombre: string) => {
-        if (!nombre) return '';
-        const parts = nombre.trim().split(' ');
-        if (parts.length === 1) return parts[0][0].toUpperCase();
-        return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
-    };
 
     // Usar Avatar de AntD siempre, con src para intentar cargar la imagen, y fallback a iniciales
     return (
         <g transform={`translate(${x},${y})`}>
             <foreignObject x={-16} y={0} width={32} height={32}>
                 <Avatar
-                    src={imageUrl}
+                    src={imageUrl(clave)}
                     style={{
                         width: 32,
                         height: 32,

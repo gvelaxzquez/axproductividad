@@ -147,24 +147,26 @@ namespace CapaDatos
         }
 
 
-        public void ObtenerLicencias(ref int Licencias, ref int Usuarios,long IdOrganizacion,  string Conexion) {
+        public void ObtenerLicencias(ref int Licencias, ref int Usuarios, long IdOrganizacion, string Conexion)
+        {
             try
             {
 
-                using (var acceso = new BDYITPRO_ACCESOSEntities()) 
-                
+                using (var acceso = new BDYITPRO_ACCESOSEntities())
+
                 {
 
                     Licencias = acceso.Organizacion.Where(w => w.IdOrganizacion == IdOrganizacion).FirstOrDefault().Licencias;
-                
-                
+
+
                 }
 
-                using (var contexto = new BDProductividad_DEVEntities(Conexion)) {
+                using (var contexto = new BDProductividad_DEVEntities(Conexion))
+                {
 
 
                     Usuarios = contexto.Usuario.Where(u => u.Activo == true).Count();
-                
+
                 }
 
 
@@ -176,7 +178,7 @@ namespace CapaDatos
 
                 throw ex;
             }
-        
+
         }
         public int GuardarDatosUsuario(UsuarioModel datosUsuario, long idUsuarioLogin, string Conexion)
         {
@@ -276,7 +278,8 @@ namespace CapaDatos
                                     accesos.Cuenta.Add(cta);
                                     accesos.SaveChanges();
                                 }
-                                else {
+                                else
+                                {
 
                                     CuentaOrganizacion c = new CuentaOrganizacion();
 
@@ -292,8 +295,8 @@ namespace CapaDatos
                                     Existe = 1;
                                 }
 
-                             
-                               
+
+
                             }
                             else
                             {
@@ -360,7 +363,7 @@ namespace CapaDatos
                             editarUsuario.UsuarioAutorizacion = null;
 
 
-              
+
 
                         // Para saber si tiene licencias
                         int usuariosactivos = contexto.Usuario.Where(w => w.Activo == true).Count();
@@ -372,8 +375,8 @@ namespace CapaDatos
                             if (editarUsuario.Activo == false && datosUsuario.Activo == true)
                             {
 
-                            
-                                UsuariosOrg = accesos.Organizacion.Where(w => w.IdOrganizacion == datosUsuario.IdOrganizacion).FirstOrDefault().Licencias ;
+
+                                UsuariosOrg = accesos.Organizacion.Where(w => w.IdOrganizacion == datosUsuario.IdOrganizacion).FirstOrDefault().Licencias;
 
                             }
 
@@ -449,7 +452,7 @@ namespace CapaDatos
                     }
 
                 }
-                return  Existe == 0 ? 4 : 99;
+                return Existe == 0 ? 4 : 99;
 
             }
             catch (Exception ex)
@@ -686,8 +689,8 @@ namespace CapaDatos
                                             Activo = tblUsuario.Activo,
                                             NombreCompleto = tblUsuario.Nombre + " " + tblUsuario.ApPaterno + " " + tblUsuario.ApMaterno,
                                             Correo = tblUsuario.Correo
-                                       
-                          
+
+
                                         }).FirstOrDefault();
 
 
@@ -1151,7 +1154,8 @@ namespace CapaDatos
             }
         }
 
-        public int RegistraAsistencia(long IdUsuario, int Tipo, string Conexion) {
+        public int RegistraAsistencia(long IdUsuario, int Tipo, string Conexion)
+        {
 
             try
             {
@@ -1160,7 +1164,8 @@ namespace CapaDatos
                 DateTime fecha = DateTime.Now;
 
 
-                using (var contexto = new BDProductividad_DEVEntities(Conexion)) {
+                using (var contexto = new BDProductividad_DEVEntities(Conexion))
+                {
 
 
 
@@ -1194,7 +1199,8 @@ namespace CapaDatos
 
 
                     }
-                    else {
+                    else
+                    {
 
                         if (Tipo == 2 && UA.HoraEntrada != null)
                         {
@@ -1205,7 +1211,8 @@ namespace CapaDatos
                             return 2;
 
                         }
-                        else {
+                        else
+                        {
                             if (Tipo == 3 && UA.HoraSalidaComer != null)
                             {
 
@@ -1264,7 +1271,8 @@ namespace CapaDatos
 
         }
 
-        public UsuarioAsistenciaModel ConsultaAsistencia(long IdUsuario, DateTime Fecha, string Conexion) {
+        public UsuarioAsistenciaModel ConsultaAsistencia(long IdUsuario, DateTime Fecha, string Conexion)
+        {
 
             try
             {
@@ -1477,7 +1485,8 @@ namespace CapaDatos
                              IdUsuario = u.IdUsuario,
                              IdULider = u.IdUGerente,
                              LstDistrbucion = contexto.UsuarioCostoDistribucion.Where(w => w.Anio == uc.Anio && w.Mes == uc.Mes && w.IdUsuario == uc.IdUsuario).
-                                                 Select(s => new UsuarioCostoDistribucionModel {
+                                                 Select(s => new UsuarioCostoDistribucionModel
+                                                 {
                                                      IdProyecto = s.IdProyecto,
                                                      Proyecto = s.Proyecto.Nombre,
                                                      Porcentaje = s.Porcentaje
@@ -1486,20 +1495,23 @@ namespace CapaDatos
 
 
 
-                    if (IdTipoUsuario == 15) {
+                    if (IdTipoUsuario == 15)
+                    {
 
 
 
                         usuarioCostos = usuarioCostos.Where(w => w.IdULider == IdUsuario || w.IdUsuario == IdUsuario).ToList();
                     }
 
-                    if (IdTipoUsuario == 14) {
+                    if (IdTipoUsuario == 14)
+                    {
 
                         usuarioCostos = usuarioCostos.Where(w => w.IdUsuario == IdUsuario).ToList();
                     }
 
 
-                    foreach (var i in usuarioCostos) {
+                    foreach (var i in usuarioCostos)
+                    {
 
                         i.NombreMes = NombreMes(i.Mes);
 
@@ -1515,6 +1527,73 @@ namespace CapaDatos
             }
 
         }
+
+        public List<CostoAnualModel> ObtieneCostosAnuales(int anio, long IdUsuario, long IdTipoUsuario, string conexion)
+        {
+            try
+            {
+                using (var contexto = new BDProductividad_DEVEntities(conexion))
+                {
+                    // 1) Recupera todos los registros del año, excluyendo TipoUsuario 19
+                    var baseQuery =
+                        from uc in contexto.UsuarioCostoMensual
+                        join u in contexto.Usuario on uc.IdUsuario equals u.IdUsuario
+                        where uc.Anio == anio
+                              && u.IdTipoUsuario != 19
+                        select new
+                        {
+                            uc.Mes,
+                            uc.CostoMensual,
+                            u.IdUsuario,
+                            u.IdUGerente
+                        };
+
+                    // 2) Aplica filtros según el tipo de usuario
+                    if (IdTipoUsuario == 15)
+                    {
+                        baseQuery = baseQuery
+                            .Where(x => x.IdUGerente == IdUsuario || x.IdUsuario == IdUsuario);
+                    }
+                    else if (IdTipoUsuario == 14)
+                    {
+                        baseQuery = baseQuery
+                            .Where(x => x.IdUsuario == IdUsuario);
+                    }
+
+                    // 3) Agrupa por mes
+                    var grupos = baseQuery
+                        .GroupBy(x => x.Mes)
+                        .ToDictionary(g => g.Key, g => new
+                        {
+                            TotalCosto = g.Sum(y => y.CostoMensual),
+                            TotalRecursos = g.Count()
+                        });
+
+                    // 4) Genera un modelo para cada mes (1–12), rellenando ceros donde no haya datos
+                    var resultado = Enumerable
+                        .Range(1, 12)
+                        .Select(m => new CostoAnualModel
+                        {
+                            Mes = m,
+                            NombreMes = NombreMes(m),
+                            TotalCosto = grupos.ContainsKey(m)
+                                ? grupos[m].TotalCosto ?? 0m
+                                : 0m,
+                            TotalRecursos = grupos.ContainsKey(m)
+                                ? grupos[m].TotalRecursos
+                                : 0
+                        })
+                        .ToList();
+
+                    return resultado;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public (bool Estatus, string Mensaje) ImportarUsuarioCostoMensual(List<UsuarioCostoMensualModel> _costos, int Anio, int Mes, string conexionEF)
         {
 
@@ -1576,11 +1655,13 @@ namespace CapaDatos
             }
 
         }
-        public List<UsuarioCostoMensualModel> ConsultaUsuariosCostoMensual(string Conexion) {
+        public List<UsuarioCostoMensualModel> ConsultaUsuariosCostoMensual(string Conexion)
+        {
             try
             {
                 List<UsuarioCostoMensualModel> LstUsuarios = new List<UsuarioCostoMensualModel>();
-                using (var contexto = new BDProductividad_DEVEntities(Conexion)) {
+                using (var contexto = new BDProductividad_DEVEntities(Conexion))
+                {
                     List<long> LstTIpoUsuario = new List<long>();
                     LstTIpoUsuario.Add(14);
                     LstTIpoUsuario.Add(15);
@@ -1588,7 +1669,8 @@ namespace CapaDatos
                     LstTIpoUsuario.Add(20);
 
                     LstUsuarios = contexto.Usuario.Where(w => w.Activo == true && LstTIpoUsuario.Contains(w.IdTipoUsuario)).
-                                   Select(s => new UsuarioCostoMensualModel {
+                                   Select(s => new UsuarioCostoMensualModel
+                                   {
 
                                        Clave = s.NumEmpleado,
                                        Nombre = s.Nombre + " " + s.ApPaterno + " " + s.ApMaterno,
@@ -1605,7 +1687,8 @@ namespace CapaDatos
 
         }
 
-        public List<UsuarioCostoDistribucionModel> ObtieneDistribucionCosto(long IdUsuario, int Anio, int Mes, string Conexion) {
+        public List<UsuarioCostoDistribucionModel> ObtieneDistribucionCosto(long IdUsuario, int Anio, int Mes, string Conexion)
+        {
             try
             {
                 List<UsuarioCostoDistribucionModel> LstCosto = new List<UsuarioCostoDistribucionModel>();
@@ -1657,10 +1740,37 @@ namespace CapaDatos
             }
         }
 
-        public bool GuardarDistribucionCosto(List<UsuarioCostoDistribucionModel> LstCosto, int Anio, int Mes, long IdUsuario, long IdUsuarioCreo, string Conexion) {
+        public (bool Estatus, string Mensaje) EliminaDistribucionCosto(long IdUsuario, int Anio, int Mes, string Conexion)
+        {
             try
             {
-                using (var contexto = new BDProductividad_DEVEntities(Conexion)) {
+                using (var contexto = new BDProductividad_DEVEntities(Conexion))
+                {
+                    contexto.Configuration.LazyLoadingEnabled = false;
+
+                    var c = contexto.UsuarioCostoMensual.Where(w => w.Anio == Anio && w.Mes == Mes && w.IdUsuario == IdUsuario).FirstOrDefault();
+
+                    if (c != null)
+                    {
+                        contexto.UsuarioCostoMensual.Remove(c);
+                        contexto.SaveChanges();
+                    }
+                }
+
+                return (true, Mensaje.MensajeGuardadoExito);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        public bool GuardarDistribucionCosto(List<UsuarioCostoDistribucionModel> LstCosto, int Anio, int Mes, long IdUsuario, long IdUsuarioCreo, string Conexion)
+        {
+            try
+            {
+                using (var contexto = new BDProductividad_DEVEntities(Conexion))
+                {
 
 
                     var _lstActuales = contexto.UsuarioCostoDistribucion.Where(w => w.Anio == Anio && w.Mes == Mes && w.IdUsuario == IdUsuario).ToList();
@@ -1700,9 +1810,11 @@ namespace CapaDatos
             }
         }
 
-        private static string NombreMes(int? Mes) {
+        private static string NombreMes(int? Mes)
+        {
 
-            switch (Mes) {
+            switch (Mes)
+            {
 
                 case 1: return "Enero";
                 case 2: return "Febrero";
@@ -1723,7 +1835,8 @@ namespace CapaDatos
 
         }
 
-        public bool GuardarFeels(UsuarioFeelsModel User, string Conexion) {
+        public bool GuardarFeels(UsuarioFeelsModel User, string Conexion)
+        {
             try
             {
                 using (var contexto = new BDProductividad_DEVEntities(Conexion))

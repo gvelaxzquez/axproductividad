@@ -58,7 +58,7 @@ namespace AxProductividad.Controllers
                 List<CatalogoGeneralModel> cmbAutorizacionesTipo1 = cd_CatGenral.ObtenerAutorizacionesRequisiciones(1, Conexion);
                 List<CatalogoGeneralModel> cmbAutorizacionesTipo2 = cd_CatGenral.ObtenerAutorizacionesRequisiciones(2, Conexion);
                 List<CatalogoGeneralModel> cmbNivel = cd_CatGenral.ObtenerNiveles(Conexion);
-                int Licencias=0;
+                int Licencias = 0;
                 int Activos = 0;
 
                 cd_Usuario.ObtenerLicencias(ref Licencias, ref Activos, Usuario.IdOrganizacion, Conexion);
@@ -739,19 +739,21 @@ namespace AxProductividad.Controllers
                 }).OrderBy(x => x.Id).ToList();
         }
 
-        public ActionResult RegistrarAsistencia(int Tipo) {
+        public ActionResult RegistrarAsistencia(int Tipo)
+        {
             var resultado = new JObject();
             try
             {
 
                 CD_Usuario cd_Usuario = new CD_Usuario();
-                var Usuario  = ((Models.Sesion)(Session["Usuario" + Session.SessionID])).Usuario;
+                var Usuario = ((Models.Sesion)(Session["Usuario" + Session.SessionID])).Usuario;
 
                 int Resultado = cd_Usuario.RegistraAsistencia(Usuario.IdUsuario, Tipo, Encripta.DesencriptaDatos(Usuario.ConexionEF));
                 bool Exito = false;
                 string Mensaje = string.Empty;
 
-                switch (Resultado) {
+                switch (Resultado)
+                {
 
                     case 1:
                         Exito = true;
@@ -817,7 +819,7 @@ namespace AxProductividad.Controllers
                 UsuarioAsistenciaModel UA = new UsuarioAsistenciaModel();
 
                 UA = cd_Usuario.ConsultaAsistencia(Usuario.IdUsuario, DateTime.Now, Encripta.DesencriptaDatos(Usuario.ConexionEF));
-         
+
 
                 resultado["Exito"] = true;
                 resultado["Asistencia"] = JsonConvert.SerializeObject(UA);
@@ -844,12 +846,12 @@ namespace AxProductividad.Controllers
             {
 
                 CD_Usuario cd_user = new CD_Usuario();
-      
+
                 List<UsuarioIncidenciasModel> LstIncidencias = new List<UsuarioIncidenciasModel>();
-       
+
                 string Conexion = Encripta.DesencriptaDatos(((Models.Sesion)(Session["Usuario" + Session.SessionID])).Usuario.ConexionEF);
 
-                LstIncidencias = cd_user.ConsultaIncidenciasFecha(DateTime.Now,null, Conexion);
+                LstIncidencias = cd_user.ConsultaIncidenciasFecha(DateTime.Now, null, Conexion);
 
 
 
@@ -888,7 +890,7 @@ namespace AxProductividad.Controllers
 
                 string Conexion = Encripta.DesencriptaDatos(((Models.Sesion)(Session["Usuario" + Session.SessionID])).Usuario.ConexionEF);
 
-                LstIncidencias = cd_user.ConsultaIncidenciasRango(Filtros,  Conexion);
+                LstIncidencias = cd_user.ConsultaIncidenciasRango(Filtros, Conexion);
 
 
 
@@ -984,7 +986,7 @@ namespace AxProductividad.Controllers
             var Mes = DateTime.Now.Month - 1;
 
             ViewBag.LstAnios = LstAnios;
-            ViewBag.Anio = Mes==-0 ? DateTime.Now.Year - 1 :  DateTime.Now.Year;
+            ViewBag.Anio = Mes == -0 ? DateTime.Now.Year - 1 : DateTime.Now.Year;
             ViewBag.Mes = Mes == -0 ? 12 : Mes;
             ViewBag.LstProyectos = LstProyectos;
 
@@ -1012,7 +1014,36 @@ namespace AxProductividad.Controllers
                 LstCostoMensualUsuario = cd_usu.ObtieneCostosMensuales(Anio, Mes, Usuario.IdUsuario, Usuario.IdTipoUsuario, Encripta.DesencriptaDatos(Usuario.ConexionEF));
                 var Total = LstCostoMensualUsuario.Sum(s => s.CostoMensual);
 
-                 return Json(new { Exito = true, LstCostosUsuario = LstCostoMensualUsuario, Total =  Total });
+                return Json(new { Exito = true, LstCostosUsuario = LstCostoMensualUsuario, Total = Total });
+
+
+            }
+            catch (Exception e)
+            {
+                return Json(new { Exito = false, Mensaje = e.InnerException?.ToString() ?? e.Message });
+            }
+
+        }
+        public ActionResult ObtieneUsuarioCostoAnual(int Anio)
+        {
+            var Resultado = new JObject();
+            try
+            {
+
+                if (!FuncionesGenerales.SesionActiva())
+                {
+                    return RedirectToAction("Index", "Login");
+                }
+
+
+                CD_Usuario cd_usu = new CD_Usuario();
+                var Usuario = ((Models.Sesion)(Session["Usuario" + Session.SessionID])).Usuario;
+                List<CostoAnualModel> LstCostoMensualUsuario = new List<CostoAnualModel>();
+
+                LstCostoMensualUsuario = cd_usu.ObtieneCostosAnuales(Anio, Usuario.IdUsuario, Usuario.IdTipoUsuario, Encripta.DesencriptaDatos(Usuario.ConexionEF));
+                var Total = LstCostoMensualUsuario.Sum(s => s.TotalCosto);
+
+                return Json(new { Exito = true, LstCostosUsuario = LstCostoMensualUsuario, Total });
 
 
             }
@@ -1027,7 +1058,7 @@ namespace AxProductividad.Controllers
             try
             {
                 if (archivo == null) return Json(new { Exito = false, Mensaje = "El archivo es requerido" });
-                if (archivo.ContentType != MimeType.XLSX) return Json(new { Exito = false, Mensaje = "La extensión del archivo debe ser .XSLX" });
+                if (archivo.ContentType != MimeType.XLSX) return Json(new { Exito = false, Mensaje = "La extensión del archivo debe ser .XLSX" });
 
                 var (costos, estatusLectura, mensajeLectura) =
                     Importar.ImportarUsuarioCostoMensual(archivo, Anio, Mes, idUsuario, conexionEF);
@@ -1036,7 +1067,7 @@ namespace AxProductividad.Controllers
                 {
                     var (estatus, mensaje) = new CD_Usuario().ImportarUsuarioCostoMensual(costos, Anio, Mes, conexionEF);
 
-                  
+
 
                     return Json(new { Exito = estatus, Mensaje = mensaje });
                 }
@@ -1049,6 +1080,21 @@ namespace AxProductividad.Controllers
             {
                 return Json(new { Exito = false, Mensaje = e.InnerException?.ToString() ?? e.Message });
             }
+        }
+
+        public ActionResult EliminaDistribucionCosto(long IdUsuario, int Anio, int Mes)
+        {
+            try
+            {
+                var (estatus, mensaje) = new CD_Usuario().EliminaDistribucionCosto(IdUsuario, Anio, Mes, conexionEF);
+                return Json(new { Exito = estatus, Mensaje = mensaje });
+
+            }
+            catch (Exception e)
+            {
+                return Json(new { Exito = false, Mensaje = e.InnerException?.ToString() ?? e.Message });
+            }
+
         }
 
 
@@ -1077,10 +1123,10 @@ namespace AxProductividad.Controllers
             return
                 costos.Select(x => new
                 {
-                 
+
                     Clave = x.Clave,
                     Nombre = x.Nombre,
-                    Distribucion =string.Join<string>(", ", x.LstDistrbucion.ConvertAll(s => s.Proyecto +  " - " + s.Porcentaje.ToString() + "%")),
+                    Distribucion = string.Join<string>(", ", x.LstDistrbucion.ConvertAll(s => s.Proyecto + " - " + s.Porcentaje.ToString() + "%")),
                     Costo = x.CostoMensual
                 }).OrderBy(x => x.Clave).ToList();
         }
@@ -1134,8 +1180,8 @@ namespace AxProductividad.Controllers
                 var Usuario = ((Models.Sesion)(Session["Usuario" + Session.SessionID])).Usuario;
                 List<UsuarioCostoDistribucionModel> LstCosto = new List<UsuarioCostoDistribucionModel>();
 
-                LstCosto = cd_usu.ObtieneDistribucionCosto(IdUsuario,Anio, Mes, Encripta.DesencriptaDatos(Usuario.ConexionSP));
-              
+                LstCosto = cd_usu.ObtieneDistribucionCosto(IdUsuario, Anio, Mes, Encripta.DesencriptaDatos(Usuario.ConexionSP));
+
 
                 return Json(new { Exito = true, LstCosto = LstCosto });
 
@@ -1149,7 +1195,7 @@ namespace AxProductividad.Controllers
         }
 
 
-        public ActionResult GuardarDistribucionCosto( List<UsuarioCostoDistribucionModel> LstCosto, int Anio, int Mes , int IdUsuario)
+        public ActionResult GuardarDistribucionCosto(List<UsuarioCostoDistribucionModel> LstCosto, int Anio, int Mes, int IdUsuario)
         {
             var Resultado = new JObject();
             try
@@ -1163,16 +1209,17 @@ namespace AxProductividad.Controllers
 
                 var Total = LstCosto.Sum(s => s.Porcentaje);
 
-                if (Total != 100) {
+                if (Total != 100)
+                {
 
-                    return Json(new { Exito = false, Mensaje ="El porcentaje de la distribución debe de sumar 100% , VALOR ACTUAL: "+  Total.ToString() });
+                    return Json(new { Exito = false, Mensaje = "El porcentaje de la distribución debe de sumar 100% , VALOR ACTUAL: " + Total.ToString() });
 
                 }
 
                 CD_Usuario cd_usu = new CD_Usuario();
                 var Usuario = ((Models.Sesion)(Session["Usuario" + Session.SessionID])).Usuario;
-       
-                bool Exito = cd_usu.GuardarDistribucionCosto(LstCosto, Anio, Mes, IdUsuario, Usuario.IdUsuario,Encripta.DesencriptaDatos(Usuario.ConexionEF));
+
+                bool Exito = cd_usu.GuardarDistribucionCosto(LstCosto, Anio, Mes, IdUsuario, Usuario.IdUsuario, Encripta.DesencriptaDatos(Usuario.ConexionEF));
 
 
                 return Json(new { Exito = true });

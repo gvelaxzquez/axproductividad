@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CapaDatos.Models
 {
@@ -25,5 +22,12 @@ namespace CapaDatos.Models
 
         public string Nombre { get; set; }
         public string Clave { get; set; }
+    }
+    public class CostoAnualModel
+    {
+        public int Mes { get; set; }
+        public string NombreMes { get; set; }
+        public decimal TotalCosto { get; set; }
+        public int TotalRecursos { get; set; }
     }
 }
